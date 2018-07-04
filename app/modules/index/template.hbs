@@ -1,0 +1,24 @@
+<div local-class="login">
+    <div local-class="login-wrapper">
+        <div local-class="login-left">
+            <img src="../assets/images/pharbers_logo_color.png" alt="">
+        </div>
+        <div local-class="login-right">
+            <div local-class="login-title">登入数据平台</div>
+            <form action="#">
+                <div local-class="login-item login-user">
+                    <img src="../assets/images/id.png" alt=""> {{input value=username placeholder="请输入帐号" }}
+                </div>
+                <div local-class="login-item login-password">
+                    <img src="../assets/images/code.png" alt=""> {{input type="password" value=password placeholder="请输入密码" }}
+                </div>
+                <button type="button" name="button" {{action "sbtInfo"}} local-class="btn-default-max">登入</button>
+
+            </form>
+        </div>
+    </div>
+    <div local-class="copyright">
+        <p>Copyright © 2018 Pharbers . All rights reserved.</p>
+    </div>
+</div>
+{{outlet}}

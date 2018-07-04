@@ -1,0 +1,162 @@
+/**
+*
+*btn
+*/
+.btn-default-max {
+    height: 40px;
+    line-height: 40px;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    background-color: $btn-bgcolor;
+}
+/**
+*
+*基本wrapper样式
+*/
+
+.step-content-wrapper {
+  position: relative;
+  margin: 40px auto 0;
+  width: 1200px;
+
+  min-height: 600px;
+  background-color: #fff;
+  box-shadow: 2px 2px 4px 4px #eee;
+  border-radius: 5px;
+}
+
+/**
+*
+*第一步的样式
+*/
+
+.step-left,
+.step-right {
+  float: left;
+  padding: 60px 20px 0;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  p {
+    display: inline-block;
+    margin: 0 atuo;
+    margin-bottom: 0;
+    width: 56%;
+    height: 26px;
+    line-height: 26px;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    color: #7e7e7e;
+    span:first-child {
+      float: left;
+    }
+    span:last-child {
+      float: right;
+      font-size: 1.2rem;
+    }
+  }
+  .upload-area {
+    display: inline-block;
+    margin: 0 auto;
+    width: 56%;
+    height: 360px;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    .dropzone-upload-area {
+      padding-top: 30px;
+      height: 360px;
+      &.active {
+        border-color: $btn-bgcolor;
+      }
+      img {
+        width: 70%;
+        height: 300px;
+      }
+    }
+    // .click-upload {
+    //   position: relative;
+    //   margin-top: 20px;
+    //   padding-left: 5px;
+    //   height: 40px;
+    //   line-height: 40px;
+    //   text-align: left;
+    //   font-size: 1.6rem;
+    //   border: 1px solid $border-color;
+    //   border-radius: 5px;
+    // }
+    .click-upload {
+        position: relative;
+        margin-top: 20px;
+        padding-left: 5px;
+        display: inline-block;
+        width: 310px;
+        height: 40px;
+        line-height: 40px;
+        text-align: left;
+        font-size: 1.6rem;
+        border: 1px solid $border-color;
+        border-radius: 5px;
+    }
+    .upload-progress-container {
+        position: relative;
+        display: inline-block;
+        width: 310px;
+    }
+    a {
+      position: absolute;
+      right: -1px;
+      top: -1px;
+      display: inline-block;
+      width: 80px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 0 5px 5px 0;
+      color: #fff;
+      background-color: $btn-bgcolor;
+      cursor: pointer;
+      &:hover {
+          text-decoration: none;
+      }
+      &.delete {
+          background: red;
+      }
+    }
+
+  }
+}
+
+.to-generate-sample {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 100px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 1.8rem;
+  border: 0;
+  text-align: center;
+  color: #fff;
+  background-color: $navbar-bgcolor;
+  cursor: pointer;
+  // disable: true;
+  &.useable {
+    background-color: $btn-bgcolor;
+  }
+}
+
+.upload-progress {
+    position: relative;
+    top: 10px;
+    left: 0px;
+    width: 100%;
+    height: 20px;
+}
+
+/**
+*
+*end 第一步的样式
+*/

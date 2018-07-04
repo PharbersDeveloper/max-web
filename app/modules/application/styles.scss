@@ -1,0 +1,118 @@
+@import 'bootstrap';
+@import 'ember-power-select';
+
+$navbar-bgcolor: #737373;
+$content-bgcolor: #fafafa;
+$btn-bgcolor: #60b3ad;
+$btn-error-bgcolor: red;
+$border-color: #7e7e7e;
+
+$max-font-size-title:  2.2rem;;
+$max-font-size-content: 1.4rem;
+
+html {
+    height: 100%;
+    background-color: $content-bgcolor;
+    font-size: 10px;
+}
+
+/**
+*
+* btn 只有字的样式
+*/
+.btn-only-text {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    width: auto !important;
+    color: #676767 !important;
+    background-color: transparent !important;
+}
+/**
+*
+* btn max 基本样式
+*/
+.btn-default-max{
+    height: 35px;
+    width: 100px;
+    line-height: 35px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    background-color: $btn-bgcolor;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/**
+*
+*btn.active style
+*/
+:global(.btn-default.active) {
+    background-color: $btn-bgcolor !important;
+    color: #fff !important;
+}
+:global(.btn-default.active:hover) {
+    background-color: $btn-bgcolor !important;
+    color: #fff  !important;
+
+}
+/**
+*
+*弹窗样式
+*/
+:global(.modal.in .modal-dialog) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+:global(.modal-header) {
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+    background-color: $btn-bgcolor;
+}
+:global(.modal-content ){
+    left: 50%;
+    transform: translateX(-50%);
+    :global(.btn) {
+        padding: 0;
+        width: 100px;
+        height: 35px;
+        line-height: 35px;
+        border: 0;
+        font-size: 18px;
+        color: #fff;
+        background-color: $btn-bgcolor;
+    }
+}
+
+/**
+*
+*多选样式
+*/
+.data-checkbox {
+    width: 130px;
+    font-weight: normal;
+}
+input[type="checkbox"] {
+    display: none;
+}
+.checkbox-span {
+    display: inline-block;
+    margin: 10px ;
+    width: 16px;
+    height: 16px;
+    line-height: 1;
+    vertical-align: middle;
+    border: 1px solid rgba(0, 0, 0, .15);
+    background-color: #fff;
+}
+input[type="checkbox"]:checked + .checkbox-span:after {
+    content: "";
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+    background-color: $btn-bgcolor;
+}

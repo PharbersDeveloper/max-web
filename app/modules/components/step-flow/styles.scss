@@ -1,0 +1,48 @@
+// @media (min-width: 1200px) {
+
+    .step-flow-wrapper {
+        height: 80px;
+        min-width: 1214px;
+        border-bottom: 2px solid #eee;
+        background-color: #fff;
+        .step {
+            position: relative;
+            margin: 0 auto;
+            width: 1200px;
+            height: 80px;
+            line-height: 80px;
+            .step-item {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                display: inline-block;
+                width: 300px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                font-size: 1.6rem;
+                color: $btn-bgcolor;
+                img {
+                    width: 300px;
+                    height: 36px;
+                }
+
+            }
+            .item-one {
+                left: 0;
+
+            }
+            .item-two {
+                left: 300px;
+            }
+            .item-three {
+                left: 600px;
+
+            }
+            .item-four {
+                left: 900px;
+
+            }
+        }
+    }
+// }
