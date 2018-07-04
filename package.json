@@ -1,15 +1,15 @@
 {
   "name": "max-web",
-  "version": "0.0.0",
+  "version": "3.0.0",
   "private": true,
-  "description": "Small description for max-web goes here",
+  "description": "MAX Web Client",
   "license": "MIT",
-  "author": "",
+  "author": "Faiz <891366402@qq.com>",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "https://github.com/Faiz2/max-web.git",
   "scripts": {
     "build": "ember build",
     "lint:js": "eslint ./*.js app config lib server tests",
@@ -57,7 +57,6 @@
     "eslint-plugin-ember": "^5.0.0",
     "hack": "^0.8.1",
     "javascript-state-machine": "^3.0.1",
-    "layui-laydate": "^5.0.9",
     "loader.js": "^4.2.3"
   },
   "engines": {

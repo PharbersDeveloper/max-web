@@ -55,9 +55,9 @@
                     <span>
                         <button {{action 'search'}} local-class="btn-output" class="btn" type="button" name="btn-output">查询</button>
                     </span>
-                    {{!-- <span>
-                        <button {{action 'outputDate'}} local-class="btn-output" class="btn" type="button" name="btn-output">导出</button>
-                    </span> --}}
+                    <span>
+                        <button {{action 'outputData'}} local-class="btn-output" class="btn" type="button" name="btn-output">导出</button>
+                    </span>
                 </div>
                 <div local-class="choosebar-content choosebar-right">
                     {{#link-to "adddata.uploadfiles" }}
@@ -148,14 +148,19 @@
         </p>--}}
         <p local-class="modal-content-line">
             <span>内容格式</span>
-            <select local-class="choose-market" name="">
-                <option value="all">全部</option>
+            <select local-class="choose-market" name="" onchange={{action 'getType' value="target.value"}}>
+                {{!-- <option  value="none" disabled selected>请选择格式</option> --}}
+                {{#each outputType as |type|}}
+                  <option value={{type}}>{{type}}</option>
+                {{/each}}
+                {{!-- <option value="all">全部</option>
                 <option value="a">a market</option>
-                <option value="b">b market</option>
+                <option value="b">b market</option> --}}
             </select> </p>
         <p local-class="modal-content-line">
             <span>文件格式</span>
-                {{input type="radio" id="filecsv" name="fileformat" }}
+                {{!-- {{input type="radio" checked="true" id="filecsv" name="fileformat" }} --}}
+                <input type="radio" checked="true" id="filecsv" name="fileformat" >
                 <label for="filecsv"> <span></span> CSV</label>
                 {{!-- {{input type="radio" id="fileexcel" name="fileformat" }}
                 <label for="fileexcel"><span></span>Excel</label>
@@ -165,7 +170,7 @@
     {{/modal.body}}
     {{#modal.footer}}
         {{#bs-button class="btn-only-text" onClick=(action modal.close)}}取消{{/bs-button}}
-        {{#bs-button }}导出{{/bs-button}}
+        {{#bs-button  onClick=(action 'outputFile')}}导出{{/bs-button}}
     {{/modal.footer}}
 {{/bs-modal}}
 {{#bs-modal-simple fade=false open=error title="提示" closeTitle="确定" onHidden=(action (mut error) false)}}

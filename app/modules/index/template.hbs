@@ -7,13 +7,14 @@
             <div local-class="login-title">登入数据平台</div>
             <form action="#">
                 <div local-class="login-item login-user">
-                    <img src="../assets/images/id.png" alt=""> {{input value=username placeholder="请输入帐号" }}
+                    <img src="../assets/images/id.png" alt="">
+                    {{input value=username autofocus="true" placeholder="请输入帐号" }}
                 </div>
                 <div local-class="login-item login-password">
-                    <img src="../assets/images/code.png" alt=""> {{input type="password" value=password placeholder="请输入密码" }}
+                    <img src="../assets/images/code.png" alt="">
+                    {{input type="password" value=password placeholder="请输入密码" }}
                 </div>
                 <button type="button" name="button" {{action "sbtInfo"}} local-class="btn-default-max">登入</button>
-
             </form>
         </div>
     </div>

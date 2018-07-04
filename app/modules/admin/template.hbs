@@ -1,0 +1,49 @@
+{{nav-bar title="Pharbers 数据平台" isCenter=false isShow=false }}
+<div local-class="wrapper-container">
+    <div local-class="wrapper-menu">
+        <div local-class="menu-user">
+            <div local-class="user-name">
+                <span local-class="name-span">{{fullName}}</span>&nbsp;
+                {{#bs-dropdown tagName="span" as |dd|}}
+                    {{#dd.toggle}}
+                        <span local-class="chevron-down" class="glyphicon glyphicon-chevron-down"></span>
+                    {{/dd.toggle}}
+                    {{#dd.menu as |menu|}}
+                        {{#menu.item}}
+                            <a href="#" {{action 'logut' }}>登出</a>
+                        {{/menu.item}}
+                    {{/dd.menu}}
+                {{/bs-dropdown}}
+            </div>
+            <div local-class="user-status">
+                <span local-class="status-span"></span>
+                <span>{{account}}</span>
+            </div>
+        </div>
+        <ul local-class="menu-tabs">
+            {{!-- 第一种解决方案（临时）没有语义化，不好不好 --}}
+            {{#link-to "admin.data-center" local-class="item-tab active" tagName='li'}}
+                {{#link-to "admin.data-center"}}
+                    <span class="glyphicon glyphicon-th"></span>&nbsp;数据工具
+                {{/link-to}}
+            {{/link-to}}
+            {{#link-to "admin.maintain-center" local-class="item-tab" tagName='li'}}
+                {{#link-to "admin.maintain-center"}}
+                    <span class="glyphicon glyphicon-th"></span>&nbsp;运维中心
+                {{/link-to}}
+            {{/link-to}}
+            {{!-- 第二种根据Ember的特性封装成组件 --}}
+            {{!-- <li local-class="item-tab active" {{action 'switchChoice' this}}>
+                {{#link-to "admin.data-center"}}
+                    <span class="glyphicon glyphicon-th"></span>&nbsp;数据工具
+                {{/link-to}}
+            </li>
+            <li local-class="item-tab " {{action 'switchChoice' this}}>
+                {{#link-to "admin.maintain-center"}}
+                    <span class="glyphicon glyphicon-th"></span>&nbsp;运维中心
+                {{/link-to}}
+            </li> --}}
+        </ul>
+    </div>
+    {{outlet}}
+</div>

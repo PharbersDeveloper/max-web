@@ -1,0 +1,45 @@
+<div local-class="wrapper-content">
+
+    <p local-class="content-title">
+        <p><span class="glyphicon glyphicon-th"></span>&nbsp;运维中心</p>
+    </p>
+
+    <div local-class="content-detail">
+
+        <div local-class="detail-choosebar">
+            <div local-class="choosebar-content choosebar-left">
+                <span local-class="select-title">搜索</span>
+                <input type="text" name="" value="" placeholder="请输入用户名">
+            </div>
+
+        </div>
+
+        {{#each model as |company| }}
+            <div local-class="detail-choosebar tain">
+                <div local-class="choosebar-content choosebar-left">
+                <span local-class="select-title">{{company.company_name}}</span>
+                    <div local-class="tain-act" style=""></div>
+                    <div local-class="tain-right">
+                        <p local-class="mode">当前模式</p>
+                        {{#link-to "admin.maintain-center.cleaning" (query-params coid=company.company_id coname=company.company_name)}} <p class="set btn" style="color:#666;">设定</p> {{/link-to}}
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+
+    </div>
+
+</div>
+
+{{#if isShow}}
+    <div local-class="loading">
+        <section>
+          <div local-class="loader loader-1">
+            <div local-class="loader-outter"></div>
+            <p style="position:absolute;color:#fff; top:150px; width:100px; margin:0 auto;">切换模式中...</p>
+          </div>
+        </section>
+    </div>
+{{/if}}
+
+{{outlet}}

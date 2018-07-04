@@ -1,0 +1,496 @@
+.wrapper-content {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    bottom: 0;
+    left: 220px;
+    z-index: 2;
+    width: auto;
+    background-color: $content-bgcolor;
+
+    .content-title {
+        padding-left: 40px;
+        height: 50px;
+        width: 100%;
+        line-height: 50px;
+        font-size: 2.0rem;
+        letter-spacing: 2.4px;
+        color: #000;
+        background-color: #fff;
+        border-bottom: 2px solid #eee;
+    }
+
+    .content-detail {
+        margin: 0 auto;
+        width: 96%;
+        min-width: 960px;
+        height: 800px;
+    }
+}
+/**
+*
+* choose bar 样式
+*/
+.detail-choosebar {
+    margin-bottom: 20px;
+    height: 80px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 4px #eee;
+    background-color: #fff;
+
+    .choosebar-content {
+        display: inline-block;
+        height: 80px;
+        line-height: 80px;
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .select-title {
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            padding: 0 10px;
+            float: left;
+        }
+
+        .choose-market {
+            width: 160px;
+            height: 40px;
+            text-align: center;
+            text-align-last: center;
+            border: 1px solid $border-color;
+            border-radius: 5px;
+            background-color: #fff;
+
+            option {
+                font-size: 20px;
+                text-align: center;
+            }
+        }
+    }
+
+    .choosebar-left {
+        float: left;
+        margin-left: 20px;
+
+        .time-selects {
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid $border-color;
+            border-radius: 4px;
+            font-size: 0;
+
+            & input {
+                width: 100px;
+                height: 34px;
+                text-align: center;
+                border: 0;
+                font-size: 1.4rem;
+                letter-spacing: 1.2px;
+            }
+
+            & .middle-text {
+                display: inline-block;
+                padding: 0 5px;
+                height: 38px;
+                line-height: 38px;
+                font-size: 1.4rem;
+                background-color: $btn-bgcolor;
+            }
+        }
+
+        button[name="btn-output"] {
+            margin-top: -4px;
+            margin-left: 40px;
+            padding: 0;
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 18px;
+            color: #fff;
+            background-color: $btn-bgcolor;
+        }
+    }
+
+    .choosebar-right {
+        float: right;
+        margin-right: 40px;
+        padding-top: 20px;
+        width: 120px;
+
+        .btn-add-data {
+            height: 42px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: gray;
+        }
+
+        .add-data-content {
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            vertical-align: top;
+            font-size: 1.8rem;
+            color: #fff;
+        }
+
+        .left-section {
+            padding-left: 8px;
+            width: 30px;
+            border-radius: 0 20px 20px 0;
+            background-color: $btn-bgcolor;
+        }
+    }
+}
+
+.loading {
+    .loading-mask {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1024;
+        opacity: 0.2;
+        background-color: black;
+    }
+
+    .spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 2000;
+        width: 50px;
+        height: 60px;
+        text-align: center;
+        font-size: 10px;
+
+        & div {
+            background-color: #4DABA3;
+            height: 100%;
+            width: 6px;
+            display: inline-block;
+            -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+            animation: stretchdelay 1.2s infinite ease-in-out;
+        }
+
+        & .rect2 {
+            -webkit-animation-delay: -1.1s;
+            animation-delay: -1.1s;
+        }
+
+        & .rect3 {
+            -webkit-animation-delay: -1.0s;
+            animation-delay: -1.0s;
+        }
+
+        & .rect4 {
+            -webkit-animation-delay: -0.9s;
+            animation-delay: -0.9s;
+        }
+
+        & .rect5 {
+            -webkit-animation-delay: -0.8s;
+            animation-delay: -0.8s;
+        }
+    }
+    @-webkit-keyframes stretchdelay {
+        0%,
+        100%,
+        40% {
+            -webkit-transform: scaleY(0.4);
+        }
+
+        20% {
+            -webkit-transform: scaleY(1.0);
+        }
+    }
+    @keyframes stretchdelay {
+        0%,
+        100%,
+        40% {
+        transform: scaleY(0.4);
+            -webkit-transform: scaleY(0.4);
+        }
+
+        20% {
+        transform: scaleY(1.0);
+            -webkit-transform: scaleY(1.0);
+        }
+    }
+}
+
+.choosebar-content {
+    input[type=text] {
+        height: 35px;
+        width: 500px;
+    }
+
+    ::-webkit-input-placeholder {
+        text-indent: 20px;
+        letter-spacing: 3px;
+    }
+
+    ::-moz-placeholder {
+        text-indent: 20px;
+        letter-spacing: 3px;
+    }
+    /* firefox 19+ */
+    :-ms-input-placeholder {
+        text-indent: 20px;
+        letter-spacing: 3px;
+    }
+    /* ie */
+    input:-moz-placeholder {
+        text-indent: 20px;
+        letter-spacing: 3px;
+    }
+}
+
+    .content-detail {
+        .tain {
+            margin-bottom: 8px;
+        }
+    }
+
+.tain {
+    .tain-right {
+        position: absolute;
+        right: 5%;
+        display: inline-block;
+
+        p {
+        float: left;
+        margin: 20px;
+        padding: 0 10px;
+        border: 1px solid #eee;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        background: #eee;
+        border-radius: 3px;
+        text-align: center;
+        }
+    }
+}
+@media (min-width:1200px) {
+    .tain-act {
+        left: 2%;
+    }
+}
+@media (max-width:1200px) {
+    .tain-act {
+        left: 1%;
+    }
+}
+
+.tain-act {
+    width: 12px;
+    height: 80px;
+    border: 1px solid #60b3ad;
+    border-radius: 3px 0 0 3px;
+    background: #60b3ad;
+    position: absolute;
+}
+
+.tain-tab {
+    width: 98%;
+    height: 500px;
+    position: relative;
+    margin: 0 auto;
+    background: #fff;
+    overflow-y: auto;
+
+    p {
+        float: left;
+        width: 25%;
+        height: 40px;
+        background: #60b3ad;
+        border-right: 1px solid #fff;
+        color: #fff;
+        display: inline-block;
+        position: absolute;
+        line-height: 40px;
+        text-align: center;
+        font-size: 16px;
+        top: 20px;
+        z-index: 100;
+    }
+
+    form {
+        position: relative;
+        top: 20%;
+        width: 98%;
+        float: left;
+        margin: 0 auto;
+        text-align: center;
+
+        .tain-input {
+            display: inline-block;
+        }
+
+        input[type=text] {
+            height: 35px;
+            width: 60%;
+            background: #eee;
+            border: none;
+            // float: left;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        ::-webkit-input-placeholder {
+            text-indent: 20px;
+            letter-spacing: 3px;
+            color: #666;
+        }
+
+        span {
+            margin-top: 10px;
+            padding-left: 40px;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            line-height: 35px;
+            float: left;
+            width: 35%;
+            color: #666;
+            display: inline-block;
+            // width:200px;
+            overflow: hidden;
+            height: 35px;
+            text-align: left;
+        }
+
+        button {
+            border: none;
+            position: absolute;
+            width: 80px;
+            height: 35px;
+            line-height: 35px;
+            border-radius: 3px;
+            right: 2.5%;
+            background: #60b3ad;
+            color: #fff;
+        }
+    }
+}
+
+.tain-foot {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background: #ddd;
+    position: relative;
+    bottom: 20px;
+    top: 10px;
+    border-radius: 3px;
+
+    .cancel {
+        border: none;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        float: left;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 3px;
+        background: #60b3ad;
+        color: #fff;
+    }
+
+    .btn-reback {
+        color: #fff;
+    }
+}
+
+.loading {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 1000;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    text-align: center;
+
+    section {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.loader {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 75px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.loader-1 .loader-outter {
+    position: absolute;
+    border: 10px solid #40dfaa;
+    border-left-color: transparent;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    -webkit-animation: loader-1-outter 1s cubic-bezier(.42, .61, .58, .41) infinite;
+    animation: loader-1-outter 3s cubic-bezier(.45, .61, .58, .41) infinite;
+}
+@-webkit-keyframes loader-1-outter {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes loader-1-outter {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.sheet-container {
+    position: relative;
+
+    .btn-replace {
+        a {
+            color: #fff;
+        }
+        position: absolute;
+        top: 50%;
+        right: 2%;
+        transform: translateY(-50%);
+        width: 100px;
+        height: 35px;
+        line-height: 35px;
+        border-radius: 4px;
+        color: #fff;
+        background-color: #60b3ad;
+    }
+}

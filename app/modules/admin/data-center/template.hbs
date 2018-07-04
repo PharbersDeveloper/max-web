@@ -1,0 +1,141 @@
+<div local-class="wrapper-content">
+    <p local-class="content-title">
+        <p>
+            <span class="glyphicon glyphicon-th"></span>&nbsp;数据工具</p>
+    </p>
+    <div local-class="content-detail">
+        <div local-class="detail-choosebar">
+            <div local-class="choosebar-content choosebar-left">
+                <span local-class="select-title">市场</span>
+                <select local-class="choose-market" name="markets">
+                    <option value="All">全部</option>
+                    {{#each markets as |item|}}
+                        <option value={{item}}>{{item}}</option>
+                    {{/each}}
+                </select>
+                <span local-class="select-title">时间选择</span>
+                <div local-class="time-selects" class="input-group input-daterange">
+                    {{bootstrap-datepicker  changeMonth="changeStartMonth" value=startDate autoclose=true minViewMode=1 format="mm/yyyy" keyboardNavigation=true language="zh-CN"}}
+                    <span local-class="middle-text">to</span>
+                    {{bootstrap-datepicker name='endDate' changeMonth="changeEndMonth" value=endDate autoclose=true minViewMode=1 format="mm/yyyy" language="zh-CN"}}
+                </div>
+                <span>
+                    <button {{action 'search'}} local-class="btn-output" class="btn" type="button" name="btn-output">查询</button>
+                </span>
+                {{!-- <span>
+                    <button {{action 'outputDate'}} local-class="btn-output" class="btn" type="button" name="btn-output">导出</button>
+                </span> --}}
+            </div>
+            <div local-class="choosebar-content choosebar-right">
+                {{#link-to "adddata.uploadfiles" }}
+                    <div local-class="btn-add-data">
+                        <div local-class="add-data-content left-section">
+                            +
+                        </div>
+                        <div local-class="add-data-content right-section">
+                            添加数据
+                        </div>
+                    </div>
+                {{/link-to}}
+            </div>
+        </div>
+
+        <div local-class="detail-list">
+            {{#models-table-server-paginated
+                data=model
+                columns=columns
+                filterQueryParameters=filterQueryParameters
+                useFilteringByColumns=false
+                useNumericPagination=true
+                showComponentFooter=false
+                showColumnsDropdown=false
+                showGlobalFilter=false
+                showPageSize=false as |mt|}}
+
+                {{mt.table}}
+                {{#mt.footer as |footer| }}
+                  {{footer.summary local-class='footer-summary'}}
+                  {{#footer.pagination-numeric local-class='footer-num' as |pn|}}
+                    <div role="toolbar" class="btn-toolbar pull-right">
+                      <div role="group" class="btn-group">
+                          {{#each pn.visiblePageNumbers as |page|}}
+                              {{#if page.isLink}}
+                                <button class="{{if page.isActive 'active' ''}} btn btn-default" {{action 'doPageSearch' page.label pn}}>{{page.label}}</button>
+                              {{else}}
+                                <button class="btn btn-default " disabled="disabled" {{action 'doPageSearch' page.label pn}}>{{page.label}}</button>
+                              {{/if}}
+                          {{/each}}
+                      </div>
+                    </div>
+                  {{/footer.pagination-numeric}}
+                {{/mt.footer}}
+            {{/models-table-server-paginated}}
+
+        </div>
+    </div>
+</div>
+{{#if loading}}
+    <div local-class="loading">
+        <div local-class="loading-mask">&nbsp;</div>
+        <div local-class="spinner">
+            <div local-class="rect1"></div>
+            <div local-class="rect2"></div>
+            <div local-class="rect3"></div>
+            <div local-class="rect4"></div>
+            <div local-class="rect5"></div>
+        </div>
+    </div>
+{{/if}}
+
+
+
+{{#bs-modal fade=false backdropClose=false open=output onHidden=(action (mut output) false) as |modal|}}
+    {{#modal.header}}
+        <h4 class="modal-title">
+            导出
+        </h4>
+    {{/modal.header}}
+    {{#modal.body}}
+        {{!-- <p local-class="modal-content-line">
+            <span>市场</span>
+            <select local-class="choose-market" name="">
+                <option value="all">全部</option>
+                <option value="a">a market</option>
+                <option value="b">b market</option>
+            </select>
+        </p>
+        <p local-class="modal-content-line">
+            <span>时间区间</span>
+            <div local-class="time-selects">
+                {{bootstrap-datepicker changeMonth="changeOutputStartMonth" value=outputStartData autoclose=true minViewMode=1 format="mm/yyyy" keyboardNavigation=true language="zh-CN"}}
+                <span local-class="middle-text">to</span>
+                {{bootstrap-datepicker changeMonth="changeOutputEndMonth" value=outputEndData autoclose=true minViewMode=1 format="mm/yyyy" language="zh-CN"}}
+            </div>
+        </p>--}}
+        <p local-class="modal-content-line">
+            <span>内容格式</span>
+            <select local-class="choose-market" name="">
+                <option value="all">全部</option>
+                <option value="a">a market</option>
+                <option value="b">b market</option>
+            </select> </p>
+        <p local-class="modal-content-line">
+            <span>文件格式</span>
+                {{input type="radio" id="filecsv" name="fileformat" }}
+                <label for="filecsv"> <span></span> CSV</label>
+                {{!-- {{input type="radio" id="fileexcel" name="fileformat" }}
+                <label for="fileexcel"><span></span>Excel</label>
+                {{input type="radio" id="filetxt" name="fileformat" }}
+                <label for="filetxt"><span></span>txt</label> --}}
+        </p>
+    {{/modal.body}}
+    {{#modal.footer}}
+        {{#bs-button class="btn-only-text" onClick=(action modal.close)}}取消{{/bs-button}}
+        {{#bs-button }}导出{{/bs-button}}
+    {{/modal.footer}}
+{{/bs-modal}}
+{{#bs-modal-simple fade=false open=error title="提示" closeTitle="确定" onHidden=(action (mut error) false)}}
+  <p>{{errorMessage}}</p>
+{{/bs-modal-simple}}
+
+{{outlet}}

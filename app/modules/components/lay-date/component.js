@@ -1,13 +1,9 @@
 import Component from '@ember/component';
-// import laydate from 'npm:layui-laydate';
 // import StateMachine from 'npm:javascript-state-machine';
 
 export default Component.extend({
     init() {
         this._super(...arguments);
-        // laydate.render({
-        //   elem: '#test1' //指定元素
-        // });
       //   var fsm = new StateMachine({
       //   init: 'solid',
       //   transitions: [
@@ -24,5 +20,12 @@ export default Component.extend({
       //   }
       // });
       //    window.console.info(fsm)
+  },
+    didInsertElement() {
+        window.laydate.render({
+          elem: window.document.getElementById('test1'), //指定元素
+          type: 'month',
+          range: true
+        });
     }
 });

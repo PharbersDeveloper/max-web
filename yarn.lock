@@ -5410,10 +5410,6 @@ labeled-stream-splicer@^2.0.0:
     isarray "^2.0.4"
     stream-splicer "^2.0.0"
 
-layui-laydate@^5.0.9:
-  version "5.0.9"
-  resolved "https://registry.yarnpkg.com/layui-laydate/-/layui-laydate-5.0.9.tgz#1af39904a042c6488f713d5cac621df0a09ffdbb"
-
 lazy-cache@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/lazy-cache/-/lazy-cache-1.0.4.tgz#a1d78fc3a50474cb80845d3b3b6e1da49a446e8e"
