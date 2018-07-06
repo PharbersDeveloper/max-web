@@ -1,0 +1,38 @@
+
+<div local-class="tables" class="container-fluid">
+    <div local-class="title">
+        <p>各产品销售概况</p>
+    </div>
+    <div local-class="date">
+        <p>2018-4</p>
+    </div>
+    <div local-class="city">
+        <p>北京市</p>
+    </div>
+    {{#light-table table height=selfheight tableClassNames='medicine-table' as |t|}}
+
+      {{t.head
+           onColumnClick=(action 'onColumnClick')
+          fixed=true
+      }}
+
+      {{#t.body as |body|}}
+
+        {{#if isLoading}}
+          {{#body.loader}}
+            Loading...
+          {{/body.loader}}
+        {{/if}}
+
+        {{#if table.isEmpty}}
+          {{#body.no-data}}
+            No data found.
+          {{/body.no-data}}
+        {{/if}}
+      {{/t.body}}
+
+      {{!-- {{t.foot}} --}}
+
+    {{/light-table}}
+
+</div>
