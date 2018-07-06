@@ -27,6 +27,13 @@
         color: #4A4A4A;
         letter-spacing: 0.54px;
         text-align: center;
+        span {
+            font-family: PingFangTC-Regular;
+            font-size: 12px;
+            color: #1E2429;
+            letter-spacing: 1px;
+            line-height: 33px;
+        }
     }
     .key-word .word-t p {
         font-family: PingFangTC-Regular;
@@ -48,7 +55,7 @@
             letter-spacing: 1.5px;
             text-align: left;
             line-height: 30px;
-            margin-left: 20px;
+            margin-left: 10px;
             float: left;
         }
         .show {
@@ -59,7 +66,19 @@
             text-align: center;
             line-height: 30px;
             float: right;
-            margin-right: 20px;
+            margin-right: 10px;
+        }
+        .trend-left {
+            float: left;
+            width: 100px;
+            height: 30px;
+            border-right:0 solid #D2D2D2;
+        }
+        .trend-right {
+            float: left;
+            width: 100px;
+            height: 30px;
+            border-left: 1px solid #D2D2D2;
         }
     }
 }
