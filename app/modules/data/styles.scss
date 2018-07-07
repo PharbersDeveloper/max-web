@@ -1,24 +1,14 @@
-// .tables {
-// 	padding: 100px;
-// 	:global(.ember-view) {
-// 		height: auto;
-// 	}
-//
-// 	:global(.medicine-table .lt-head tr:first-child) {
-// 		padding-bottom: 4px;
-// 		height: 20px;
-// 		border-bottom: 1px solid rgba(111,109,204,.10);
-// 		font-size: 12px;
-// 		font-weight: 100;
-// 		letter-spacing: 0.83px;
-// 		color: #4A4A4A;
-// 	}
-//
-// 	:global(.lt-row) {
-// 		height: 40px;
-// 		line-height: 40px;
-// 		font-size: 12px;
-// 		letter-spacing: 1.62px;
-// 		color: #3D3D3D;
-// 	}
+// .table-li {
+//     height: 500px;
+//     // position: absolute;
+//     top: 100px;
+// }
+// :global(.ember-view) {
+//     height: auto;
+//     clear: both;
+//     // padding: 10px 20px;
+//     // width: 100%;
+//     .tabl {
+//         min-width: 70px;
+//     }
 // }

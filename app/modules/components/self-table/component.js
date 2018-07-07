@@ -22,47 +22,7 @@ export default Component.extend({
 		that.get('setRows')(model, that);
 	},
 	columns: computed('columns', function() {
-		return [{
-			label: '商品名',
-			valuePath: 'id',
-			width: '100px',
-			align: 'center',
-			className: 'testname',
-			sortable: true,
-			sorted: true,
-		}, {
-			label: '类别',
-			valuePath: 'type',
-			width: '100px',
-			align: 'center',
 
-		}, {
-			label: '治疗领域',
-			valuePath: 'treatmentarea',
-			width: '100px',
-			align: 'center',
-
-		}, {
-			label: '上市时间',
-			valuePath: 'selltime',
-			width: '80px',
-			align: 'center',
-		}, {
-			label: '医保类型',
-			valuePath: 'medicalinsurance',
-			width: '80px',
-			align: 'center',
-		}, {
-			label: '研发类型',
-			valuePath: 'development',
-			width: '80px',
-			align: 'center',
-		}, {
-			label: '公司考核价',
-			valuePath: 'companyprice',
-			width: '100px',
-			align: 'center',
-		}];
 	}),
 
 	table: computed('model', function() {
@@ -83,7 +43,18 @@ export default Component.extend({
 
 				this.get('filterAndSortModel')(this);
 			}
-		}
+		},
+		onAfterResponsiveChange(matches) {
+		  if (matches.indexOf('jumbo') > -1) {
+		   this.get('table.expandedRows').setEach('expanded', false);
+		  }
+		},
+		onScrolledToBottom() {
+	      if (this.get('canLoadMore')) {
+	        this.incrementProperty('page');
+	        this.get('fetchRecords').perform();
+	      }
+	    },
 	}
 
 });

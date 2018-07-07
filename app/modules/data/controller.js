@@ -24,63 +24,79 @@ export default Controller.extend({
 		this.columnsHospital = [{
 				label: '产品名称',
 				valuePath: 'prod',
-				width: '100px',
+				// width: '100px',
+				classNames:'tabl',
 				align: 'center',
-				sorted: false,
+				sorted: false, //是否可以对列进行排序
+				minResizeWidth: '70px',//列可以调整的最小宽度
+				// breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
 
 			}, {
 				label: '市场销售额',
 				valuePath: 'market_sale',
-				width: '100px',
+				// width: '100px',
+				classNames:'tabl',
 				align: 'center',
+				minResizeWidth: '70px',
+				// breakpoints: ['mobile', 'tablet', 'desktop']
 			}, {
 				label: '市场增长(%)',
 				valuePath: 'market_growth',
-				width: '100px',
+				// width: '100px',
 				align: 'center',
+				classNames:'tabl',
+				minResizeWidth: '70px',
 
 			}, {
 				label: '当期销售额',
 				valuePath: 'current_sales',
-				width: '100px',
+				// width: '100px',
 				align: 'center',
+				minResizeWidth: '70px',
 			}, {
 				label: '销售增长(%)',
 				valuePath: 'sales_growth',
-				width: '100px',
+				// width: '100px',
 				align: 'center',
+				minResizeWidth: '70px',
 			}, {
 				label: 'EV值(%)',
 				valuePath: 'ev_value',
-				width: '80px',
+				// width: '80px',
 				align: 'center',
+				minResizeWidth: '70px',
 			}, {
 				label: '份额(%)',
 				valuePath: 'share',
-				width: '80px',
+				// width: '80px',
 				align: 'center',
+				minResizeWidth: '70px',
 			}, {
 				label: '份额增长(%)',
 				valuePath: 'share_growth',
-				width: '100px',
+				// width: '100px',
 				align: 'center',
+				minResizeWidth: '70px',
 			}, {
 				label: '指标',
 				valuePath: 'target',
-				width: '100px',
+				// width: '100px',
 				align: 'center',
+				minResizeWidth: '50px',
 			},
 			{
 				label: '指标达成率(%)',
 				valuePath: 'achievement_rate',
-				width: '100px',
+				// width: '100px',
 				align: 'center',
+				minResizeWidth: '70px',
 			},
 			{
 				label: '销售贡献率(%)',
 				valuePath: 'contribution_rate',
-				width: '100px',
+				// width: '100px',
 				align: 'center',
+				minResizeWidth: '70px',
 			}
 		];
 		this.columnsHospitalValue = [{
@@ -131,7 +147,32 @@ export default Controller.extend({
 			'target': 42435,
 			'achievement_rate': 452,
 			'contribution_rate': 657,
-		}];
+		},{
+			'prod': '产品5',
+			'market_sale': 67456,
+			'market_growth': 13422,
+			'current_sales': 452,
+			'sales_growth': 42,
+			'ev_value': 45,
+			'share': 656,
+			'share_growth': 76,
+			'target': 42435,
+			'achievement_rate': 452,
+			'contribution_rate': 657,
+		},{
+			'prod': '产品6',
+			'market_sale': 67456,
+			'market_growth': 13422,
+			'current_sales': 452,
+			'sales_growth': 42,
+			'ev_value': 45,
+			'share': 656,
+			'share_growth': 76,
+			'target': 42435,
+			'achievement_rate': 452,
+			'contribution_rate': 657,
+		},
+	];
 	},
 	actions: {
 		budget() {

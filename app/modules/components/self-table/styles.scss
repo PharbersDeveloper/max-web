@@ -1,9 +1,13 @@
 .tables {
 	// margin: 100px;
-	padding: 20px;
-	background: #ddd;
+	padding: 10px;
+	background: #f3f4f3;
 	box-shadow: 0 1px 5px 2px rgba(215,215,215,0.50);
 	border-radius: 3px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	// min-width: 750px;
+	height: 320px;;
 	.title p {
         float: left;
         font-family: PingFangTC-Regular;
@@ -24,12 +28,17 @@
 	:global(.ember-view) {
 		height: auto;
 		clear: both;
-		width: 100%;
+		td {
+			min-width: 70px;
+		}
+		// padding: 10px 20px;
+		// width: 100%;
 	}
 
 	:global(.medicine-table .lt-head tr:first-child) {
 		padding-bottom: 4px;
 		height: 20px;
+		min-width: 350px;
 		border-bottom: 1px solid rgba(111,109,204,.10);
 		font-size: 12px;
 		font-weight: 100;
