@@ -1,31 +1,32 @@
+ {{yield}}
 
-{{yield}}
+<div local-class="contain" class="col-md-4 col-sm-6">
+    <div local-class="inside-contain">
+        <div local-class="title">
+            <p>{{card.title}}</p>
+        </div>
+        <div local-class="subtitle">
+            <p>{{card.subtitle}}</p>
+        </div>
+        <div local-class="city">
+            <p>{{card.city}}</p>
+        </div>
+        <div local-class="key-word">
+            <div local-class="word-o">
+                <p>{{card.name}}</p>
+            </div>
+            <div local-class="word-t">
+                <p>{{card.subname}}</p>
+            </div>
+        </div>
+        <div local-class="trend">
+            <div local-class="data">
+                <p>{{card.value}}</p>
+            </div>
+            <div local-class="show">
+                <p>{{card.percent}}</p>
+            </div>
+        </div>
+    </div>
 
-<div local-class="contain" class="container-fluid">
-    {{!-- <h1>zhanglu</h1> --}}
-    <div local-class="title">
-        <p>{{title}}</p>
-    </div>
-    <div local-class="date">
-        <p>{{data}}</p>
-    </div>
-    <div local-class="city">
-        <p>{{city}}</p>
-    </div>
-    <div local-class="key-word">
-        <div local-class="word-o">
-            <p>市场名称</p>
-        </div>
-        <div local-class="word-t">
-            <p>市场名</p>
-        </div>
-    </div>
-    <div local-class="trend">
-        <div local-class="data">
-            <p>94.83Mil</p>
-        </div>
-        <div local-class="show">
-            <p>4.3%</p>
-        </div>
-    </div>
 </div>

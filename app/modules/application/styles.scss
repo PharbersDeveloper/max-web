@@ -1,21 +1,19 @@
 @import 'bootstrap';
 @import 'ember-power-select';
-
 $navbar-bgcolor: #737373;
 $content-bgcolor: #fafafa;
 $btn-bgcolor: #60b3ad;
 $btn-error-bgcolor: red;
 $border-color: #7e7e7e;
-
-$max-font-size-title:  2.2rem;;
+$max-font-size-title: 2.2rem;
 $max-font-size-content: 1.4rem;
+$font-family: "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
 
 html {
     height: 100%;
     background-color: $content-bgcolor;
     font-size: 10px;
 }
-
 /**
 *
 * btn 只有字的样式
@@ -31,7 +29,7 @@ html {
 *
 * btn max 基本样式
 */
-.btn-default-max{
+.btn-default-max {
     height: 35px;
     width: 100px;
     line-height: 35px;
@@ -46,7 +44,6 @@ html {
 a:hover {
     text-decoration: none;
 }
-
 /**
 *
 *btn.active style
@@ -55,10 +52,10 @@ a:hover {
     background-color: $btn-bgcolor !important;
     color: #fff !important;
 }
+
 :global(.btn-default.active:hover) {
     background-color: $btn-bgcolor !important;
-    color: #fff  !important;
-
+    color: #fff !important;
 }
 /**
 *
@@ -68,14 +65,17 @@ a:hover {
     top: 50%;
     transform: translateY(-50%);
 }
+
 :global(.modal-header) {
     border-radius: 5px 5px 0 0;
     color: #fff;
     background-color: $btn-bgcolor;
 }
-:global(.modal-content ){
+
+:global(.modal-content) {
     left: 50%;
     transform: translateX(-50%);
+
     :global(.btn) {
         padding: 0;
         width: 100px;
@@ -87,7 +87,6 @@ a:hover {
         background-color: $btn-bgcolor;
     }
 }
-
 /**
 *
 *多选样式
@@ -96,12 +95,14 @@ a:hover {
     width: 130px;
     font-weight: normal;
 }
+
 input[type="checkbox"] {
     display: none;
 }
+
 .checkbox-span {
     display: inline-block;
-    margin: 10px ;
+    margin: 10px;
     width: 16px;
     height: 16px;
     line-height: 1;
@@ -109,6 +110,7 @@ input[type="checkbox"] {
     border: 1px solid rgba(0, 0, 0, .15);
     background-color: #fff;
 }
+
 input[type="checkbox"]:checked + .checkbox-span:after {
     content: "";
     display: inline-block;

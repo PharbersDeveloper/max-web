@@ -1,41 +1,63 @@
-// import Controller from '@ember/controller';
-//
-// export default Controller.extend({
-// 	title: '市场规模增长最快',
-//     data:'2018-4',
-//     city:'北京',
-// });
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-	budgetTip: false,
-	humanTip: false,
-	tabLi: false,
-	targetIncrease: 0,
-	budget: 0,
-	hidden(hiddenProperty) {
-		if (this.get(hiddenProperty)) {
-			this.set(hiddenProperty, true)
+	account: 'alexguo@pharbers.com',
+	fullName: 'user-name',
+	getAjaxOpt(data) {
+		return {
+			method: 'POST',
+			dataType: "json",
+			cache: false,
+			data: JSON.stringify(data),
+			contentType: "application/json,charset=utf-8",
+			Accpt: "application/json,charset=utf-8",
 		}
 	},
-
+	queryUserInfo() {
+		let condition = {
+			condition: {
+				user_id: this.get('cookies').read('uid')
+			}
+		}
+		this.get('ajax').request('/api/user/detail', this.getAjaxOpt(condition)).
+		then(({
+			status,
+			result,
+			error
+		}) => {
+			if (status === 'ok') {
+				console.log(result);
+				// let {
+				// 	user: {
+				// 		screen_name,
+				// 		email
+				// 	}
+				// } = result
+				// this.set('fullName', screen_name)
+				// this.set('account', email)
+			} else {
+				this.set('errorMessage', error.message);
+			}
+		}, () => {})
+	},
 	init() {
 		this._super(...arguments);
+		// this.queryUserInfo();
 		this.columnsHospital = [{
 				label: '产品名称',
 				valuePath: 'prod',
 				// width: '100px',
-				classNames:'tabl',
+				classNames: 'tabl',
 				align: 'center',
 				sorted: false, //是否可以对列进行排序
-				minResizeWidth: '70px',//列可以调整的最小宽度
+				minResizeWidth: '70px', //列可以调整的最小宽度
 				// breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
 
 			}, {
 				label: '市场销售额',
 				valuePath: 'market_sale',
 				// width: '100px',
-				classNames:'tabl',
+				classNames: 'tabl',
 				align: 'center',
 				minResizeWidth: '70px',
 				// breakpoints: ['mobile', 'tablet', 'desktop']
@@ -44,7 +66,7 @@ export default Controller.extend({
 				valuePath: 'market_growth',
 				// width: '100px',
 				align: 'center',
-				classNames:'tabl',
+				classNames: 'tabl',
 				minResizeWidth: '70px',
 
 			}, {
@@ -147,7 +169,7 @@ export default Controller.extend({
 			'target': 42435,
 			'achievement_rate': 452,
 			'contribution_rate': 657,
-		},{
+		}, {
 			'prod': '产品5',
 			'market_sale': 67456,
 			'market_growth': 13422,
@@ -159,7 +181,7 @@ export default Controller.extend({
 			'target': 42435,
 			'achievement_rate': 452,
 			'contribution_rate': 657,
-		},{
+		}, {
 			'prod': '产品6',
 			'market_sale': 67456,
 			'market_growth': 13422,
@@ -171,25 +193,9 @@ export default Controller.extend({
 			'target': 42435,
 			'achievement_rate': 452,
 			'contribution_rate': 657,
-		},
-	];
+		}, ];
 	},
 	actions: {
-		budget() {
-			// console.log('budget');
-			this.toggleProperty('budgetTip');
-			this.hidden('humanTip');
-		},
-		human() {
-			// console.log('human');
-			this.toggleProperty('humanTip');
-			this.hidden('budgetTip');
-		},
-		tab() {
-			// console.log('tabLi');
-			this.toggleProperty('tabLi');
-			this.hidden('tabLi');
-		},
 
 	}
 });

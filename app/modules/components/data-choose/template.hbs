@@ -1,0 +1,31 @@
+{{yield}}
+<div local-class="data-choose">
+	<div local-class="left">
+		<span local-class={{if activeOv 'active'}}>
+			{{#link-to 'data'}}
+				销售数据概况
+			{{/link-to}}
+			</span>
+		<span local-class= {{if activeCo 'active'}}>
+			{{#link-to 'data.country'}}
+				全国层面分析
+			{{/link-to}}
+			{{!-- 全国层面分析 --}}
+		</span>
+		<span local-class= {{if activePr 'active'}}>
+			{{#link-to 'data.province'}}
+				省份层面分析
+			{{/link-to}}
+			{{!-- 省份层面分析 --}}
+		</span>
+		<span local-class= {{if activeCi 'active'}}>
+			{{#link-to 'data.city'}}
+				城市层面分析
+			{{/link-to}}
+			{{!-- 城市层面分析 --}}
+		</span>
+	</div>
+	<div local-class="right">
+		<button type="button" name="button">更多定制化内容</button>
+	</div>
+</div>
