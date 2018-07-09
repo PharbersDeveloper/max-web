@@ -1,0 +1,87 @@
+.data-market {
+	margin: 10px 15px;
+	padding: 5px 10px;
+	height: 50px;
+	line-height: 50px;
+	background-color: #FFF;
+	box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
+	border-radius: 3px;
+	// font-size: 12px;
+	.time-selects {
+		display: inline-block;
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		// border: 1px solid $border-color;
+		border-radius: 4px;
+		font-size: 0;
+		// background-color: #F0F3F5;
+		& span {
+			font-size: 14px;
+			color: #485465;
+			letter-spacing: 1px;
+		}
+
+		& input {
+			width: 100px;
+			height: 34px;
+			text-align: center;
+			border: 0;
+			font-size: 14px;
+			letter-spacing: 1.2px;
+			color: #485465;
+			letter-spacing: 2px;
+			background-color: #F0F3F5;
+		}
+	}
+
+	.market-hidden {
+		display: none;
+	}
+
+	.market-choose-area {
+		display: inline-block;
+		margin-right: 40px;
+		height: 30px;
+		line-height: 30px;
+		line-height: 30px;
+		font-size: 0;
+
+		.title {
+			padding: 0 10px;
+			font-size: 14px;
+			color: #485465;
+			letter-spacing: 1px;
+		}
+
+		.choose-market {
+			width: 150px;
+			height: 30px;
+			line-height: 30px;
+			vertical-align: top;
+			text-align: center;
+			text-align-last: center;
+			border: 0;
+			border-radius: 5px;
+			font-size: 14px;
+			background-color: #F0F3F5;
+			color: #485465;
+
+			option {
+				font-size: 14px;
+				text-align: center;
+				color: #485465;
+			}
+		}
+	}
+
+	.change-item {
+		float: right;
+		margin-right: 50px;
+		display: inline-block;
+		height: 40px;
+		line-height: 40px;
+		font-size: 12px;
+		color: #485465;
+	}
+}
