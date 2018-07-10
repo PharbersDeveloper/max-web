@@ -186,7 +186,6 @@ export default Controller.extend({
 				minResizeWidth: '70px',
 			}
 		];
-		}];
 		this.newValue = [2,2,2,2];
 	},
 });
