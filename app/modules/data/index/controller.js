@@ -29,6 +29,7 @@ export default Controller.extend({
 			subname: '市场名',
 			value: '94.83Mil',
 			percent: '56.6%'
-		}]
+		}];
+		this.newValue = [2,2,2,2];
 	},
 });

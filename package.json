@@ -6,10 +6,12 @@
   "license": "MIT",
   "author": "Faiz <891366402@qq.com>",
   "directories": {
-    "doc": "doc",
     "test": "tests"
   },
-  "repository": "https://github.com/Faiz2/max-web.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Faiz2/max-web.git"
+  },
   "scripts": {
     "build": "ember build",
     "lint:js": "eslint ./*.js app config lib server tests",
@@ -20,6 +22,7 @@
     "bootstrap": "3.3.7",
     "bootstrap-sass": "^3.3.7",
     "broccoli-asset-rev": "^2.4.5",
+    "d3": "^4.9.1",
     "ember-ajax": "^3.0.0",
     "ember-basic-dropdown": "^1.0.0",
     "ember-bootstrap": "^1.2.2",
@@ -44,6 +47,7 @@
     "ember-cookies": "^0.3.0",
     "ember-css-modules": "^0.7.10",
     "ember-css-modules-sass": "^1.0.0",
+    "ember-d3": "^0.4.4",
     "ember-data": "~2.18.0",
     "ember-export-application-global": "^2.0.0",
     "ember-file-upload": "^2.4.2",
@@ -63,5 +67,13 @@
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
-  }
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "bugs": {
+    "url": "https://github.com/Faiz2/max-web/issues"
+  },
+  "homepage": "https://github.com/Faiz2/max-web#readme",
+  "main": ".eslintrc.js"
 }
