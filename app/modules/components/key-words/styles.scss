@@ -1,9 +1,17 @@
 .contain {
-    padding: 10px;
+    // margin: 10px;
+    // margin-left: 20px;
+    padding: 0;
     // width: 320px;
     // height: 150px;
-    background: #FFFFFF;
-    box-shadow: 0 0 4px 0 rgba(0,0,0,0.10);
+    .inside-contain {
+        margin: 10px 15px;
+        padding: 10px;
+        height: 100%;
+        background: #FFF;
+        box-shadow: 0 0 4px 0 rgba(0,0,0,0.10);
+    }
+
     .title p {
         float: left;
         font-family: PingFangTC-Regular;
@@ -11,7 +19,9 @@
         color: #485465;
         letter-spacing: 1px;
     }
-    .date p , .city p {
+
+    .city p,
+    .subtitle p {
         float: left;
         font-family: PingFangTC-Regular;
         font-size: 10px;
@@ -19,15 +29,17 @@
         letter-spacing: 1px;
         margin: 5px 0 0 10px;
     }
+
     .key-word .word-o p {
         clear: both;
-        margin: 40px 0 0 0;
+        margin: 40px 0 0;
         font-family: PingFangTC-Regular;
         font-size: 24px;
         color: #4A4A4A;
         letter-spacing: 0.54px;
         text-align: center;
     }
+
     .key-word .word-t p {
         font-family: PingFangTC-Regular;
         font-size: 12px;
@@ -35,12 +47,14 @@
         letter-spacing: 0.27px;
         text-align: center;
     }
+
     .trend {
         width: 200px;
         height: 30px;
         background: #eef2f5;
         border-radius: 100px;
         margin: 10px auto;
+
         .data {
             font-family: PingFangTC-Regular;
             font-size: 12px;
@@ -51,6 +65,7 @@
             margin-left: 20px;
             float: left;
         }
+
         .show {
             font-family: PingFangTC-Regular;
             font-size: 12px;

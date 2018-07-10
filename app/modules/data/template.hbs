@@ -1,5 +1,5 @@
-
-{{!-- <div class="col-md-4 col-sm-4 col-xs-12">
+{{!--
+<div class="col-md-4 col-sm-4 col-xs-12">
     {{key-words title=title data=data city=city}}
 </div>
 <div class="col-md-4 col-sm-4 col-xs-12">
@@ -22,10 +22,61 @@
 
 
 
-<div local-class="table-li">
+{{!-- <div local-class="table-li">
     {{self-table model=columnsHospitalValue columns=columnsHospital selfheight='230px'}}
 </div>
 
+<div style="height: 500px;background-color: lightblue">
+</div> --}}
+<div local-class="data-container">
+    <div local-class="left">
+        <div local-class="title">
+            <img src="/assets/images/pharbers_logo.png" alt="">
+            <span>pharbers 数据平台</span>
+        </div>
+        <div local-class="user-info">
+            {{#bs-dropdown tagName="span" as |dd|}}
+                {{#dd.toggle local-class="username" }}{{fullName}}<span class="caret"></span>{{/dd.toggle}}
+                {{#dd.menu as |menu|}}
+                    {{#menu.item}}
+                        <a href="#" {{action 'logut' }}>登出</a>
+                    {{/menu.item}}
+                {{/dd.menu}}
+            {{/bs-dropdown}}
+            {{!-- <div local-class="user-status">
+                <span local-class="status-span"></span>
+                <span>{{account}}</span>
+            </div> --}}
+        </div>
+        <ul local-class="choose">
+            <li> <span class="glyphicon glyphicon-th-large"></span> <span>数据工具</span></li>
+        </ul>
+    </div>
+    <div local-class="right">
+        <div local-class="title">
+            <span class="glyphicon glyphicon-th-large"></span>
+            <span>数据工具</span>
+            <p>
+                <button local-class="btn-output" type="button" name="button">导出数据</button>
+                {{!-- <button type="button" name="button">添加数据</button> --}}
+                <div local-class="add-data">
+                    {{#link-to "adddata.uploadfiles" }}
+                        <div local-class="btn-add-data">
+                            <div local-class="add-data-content left-section">
+                                +
+                            </div>
+                            <div local-class="add-data-content right-section">
+                                添加数据
+                            </div>
+                        </div>
+                    {{/link-to}}
+                </div>
+            </p>
 
+        </div>
+        <div local-class="main-content">
+            {{outlet}}
 
-{{outlet}}
+        </div>
+    </div>
+</div>
