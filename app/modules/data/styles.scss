@@ -1,25 +1,36 @@
 .data-container {
+	// position: relative;
+	display: table;
 	min-width: 768px;
 	width: 100%;
-	// background: orange;
 	overflow: hidden;
-	// border: 5px solid pink;
 	box-sizing: border-box;
 	font-family: $font-family;
 
 	.left {
-		float: left;
+		display: table-cell;
+		// position: absolute;
+		// top: 0;
+		// bottom: 0;
+		// left: 0;
+		// float: left;
 		width: 185px;
+		// height: 100%;
 		/* 在实际应用中，高度一般由内容撑开 */
-		min-height: 100%;
+		// min-height: 100%;
 		color: #fff;
 		background-image: linear-gradient(-45deg, #A8ACC2 0%, #575978 95%);
 	}
 
 	.right {
+		display: table-cell;
+		// position: absolute;
+		// width: calc(100% - 185px);
+		// width: 100%;
+		// margin-left: 185px;
 		/* width自适应高度，或者设置为80%, 高度由内容撑开 */
 		// height: 230px;
-		min-height: 100%;
+		// min-height: 100%;
 		/* 右侧与左侧分离的关键，原理可查看BFC */
 		overflow: hidden;
 		color: #fff;
