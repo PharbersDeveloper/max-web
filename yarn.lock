@@ -2793,11 +2793,11 @@ d3-contour@1:
 
 d3-dispatch@1, d3-dispatch@1.0.3:
   version "1.0.3"
-  resolved "http://registry.npm.taobao.org/d3-dispatch/download/d3-dispatch-1.0.3.tgz#46e1491eaa9b58c358fce5be4e8bed626e7871f8"
+  resolved "https://registry.yarnpkg.com/d3-dispatch/-/d3-dispatch-1.0.3.tgz#46e1491eaa9b58c358fce5be4e8bed626e7871f8"
 
 d3-drag@1, d3-drag@1.2.1:
   version "1.2.1"
-  resolved "http://registry.npm.taobao.org/d3-drag/download/d3-drag-1.2.1.tgz#df8dd4c502fb490fc7462046a8ad98a5c479282d"
+  resolved "https://registry.yarnpkg.com/d3-drag/-/d3-drag-1.2.1.tgz#df8dd4c502fb490fc7462046a8ad98a5c479282d"
   dependencies:
     d3-dispatch "1"
     d3-selection "1"
@@ -2812,7 +2812,7 @@ d3-dsv@1, d3-dsv@1.0.8:
 
 d3-ease@1, d3-ease@1.0.3:
   version "1.0.3"
-  resolved "http://registry.npm.taobao.org/d3-ease/download/d3-ease-1.0.3.tgz#68bfbc349338a380c44d8acc4fbc3304aa2d8c0e"
+  resolved "https://registry.yarnpkg.com/d3-ease/-/d3-ease-1.0.3.tgz#68bfbc349338a380c44d8acc4fbc3304aa2d8c0e"
 
 d3-fetch@1:
   version "1.1.0"
@@ -2871,7 +2871,7 @@ d3-interpolate@1.1.6:
 
 d3-path@1, d3-path@1.0.5:
   version "1.0.5"
-  resolved "http://registry.npm.taobao.org/d3-path/download/d3-path-1.0.5.tgz#241eb1849bd9e9e8021c0d0a799f8a0e8e441764"
+  resolved "https://registry.yarnpkg.com/d3-path/-/d3-path-1.0.5.tgz#241eb1849bd9e9e8021c0d0a799f8a0e8e441764"
 
 d3-polygon@1, d3-polygon@1.0.3:
   version "1.0.3"

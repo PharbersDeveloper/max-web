@@ -1,0 +1,30 @@
+{{yield}}
+<div local-class="tables">
+    {{#light-table table height=selfheight tableClassNames='medicine-table' responsive=true onAfterResponsiveChange=(action 'onAfterResponsiveChange') as |t|}}
+
+        {{t.head
+            onColumnClick=(action 'onColumnClick')
+            fixed=true
+        }}
+
+        {{#t.body scrollTo=scrollTo scrollToRow=scrollToRow onScrolledToBottom=(action 'onScrolledToBottom') onScroll=(action (mut currentScrollOffset)) as |body|}}
+
+            {{#if isLoading}}
+                {{#body.loader}}
+                    Loading...
+                {{/body.loader}}
+            {{/if}}
+
+            {{#if table.isEmpty}}
+                {{#body.no-data}}
+                    No data found.
+                {{/body.no-data}}
+            {{/if}}
+        {{/t.body}}
+
+
+        {{!-- {{t.foot}} --}}
+
+    {{/light-table}}
+
+</div>
