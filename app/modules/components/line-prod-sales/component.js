@@ -6,16 +6,16 @@ export default Component.extend({
 	classNames: ['prod-sales-container'],
 	init() {
 		this._super(...arguments);
-		this.line = {
-			title: '辉瑞产品选择',
-			time: '2018.01-2018.07',
-			currentMonth: '2018-04',
-			curMoSales: 9935.4,
-			yearYear: 4.3,
-			ring: 4.3,
-			totle: 146534563,
-			ave: 34572452,
-		};
+		// this.line = {
+		// 	title: '辉瑞产品选择',
+		// 	time: '2018.01-2018.07',
+		// 	currentMonth: '2018-04',
+		// 	curMoSales: 9935.4,
+		// 	yearYear: 4.3,
+		// 	ring: 4.3,
+		// 	totle: 146534563,
+		// 	ave: 34572452,
+		// };
 		this.testData = [{
 			date: new Date('2018-01'),
 			sales: '400'
@@ -56,15 +56,15 @@ export default Component.extend({
 	},
 	didInsertElement() {
 		this._super(...arguments);
-		let data = this.get('testData');
+		let data = this.get('tableData');
 
-		console.log('first data');
-		console.log(data);
+		// console.log('first data');
+		// console.log(data);
 		// 定义circle的半径
 		let r0 = 2,
 			r1 = 5;
-		console.log(document.body.clientWidth);
-		console.log(this.$('#prod-sales').width())
+		// console.log(document.body.clientWidth);
+		// console.log(this.$('#prod-sales').width())
 		// 定义动画持续时间
 		var duration = 300;
 
@@ -88,7 +88,7 @@ export default Component.extend({
 		var x = d3.scaleTime()
 
 			// .domain([0, 100])
-			.range([0, width]);
+			.range([0, width - 20]);
 
 		// var y = d3.scale.linear()	//v3
 		var y = d3.scaleLinear()
@@ -107,8 +107,8 @@ export default Component.extend({
 			//   return date < 10 ? '0' + date : date;
 			// })
 			// 相同的效果
-			.tickFormat(d3.timeFormat('%m'))
-			.ticks(12);
+			.tickFormat(d3.timeFormat('%Y-%m'))
+			.ticks(data.length);
 
 		var yAxis = d3.axisLeft()
 			.scale(y)
@@ -134,6 +134,7 @@ export default Component.extend({
 				return y(d.sales)
 			})
 			.curve(d3.curveLinear)
+		// .attr('box-shadow', '0 2px 3px 0 rgba(0,0,0,0.50)')
 		// .interpolate('monotone');
 
 		var flagLine = d3.line()
@@ -172,7 +173,7 @@ export default Component.extend({
 					// d.pv = +d.pv;
 					d.sales = d.sales
 				});
-				console.log(data);
+				// console.log(data);
 				x.domain(d3.extent(data, function(d) {
 					return d.date;
 				}));
