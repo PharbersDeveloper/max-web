@@ -186,6 +186,122 @@ export default Controller.extend({
 				minResizeWidth: '70px',
 			}
 		];
-		this.newValue = [2,2,2,2];
+		this.prodCont = [{
+			label: '商品名',
+			valuePath: 'prod',
+			// width: '100px',
+			classNames: 'tabl',
+			align: 'center',
+			sorted: false, //是否可以对列进行排序
+			minResizeWidth: '70px', //列可以调整的最小宽度
+			// breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
+
+		}, {
+			label: '市场名',
+			valuePath: 'market',
+			// width: '100px',
+			classNames: 'tabl',
+			align: 'center',
+			minResizeWidth: '70px',
+			// breakpoints: ['mobile', 'tablet', 'desktop']
+		}, {
+			label: '销售额',
+			valuePath: 'sales',
+			// width: '100px',
+			align: 'center',
+			classNames: 'tabl',
+			minResizeWidth: '70px',
+
+		}, {
+			label: '贡献度',
+			valuePath: 'cont',
+			// width: '100px',
+			align: 'center',
+			minResizeWidth: '70px',
+		}, {
+			label: '贡献度变化 -  上期(%)',
+			valuePath: 'cont-month',
+			// width: '100px',
+			align: 'center',
+			minResizeWidth: '70px',
+		}, {
+			label: '贡献度变化 - 三个月(%)',
+			valuePath: 'cont-season',
+			// width: '80px',
+			align: 'center',
+			minResizeWidth: '70px',
+		}, {
+			label: '贡献度变化 - 去年同期(%)',
+			valuePath: 'cont-year',
+			// width: '80px',
+			align: 'center',
+			minResizeWidth: '70px',
+		}];
+		this.prodContValue = [{
+			'prod': '产品一',
+			'market': 123456,
+			'sales': 12,
+			'cont': 45175,
+			'cont-month': 16,
+			'cont-season': 100,
+			'cont-year': 45,
+		}, {
+			'prod': '产品二',
+			'market': 54387,
+			'sales': 135,
+			'cont': 87345,
+			'cont-month': 68,
+			'cont-season': 468,
+			'cont-year': 78,
+		}, {
+			'prod': '产品三',
+			'market': 8321,
+			'sales': 647,
+			'cont': 56,
+			'cont-month': 786,
+			'cont-season': 563,
+			'cont-year': 536,
+		}, {
+			'prod': '产品四',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品5',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品6',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品7',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品8',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, ];
+		this.newValue = [2, 2, 2, 2];
 	},
 });
