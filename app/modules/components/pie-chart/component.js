@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import d3 from 'd3';
 
 export default Component.extend({
-
+    classNames:['col-md-4','col-sm-12'],
     init() {
         this._super(...arguments)
         // window.console.info(d3)
@@ -12,9 +12,20 @@ export default Component.extend({
     },
     didInsertElement() {
         this._super(...arguments);
-        var width = 960,
-        height = 500,
-        radius = Math.min(width, height) / 2 - 10;
+        var margin = {
+                top: 40,
+                right: 20,
+                bottom: 30,
+                left: 20
+            },
+
+            // width = document.body.clientWidth - margin.left - margin.right,
+            width = this.$('#pie-chart').width()- margin.left - margin.right,
+            height = 380 - margin.top - margin.bottom,
+        // var width = 960,
+        // height = 500,
+        // radius = Math.min(width, height) / 2 - 10;
+        radius = 140;
 
 // var data = [0.3,0.2,0.2,0.3];
 // var data_show = [1,7,8,6];
@@ -29,20 +40,20 @@ var arc = d3.arc()
 
 var pie = d3.pie();
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select(this.$('#pie-chart')[0]).append("svg")
     .datum(data)
-    // .datum(data_show)
-    .attr("width", width)
+    .attr("width", '100%')
     .attr("height", height)
+    .attr('viewBox','0 0 '+500+' '+300)
+    .attr('preserveAspectRatio','xMidYMid','meet')
     .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 var arcs = svg.selectAll("g.arc")
     .data(pie)
-    // .data_show(pie)
   .enter().append("g")
     .attr("class", "arc");
-    var legend = d3.select("body").append("svg")
+    var legend = d3.select(this.$('#pie-chart')[0]).append("svg")
           .attr("class", "legend")
           .attr("width", 120)
           .attr("height", 300)

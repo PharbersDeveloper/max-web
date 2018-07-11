@@ -5,6 +5,7 @@ import {
 import Table from 'ember-light-table';
 
 export default Component.extend({
+	tagName: '',
 	selfheight: '180px',
 	sort: '',
 	dir: 'asc',
@@ -45,16 +46,16 @@ export default Component.extend({
 			}
 		},
 		onAfterResponsiveChange(matches) {
-		  if (matches.indexOf('jumbo') > -1) {
-		   this.get('table.expandedRows').setEach('expanded', false);
-		  }
+			if (matches.indexOf('jumbo') > -1) {
+				this.get('table.expandedRows').setEach('expanded', false);
+			}
 		},
 		onScrolledToBottom() {
-	      if (this.get('canLoadMore')) {
-	        this.incrementProperty('page');
-	        this.get('fetchRecords').perform();
-	      }
-	    },
+			if (this.get('canLoadMore')) {
+				this.incrementProperty('page');
+				this.get('fetchRecords').perform();
+			}
+		},
 	}
 
 });

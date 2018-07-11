@@ -1,6 +1,7 @@
 {{!-- {{outlet}} --}}
-{{!-- {{outlet}} --}}
 {{data-choose activeOv=true}} {{date-market-choose showMarkerChoose=true market=markets}}
+
+{{line-prod-sales }}
 
 <div class="container-fluid" local-class="nopadding">
 	{{#each cards as |item|}}
@@ -8,4 +9,10 @@
 	{{/each}}
 </div>
 
-{{pie-chart dataValue=newValue}}
+<div local-class="table-li">
+    {{self-table titleInfo=titleInfo model=ProdSalesValue columns=ProdSales selfheight='230px'}}
+</div>
+
+<div class="container-fluid" local-class="nopadding">
+	{{pie-chart dataValue=newValue}}
+</div>
