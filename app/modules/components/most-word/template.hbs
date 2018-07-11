@@ -1,0 +1,33 @@
+{{yield}}
+
+<div local-class="contain" class="col-md-3 col-sm-6">
+   <div local-class="inside-contain">
+       <div local-class="title">
+           <p>{{card.title}}</p>
+       </div>
+       <div local-class="subtitle">
+           <p>{{card.subtitle}}</p>
+       </div>
+       <div local-class="city">
+           <p>• &nbsp;{{card.city}}</p>
+       </div>
+       <div local-class="{{if showKeyWord 'key-word' 'word-hidden'}}">
+           <div local-class="word-o">
+               <p>{{card.name}}</p>
+           </div>
+           <div local-class="word-t">
+               <p>{{card.subname}}</p>
+           </div>
+       </div>
+       <div local-class="trend" >
+           <div local-class="data">
+               <p>{{card.value}}</p>
+           </div>
+           <div local-class="show">
+               <p>{{card.percent}}</p>
+           </div>
+       </div>
+      
+   </div>
+
+</div>

@@ -1,3 +1,35 @@
 {{!-- {{outlet}} --}}
-{{data-choose activeCo=true}}
-{{pie-chart }}
+{{!-- {{data-choose activeCo=true}} --}}
+{{!-- {{pie-chart }} --}}
+{{data-choose activeCo=true}} {{date-market-choose showMarkerChoose=true market=markets}}
+
+{{!-- {{line-prod-sales }} --}}
+
+<div class="container-fluid" local-class="nopadding">
+	{{#each cards as |item|}}
+		{{sales-word card=item}}
+	{{/each}}
+</div>
+
+{{line-prod-sales }}
+
+<div class="container-fluid" local-class="nopadding">
+	{{#each words as |item|}}
+		{{most-word card=item}}
+	{{/each}}
+</div>
+
+<div class="container-fluid">
+    <div class="col-md-6 col-sm-12" local-class="nopadding">
+        {{pie-chart dataValue=newValue}}
+    </div>
+    <div class="col-md-6 col-sm-12" local-class="nopadding">
+        {{line-prod-sales }}
+    </div>
+</div>
+
+<div local-class="table-li">
+    {{self-table titleInfo=titleInfo model=ProdSalesValue columns=ProdSales selfheight='230px'}}
+</div>
+
+{{line-prod-sales }}
