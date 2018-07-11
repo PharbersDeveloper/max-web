@@ -9,4 +9,9 @@ export default Component.extend({
 		// this.market = ['等待数据'];
 		this.defaultDate = new Date('2018-04');
 	},
+	actions: {
+        submit() {
+            Ember.Logger.log(123)
+        }
+    }
 });
