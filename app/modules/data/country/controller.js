@@ -10,6 +10,50 @@ export default Controller.extend({
 	init() {
 		this._super(...arguments);
 		this.markets = ['first', 'second'];
+        this.prodSalesOverview = {
+			title: '辉瑞产品销售额',
+			time: '2018.01-2018.08',
+			currentMonth: '2018-07',
+			curMoSales: 9999.9,
+			yearYear: 99.9,
+			ring: 499,
+			totle: 146534563,
+			ave: 34572452,
+		};
+		this.prodSalesTable = [{
+			date: new Date('2018-01'),
+			sales: 500
+		}, {
+			date: new Date('2018-02'),
+			sales: 600
+		}, {
+			date: new Date('2018-03'),
+			sales: 500
+		}, {
+			date: new Date('2018-04'),
+			sales: 400
+		}, {
+			date: new Date('2018-05'),
+			sales: 500
+		}, {
+			date: new Date('2018-06'),
+			sales: 600
+		}, {
+			date: new Date('2018-07'),
+			sales: 500
+		}, {
+			date: new Date('2018-08'),
+			sales: 0
+		}, {
+			date: new Date('2018-09'),
+			sales: 0
+		}, {
+			date: new Date('2018-10'),
+			sales: 0
+		}, {
+			date: new Date('2018-11'),
+			sales: 0
+		}, ];
 		this.cards = [{
 			title: "市场销售总额",
 			subtitle: "2018-02",
@@ -51,7 +95,7 @@ export default Controller.extend({
 		}, {
 			title: "产品下滑",
 			subtitle: "2018-04",
-			city: "",
+			city: "全国",
 			name: "商品名称",
 			subname: '市场名',
 			value: '94.83Mil',
@@ -59,7 +103,7 @@ export default Controller.extend({
 		},{
 			title: "产品下滑",
 			subtitle: "2018-04",
-			city: "",
+			city: "全国",
 			name: "商品名称",
 			subname: '市场名',
 			value: '94.83Mil',
@@ -222,5 +266,7 @@ export default Controller.extend({
 			}
 		];
 		this.newValue = [2,2,2,2];
+        this.pieValue = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+		this.pieColor = ['#4169E1', '#6495ED', '#2C82BE', '#53A8E2', '#76DDFB', '#ADD8E6', '#B0E0E6', '#40E0D0', '#FFFFE0']
 	},
 });

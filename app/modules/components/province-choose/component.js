@@ -11,15 +11,7 @@ export default Component.extend({
 	},
 	actions: {
         submit() {
-            Ember.Logger.log(123);
-			var market = this.get('ALl');
-
-			console.info(market);
-			// var time = this.get('')
-        },
-		getValue: function(params) {
-            //  获取选中的值
-            console.log(params);
+            Ember.Logger.log(123)
         }
     }
 });

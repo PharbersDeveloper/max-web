@@ -17,57 +17,59 @@ export default Component.extend({
 		// 	ave: 34572452,
 		// };
 		this.testData = [{
-			date: new Date('2018-01'),
+			date: '2018-01',
 			sales: '400'
 		}, {
-			date: new Date('2018-02'),
+			date: '2018-02',
 			sales: '700'
 		}, {
-			date: new Date('2018-03'),
+			date: '2018-03',
 			sales: '500'
 		}, {
-			date: new Date('2018-04'),
+			date: '2018-04',
 			sales: '500'
 		}, {
-			date: new Date('2018-05'),
+			date: '2018-05',
 			sales: '700'
 		}, {
-			date: new Date('2018-06'),
+			date: '2018-06',
 			sales: '500'
 		}, {
-			date: new Date('2018-07'),
+			date: '2018-07',
 			sales: '800'
 		}, {
-			date: new Date('2018-08'),
+			date: '2018-08',
 			sales: 0
 		}, {
-			date: new Date('2018-09'),
+			date: '2018-09',
 			sales: 0
 		}, {
-			date: new Date('2018-10'),
+			date: '2018-10',
 			sales: 0
 		}, {
-			date: new Date('2018-11'),
+			date: '2018-11',
 			sales: 0
 		}, {
-			date: new Date('2018-12'),
+			date: '2018-12',
 			sales: 0
 		}, ]
 	},
 	didInsertElement() {
 		this._super(...arguments);
-		let data = this.get('tableData');
+		let predata = this.get('tableData');
 
-		// console.log('first data');
-		// console.log(data);
+		let data = [];
+		predata.map(function(item, index) {
+			let itemObject = {};
+			itemObject.date = new Date(item.date);
+			itemObject.sales = item.sales;
+			data.push(itemObject)
+		})
 		// 定义circle的半径
 		let r0 = 2,
 			r1 = 5;
-		// console.log(document.body.clientWidth);
-		// console.log(this.$('#prod-sales').width())
 		// 定义动画持续时间
 		var duration = 300;
-
 		var margin = {
 				top: 40,
 				right: 20,
@@ -79,14 +81,11 @@ export default Component.extend({
 			width = this.$('#prod-sales').width() - margin.left - margin.right,
 			// height = 380 - margin.top - margin.bottom;
 			height = 210;
-
-
 		//	var parseDate = d3.time.format('%Y-%m-%d').parse;	//v3
 		var parseDate = d3.timeFormat('%Y-%m'); //v4
 
 		// var x = d3.time.scale()
 		var x = d3.scaleTime()
-
 			// .domain([0, 100])
 			.range([0, width - 20]);
 
@@ -113,7 +112,7 @@ export default Component.extend({
 		var yAxis = d3.axisLeft()
 			.scale(y)
 			// .orient('left')
-			.ticks(10);
+			.ticks(6);
 
 		var xGridAxis = d3.axisBottom()
 			.scale(x)
@@ -153,7 +152,6 @@ export default Component.extend({
 			.attr('preserveAspectRatio', 'xMinYMid', 'meet')
 		// .attr('transform', 'translate(' + margin.left + ',' + 0 + ')');
 
-
 		var svg;
 
 		show();
@@ -173,14 +171,14 @@ export default Component.extend({
 					// d.pv = +d.pv;
 					d.sales = d.sales
 				});
-				// console.log(data);
+				let yMax = d3.max(data, function(d) {
+					// return d.pv;
+					return d.sales;
+				});
 				x.domain(d3.extent(data, function(d) {
 					return d.date;
 				}));
-				y.domain([0, d3.max(data, function(d) {
-					// return d.pv;
-					return d.sales;
-				})]);
+				y.domain([0, (yMax / 3 + yMax)]);
 
 				svg.append('text')
 					.attr('class', 'title')
@@ -192,15 +190,15 @@ export default Component.extend({
 					.attr('class', 'x axis')
 					.attr('transform', 'translate(0,' + height + ')')
 					.call(xAxis)
-					.append('text')
-					.text('日期')
-					.attr('transform', 'translate(' + (width - 20) + ', 0)');
+				// .append('text')
+				// .text('日期')
+				// .attr('transform', 'translate(' + (width - 20) + ', 0)');
 
 				svg.append('g')
 					.attr('class', 'y axis')
 					.call(yAxis)
-					.append('text')
-					.text('次/天');
+				// .append('text')
+				// .text('次/天');
 
 				// svg.append('g')
 				//   .attr('class', 'grid')
