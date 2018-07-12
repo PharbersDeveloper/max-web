@@ -1,17 +1,15 @@
 {{yield}}
 <div local-class="data-market" >
 	<div local-class={{if showMarkerChoose 'market-show' 'market-hidden'}}>
-		<span local-class="show-title">市场选择：</span>
-		<p>INF</p>
+		<span local-class="show-title">省份选择：</span>
+		<p>北京市</p>
 	</div>
-
-	<div local-class="time-show">
-		<span local-class="show-title">时间选择：</span>
-		<p>2018-04</p>
-	</div>
+    <div local-class="status">
+        <p>——选择单一省份，查看省份销售详细数据</p>
+    </div>
 	<div local-class="change-item">
 		 {{!-- 修改筛选条件 --}}
-		{{#bs-modal open=modal3 onSubmit=(action "submit")  onHidden=(action (mut modal3) false) as |modal|}}
+		{{#bs-modal open=modal3  onHidden=(action (mut modal3) false) as |modal|}}
 		  {{#modal.header}}
 			<h4 class="modal-title">
 				修改筛选条件
@@ -19,32 +17,16 @@
 		  {{/modal.header}}
 		  {{#modal.body}}
 		  <div local-class={{if showMarkerChoose 'market-choose-area' 'market-hidden'}}>
-			  <span local-class="title">市场选择：</span>
+			  <span local-class="title">省份选择</span>
 			  <select local-class="choose-market" name="markets">
-				  <option value="All">全部</option>
+				  <option value="All">北京市</option>
 				  {{log market}}
 				  {{#each market as |item|}}
 					  <option value={{item}}>{{item}}</option>
 				  {{/each}}
 			  </select>
 		  </div>
-		  <div local-class="time-selects">
-	  		<span>时间选择：</span>
-			<select local-class="choose-market" name="markets">
-				<option value="All">2018</option>
-				{{log market}}
-				{{#each market as |item|}}
-					<option value={{item}}>{{item}}</option>
-				{{/each}}
-			</select>
-			<select local-class="choose-market" name="markets">
-				<option value="All">04</option>
-				{{log market}}
-				{{#each market as |item|}}
-					<option value={{item}}>{{item}}</option>
-				{{/each}}
-			</select>
-	  	</div>
+
 		  {{/modal.body}}
 		  {{#modal.footer}}
 			{{#bs-button onClick=(action modal.close)}}取消{{/bs-button}}
