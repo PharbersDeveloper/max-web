@@ -6,6 +6,52 @@ export default Component.extend({
 	init() {
 		this._super(...arguments)
 		// this.dataValue = [1,4,6,4];
+		this.pieData = [{
+			'prod': '产品一',
+			'sales': 12,
+			'cont': 455,
+			'color': '#3399FF',
+		}, {
+			'prod': '产品二',
+			'sales': 135,
+			'cont': 845,
+			'color': 'orange',
+		}, {
+			'prod': '产品三',
+			'sales': 647,
+			'cont': 256,
+			'color': 'lightyellow',
+		}, {
+			'prod': '产品四',
+			'sales': 13422,
+			'cont': 452,
+			'color': 'lightgreen',
+		}, {
+			'prod': '产品5',
+			'sales': 13422,
+			'cont': 411,
+			'color': 'blue',
+		}, {
+			'prod': '产品6',
+			'sales': 13422,
+			'cont': 421,
+			'color': 'lightblue',
+		}, {
+			'prod': '产品7',
+			'sales': 13422,
+			'cont': 444,
+			'color': 'pink'
+		}, {
+			'prod': '产品8',
+			'sales': 13422,
+			'cont': 422,
+			'color': 'lightgray'
+		}, {
+			'prod': '其他',
+			'sales': 34,
+			'cont': 175,
+			'color': 'skyblue'
+		}, ];
 		this.legendValue = ['aa', 'bb', 'cc', 'dd'];
 		this.colorValue = ['red', 'lightblue', 'green', 'orange', 'gray', 'pink'];
 	},
@@ -17,24 +63,28 @@ export default Component.extend({
 				bottom: 30,
 				left: 20
 			},
-
-			// width = document.body.clientWidth - margin.left - margin.right,
 			width = this.$('#pie-chart').width() - margin.left - margin.right,
 			height = 380 - margin.top - margin.bottom,
-			// var width = 960,
-			// height = 500,
-			// radius = Math.min(width, height) / 2 - 10;
 			radius = 140;
+		var pieData = this.get('pieData');
+		var dataTitle = [];
+		var pieColor = [];
+		var pieValue = [];
+		pieData.map(function(item, index) {
+			dataTitle.push(item.prod);
+		});
+		pieData.map(function(item, index) {
+			pieColor.push(item.color);
+		});
+		pieData.map(function(item, index) {
+			pieValue.push(item.cont);
+		});
+		console.log(dataTitle)
 		var outerRadius = 270 / 2;
 		var innerRadius = 270 / 3;
-		// var data = [0.3,0.2,0.2,0.3];
-		// var data_show = [1,7,8,6];
-		// var arr = ['aaa','111','222','333','444']
-		// window.console.info(data_show);
-		// var color = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728",];
-		let data = this.get('pieValue');
-		let arr = this.get('legendValue');
-		let color = this.get('pieColor');
+
+		let data = pieValue;
+		let color = pieColor
 		// var arc = d3.arc()
 		// 	.outerRadius(radius);
 
@@ -45,17 +95,27 @@ export default Component.extend({
 		var arc2 = d3.arc()
 			.innerRadius(innerRadius)
 			.outerRadius(outerRadius + 15)
-		var pie = d3.pie();
+		var pie = d3.pie()
+			.value(function(d) {
+				return d.cont
+			})
 
 		var svg = d3.select(this.$('#pie-chart')[0]).append("svg")
-			.datum(data)
+			.datum(pieData)
+			// .datum(function() {
+			// 	console.log(d)
+			// 	return d.cont
+			// })
 			.attr("width", '100%')
 			.attr("height", height)
 			.attr('viewBox', '0 0 ' + 300 + ' ' + 300)
 			.attr('preserveAspectRatio', 'xMidYMid', 'meet')
 			.append("g")
-			.attr("transform", "translate(" + 135 + "," + 150 + ")");
-
+			.attr("transform", "translate(" + 150 + "," + 150 + ")");
+		// add tooltip
+		var tooltip = d3.select(this.$('#pie-chart')[0])
+			.append("div")
+			.attr("class", "tooltip");
 		var arcs = svg.selectAll("g.arc")
 			.data(pie)
 			.enter().append("g")
@@ -64,15 +124,34 @@ export default Component.extend({
 			// .attr("transform", "translate(0,0)")
 			//为每一块元素添加鼠标事件
 			.on("mouseover", function(d) {
-				console.log('over')
+				console.log(d);
+				let left = 135 + arc.centroid(d)[0];
+				let top = 135 + arc.centroid(d)[1];
 				d3.select(this).select("path").transition().attr("d", function(d) {
 					return arc2(d);
 				})
+				// tooltip
+				d3.select(".tooltip")
+					.style("left", left + "px")
+					.style("top", top + "px")
+					.style("opacity", 1)
+					// .html(d.data.prod + '</br>' + "销售额" + d.data.sales)
+					// .select("#value")
+					// .append('p')
+					// .attr('class', 'tip-title')
+					// .append('span')
+					// .attr('class', 'prod-color')
+					.text(d.data.prod);
+				// d3.select('.tip-title')
+				// 	.append('text')
+				// 	.text(d.data.prod)
 			})
+
 			.on("mouseout", function(d) {
 				d3.select(this).select("path").transition().attr("d", function(d) {
 					return arc(d);
 				})
+				d3.select(".tooltip").style("opacity", 0.0);
 			})
 		// arcs.append('text')
 		//     .attr('transform',)
@@ -123,14 +202,15 @@ export default Component.extend({
 		arcs.append("text")
 			.attr("transform", function(d) {
 				//get the centroid of every arc, include x and y, 质心
-				console.log(arc.centroid(d));
-				console.log(d)
+				// console.log(arc.centroid(d));
+				// console.log(d)
 				return "translate(" + arc.centroid(d) + ")";
 			})
 			.attr("text-anchor", "middle")
+			.attr('class', 'inside')
 			.text(function(d) {
 				// what's the difference between d.value and d.data?
-				return d.data;
+				return d.value + '%';
 			})
 
 		function tweenPie(b) {

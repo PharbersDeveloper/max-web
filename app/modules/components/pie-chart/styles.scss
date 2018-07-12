@@ -1,6 +1,24 @@
-:global .arc text {
-	font-size: 13px;
-	color: #FFFFFF;
-	letter-spacing: -0.08px;
+.sales-contribution {
+	position: relative;
+}
+
+:global .inside {
+	font-family: $font-family;
+	font-size: 11px;
+	stroke: #FFF;
+	letter-spacing: 0.8px;
 	text-align: center;
+}
+
+:global .tooltip {
+	position: absolute;
+	width: 120px;
+	height: auto;
+	font-family: $font-family;
+	font-size: 14px;
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 5px;
+	background: rgba(72,84,101,.65);
 }
