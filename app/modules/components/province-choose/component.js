@@ -11,11 +11,7 @@ export default Component.extend({
 	},
 	actions: {
         submit() {
-            Ember.Logger.log(123);
-			var market = this.get('ALl');
-			console.info(market);
-			// var time = this.get('')
+            Ember.Logger.log(123)
         }
-
     }
 });

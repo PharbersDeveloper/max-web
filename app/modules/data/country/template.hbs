@@ -11,7 +11,7 @@
 	{{/each}}
 </div>
 
-{{line-prod-sales }}
+{{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}
 
 <div class="container-fluid" local-class="nopadding">
 	{{#each words as |item|}}
@@ -19,12 +19,12 @@
 	{{/each}}
 </div>
 
-<div class="container-fluid">
+<div class="con">
     <div class="col-md-6 col-sm-12" local-class="nopadding">
-        {{pie-chart dataValue=newValue}}
+        {{pie-chart pieValue=pieValue pieColor=pieColor}}
     </div>
     <div class="col-md-6 col-sm-12" local-class="nopadding">
-        {{line-prod-sales }}
+        {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}
     </div>
 </div>
 
@@ -32,4 +32,4 @@
     {{self-table titleInfo=titleInfo model=ProdSalesValue columns=ProdSales selfheight='230px'}}
 </div>
 
-{{line-prod-sales }}
+{{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}

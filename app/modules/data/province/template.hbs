@@ -1,2 +1,61 @@
 {{!-- {{outlet}} --}}
-{{data-choose activePr=true}}
+{{data-choose activePr=true}} {{date-market-choose showMarkerChoose=true market=markets}}
+
+<div class="container-fluid" local-class="nopadding">
+	{{#each cards as |item|}}
+		{{key-words card=item}}
+	{{/each}}
+</div>
+
+{{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}
+
+<div local-class="table-li">
+    {{self-table titleInfo=titleInfo model=prodSalesValue columns=prodSales selfheight='230px'}}
+</div>
+
+<div local-class="con" class="col-md-12">
+    <div class="col-md-6 col-sm-12" local-class="nopadding">
+        {{pie-chart pieValue=pieValue pieColor=pieColor}}
+    </div>
+    <div class="col-md-6 col-sm-12" local-class="nopadding">
+        {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}
+    </div>
+</div>
+
+{{!-- <div class="province-choose">
+    {{province-choose showMarkerChoose=true market=markets}}
+</div> --}}
+
+<div class="container-fluid" local-class="nopadding">
+	{{#each sales as |item|}}
+		{{sales-word card=item}}
+	{{/each}}
+</div>
+
+<div class="province-choose">
+    {{province-choose showMarkerChoose=true market=markets}}
+</div>
+
+{{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}
+
+<div class="container-fluid" local-class="nopadding">
+	{{#each words as |item|}}
+		{{most-word card=item}}
+	{{/each}}
+</div>
+
+<div class="con">
+    <div class="col-md-6 col-sm-12" local-class="nopadding">
+        {{pie-chart pieValue=pieValue pieColor=pieColor}}
+    </div>
+    <div class="col-md-6 col-sm-12" local-class="nopadding">
+        {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}
+    </div>
+</div>
+
+
+<div local-class="table-li">
+    {{self-table titleInfo=titleInfo model=prodSalesValue columns=prodSales selfheight='230px'}}
+</div>
+
+{{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}

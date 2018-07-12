@@ -17,7 +17,7 @@
 
 		span {
 			display: inline-block;
-			padding: 0 20px;
+			padding: 0 15px;
 			height: 40px;
 			line-height: 40px;
 			border-right: 1px solid #D2D2D2;
@@ -50,4 +50,12 @@
 			background-color: #60B3AD;
 		}
 	}
+}
+
+@media (max-width: 900px) {
+  .data-choose .left {
+    span {
+		padding: 0 5px;
+	}
+  }
 }

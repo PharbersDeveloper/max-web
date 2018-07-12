@@ -1,16 +1,12 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-    actions: {
-        submit() {
-            Ember.Logger.log(123)
-        }
-    },
-    activeCi: true,
+	activeCi: true,
+	time: '2018-04',
 	init() {
 		this._super(...arguments);
-		this.markets = ['first', 'second'];
-        this.prodSalesOverview = {
+		this.markets = ['河北省', '河南省'];
+		this.prodSalesOverview = {
 			title: '辉瑞产品销售额',
 			time: '2018.01-2018.08',
 			currentMonth: '2018-07',
@@ -55,26 +51,53 @@ export default Controller.extend({
 			sales: 0
 		}, ];
 		this.cards = [{
-			title: "市场销售总额",
-			subtitle: "2018-02",
-			city: "全国",
-            num:"625.7",
-            yearOnYear:"+4.3%",
-            ringRatio:"+4.5%",
+			title: "title",
+			subtitle: "subtitle",
+			city: "city",
+			name: "市场名称",
+			subname: 'subname',
+			value: 'value',
+			percent: '5.6%'
 		}, {
-			title: "市场销售总额",
-			subtitle: "2018-02",
+			title: "贡献最高",
+			subtitle: "2018-04",
 			city: "全国",
-            num:"625.7",
-            yearOnYear:"+4.3%",
-            ringRatio:"+4.5%",
+			name: "头孢",
+			subname: '北京市场',
+			value: '88.888Mil',
+			percent: '88.6%'
+		}, {
+			title: "产品下滑",
+			subtitle: "2018-04",
+			city: "",
+			name: "商品名称",
+			subname: '市场名',
+			value: '94.83Mil',
+			percent: '56.6%'
+		}, {
+			title: "产品增长",
+			subtitle: "2018-04",
+			city: "",
+			name: "青霉素",
+			subname: '大中华市场',
+			value: '9999.83Mil',
+			percent: '999.6%'
 		},{
-			title: "市场销售总额",
-			subtitle: "2018-02",
-			city: "全国",
-            num:"625.7",
-            yearOnYear:"+4.3%",
-            ringRatio:"+4.5%",
+			title: "产品增长",
+			subtitle: "2018-04",
+			city: "",
+			name: "青霉素",
+			subname: '大中华市场',
+			value: '9999.83Mil',
+			percent: '999.6%'
+		},{
+			title: "产品增长",
+			subtitle: "2018-04",
+			city: "",
+			name: "青霉素",
+			subname: '大中华市场',
+			value: '9999.83Mil',
+			percent: '999.6%'
 		}];
         this.words = [{
 			title: "产品数量",
@@ -109,12 +132,34 @@ export default Controller.extend({
 			value: '94.83Mil',
 			percent: '56.6%'
 		}];
+        this.sales = [{
+			title: "市场销售总额",
+			subtitle: "2018-02",
+			city: "全国",
+            num:"625.7",
+            yearOnYear:"+4.3%",
+            ringRatio:"+4.5%",
+		}, {
+			title: "市场销售总额",
+			subtitle: "2018-02",
+			city: "全国",
+            num:"625.7",
+            yearOnYear:"+4.3%",
+            ringRatio:"+4.5%",
+		},{
+			title: "市场销售总额",
+			subtitle: "2018-02",
+			city: "全国",
+            num:"625.7",
+            yearOnYear:"+4.3%",
+            ringRatio:"+4.5%",
+		}];
 		this.titleInfo = {
 			title: '各产品销售概况',
 			time: '2018-04',
 			city: ''
 		};
-		this.ProdSalesValue = [{
+		this.prodSalesValue = [{
 			'prod': '产品一',
 			'market_sale': 123456,
 			'market_growth': 12,
@@ -187,7 +232,7 @@ export default Controller.extend({
 			'achievement_rate': 452,
 			'contribution_rate': 657,
 		}, ];
-		this.ProdSales = [{
+		this.prodSales = [{
 				label: '产品名称',
 				valuePath: 'prod',
 				// width: '100px',
@@ -265,8 +310,131 @@ export default Controller.extend({
 				minResizeWidth: '70px',
 			}
 		];
-		this.newValue = [2,2,2,2];
-        this.pieValue = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+		this.prodCont = [{
+			label: '商品名',
+			valuePath: 'prod',
+			// width: '100px',
+			classNames: 'tabl',
+			align: 'center',
+			sorted: false, //是否可以对列进行排序
+			minResizeWidth: '70px', //列可以调整的最小宽度
+			// breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
+
+		}, {
+			label: '市场名',
+			valuePath: 'market',
+			// width: '100px',
+			classNames: 'tabl',
+			align: 'center',
+			minResizeWidth: '70px',
+			// breakpoints: ['mobile', 'tablet', 'desktop']
+		}, {
+			label: '销售额',
+			valuePath: 'sales',
+			// width: '100px',
+			align: 'center',
+			classNames: 'tabl',
+			minResizeWidth: '70px',
+
+		}, {
+			label: '贡献度',
+			valuePath: 'cont',
+			// width: '100px',
+			align: 'center',
+			minResizeWidth: '70px',
+		}, {
+			label: '贡献度变化 -  上期(%)',
+			valuePath: 'cont-month',
+			// width: '100px',
+			align: 'center',
+			minResizeWidth: '70px',
+		}, {
+			label: '贡献度变化 - 三个月(%)',
+			valuePath: 'cont-season',
+			// width: '80px',
+			align: 'center',
+			minResizeWidth: '70px',
+		}, {
+			label: '贡献度变化 - 去年同期(%)',
+			valuePath: 'cont-year',
+			// width: '80px',
+			align: 'center',
+			minResizeWidth: '70px',
+		}];
+		this.prodContValue = [{
+			'prod': '产品一',
+			'market': 123456,
+			'sales': 12,
+			'cont': 45175,
+			'cont-month': 16,
+			'cont-season': 100,
+			'cont-year': 45,
+		}, {
+			'prod': '产品二',
+			'market': 54387,
+			'sales': 135,
+			'cont': 87345,
+			'cont-month': 68,
+			'cont-season': 468,
+			'cont-year': 78,
+		}, {
+			'prod': '产品三',
+			'market': 8321,
+			'sales': 647,
+			'cont': 56,
+			'cont-month': 786,
+			'cont-season': 563,
+			'cont-year': 536,
+		}, {
+			'prod': '产品四',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品5',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品6',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品7',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品8',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品9',
+			'market': 356,
+			'sales': 34,
+			'cont': 75,
+			'cont-month': 12,
+			'cont-season': 46,
+			'cont-year': 54,
+		}, ];
+		this.pieValue = [9, 8, 7, 6, 5, 4, 3, 2, 1];
 		this.pieColor = ['#4169E1', '#6495ED', '#2C82BE', '#53A8E2', '#76DDFB', '#ADD8E6', '#B0E0E6', '#40E0D0', '#FFFFE0']
 	},
 });
