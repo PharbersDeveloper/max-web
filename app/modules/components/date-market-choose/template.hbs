@@ -20,7 +20,7 @@
 		  {{#modal.body}}
 		  <div local-class={{if showMarkerChoose 'market-choose-area' 'market-hidden'}}>
 			  <span local-class="title">市场选择：</span>
-			  <select local-class="choose-market" name="markets">
+			  <select local-class="choose-market" name="markets" onchange={{ action 'getValue'}}>
 				  <option value="All">全部</option>
 				  {{log market}}
 				  {{#each market as |item|}}
