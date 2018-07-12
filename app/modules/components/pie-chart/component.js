@@ -7,7 +7,7 @@ export default Component.extend({
 		this._super(...arguments)
 		// this.dataValue = [1,4,6,4];
 		this.legendValue = ['aa', 'bb', 'cc', 'dd'];
-		this.colorValue = ['red', 'lightblue', 'green', 'orange'];
+		this.colorValue = ['red', 'lightblue', 'green', 'orange', 'gray', 'pink'];
 	},
 	didInsertElement() {
 		this._super(...arguments);
@@ -25,18 +25,26 @@ export default Component.extend({
 			// height = 500,
 			// radius = Math.min(width, height) / 2 - 10;
 			radius = 140;
-
+		var outerRadius = 270 / 2;
+		var innerRadius = 270 / 3;
 		// var data = [0.3,0.2,0.2,0.3];
 		// var data_show = [1,7,8,6];
 		// var arr = ['aaa','111','222','333','444']
 		// window.console.info(data_show);
 		// var color = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728",];
-		let data = this.get('dataValue');
+		let data = this.get('pieValue');
 		let arr = this.get('legendValue');
-		let color = this.get('colorValue');
-		var arc = d3.arc()
-			.outerRadius(radius);
+		let color = this.get('pieColor');
+		// var arc = d3.arc()
+		// 	.outerRadius(radius);
 
+		var arc = d3.arc()
+			.innerRadius(innerRadius)
+			.outerRadius(outerRadius);
+
+		var arc2 = d3.arc()
+			.innerRadius(innerRadius)
+			.outerRadius(outerRadius + 15)
 		var pie = d3.pie();
 
 		var svg = d3.select(this.$('#pie-chart')[0]).append("svg")
@@ -46,12 +54,32 @@ export default Component.extend({
 			.attr('viewBox', '0 0 ' + 300 + ' ' + 300)
 			.attr('preserveAspectRatio', 'xMidYMid', 'meet')
 			.append("g")
-			.attr("transform", "translate(" + height / 2 + "," + height / 2 + ")");
+			.attr("transform", "translate(" + 135 + "," + 150 + ")");
 
 		var arcs = svg.selectAll("g.arc")
 			.data(pie)
 			.enter().append("g")
-			.attr("class", "arc");
+			.attr("class", "arc")
+			// 将g移至中间
+			// .attr("transform", "translate(0,0)")
+			//为每一块元素添加鼠标事件
+			.on("mouseover", function(d) {
+				console.log('over')
+				d3.select(this).select("path").transition().attr("d", function(d) {
+					return arc2(d);
+				})
+			})
+			.on("mouseout", function(d) {
+				d3.select(this).select("path").transition().attr("d", function(d) {
+					return arc(d);
+				})
+			})
+		// arcs.append('text')
+		//     .attr('transform',)
+		// arc.append("text")
+		//      .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+		//      .attr("dy", "0.35em")
+		//      .text(function(d) { return d.data.age; });
 		// var legend = d3.select(this.$('#pie-chart')[0]).append("svg")
 		// 	.attr("class", "legend")
 		// 	.attr("width", 120)
@@ -92,6 +120,18 @@ export default Component.extend({
 			})
 			.duration(1000)
 			.attrTween("d", tweenDonut);
+		arcs.append("text")
+			.attr("transform", function(d) {
+				//get the centroid of every arc, include x and y, 质心
+				console.log(arc.centroid(d));
+				console.log(d)
+				return "translate(" + arc.centroid(d) + ")";
+			})
+			.attr("text-anchor", "middle")
+			.text(function(d) {
+				// what's the difference between d.value and d.data?
+				return d.data;
+			})
 
 		function tweenPie(b) {
 			b.innerRadius = 0;

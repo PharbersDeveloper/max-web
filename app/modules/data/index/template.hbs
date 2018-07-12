@@ -2,7 +2,7 @@
 {{data-choose activeOv=true}}
 {{date-market-choose showMarkerChoose=false market=markets}}
 
-{{line-prod-sales }}
+{{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}
 
 <div class="container-fluid" local-class="nopadding">
 	{{#each cards as |item|}}
@@ -11,10 +11,11 @@
 </div>
 
 <div local-class="table-li">
-    {{self-table titleInfo=titleInfo model=ProdSalesValue columns=ProdSales selfheight='230px'}}
+    {{self-table titleInfo=titleInfo model=prodSalesValue columns=prodSales selfheight='230px'}}
 </div>
 
 <div class="container-fluid" local-class="nopadding pie-table">
-	{{pie-chart dataValue=newValue }}
+	<p local-class="pie-title"><span>各产品销售贡献度</span><span>{{time}}</span></p>
+	{{pie-chart pieValue=pieValue pieColor=pieColor}}
 	{{legend-table model=prodContValue columns=prodCont selfheight='310px'}}
 </div>

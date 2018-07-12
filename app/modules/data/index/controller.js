@@ -2,9 +2,54 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
 	activeCi: true,
+	time: '2018-04',
 	init() {
 		this._super(...arguments);
 		this.markets = ['first', 'second'];
+		this.prodSalesOverview = {
+			title: '辉瑞产品销售额',
+			time: '2018.01-2018.08',
+			currentMonth: '2018-07',
+			curMoSales: 9999.9,
+			yearYear: 99.9,
+			ring: 499,
+			totle: 146534563,
+			ave: 34572452,
+		};
+		this.prodSalesTable = [{
+			date: new Date('2018-01'),
+			sales: 500
+		}, {
+			date: new Date('2018-02'),
+			sales: 600
+		}, {
+			date: new Date('2018-03'),
+			sales: 500
+		}, {
+			date: new Date('2018-04'),
+			sales: 400
+		}, {
+			date: new Date('2018-05'),
+			sales: 500
+		}, {
+			date: new Date('2018-06'),
+			sales: 600
+		}, {
+			date: new Date('2018-07'),
+			sales: 500
+		}, {
+			date: new Date('2018-08'),
+			sales: 0
+		}, {
+			date: new Date('2018-09'),
+			sales: 0
+		}, {
+			date: new Date('2018-10'),
+			sales: 0
+		}, {
+			date: new Date('2018-11'),
+			sales: 0
+		}, ];
 		this.cards = [{
 			title: "title",
 			subtitle: "subtitle",
@@ -14,13 +59,13 @@ export default Controller.extend({
 			value: 'value',
 			percent: '5.6%'
 		}, {
-			title: "产品下滑",
+			title: "贡献最高",
 			subtitle: "2018-04",
-			city: "",
-			name: "商品名称",
-			subname: '市场名',
-			value: '94.83Mil',
-			percent: '56.6%'
+			city: "全国",
+			name: "头孢",
+			subname: '北京市场',
+			value: '88.888Mil',
+			percent: '88.6%'
 		}, {
 			title: "产品下滑",
 			subtitle: "2018-04",
@@ -29,13 +74,21 @@ export default Controller.extend({
 			subname: '市场名',
 			value: '94.83Mil',
 			percent: '56.6%'
+		}, {
+			title: "产品增长",
+			subtitle: "2018-04",
+			city: "",
+			name: "青霉素",
+			subname: '大中华市场',
+			value: '9999.83Mil',
+			percent: '999.6%'
 		}];
 		this.titleInfo = {
 			title: '各产品销售概况',
 			time: '2018-04',
 			city: ''
 		};
-		this.ProdSalesValue = [{
+		this.prodSalesValue = [{
 			'prod': '产品一',
 			'market_sale': 123456,
 			'market_growth': 12,
@@ -108,7 +161,7 @@ export default Controller.extend({
 			'achievement_rate': 452,
 			'contribution_rate': 657,
 		}, ];
-		this.ProdSales = [{
+		this.prodSales = [{
 				label: '产品名称',
 				valuePath: 'prod',
 				// width: '100px',
@@ -301,7 +354,16 @@ export default Controller.extend({
 			'cont-month': 42,
 			'cont-season': 45,
 			'cont-year': 656,
+		}, {
+			'prod': '产品9',
+			'market': 356,
+			'sales': 34,
+			'cont': 75,
+			'cont-month': 12,
+			'cont-season': 46,
+			'cont-year': 54,
 		}, ];
-		this.newValue = [2, 2, 2, 2];
+		this.pieValue = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+		this.pieColor = ['#4169E1', '#6495ED', '#2C82BE', '#53A8E2', '#76DDFB', '#ADD8E6', '#B0E0E6', '#40E0D0', '#FFFFE0']
 	},
 });
