@@ -13,7 +13,7 @@
     {{self-table titleInfo=titleInfo model=prodSalesValue columns=prodSales selfheight='230px'}}
 </div>
 
-<div local-class="con" class="col-md-12">
+<div local-class="nopadding" class="container-fluid" >
     <div class="col-md-6 col-sm-12" local-class="nopadding">
         {{pie-chart pieValue=pieValue pieColor=pieColor}}
     </div>
@@ -22,9 +22,7 @@
     </div>
 </div>
 
-{{!-- <div class="province-choose">
-    {{province-choose showMarkerChoose=true market=markets}}
-</div> --}}
+{{province-choose showMarkerChoose=true market=markets}}
 
 <div class="container-fluid" local-class="nopadding">
 	{{#each sales as |item|}}
@@ -32,9 +30,9 @@
 	{{/each}}
 </div>
 
-<div class="province-choose">
+{{!-- <div class="province-choose">
     {{province-choose showMarkerChoose=true market=markets}}
-</div>
+</div> --}}
 
 {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}
 
