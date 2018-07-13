@@ -1,16 +1,56 @@
 import Controller from '@ember/controller';
-
+import {
+	inject
+} from '@ember/service';
 export default Controller.extend({
-    actions: {
-        submit() {
-            Ember.Logger.log(123)
-        }
-    },
-    activeCi: true,
+	ajax: inject(),
+	cookies: inject(),
+	time: '2017-03',
+	actions: {
+		submit() {
+			Ember.Logger.log(123)
+		}
+	},
+	activeCi: true,
+	getAjaxOpt(data) {
+		return {
+			method: 'POST',
+			dataType: "json",
+			cache: false,
+			data: JSON.stringify(data),
+			contentType: "application/json,charset=utf-8",
+			Accpt: "application/json,charset=utf-8",
+		}
+	},
+	/**
+	 *	查询各产品销售贡献度
+	 *
+	 */
+	queryProdCont() {
+		let condition = {
+			"condition": {
+				"user_id": this.get('cookies').read('uid'),
+				"time": this.get('time')
+			}
+		}
+		this.get('ajax').request('api/dashboard/contribution', this.getAjaxOpt(condition))
+			.then(({
+				status,
+				result,
+				error
+			}) => {
+				if (status === 'ok') {
+					console.log('查询各产品销售贡献度(in country)：')
+					console.log(result);
+					this.set('pieValue', result.tableSale.pie);
+				}
+			})
+	},
 	init() {
 		this._super(...arguments);
+		this.queryProdCont();
 		this.markets = ['first', 'second'];
-        this.prodSalesOverview = {
+		this.prodSalesOverview = {
 			title: '辉瑞产品销售额',
 			time: '2018.01-2018.08',
 			currentMonth: '2018-07',
@@ -58,25 +98,25 @@ export default Controller.extend({
 			title: "市场销售总额",
 			subtitle: "2018-02",
 			city: "全国",
-            num:"625.7",
-            yearOnYear:"+4.3%",
-            ringRatio:"+4.5%",
+			num: "625.7",
+			yearOnYear: "+4.3%",
+			ringRatio: "+4.5%",
 		}, {
 			title: "市场销售总额",
 			subtitle: "2018-02",
 			city: "全国",
-            num:"625.7",
-            yearOnYear:"+4.3%",
-            ringRatio:"+4.5%",
-		},{
+			num: "625.7",
+			yearOnYear: "+4.3%",
+			ringRatio: "+4.5%",
+		}, {
 			title: "市场销售总额",
 			subtitle: "2018-02",
 			city: "全国",
-            num:"625.7",
-            yearOnYear:"+4.3%",
-            ringRatio:"+4.5%",
+			num: "625.7",
+			yearOnYear: "+4.3%",
+			ringRatio: "+4.5%",
 		}];
-        this.words = [{
+		this.words = [{
 			title: "产品数量",
 			subtitle: "2018-04",
 			city: "全国",
@@ -100,7 +140,7 @@ export default Controller.extend({
 			subname: '市场名',
 			value: '94.83Mil',
 			percent: '56.6%'
-		},{
+		}, {
 			title: "产品下滑",
 			subtitle: "2018-04",
 			city: "全国",
@@ -265,8 +305,8 @@ export default Controller.extend({
 				minResizeWidth: '70px',
 			}
 		];
-		this.newValue = [2,2,2,2];
-        this.pieValue = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+		this.newValue = [2, 2, 2, 2];
+		this.pieValue = [9, 8, 7, 6, 5, 4, 3, 2, 1];
 		this.pieColor = ['#4169E1', '#6495ED', '#2C82BE', '#53A8E2', '#76DDFB', '#ADD8E6', '#B0E0E6', '#40E0D0', '#FFFFE0']
 	},
 });

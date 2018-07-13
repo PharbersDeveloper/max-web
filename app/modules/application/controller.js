@@ -35,7 +35,7 @@ export default Controller.extend(XmppMessageMixin, {
 				keys(cookies.read()).forEach(item => {
 					cookies.clear(item)
 				});
-				// this.transitionToRoute('/');
+				this.transitionToRoute('/');
 			}, 500);
 		}
 	},

@@ -1,0 +1,22 @@
+// svg {
+// 	font-family: Sans-Serif, Arial;
+// }
+
+:global .multi-lines-choose {
+	:global .line {
+		stroke-width: 2;
+		fill: none;
+	}
+
+	:global .axis path {
+		stroke: black;
+	}
+
+	:global .text {
+		font-size: 12px;
+	}
+
+	:global .title-text {
+		font-size: 12px;
+	}
+}
