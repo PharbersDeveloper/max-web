@@ -121,7 +121,7 @@ export default Controller.extend({
 			subtitle: "2018-04",
 			city: "全国",
 			name: "65",
-			subname: '个',
+			subname: '',
 			value: '',
 			percent: ''
 		}, {
@@ -309,4 +309,6 @@ export default Controller.extend({
 		this.pieValue = [9, 8, 7, 6, 5, 4, 3, 2, 1];
 		this.pieColor = ['#4169E1', '#6495ED', '#2C82BE', '#53A8E2', '#76DDFB', '#ADD8E6', '#B0E0E6', '#40E0D0', '#FFFFE0']
 	},
+
+
 });
