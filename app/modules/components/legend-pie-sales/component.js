@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import d3 from 'd3';
 
 export default Component.extend({
-	classNames: ['col-md-4', 'col-sm-12'],
+	classNames: ['col-md-6', 'col-sm-12'],
 	init() {
 		this._super(...arguments)
 		// this.dataValue = [1,4,6,4];
@@ -63,8 +63,8 @@ export default Component.extend({
 				bottom: 30,
 				left: 20
 			},
-			width = this.$('#pie-chart').width() - margin.left - margin.right,
-			height = 380 - margin.top - margin.bottom,
+			width = this.$('#pie-chart-sales').width() - margin.left - margin.right,
+			height = 400 - margin.top - margin.bottom,
 			radius = 140;
 		var pieData = this.get('pieData');
 		var dataTitle = [];

@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-	tagName: '',
+	tagName: "",
 	showMarkerChoose: true,
 	// defaultDate: new Date('2018-01'),
 	init() {
