@@ -81,7 +81,7 @@ export default Controller.extend({
 			subtitle: "2018-04",
 			city: "全国",
 			name: "65",
-			subname: '个',
+			subname: '',
 			value: '',
 			percent: ''
 		}, {

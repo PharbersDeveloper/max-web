@@ -39,6 +39,7 @@
     .key-word .word-o p {
         clear: both;
         margin-top: 55px;
+        height: 34px;
         font-family: PingFangTC-Regular;
         font-size: 24px;
         color: #4A4A4A;
@@ -52,8 +53,25 @@
         color: #AAAAAA;
         letter-spacing: 0.27px;
         text-align: center;
+        height: 15px;
     }
-
+    .key-word {
+         .word-num {
+             width: 100%;
+             margin: 0 auto;
+         }
+         .word-num p {
+            // display: inline-block;
+            font-size: 36px;
+            padding-right: 10px;
+        }
+        .word-num span {
+            font-family: PingFangTC-Regular;
+            font-size: 12px;
+            color: #1E2429;
+            letter-spacing: 1px;
+        }
+     }
     .trend {
         width: 100%;
         max-width: 200px;
@@ -83,6 +101,9 @@
             float: right;
             margin-right: 20px;
         }
+    }
+    .trend-null {
+        background: #fff;
     }
 }
 .but {
