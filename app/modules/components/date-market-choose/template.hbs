@@ -20,7 +20,7 @@
 		  {{#modal.body}}
 		  <div local-class={{if showMarkerChoose 'market-choose-area' 'market-hidden'}}>
 			  <span local-class="title">市场选择：</span>
-			  <select local-class="choose-market" name="markets" onchange={{ action 'getValue'}}>
+			  <select local-class="choose-market" name="markets" onchange={{ action 'getValue' value="target.value"}}>
 				  <option value="All">全部</option>
 				  {{log market}}
 				  {{#each market as |item|}}
@@ -30,14 +30,14 @@
 		  </div>
 		  <div local-class="time-selects">
 	  		<span>时间选择：</span>
-			<select local-class="choose-market" name="markets">
+			<select local-class="choose-market" name="markets" onchange={{ action 'getValue' value="target.value"}}>
 				<option value="All">2018</option>
 				{{log market}}
 				{{#each market as |item|}}
 					<option value={{item}}>{{item}}</option>
 				{{/each}}
 			</select>
-			<select local-class="choose-market" name="markets">
+			<select local-class="choose-market" name="markets" onchange={{ action 'getValue' value="target.value"}}>
 				<option value="All">04</option>
 				{{log market}}
 				{{#each market as |item|}}
@@ -48,7 +48,7 @@
 		  {{/modal.body}}
 		  {{#modal.footer}}
 			{{#bs-button onClick=(action modal.close)}}取消{{/bs-button}}
-			{{#bs-button type="success" onClick=(action modal.submit)}}保存{{/bs-button}}
+			{{#bs-button type="success" onClick=(action modal.submit ) }}保存{{/bs-button}}
 		  {{/modal.footer}}
 		{{/bs-modal}}
 		{{#bs-button local-class="test" onClick=(action (mut modal3) true)}} 修改筛选条件{{/bs-button}}

@@ -11,7 +11,18 @@
         <div local-class="city">
             <p>• &nbsp;{{card.city}}</p>
         </div>
-        <div local-class="{{if showKeyWord 'key-word' 'word-hidden'}}">
+        {{#if (eq card.subname '')}}
+        <div local-class="key-word key-num">
+            <div local-class="word-o word-num">
+                <p>{{card.name}} <span>个</span></p>
+
+            </div>
+            <div local-class="word-t">
+                <p>{{card.subname}}</p>
+            </div>
+        </div>
+        {{else}}
+        <div local-class="key-word">
             <div local-class="word-o">
                 <p>{{card.name}}</p>
             </div>
@@ -19,18 +30,18 @@
                 <p>{{card.subname}}</p>
             </div>
         </div>
-
+        {{/if}}
         {{#if (eq card.value '')}}
-
+            <div local-class="trend-null trend"></div>
         {{else}}
-        <div local-class="trend">
-            <div local-class="data">
-                <p>{{card.value}}</p>
+            <div local-class="trend">
+                <div local-class="data">
+                    <p>{{card.value}}</p>
+                </div>
+                <div local-class="show">
+                    <p>{{card.percent}}</p>
+                </div>
             </div>
-            <div local-class="show">
-                <p>{{card.percent}}</p>
-            </div>
-        </div>
         {{/if}}
     </div>
 

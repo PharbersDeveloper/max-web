@@ -10,16 +10,17 @@ export default Component.extend({
 		this.defaultDate = new Date('2018-04');
 	},
 	actions: {
+		getValue: function(params) {
+            console.log(params);
+			// var opt = this.get(params);
+        },
+
         submit() {
             Ember.Logger.log(123);
-			var market = this.get('ALl');
-
-			console.info(market);
-			// var time = this.get('')
+			var aaa = "a";
+			console.info(aaa);
+			// this.set()
         },
-		getValue: function(params) {
-            //  获取选中的值
-            console.log(params);
-        }
+
     }
 });

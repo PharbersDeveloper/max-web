@@ -1,9 +1,19 @@
 import Component from '@ember/component';
+import {
+	run
+} from '@ember/runloop'
+import {
+	get
+} from '@ember/object'
 import d3 from 'd3';
 
 export default Component.extend({
-	tagName: 'div',
-	classNames: ['prod-sales-container'],
+	// tagName: 'div',
+	tagName: 'svg',
+	classNames: ['col-md-12', 'col-sm-12', 'prod-sales-container'],
+	width: 520,
+	height: 260,
+	attributeBindings: ['width', 'height'],
 	init() {
 		this._super(...arguments);
 		// this.line = {
@@ -16,52 +26,58 @@ export default Component.extend({
 		// 	totle: 146534563,
 		// 	ave: 34572452,
 		// };
-		this.testData = [{
-			date: '2018-01',
-			sales: '400'
-		}, {
-			date: '2018-02',
-			sales: '700'
-		}, {
-			date: '2018-03',
-			sales: '500'
-		}, {
-			date: '2018-04',
-			sales: '500'
-		}, {
-			date: '2018-05',
-			sales: '700'
-		}, {
-			date: '2018-06',
-			sales: '500'
-		}, {
-			date: '2018-07',
-			sales: '800'
-		}, {
-			date: '2018-08',
-			sales: 0
-		}, {
-			date: '2018-09',
-			sales: 0
-		}, {
-			date: '2018-10',
-			sales: 0
-		}, {
-			date: '2018-11',
-			sales: 0
-		}, {
-			date: '2018-12',
-			sales: 0
-		}, ]
+		// this.testData = [{
+		// 	ym: '2018-01',
+		// 	sales: 400
+		// }, {
+		// 	ym: '2018-02',
+		// 	sales: 700
+		// }, {
+		// 	ym: '2018-03',
+		// 	sales: 500
+		// }, {
+		// 	ym: '2018-04',
+		// 	sales: 500
+		// }, {
+		// 	ym: '2018-05',
+		// 	sales: 700
+		// }, {
+		// 	ym: '2018-06',
+		// 	sales: 500
+		// }, {
+		// 	ym: '2018-07',
+		// 	sales: 800
+		// }, {
+		// 	ym: '2018-08',
+		// 	sales: 0
+		// }, {
+		// 	ym: '2018-09',
+		// 	sales: 0
+		// }, {
+		// 	ym: '2018-10',
+		// 	sales: 0
+		// }, {
+		// 	ym: '2018-11',
+		// 	sales: 0
+		// }, {
+		// 	ym: '2018-12',
+		// 	sales: 0
+		// }, ]
 	},
-	didInsertElement() {
-		this._super(...arguments);
-		let predata = this.get('tableData');
 
+	didReceiveAttrs() {
+		run.scheduleOnce('render', this, this.drawLine);
+	},
+	drawLine() {
+		let theLine = d3.select(this.element)
+		let width = get(this, 'width')
+		let height = get(this, 'height')
+		let predata = this.get('tableData');
+		// let predata = this.get('testData');
 		let data = [];
 		predata.map(function(item, index) {
 			let itemObject = {};
-			itemObject.date = new Date(item.date);
+			itemObject.date = new Date(item.ym);
 			itemObject.sales = item.sales;
 			data.push(itemObject)
 		})
@@ -71,65 +87,46 @@ export default Component.extend({
 		// 定义动画持续时间
 		var duration = 300;
 		var margin = {
-				top: 40,
-				right: 20,
-				bottom: 30,
-				left: 20
-			},
+			top: 40,
+			right: 20,
+			bottom: 30,
+			left: 20
+		};
 
-			// width = document.body.clientWidth - margin.left - margin.right,
-			width = this.$('#prod-sales').width() - margin.left - margin.right,
-			// height = 380 - margin.top - margin.bottom;
-			height = 210;
-		//	var parseDate = d3.time.format('%Y-%m-%d').parse;	//v3
+		// width = this.$('#prod-sales').width() - margin.left - margin.right,
+		// width = 800;
+		// height = 380 - margin.top - margin.bottom;
 		var parseDate = d3.timeFormat('%Y-%m'); //v4
 
 		// var x = d3.time.scale()
 		var x = d3.scaleTime()
 			// .domain([0, 100])
 			.range([0, width - 20]);
-
 		// var y = d3.scale.linear()	//v3
 		var y = d3.scaleLinear()
-
 			// .domain([0, 100])
 			.range([height, 0]);
-
 		// var xAxis = d3.svg.axis()		//v3
 		var xAxis = d3.axisBottom()
 			.scale(x)
-			// .orient('bottom')
-			// .tickFormat(function(d, i) {
-			//   // return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-');
-			//   // return [d.getMonth() + 1, d.getDate()].join('-');
-			//   var date = d.getDate();
-			//   return date < 10 ? '0' + date : date;
-			// })
-			// 相同的效果
 			.tickFormat(d3.timeFormat('%Y-%m'))
 			.ticks(data.length);
 
 		var yAxis = d3.axisLeft()
 			.scale(y)
-			// .orient('left')
 			.ticks(6);
 
 		var xGridAxis = d3.axisBottom()
 			.scale(x)
-		// .orient('bottom');
 
 		var yGridAxis = d3.axisLeft()
 			.scale(y)
-		// .orient('left');
 
-		// 	var line = d3.svg.line()	//v3
 		var line = d3.line()
-
 			.x(function(d) {
 				return x(d.date);
 			})
 			.y(function(d) {
-				// return y(d.pv);
 				return y(d.sales)
 			})
 			.curve(d3.curveLinear)
@@ -144,9 +141,10 @@ export default Component.extend({
 				return y(d.y);
 			});
 
-		var container = d3.select(this.$('#prod-sales')[0])
-			.append('svg')
-			.attr("width", '100%')
+		// var container = d3.select(this.$('#prod-sales')[0])
+		// 	.append('svg')
+		let container = theLine
+			// .attr("width", '100%')
 			.attr('height', height + margin.top + margin.bottom)
 			.attr('viewBox', '0 0 560 280')
 			.attr('preserveAspectRatio', 'xMinYMid', 'meet')
@@ -161,7 +159,7 @@ export default Component.extend({
 			svg = container.append('g')
 				.attr('class', 'content')
 				.attr('class', 'col-md-12')
-				.attr('transform', 'translate(' + 30 + ',' + margin.top + ')');
+				.attr('transform', 'translate(' + 40 + ',' + 0 + ')');
 
 			function draw() {
 				data.forEach(function(d) {
@@ -172,7 +170,6 @@ export default Component.extend({
 					d.sales = d.sales
 				});
 				let yMax = d3.max(data, function(d) {
-					// return d.pv;
 					return d.sales;
 				});
 				x.domain(d3.extent(data, function(d) {
@@ -184,7 +181,7 @@ export default Component.extend({
 					.attr('class', 'title')
 					.text('产品销售额')
 					.attr('x', width / 2)
-					.attr('y', height + 30);
+					.attr('y', height);
 
 				svg.append('g')
 					.attr('class', 'x axis')
@@ -303,7 +300,6 @@ export default Component.extend({
 						return '日期：' + d3.timeFormat('%Y-%m-%d')(d.date);
 					}
 					wording1.text(formatWording(d));
-					// wording2.text('PV：' + d.pv);
 					wording2.text('销售额：' + d.sales)
 					var x1 = x(d.date),
 						// y1 = y(d.pv);
@@ -325,5 +321,6 @@ export default Component.extend({
 
 			draw();
 		}
-	}
+
+	},
 });
