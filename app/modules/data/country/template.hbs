@@ -9,7 +9,12 @@
 		{{/each}}
 	</div>
 
-	{{line-multi }}
+	{{!-- {{line-multi }} --}}
+	<div class="container-fluid" local-class='nopadding multi-line'>
+		{{!-- {{line-mulit-choose }} --}}
+		{{multi-line-market }}
+	</div>
+
 
 	<div class="container-fluid" local-class="nopadding">
 		{{#each words as |item|}}
@@ -23,6 +28,32 @@
 			{{legend-pie-sales pieData=pieValue}}
 		</div>
 		<div class="col-md-6 col-sm-12" local-class="nopadding horizontal-histogram">
+			<p local-class="his-title"><span>各产品份额</span><span>{{time}}</span></p>
+			<p local-class="choose-type"><span>数据类型：</span> <select class="" name="">
+				<option value="">aa</option>
+				<option value="">bb</option>
+			</select> </p>
+			<div local-class="histogram">
+				<div local-class="share" class="container-fluid">
+					<div class="col-md-4 col-sm-4 col-xs-4">
+
+					</div>
+					<div class="col-md-8 col-sm-8 col-xs-8">
+						<div class="row">
+							<span class="col-md-2 col-sm-2 col-xs-2">10k</span>
+							<span class="col-md-2 col-sm-2 col-xs-2">20k</span>
+							<span class="col-md-2 col-sm-2 col-xs-2">30k</span>
+							<span class="col-md-2 col-sm-2 col-xs-2">40k</span>
+							<span class="col-md-2 col-sm-2 col-xs-2">50k</span>
+							<span class="col-md-2 col-sm-2 col-xs-2">60k</span>
+						</div>
+					</div>
+				</div>
+				{{#each share as |item|}}
+				{{pord-histogram data=item}}
+
+				{{/each}}
+			</div>
 			{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
 		</div>
 	</div>
@@ -31,5 +62,5 @@
 		<p local-class="table-title"><span>市场竞品销售概况</span><span>{{time}}</span></p>
 		{{self-table titleInfo=titleInfo model=ProdSalesValue columns=ProdSales selfheight='270px'}}
 	</div>
-	{{line-mulit-choose }}
+	{{!-- {{line-mulit-choose }} --}}
 	{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}

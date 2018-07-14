@@ -60,6 +60,32 @@ export default Controller.extend({
 			totle: 146534563,
 			ave: 34572452,
 		};
+		//各产品份额
+		this.share = [{
+            no: 1,
+            prod: "prod2",
+            manu: "生产商2",
+            growth: 4,
+            value: 38
+        },{
+            no: 2,
+            prod: "prod1",
+            manu: "生产商1",
+            growth: 2,
+            value: 11
+        },{
+            no: 3,
+            prod: "prod3",
+            manu: "生产商4",
+            growth: -6,
+            value: 46
+        },{
+            no: 4,
+            prod: "prod5",
+            manu: "生产商5",
+            growth: 0,
+            value: 29
+        }];
 		this.prodSalesTable = [{
 			date: new Date('2018-01'),
 			sales: 500
