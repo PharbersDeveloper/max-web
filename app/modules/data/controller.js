@@ -1,8 +1,11 @@
 import Controller from '@ember/controller';
-
+import {
+	inject
+} from '@ember/service';
 export default Controller.extend({
-	account: 'alexguo@pharbers.com',
-	fullName: 'user-name',
+	ajax: inject(),
+	cookies: inject(),
+	fullName: '',
 	getAjaxOpt(data) {
 		return {
 			method: 'POST',
@@ -27,13 +30,13 @@ export default Controller.extend({
 		}) => {
 			if (status === 'ok') {
 				console.log(result);
-				// let {
-				// 	user: {
-				// 		screen_name,
-				// 		email
-				// 	}
-				// } = result
-				// this.set('fullName', screen_name)
+				let {
+					user: {
+						screen_name,
+						email
+					}
+				} = result
+				this.set('fullName', screen_name)
 				// this.set('account', email)
 			} else {
 				this.set('errorMessage', error.message);
@@ -42,7 +45,7 @@ export default Controller.extend({
 	},
 	init() {
 		this._super(...arguments);
-		// this.queryUserInfo();
+		this.queryUserInfo();
 		this.columnsHospital = [{
 				label: '产品名称',
 				valuePath: 'prod',

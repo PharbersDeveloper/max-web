@@ -8,9 +8,11 @@
         <div local-class="subtitle">
             <p>{{card.subtitle}}</p>
         </div>
-        <div local-class="city">
-            <p>• &nbsp;{{card.city}}</p>
-        </div>
+        {{#if (eq card.city '')}}
+            <div local-class="city">
+                <p>• &nbsp;{{card.city}}</p>
+            </div>
+        {{/if}}
         <div local-class="key-word">
             <div local-class="word-o">
                 <p>{{card.name}}</p>

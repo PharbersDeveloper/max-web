@@ -1,6 +1,94 @@
 .nopadding {
 	padding: 0;
+
+	.title {
+		height: 20px;
+		line-height: 20px;
+		font-size: 0;
+
+		span:first-child {
+			margin-right: 10px;
+			font-size: 14px;
+			// font-weight: 700;
+			color: #485465;
+			letter-spacing: 1.08px;
+		}
+
+		span:nth-child(2) {
+			font-size: 12px;
+			color: #9D9D9D;
+			letter-spacing: 1px;
+		}
+	}
 }
+
+.pie-histogram {
+	padding: 10px 15px;
+
+	.legend-pie-container {
+		// margin-right: 10px;
+		padding: 5px 10px;
+		border-radius: 3px;
+		background-color: #FFF;
+		box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
+
+		.pie-title {
+			height: 20px;
+			line-height: 20px;
+			font-size: 0;
+
+			span:first-child {
+				margin-right: 10px;
+				font-size: 14px;
+				// font-weight: 700;
+				color: #485465;
+				letter-spacing: 1.08px;
+			}
+
+			span:nth-child(2) {
+				font-size: 12px;
+				color: #9D9D9D;
+				letter-spacing: 1px;
+			}
+		}
+	}
+
+	.horizontal-histogram {
+		// margin-left: 10px;
+		border-radius: 3px;
+		background: #FFFFFF;
+		box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
+	}
+}
+
+.competing-products-table {
+	margin: 15px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	background-color: #FFF;
+	box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
+
+	.table-title {
+		height: 20px;
+		line-height: 20px;
+		font-size: 0;
+
+		span:first-child {
+			margin-right: 10px;
+			font-size: 14px;
+			// font-weight: 700;
+			color: #485465;
+			letter-spacing: 1.08px;
+		}
+
+		span:nth-child(2) {
+			font-size: 12px;
+			color: #9D9D9D;
+			letter-spacing: 1px;
+		}
+	}
+}
+
 .con {
 	width: 100%;
 }

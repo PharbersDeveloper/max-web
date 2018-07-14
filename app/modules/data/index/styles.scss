@@ -1,6 +1,135 @@
 .nopadding {
 	padding: 0;
 }
+// .line-sales {}
+
+.line-sales {
+	// padding: 5px 10px;
+	// font-size: 12px;
+	// font-family: $font-family;
+	margin: 15px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	background: #FFF;
+	box-shadow: 0 1px 5px 2px rgba(215,215,215,0.50);
+
+	.title {
+		height: 20px;
+		line-height: 20px;
+		font-size: 0;
+
+		span:first-child {
+			margin-right: 10px;
+			font-size: 14px;
+			// font-weight: 700;
+			color: #485465;
+			letter-spacing: 1.08px;
+		}
+
+		span:nth-child(2) {
+			font-size: 12px;
+			color: #9D9D9D;
+			letter-spacing: 1px;
+		}
+	}
+
+	.overview {
+		div {
+			padding: 2px;
+		}
+
+		.total-left {
+			.current-mo {
+				padding-left: 15px;
+				margin: 0;
+				font-size: 12px;
+				color: #575C6C;
+				letter-spacing: 1px;
+			}
+
+			.left {
+				display: inline-block;
+				vertical-align: top;
+				height: 50px;
+				line-height: 50px;
+				font-size: 36px;
+				color: #485465;
+				letter-spacing: 1px;
+
+				span:last-child {
+					margin-left: 10px;
+					font-size: 14px;
+					color: #1E2429;
+					letter-spacing: 1px;
+					line-height: 50px;
+				}
+			}
+
+			.right {
+				display: inline-block;
+				vertical-align: top;
+				margin-left: 10px;
+				font-size: 12px;
+				color: #485465;
+				letter-spacing: 1px;
+
+				.growth {
+					padding-left: 10px;
+					color: #60B3AD;
+				}
+			}
+		}
+
+		.total-right {
+			padding-left: 10px;
+			border-left: 1px solid #979797;
+			font-size: 14px;
+			color: #485465;
+			letter-spacing: 1px;
+
+			p {
+				margin-top: 5px;
+				margin-bottom: 0;
+				height: 20px;
+				line-height: 20px;
+
+				span:first-child {
+					display: inline-block;
+					width: 30%;
+				}
+
+				span:last-child {
+					display: inline-block;
+					width: 66%;
+					text-align: right;
+				}
+			}
+		}
+	}
+}
+
+.table-persales {
+	margin: 15px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	background: #FFF;
+	box-shadow: 0 1px 5px 2px rgba(215,215,215,0.50);
+
+	.pie-title {
+		span:first-child {
+			font-size: 14px;
+			color: #485465;
+			letter-spacing: 1px;
+		}
+
+		span:last-child {
+			margin-left: 10px;
+			font-size: 10px;
+			color: #9D9D9D;
+			letter-spacing: 1px;
+		}
+	}
+}
 
 .pie-table {
 	margin: 15px;

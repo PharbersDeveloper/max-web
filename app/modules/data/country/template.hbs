@@ -1,35 +1,35 @@
 {{!-- {{outlet}} --}}
 {{!-- {{data-choose activeCo=true}} --}}
 {{!-- {{pie-chart }} --}}
-{{data-choose activeCo=true}} {{date-market-choose showMarkerChoose=true market=markets}}
+{{data-choose activeCo=true}} {{!-- {{line-prod-sales }} --}}
 
-{{!-- {{line-prod-sales }} --}}
+	<div class="container-fluid" local-class="nopadding">
+		{{#each cards as |item|}}
+			{{sales-word card=item}}
+		{{/each}}
+	</div>
 
-<div class="container-fluid" local-class="nopadding">
-	{{#each cards as |item|}}
-		{{sales-word card=item}}
-	{{/each}}
-</div>
+	{{line-multi }}
 
-{{line-multi }}
+	<div class="container-fluid" local-class="nopadding">
+		{{#each words as |item|}}
+			{{most-word card=item}}
+		{{/each}}
+	</div>
 
-<div class="container-fluid" local-class="nopadding">
-	{{#each words as |item|}}
-		{{most-word card=item}}
-	{{/each}}
-</div>
+	<div class="container-fluid" local-class="pie-histogram">
+		<div class="col-md-6 col-sm-12" local-class="nopadding legend-pie-container">
+			<p local-class="pie-title"><span>各产品份额</span><span>{{time}}</span></p>
+			{{legend-pie-sales pieData=pieValue}}
+		</div>
+		<div class="col-md-6 col-sm-12" local-class="nopadding horizontal-histogram">
+			{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
+		</div>
+	</div>
 
-<div class="con">
-    <div class="col-md-6 col-sm-12" local-class="nopadding">
-        {{pie-chart pieValue=pieValue pieColor=pieColor}}
-    </div>
-    <div class="col-md-6 col-sm-12" local-class="nopadding">
-        {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}
-    </div>
-</div>
-
-<div local-class="table-li">
-    {{self-table titleInfo=titleInfo model=ProdSalesValue columns=ProdSales selfheight='230px'}}
-</div>
-
-{{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}
+	<div local-class="competing-products-table">
+		<p local-class="table-title"><span>市场竞品销售概况</span><span>{{time}}</span></p>
+		{{self-table titleInfo=titleInfo model=ProdSalesValue columns=ProdSales selfheight='270px'}}
+	</div>
+	{{line-mulit-choose }}
+	{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
