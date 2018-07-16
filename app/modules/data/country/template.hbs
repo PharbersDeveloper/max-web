@@ -12,7 +12,9 @@
 	{{!-- {{line-multi }} --}}
 	<div class="container-fluid" local-class='nopadding multi-line'>
 		{{!-- {{line-mulit-choose }} --}}
-		{{multi-line-market }}
+		<p local-class="market-title"><span>各产品份额</span><span>{{time}}</span></p>
+
+		{{multi-line-market mulitLineData=multiData}}
 	</div>
 
 
@@ -40,18 +42,14 @@
 					</div>
 					<div class="col-md-8 col-sm-8 col-xs-8">
 						<div class="row">
-							<span class="col-md-2 col-sm-2 col-xs-2">10k</span>
-							<span class="col-md-2 col-sm-2 col-xs-2">20k</span>
-							<span class="col-md-2 col-sm-2 col-xs-2">30k</span>
-							<span class="col-md-2 col-sm-2 col-xs-2">40k</span>
-							<span class="col-md-2 col-sm-2 col-xs-2">50k</span>
-							<span class="col-md-2 col-sm-2 col-xs-2">60k</span>
+							{{#each rankingRange as |item|}}
+								<span class="col-md-2 col-sm-2 col-xs-2">{{item}}k</span>
+							{{/each}}
 						</div>
 					</div>
 				</div>
-				{{#each share as |item|}}
-				{{pord-histogram data=item}}
-
+				{{#each ranking as |item|}}
+					{{pord-histogram data=item}}
 				{{/each}}
 			</div>
 			{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}

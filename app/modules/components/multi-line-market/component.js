@@ -8,93 +8,16 @@ import {
 import d3 from 'd3';
 export default Component.extend({
     tagName: 'svg',
-    classNames: ['col-md-12', 'simple-line'],
+    classNames: ['col-md-12','col-sm-12','col-xs-12', 'simple-line'],
     init() {
         this._super(...arguments);
-        this.data = [{
-                // "date": '1-May-12',
-                "date": "18-01",
-                "marketSales": 27,
-                "prodSales": 15,
-                "open": 5
-            }, {
-                // "date": '30-Apr-13',
-                "date": "18-02",
-                "marketSales": 26,
-                "prodSales": 15,
-                "open": 4
-            }, {
-                // "date": '27-Apr-14',
-                "date": "18-03",
-
-                "marketSales": 27,
-                "prodSales": 15,
-                "open": 5
-            }, {
-                // "date": '27-Apr-15',
-                "date": "18-04",
-                "marketSales": 26,
-                "prodSales": 15,
-                "open": 4
-            },
-            {
-                // "date": '27-Apr-15',
-                "date": "18-05",
-                "marketSales": 27,
-                "prodSales": 15,
-                "open": 5
-            }, {
-                // "date": '27-Apr-15',
-                "date": "18-06",
-                "marketSales": 26,
-                "prodSales": 15,
-                "open": 4
-            }, {
-                // "date": '27-Apr-15',
-                "date": "18-07",
-                "marketSales": 27,
-                "prodSales": 15,
-                "open": 5
-            }, {
-                // "date": '27-Apr-15',
-                "date": "18-08",
-                "marketSales": 26,
-                "prodSales": 15,
-                "open": 4
-            }, {
-                // "date": '27-Apr-15',
-                "date": "18-09",
-                "marketSales": 27,
-                "prodSales": 15,
-                "open": 5
-            }, {
-                // "date": '27-Apr-15',
-                "date": "18-10",
-                "marketSales": 26,
-                "prodSales": 15,
-                "open": 4
-            }, {
-                // "date": '27-Apr-15',
-                "date": "18-11",
-                "marketSales": 27,
-                "prodSales": 15,
-                "open": 5
-            }, {
-                // "date": '27-Apr-15',
-                "date": "18-12",
-                "marketSales": 26,
-                "prodSales": 15,
-                "open": 4
-            },
-
-
-        ];
+        // this.data = [];
     },
     didReceiveAttrs() {
         run.scheduleOnce('render', this, this.drawSimpleLine)
     },
     drawSimpleLine() {
-        let data = this.get('data');
+        let data = this.get('mulitLineData');
         var svg = d3.select(this.element)
         // set the dimensions and margins of the graph
         var margin = {
@@ -104,11 +27,11 @@ export default Component.extend({
                 left: 50
             },
             width = 960 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
+            height = 360 - margin.top - margin.bottom;
 
         // parse the date / time
         // var parseTime = d3.timeParse("%d-%b-%y");
-        var parseTime = d3.timeParse("%y-%m");
+        var parseTime = d3.timeParse("%Y-%m");
 
         // set the ranges
         var x = d3.scaleTime().range([0, width]);
@@ -140,21 +63,23 @@ export default Component.extend({
                 return x(d.date);
             })
             .y(function(d) {
-                // return y2(Math.log(d.open));
-                return y2(d.open);
+                // return y2(Math.log(d.share));
+                return y2(d.share);
             });
 
         // append the svg obgect to the body of the page
         // appends a 'group' element to 'svg'
         // moves the 'group' element to the top left margin
         svg
-            // .attr("width", width + margin.left + margin.right)
-            // .attr("height", height + margin.top + margin.bottom)
-            .attr('preserveAspectRatio', 'xMidYMid meet')
-            .attr('viewBox', '0 0 1200 500')
+            // .attr("width",'100%')
+            .attr('padding','0 20px')
+            .attr('min-width',553)
+            .attr("height", 268)
+            // .attr('preserveAspectRatio', 'xMidYMid','meet')
+            .attr('preserveAspectRatio','none')
+            .attr('viewBox', '-20 0 900 348')
             .append("g")
-            .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
+            .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
         // Get the data
         // d3.csv("data4.csv", function(error, data) {
@@ -165,11 +90,12 @@ export default Component.extend({
             d.date = parseTime(d.date);
             d.marketSales = +d.marketSales;
             d.prodSales = +d.prodSales;
-            d.open = +d.open;
+            d.share = +d.share;
         });
 
-        // Scale the range of the data
+        // Scale the range of the data\
         x.domain(d3.extent(data, function(d) {
+            // console.log(d.date)
             return d.date;
         }));
         let y0Max = d3.max(data, function(d) {
@@ -184,8 +110,8 @@ export default Component.extend({
         });
         y1.domain([0, (y1Max / 3 + y1Max)]);
         let y2Max = d3.max(data, function(d) {
-            // return Math.max(Math.log(d.open));
-            return Math.max(d.open)
+            // return Math.max(Math.log(d.share));
+            return Math.max(d.share)
         });
         y2.domain([0, (y2Max/3 + y2Max)]);
 
@@ -226,13 +152,13 @@ export default Component.extend({
         svg.append("g")
             .attr("class", "axisRed")
             .attr("transform", "translate( " + width + ", 0 )")
-            .call(d3.axisRight(y1));
+            .call(d3.axisRight(y2));
 
         // Add the Y2 Axis
-        svg.append("g")
-            .attr("class", "axisPurple")
-            .attr("transform", "translate( " + width + ", 0 )")
-            .call(d3.axisLeft(y2).ticks(7));
+        // svg.append("g")
+        //     .attr("class", "axisPurple")
+        //     .attr("transform", "translate( " + width + ", 0 )")
+        //     .call(d3.axisLeft(y2).ticks(7));
 
         // });
         // gridlines in x axis function
