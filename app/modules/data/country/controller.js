@@ -6,7 +6,7 @@ export default Controller.extend({
     ajax: inject(),
     cookies: inject(),
     time: '2017-03',
-	rankingMax: 0,
+    rankingMax: 0,
     actions: {
         submit() {
             Ember.Logger.log(123)
@@ -14,44 +14,44 @@ export default Controller.extend({
     },
     activeCi: true,
 
-	computedRankingMax(){
-		let ranking = this.get('ranking');
-		let range = 0;
-		let valueArr = [];
-		ranking.map(function(item) {
-			valueArr.push(Math.round(item.value));
-		})
+    computedRankingMax() {
+        let ranking = this.get('ranking');
+        let range = 0;
+        let valueArr = [];
+        ranking.map(function(item) {
+            valueArr.push(Math.round(item.value));
+        })
 
-		let maxValue = Math.max(...valueArr);
-		this.set('rankingMax',maxValue);
-		// let maxValue = 34.3;
-		if(maxValue < 10) {
-			// return 10;
-			range = 2;
-			// let rankingRangeArr = [0,2,4,6,8,10];
-		} else {
-			let maxAsArr = String(Math.round(maxValue/5)).split("");
-			let firstMax = Number(maxAsArr[0]);
-			let restMax = maxAsArr.length -1;
-			// console.log((firstMax+1)*(Math.pow(10,(restMax))));
-			range = (firstMax+1)*(Math.pow(10,(restMax)));
-		}
-			let rankingRangeArr = [];
-			for(let i=0;i<=5;i++) {
-				rankingRangeArr.push(i*range)
-			}
-			this.set('rankingRange',rankingRangeArr)
-			console.log(rankingRangeArr)
-			// }
-			// if(Number(maxAsArr[1]) < 5) {
-			// 	// return Number(firstMax + 5*(Math.pow(10,restMax)));
-			// 	console.log(Number(firstMax + 5*(Math.pow(10,restMax))))
-			// }else {
-			// 	// return (firstMax+1)*(Math.pow(10,(restMax+1)));
-			// 	console.log((firstMax+1)*(Math.pow(10,(restMax+1))));
-			// }
+        let maxValue = Math.max(...valueArr);
+        this.set('rankingMax', maxValue);
+        // let maxValue = 34.3;
+        if (maxValue < 10) {
+            // return 10;
+            range = 2;
+            // let rankingRangeArr = [0,2,4,6,8,10];
+        } else {
+            let maxAsArr = String(Math.round(maxValue / 5)).split("");
+            let firstMax = Number(maxAsArr[0]);
+            let restMax = maxAsArr.length - 1;
+            // console.log((firstMax+1)*(Math.pow(10,(restMax))));
+            range = (firstMax + 1) * (Math.pow(10, (restMax)));
+        }
+        let rankingRangeArr = [];
+        for (let i = 0; i <= 5; i++) {
+            rankingRangeArr.push(i * range)
+        }
+        this.set('rankingRange', rankingRangeArr)
+        console.log(rankingRangeArr)
+        // }
+        // if(Number(maxAsArr[1]) < 5) {
+        // 	// return Number(firstMax + 5*(Math.pow(10,restMax)));
+        // 	console.log(Number(firstMax + 5*(Math.pow(10,restMax))))
+        // }else {
+        // 	// return (firstMax+1)*(Math.pow(10,(restMax+1)));
+        // 	console.log((firstMax+1)*(Math.pow(10,(restMax+1))));
+        // }
 
-	},
+    },
     getAjaxOpt(data) {
         return {
             method: 'POST',
@@ -88,22 +88,87 @@ export default Controller.extend({
     },
     init() {
         this._super(...arguments);
+        this.pieValue = [];
+        //  折线图-市场产品趋势
+        this.multiData = [{
+                "date": "2017-01",
+                "marketSales": 27,
+                "prodSales": 15,
+                "share": 20
+            }, {
+                "date": "2017-02",
+                "marketSales": 26,
+                "prodSales": 15,
+                "share": 25
+            }, {
+                "date": "2017-03",
+                "marketSales": 27,
+                "prodSales": 15,
+                "share": 20
+            }, {
+                "date": "2017-04",
+                "marketSales": 26,
+                "prodSales": 15,
+                "share": 25
+            },
+            {
+                "date": "2017-05",
+                "marketSales": 27,
+                "prodSales": 15,
+                "share": 20
+            }, {
+                "date": "2017-06",
+                "marketSales": 26,
+                "prodSales": 15,
+                "share": 25
+            }, {
+                "date": "2017-07",
+                "marketSales": 27,
+                "prodSales": 15,
+                "share": 20
+            }, {
+                "date": "2017-08",
+                "marketSales": 26,
+                "prodSales": 15,
+                "share": 25
+            }, {
+                "date": "2017-09",
+                "marketSales": 27,
+                "prodSales": 15,
+                "share": 20
+            }, {
+                "date": "2017-10",
+                "marketSales": 26,
+                "prodSales": 15,
+                "share": 28
+            }, {
+                "date": "2017-11",
+                "marketSales": 27,
+                "prodSales": 15,
+                "share": 20
+            }, {
+                "date": "2017-12",
+                "marketSales": 26,
+                "prodSales": 15,
+                "share": 25
+            },
+        ];
         this.queryProdCont();
-		this.ranking = [{
+        this.ranking = [{
             no: 1,
             prod: "prod2",
             manu: "生产商2",
             growth: 4,
             value: 38
-        },{
+        }, {
             no: 1,
             prod: "prod2",
             manu: "生产商2",
             growth: 4,
             value: 38
         }];
-		this.rankingRange = [];
-		this.computedRankingMax();
+        this.rankingRange = [];
+        this.computedRankingMax();
         this.markets = ['first', 'second'];
         this.prodSalesOverview = {
             title: '辉瑞产品销售额',
@@ -386,74 +451,7 @@ export default Controller.extend({
                 minResizeWidth: '70px',
             }
         ];
-        this.multiData = [{
-                "date": "2017-01",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-02",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 25
-            }, {
-                "date": "2017-03",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-04",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 25
-            },
-            {
-                "date": "2017-05",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-06",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 25
-            }, {
-                "date": "2017-07",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-08",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 25
-            }, {
-                "date": "2017-09",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-10",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 28
-            }, {
-                "date": "2017-11",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-12",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 25
-            },
-        ];
 
-
-        this.newValue = [2, 2, 2, 2];
-        this.pieValue = [9, 8, 7, 6, 5, 4, 3, 2, 1];
-        this.pieColor = ['#4169E1', '#6495ED', '#2C82BE', '#53A8E2', '#76DDFB', '#ADD8E6', '#B0E0E6', '#40E0D0', '#FFFFE0']
     },
 
 

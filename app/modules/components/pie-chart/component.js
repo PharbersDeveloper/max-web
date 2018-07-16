@@ -25,7 +25,7 @@ export default Component.extend({
 			bottom: 30,
 			left: 20
 		};
-		this.pieData = [
+		// this.pieData = [];
 			/*{
 					'prod': '产品一',
 					'sales': 12,
@@ -73,9 +73,7 @@ export default Component.extend({
 					'color': 'skyblue'
 				},
 			*/
-		];
-		this.legendValue = ['aa', 'bb', 'cc', 'dd'];
-		this.colorValue = ['red', 'lightblue', 'green', 'orange', 'gray', 'pink'];
+		// ];
 	},
 	/*
 		didInsertElement() {
@@ -166,7 +164,7 @@ export default Component.extend({
 		},
 	*/
 	didReceiveAttrs() {
-		run.scheduleOnce('render', this, this.drawLegendPie)
+		run.schedule('render', this, this.drawLegendPie)
 	},
 
 	drawLegendPie() {
@@ -183,6 +181,7 @@ export default Component.extend({
 		var dataTitle = [];
 		var pieColor = [];
 		var pieValue = [];
+		console.log('this is from pie-chart')
 		pieData.map(function(item, index) {
 			dataTitle.push(item.prod);
 		});

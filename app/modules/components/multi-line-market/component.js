@@ -14,10 +14,12 @@ export default Component.extend({
         // this.data = [];
     },
     didReceiveAttrs() {
-        run.scheduleOnce('render', this, this.drawSimpleLine)
+        run.schedule('render', this, this.drawSimpleLine)
     },
     drawSimpleLine() {
         let data = this.get('mulitLineData');
+        let lineNames = ['市场销售额', '产品销售额', '产品份额'];
+        let lineColor = ["#FA6F80", "#7CFFE2", "#868CE9"];
         var svg = d3.select(this.element)
         // set the dimensions and margins of the graph
         var margin = {
@@ -74,7 +76,7 @@ export default Component.extend({
             // .attr("width",'100%')
             .attr('padding','0 20px')
             .attr('min-width',553)
-            .attr("height", 268)
+            .attr("height", 368)
             // .attr('preserveAspectRatio', 'xMidYMid','meet')
             .attr('preserveAspectRatio','none')
             .attr('viewBox', '-20 0 900 348')
@@ -187,7 +189,47 @@ export default Component.extend({
             .call(make_y_gridlines()
                 .tickSize(-width)
                 .tickFormat("")
-            )
-
+            );
+        //   绘制图例
+        //添加图例
+		var legend = svg.append("g");
+		addLegend();
+		function addLegend() {
+			var textGroup = legend.selectAll("text")
+				.data(lineNames);
+			textGroup.exit().remove();
+			legend.selectAll("text")
+				.data(lineNames)
+				.enter()
+				.append("text")
+				.text(function(d) {
+					return d;
+				})
+				.attr("class", "legend")
+				.attr("x", function(d, i) {
+					return i * 100;
+				})
+				.attr("y", 0)
+				.attr("fill", function(d, i) {
+					return lineColor[i];
+				});
+			var rectGroup = legend.selectAll("rect")
+				.data(lineNames);
+			rectGroup.exit().remove();
+			legend.selectAll("rect")
+				.data(lineNames)
+				.enter()
+				.append("rect")
+				.attr("x", function(d, i) {
+					return i * 100 - 20;
+				})
+				.attr("y", -10)
+				.attr("width", 12)
+				.attr("height", 12)
+				.attr("fill", function(d, i) {
+					return lineColor[i];
+				});
+			legend.attr("transform", "translate(" + ((width - lineNames.length * 100) / 2) + "," + (height +30) + ")");
+		}
     }
 });

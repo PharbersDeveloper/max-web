@@ -25,7 +25,7 @@ export default Component.extend({
 			bottom: 30,
 			left: 20
 		};
-		this.pieData = [];
+		// this.pieData = [];
 		/*	this.pieData = [
 						{
 								'prod': '产品一',
@@ -272,7 +272,7 @@ export default Component.extend({
 			},
 	*/
 	didReceiveAttrs() {
-		run.scheduleOnce('render', this, this.drawLegendPie)
+		run.schedule('render', this, this.drawLegendPie)
 	},
 
 	drawLegendPie() {
@@ -310,6 +310,7 @@ export default Component.extend({
 			age: "7",
 			pp: "22"
 		}];
+		console.log('this. is from legend pie sales')
 		console.info(arr);
 
 		pieData.map(function(item, index) {
