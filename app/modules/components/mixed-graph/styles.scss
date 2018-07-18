@@ -1,10 +1,18 @@
 :global .mixed-graph {
     :global .bar {
-        fill: purple;
+        fill: #53A8E2;
+    }
+
+    :global .bar2 {
+        fill: #58D8FC;
     }
 
     :global .bar:hover {
         fill: blue;
+    }
+
+    :global .line2 {
+        fill: none;
     }
 
     :global .axis {
@@ -25,5 +33,12 @@
 
     :global .x.axis path {
         display: none;
+    }
+
+    :global .mover {
+        stroke: red;
+        stroke-opacity: 0.1;
+        fill: lightSteelBlue;
+        fill-opacity: 0.5;
     }
 }

@@ -45,6 +45,8 @@ export default Controller.extend({
 									"user_id": response.result.uid
 								}
 							}
+
+
 							this.get('ajax').request('/api/user/isMaintenanceUser', this.getAjaxOpt(con))
 								.then((res) => {
 									if (res.status === "ok") {
@@ -64,7 +66,7 @@ export default Controller.extend({
 										}, 1000)
 									}
 								})
-							// this.get('webIm').login(response.result.uid, this.get('password'));
+
 							// later(this, () => {
 							// 	// this.transitionToRoute('data-center');
 							// 	window.location = 'data-center';
