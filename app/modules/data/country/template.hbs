@@ -1,7 +1,5 @@
 {{!-- {{outlet}} --}}
-{{!-- {{data-choose activeCo=true}} --}}
-{{!-- {{pie-chart }} --}}
-{{data-choose activeCo=true}} {{!-- {{line-prod-sales }} --}}
+{{data-choose activeCo=true}}
 
 	<div class="container-fluid" local-class="nopadding">
 		{{#each cards as |item|}}
@@ -9,7 +7,13 @@
 		{{/each}}
 	</div>
 
-	{{line-multi }}
+	<div class="container-fluid" local-class='nopadding multi-line'>
+		<p local-class="market-title">
+			<span>{{trendTitle.title}}</span>
+			<span>{{trendTitle.timeStart}}{{trendTitle.timeOver}}{{trendTitle.area}}</span>
+		</p>
+		{{multi-line-market mulitLineData=multiData}}
+	</div>
 
 	<div class="container-fluid" local-class="nopadding">
 		{{#each words as |item|}}
@@ -19,17 +23,47 @@
 
 	<div class="container-fluid" local-class="pie-histogram">
 		<div class="col-md-6 col-sm-12" local-class="nopadding legend-pie-container">
-			<p local-class="pie-title"><span>各产品份额</span><span>{{time}}</span></p>
-			{{legend-pie-sales pieData=pieValue}}
+			<div local-class="inside">
+				<p local-class="pie-title">
+					<span>{{shareTitle.title}}</span>
+					<span>{{shareTitle.subtitle}}{{shareTitle.area}}</span>
+				</p>
+				{{legend-pie-sales pieData=pieValue}}
+			</div>
+
 		</div>
 		<div class="col-md-6 col-sm-12" local-class="nopadding horizontal-histogram">
-			{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
+			<div local-class="inside">
+				<p local-class="his-title"><span>各产品排名变化</span><span>{{time}}.全国</span></p>
+				<p local-class="choose-type"><span>数据类型：</span>
+					<select class="" name="">
+						<option value="">aa</option>
+						<option value="">bb</option>
+					</select>
+			</p>
+				<div local-class="histogram">
+					<div local-class="share" class="container-fluid">
+						<div class="col-md-6 col-sm-6 col-xs-6">
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-6">
+							<div class="row">
+								{{#each rankingRange as |item|}}
+									<span class="col-md-2 col-sm-2 col-xs-2">{{item}}{{unit}}</span>
+								{{/each}}
+							</div>
+						</div>
+					</div>
+					{{#each ranking as |item|}}
+						{{pord-histogram data=item theMax=rankingMax}}
+					{{/each}}
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<div local-class="competing-products-table">
-		<p local-class="table-title"><span>市场竞品销售概况</span><span>{{time}}</span></p>
-		{{self-table titleInfo=titleInfo model=ProdSalesValue columns=ProdSales selfheight='270px'}}
+		<p local-class="table-title"><span>{{competingTitle.title}}</span><span>{{competingTitle.subtitle}}{{competingTitle.area}}</span></p>
+		{{self-table titleInfo=titleInfo model=competingValue columns=competingColumn selfheight='270px'}}
 	</div>
-	{{line-mulit-choose }}
+	{{!-- {{line-mulit-choose }} --}}
 	{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}

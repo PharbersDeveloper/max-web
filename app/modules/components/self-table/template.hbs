@@ -1,20 +1,13 @@
 <div local-class="tables" class="container-fluid">
-    {{!-- <div local-class={{if titleInfo.title 'title-content' 'title-hidden'}}>
-        <div local-class="title">
-            <p>{{titleInfo.title}}</p>
-        </div>
-        <div local-class="date">
-            <p>{{titleInfo.subtitle}}</p>
-        </div>
-        <div local-class="city">
-            <p>{{titleInfo.city}}</p>
-        </div>
-    </div> --}}
 
     {{#light-table table height=selfheight tableClassNames='medicine-table' responsive=true onAfterResponsiveChange=(action 'onAfterResponsiveChange') as |t|}}
 
         {{t.head
             onColumnClick=(action 'onColumnClick')
+            iconSortable='unfold_more'
+            iconAscending='keyboard_arrow_up'
+            iconDescending='keyboard_arrow_down'
+            iconComponent='self-table-icon'
             fixed=true
         }}
 

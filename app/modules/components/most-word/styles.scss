@@ -1,9 +1,7 @@
-    .contain {
-    // margin: 10px;
-    // margin-left: 20px;
+.contain {
     padding: 0;
-    // width: 320px;
-    // height: 150px;
+    font-family: $font-family;
+
     .inside-contain {
         margin: 10px 15px;
         padding: 10px;
@@ -14,7 +12,6 @@
 
     .title p {
         float: left;
-        font-family: PingFangTC-Regular;
         font-size: 14px;
         color: #485465;
         letter-spacing: 1px;
@@ -23,24 +20,20 @@
     .city p,
     .subtitle p {
         float: left;
-        font-family: PingFangTC-Regular;
         font-size: 10px;
         color: #9D9D9D;
         letter-spacing: 1px;
         padding: 3px 5px 0 10px;
-        // margin: 5px 0 0 10px;
-        // padding:
     }
 
-	.word-hidden {
-		display: none;
-	}
+    .word-hidden {
+        display: none;
+    }
 
     .key-word .word-o p {
         clear: both;
         margin-top: 55px;
         height: 34px;
-        font-family: PingFangTC-Regular;
         font-size: 24px;
         color: #4A4A4A;
         letter-spacing: 0.54px;
@@ -48,30 +41,31 @@
     }
 
     .key-word .word-t p {
-        font-family: PingFangTC-Regular;
         font-size: 12px;
         color: #AAAAAA;
         letter-spacing: 0.27px;
         text-align: center;
         height: 15px;
     }
+
     .key-word {
-         .word-num {
-             width: 100%;
-             margin: 0 auto;
-         }
-         .word-num p {
-            // display: inline-block;
+        .word-num {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .word-num p {
             font-size: 36px;
             padding-right: 10px;
         }
+
         .word-num span {
-            font-family: PingFangTC-Regular;
             font-size: 12px;
             color: #1E2429;
             letter-spacing: 1px;
         }
-     }
+    }
+
     .trend {
         width: 100%;
         max-width: 200px;
@@ -81,7 +75,6 @@
         margin: 10px auto;
 
         .data {
-            font-family: PingFangTC-Regular;
             font-size: 12px;
             color: #4A4A4A;
             letter-spacing: 1.5px;
@@ -92,31 +85,38 @@
         }
 
         .show {
-            font-family: PingFangTC-Regular;
             font-size: 12px;
-            color: #4EDAC5;
             letter-spacing: 0.19px;
             text-align: center;
             line-height: 30px;
             float: right;
             margin-right: 20px;
         }
+
+        .show_up {
+            color: #50E3C2;
+        }
+
+        .show_down {
+            color: #E96878;
+        }
     }
+
     .trend-null {
         background: #fff;
     }
 }
+
 .but {
-	color:red;
+    color: red;
 }
 @media (max-width:1110px) {
     .subtitle p {
         clear: both;
         margin-left: -10px;
-
     }
+
     .title p {
         margin: 0;
-
     }
 }

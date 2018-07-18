@@ -1,7 +1,7 @@
 .contain {
     padding: 0;
-    // width: 320px;
-    // height: 150px;
+    font-family: $font-family;
+
     .inside-contain {
         margin: 10px 15px;
         padding: 10px;
@@ -9,53 +9,54 @@
         background: #FFF;
         box-shadow: 0 0 4px 0 rgba(0,0,0,0.10);
     }
+
     .title p {
         float: left;
-        font-family: PingFangTC-Regular;
         font-size: 14px;
         color: #485465;
         letter-spacing: 1px;
     }
-    .date p , .city p {
+
+    .city p,
+    .date p {
         float: left;
-        font-family: PingFangTC-Regular;
+        padding: 3px 5px 0 10px;
         font-size: 10px;
         color: #9D9D9D;
         letter-spacing: 1px;
-        padding: 3px 5px 0 10px;
-        // margin: 5px 0 0 10px;
     }
+
     .key-word .word-o p {
         clear: both;
-        margin: 40px 0 0 0;
-        font-family: PingFangTC-Regular;
+        margin: 40px 0 0;
         font-size: 24px;
         color: #4A4A4A;
         letter-spacing: 0.54px;
         text-align: center;
+
         span {
-            font-family: PingFangTC-Regular;
             font-size: 12px;
             color: #1E2429;
             letter-spacing: 1px;
             line-height: 33px;
         }
     }
+
     .key-word .word-t p {
-        font-family: PingFangTC-Regular;
         font-size: 12px;
         color: #AAAAAA;
         letter-spacing: 0.27px;
         text-align: center;
     }
+
     .trend {
         width: 200px;
         height: 30px;
         background: #eef2f5;
         border-radius: 100px;
         margin: 10px auto;
+
         .data {
-            font-family: PingFangTC-Regular;
             font-size: 12px;
             color: #4A4A4A;
             letter-spacing: 1.5px;
@@ -64,27 +65,36 @@
             margin-left: 10px;
             float: left;
         }
+
         .show {
-            font-family: PingFangTC-Regular;
             font-size: 12px;
-            color: #4EDAC5;
             letter-spacing: 0.19px;
             text-align: center;
             line-height: 30px;
             float: right;
             margin-right: 10px;
         }
-        .trend-left {
-            float: left;
-            width: 100px;
-            height: 30px;
-            border-right:0 solid #D2D2D2;
+
+        .show-up {
+            color: #60B3AD;
         }
+
+        .show-down {
+            color: #E96878;
+        }
+
+        .trend-left,
         .trend-right {
             float: left;
             width: 100px;
             height: 30px;
-            border-left: 1px solid #D2D2D2;
+            border-right: 0 solid #D2D2D2;
         }
+        // .trend-right {
+        //     float: left;
+        //     width: 100px;
+        //     height: 30px;
+        //     border-left: 1px solid #D2D2D2;
+        // }
     }
 }
