@@ -6,18 +6,20 @@
 			{{key-words card=item}}
 		{{/each}}
 	</div>
-
+	<div class="container-fluid">
+		{{mixed-graph }}
+	</div>
 	{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
 
 	<div local-class="table-sales">
-		<p local-class="con-title"><span>各产品份额</span><span>{{time}}</span></p>
-		{{self-table model=prodSalesValue columns=prodSales selfheight='300px'}}
+		<p local-class="con-title"><span>市场各省份销售概况</span><span>{{time}}</span></p>
+		{{self-table model=marketSalesValue columns=MarketSales selfheight='300px'}}
 	</div>
 	<div class="container-fluid" local-class="pie-histogram">
 		<div class="col-md-6 col-sm-12" local-class="nopadding legend-pie-container">
 			<div local-class="inside">
-				<p local-class="pie-title"><span>各产品份额</span><span>{{time}}</span></p>
-				{{legend-pie-sales pieData=provincePieShare}}
+				<p local-class="pie-title"><span>市场销售组成</span><span>{{time}}</span></p>
+				{{legend-pie-sales pieData=marketSalesPie}}
 			</div>
 
 		</div>
@@ -81,18 +83,22 @@
 		<div class="container-fluid" local-class="pie-histogram">
 			<div class="col-md-6 col-sm-12" local-class="nopadding legend-pie-container">
 				<div local-class="inside">
-					<p local-class="pie-title"><span>各产品份额</span><span>{{time}}</span></p>
-					{{legend-pie-sales pieData=provincePieShare}}
+					<p local-class="pie-title">
+						<span>各产品份额</span>
+						<span>{{time}}</span>
+					</p>
+					{{legend-pie-sales pieData=marketShare}}
 				</div>
-
 			</div>
 			<div class="col-md-6 col-sm-12" local-class="nopadding horizontal-histogram">
 				<div local-class="inside">
-					<p local-class="his-title"><span>各产品份额</span><span>{{time}}</span></p>
-					<p local-class="choose-type"><span>数据类型：</span> <select class="" name="">
-					<option value="">份额</option>
-					<option value="">销售额</option>
-				</select> </p>
+					<p local-class="his-title"><span>各产品排名变化</span><span>{{time}}</span></p>
+					<p local-class="choose-type"><span>数据类型：</span>
+						<select class="" name="">
+							<option value="">份额</option>
+							<option value="">销售额</option>
+						</select>
+					</p>
 					<div local-class="histogram">
 						<div local-class="share" class="container-fluid">
 							<div class="col-md-4 col-sm-4 col-xs-4">

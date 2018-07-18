@@ -18,65 +18,12 @@ export default Component.extend({
 	attributeBindings: ['width', 'height'],
 	init() {
 		this._super(...arguments)
-		// this.dataValue = [1,4,6,4];
 		this.margin = {
 			top: 40,
 			right: 20,
 			bottom: 30,
 			left: 20
 		};
-		// this.pieData = [];
-		/*	this.pieData = [
-						{
-								'prod': '产品一',
-								'sales': 12,
-								'cont': 455,
-								'color': '#3399FF',
-							}, {
-								'prod': '产品二',
-								'sales': 135,
-								'cont': 845,
-								'color': 'orange',
-							}, {
-								'prod': '产品三',
-								'sales': 647,
-								'cont': 256,
-								'color': 'lightyellow',
-							}, {
-								'prod': '产品四',
-								'sales': 13422,
-								'cont': 452,
-								'color': 'lightgreen',
-							}, {
-								'prod': '产品5',
-								'sales': 13422,
-								'cont': 411,
-								'color': 'blue',
-							}, {
-								'prod': '产品6',
-								'sales': 13422,
-								'cont': 421,
-								'color': 'lightblue',
-							}, {
-								'prod': '产品7',
-								'sales': 13422,
-								'cont': 444,
-								'color': 'pink'
-							}, {
-								'prod': '产品8',
-								'sales': 13422,
-								'cont': 422,
-								'color': 'lightgray'
-							}, {
-								'prod': '其他',
-								'sales': 34,
-								'cont': 175,
-								'color': 'skyblue'
-							},
-
-			];*/
-		this.legendValue = ['aa', 'bb', 'cc', 'dd'];
-		this.colorValue = ['red', 'lightblue', 'green', 'orange', 'gray', 'pink'];
 	},
 	/*
 			didInsertElement() {
@@ -101,7 +48,7 @@ export default Component.extend({
 					pieColor.push(item.color);
 				});
 				pieData.map(function(item, index) {
-					pieValue.push(item.cont);
+					pieValue.push(item.share);
 				});
 				console.log(dataTitle)
 				var outerRadius = 270 / 2;
@@ -226,8 +173,6 @@ export default Component.extend({
 				arcs.append("text")
 					.attr("transform", function(d) {
 						//get the centroid of every arc, include x and y, 质心
-						// console.log(arc.centroid(d));
-						// console.log(d)
 						return "translate(" + arc.centroid(d) + ")";
 					})
 					.attr("text-anchor", "middle")
@@ -260,13 +205,9 @@ export default Component.extend({
 
 
 				// var arr = [{age:"1",pp:"22"},{age:"2",pp:"22"},{age:"3",pp:"22"},{age:"4",pp:"22"},{age:"5",pp:"22"},{age:"6",pp:"22"},{age:"7",pp:"22"} ];
-				//   console.info(arr);
 				//   arr.forEach(function(d) {
 				//     var c = labelArc.centroid(d);
-				// //     console.log(c);
-				// //     console.log(d);
 				//     context.fillText(d.age, c[0], c[1]);
-				//     console.info(d.age)
 				//   });
 
 			},
@@ -288,30 +229,6 @@ export default Component.extend({
 		var dataTitle = [];
 		var pieColor = [];
 		var pieValue = [];
-		var arr = [{
-			age: "1",
-			pp: "22"
-		}, {
-			age: "2",
-			pp: "22"
-		}, {
-			age: "3",
-			pp: "22"
-		}, {
-			age: "4",
-			pp: "22"
-		}, {
-			age: "5",
-			pp: "22"
-		}, {
-			age: "6",
-			pp: "22"
-		}, {
-			age: "7",
-			pp: "22"
-		}];
-		console.log('this. is from legend pie sales')
-		console.info(arr);
 
 		pieData.map(function(item, index) {
 			dataTitle.push(item.prod);
@@ -320,9 +237,8 @@ export default Component.extend({
 			pieColor.push(item.color);
 		});
 		pieData.map(function(item, index) {
-			pieValue.push(item.cont);
+			pieValue.push(item.share);
 		});
-		console.log(pieData);
 		var outerRadius = 140;
 		var innerRadius = 85;
 		let data = pieValue;
@@ -339,14 +255,13 @@ export default Component.extend({
 			.outerRadius(outerRadius + 10)
 		var pie = d3.pie()
 			.value(function(d) {
-				return d.cont
+				return d.share
 			})
 
 		svg
 			.datum(pieData)
 			// .datum(function() {
-			// 	console.log(d)
-			// 	return d.cont
+			// 	return d.share
 			// })
 			.attr("width", '100%')
 			.attr("height", height)
@@ -365,7 +280,6 @@ export default Component.extend({
 			.attr("transform", "translate(100,150)")
 			//为每一块元素添加鼠标事件
 			.on("mouseover", function(d) {
-				console.log(d);
 				let left = arc.centroid(d)[0];
 				let top = arc.centroid(d)[1];
 				d3.select(this).select("path").transition().attr("d", function(d) {
@@ -429,7 +343,6 @@ export default Component.extend({
 			.style('font-size', '12px')
 			.attr("dy", ".35em")
 			.text(function(d, i) {
-				console.log(d)
 				return d.prod;
 				// return "sex";
 

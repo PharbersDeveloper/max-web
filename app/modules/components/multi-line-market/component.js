@@ -8,7 +8,7 @@ import {
 import d3 from 'd3';
 export default Component.extend({
     tagName: 'svg',
-    classNames: ['col-md-12','col-sm-12','col-xs-12', 'simple-line'],
+    classNames: ['col-md-12', 'col-sm-12', 'col-xs-12', 'simple-line'],
     init() {
         this._super(...arguments);
         // this.data = [];
@@ -31,7 +31,7 @@ export default Component.extend({
             width = 960 - margin.left - margin.right,
             height = 360 - margin.top - margin.bottom;
 
-        // parse the date / time
+        // parse the ym / time
         // var parseTime = d3.timeParse("%d-%b-%y");
         var parseTime = d3.timeParse("%Y-%m");
 
@@ -45,7 +45,7 @@ export default Component.extend({
         var valueline = d3.line()
             .x(function(d) {
                 // console.log(d)
-                return x(d.date);
+                return x(d.ym);
             })
             .y(function(d) {
                 return y0(d.marketSales);
@@ -54,7 +54,7 @@ export default Component.extend({
         // define the 2nd line
         var valueline2 = d3.line()
             .x(function(d) {
-                return x(d.date);
+                return x(d.ym);
             })
             .y(function(d) {
                 return y1(d.prodSales);
@@ -62,7 +62,7 @@ export default Component.extend({
 
         var valueline3 = d3.line()
             .x(function(d) {
-                return x(d.date);
+                return x(d.ym);
             })
             .y(function(d) {
                 // return y2(Math.log(d.share));
@@ -74,14 +74,13 @@ export default Component.extend({
         // moves the 'group' element to the top left margin
         svg
             // .attr("width",'100%')
-            .attr('padding','0 20px')
-            .attr('min-width',553)
+            .attr('padding', '0 20px')
             .attr("height", 368)
             // .attr('preserveAspectRatio', 'xMidYMid','meet')
-            .attr('preserveAspectRatio','none')
-            .attr('viewBox', '-20 0 900 348')
+            .attr('preserveAspectRatio', 'none')
+            .attr('viewBox', '-20 0 950 348')
             .append("g")
-            .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         // Get the data
         // d3.csv("data4.csv", function(error, data) {
@@ -89,7 +88,7 @@ export default Component.extend({
 
         // format the data
         data.forEach(function(d) {
-            d.date = parseTime(d.date);
+            d.ym = parseTime(d.ym);
             d.marketSales = +d.marketSales;
             d.prodSales = +d.prodSales;
             d.share = +d.share;
@@ -97,8 +96,8 @@ export default Component.extend({
 
         // Scale the range of the data\
         x.domain(d3.extent(data, function(d) {
-            // console.log(d.date)
-            return d.date;
+            // console.log(d.ym)
+            return d.ym;
         }));
         let y0Max = d3.max(data, function(d) {
             return Math.max(d.marketSales);
@@ -115,13 +114,14 @@ export default Component.extend({
             // return Math.max(Math.log(d.share));
             return Math.max(d.share)
         });
-        y2.domain([0, (y2Max/3 + y2Max)]);
+        y2.domain([0, (y2Max / 3 + y2Max)]);
 
         // Add the valueline path.
         svg.append("path")
             .data([data])
             .attr("class", "line")
             .style("stroke", "#FA6F80")
+            .style("filter", "url(#drop-shadow)")
             .attr("d", valueline);
 
         // Add the valueline2 path.
@@ -129,6 +129,7 @@ export default Component.extend({
             .data([data])
             .attr("class", "line")
             .style("stroke", "#7CFFE2")
+            .style("filter", "url(#drop-shadow)")
             .attr("d", valueline2);
 
         // Add the valueline3 path.
@@ -136,6 +137,7 @@ export default Component.extend({
             .data([data])
             .attr("class", "line")
             .style("stroke", "#868CE9")
+            .style("filter", "url(#drop-shadow)")
             .attr("d", valueline3);
 
         // Add the X Axis
@@ -190,46 +192,104 @@ export default Component.extend({
                 .tickSize(-width)
                 .tickFormat("")
             );
-        //   绘制图例
-        //添加图例
-		var legend = svg.append("g");
-		addLegend();
-		function addLegend() {
-			var textGroup = legend.selectAll("text")
-				.data(lineNames);
-			textGroup.exit().remove();
-			legend.selectAll("text")
-				.data(lineNames)
-				.enter()
-				.append("text")
-				.text(function(d) {
-					return d;
-				})
-				.attr("class", "legend")
-				.attr("x", function(d, i) {
-					return i * 100;
-				})
-				.attr("y", 0)
-				.attr("fill", function(d, i) {
-					return lineColor[i];
-				});
-			var rectGroup = legend.selectAll("rect")
-				.data(lineNames);
-			rectGroup.exit().remove();
-			legend.selectAll("rect")
-				.data(lineNames)
-				.enter()
-				.append("rect")
-				.attr("x", function(d, i) {
-					return i * 100 - 20;
-				})
-				.attr("y", -10)
-				.attr("width", 12)
-				.attr("height", 12)
-				.attr("fill", function(d, i) {
-					return lineColor[i];
-				});
-			legend.attr("transform", "translate(" + ((width - lineNames.length * 100) / 2) + "," + (height +30) + ")");
-		}
+        /**
+        * 添加图例
+        */
+        var legend = svg.append("g");
+        addLegend();
+
+        function addLegend() {
+            var textGroup = legend.selectAll("text")
+                .data(lineNames);
+            textGroup.exit().remove();
+            legend.selectAll("text")
+                .data(lineNames)
+                .enter()
+                .append("text")
+                .text(function(d) {
+                    return d;
+                })
+                .attr("class", "legend")
+                .attr("x", function(d, i) {
+                    return i * 100;
+                })
+                .attr("y", 6)
+                .attr("fill", function(d, i) {
+                    return lineColor[i];
+                });
+            var lineGroup = legend.selectAll('line')
+                .data(lineNames);
+            lineGroup.exit().remove();
+            legend.selectAll("line")
+                .data(lineNames)
+                .enter()
+                .append("line")
+
+                .attr("x1", function(d, i) {
+                    return i * 100 - 20;
+                })
+                .attr("x2", function(d, i) {
+                    return i * 100 - 10;
+                })
+                .attr("y1", 3)
+                .attr("y2", 3)
+                .attr("stroke", function(d, i) {
+                    return lineColor[i];
+                })
+                .attr("stroke-width", '3')
+
+                // .attr("width", 12)
+                // .attr("height", 12)
+
+                .attr("fill", function(d, i) {
+                    return lineColor[i];
+                });
+            legend.attr("transform", "translate(" + ((width - lineNames.length * 100) / 2) + "," + (height + 30) + ")");
+            // 原方块图例
+            // var rectGroup = legend.selectAll("rect")
+            // 	.data(lineNames);
+            // rectGroup.exit().remove();
+            // legend.selectAll("rect")
+            // 	.data(lineNames)
+            // 	.enter()
+            // 	.append("rect")
+            // 	.attr("x", function(d, i) {
+            // 		return i * 100 - 20;
+            // 	})
+            // 	.attr("y", -10)
+            // 	.attr("width", 12)
+            // 	.attr("height", 12)
+            // 	.attr("fill", function(d, i) {
+            // 		return lineColor[i];
+            // 	});
+            // legend.attr("transform", "translate(" + ((width - lineNames.length * 100) / 2) + "," + (height +30) + ")");
+            /**
+            * end 添加图例
+            */
+            /**
+            * 添加阴影
+            */
+            var defs = svg.append("defs");
+            var filter = defs.append("filter")
+                .attr("id", "drop-shadow")
+                .attr("height", "130%");
+            filter.append("feGaussianBlur")
+                .attr("in", "SourceAlpha")
+                .attr("stdDeviation", 3)
+                .attr("result", "blur");
+            filter.append("feOffset")
+                .attr("in", "blur")
+                .attr("dx", 2)
+                .attr("dy", 2)
+                .attr("result", "offsetBlur");
+            var feMerge = filter.append("feMerge");
+            feMerge.append("feMergeNode")
+                .attr("in", "offsetBlur")
+            feMerge.append("feMergeNode")
+                .attr("in", "SourceGraphic");
+            /**
+            * end 添加阴影
+            */
+        }
     }
 });

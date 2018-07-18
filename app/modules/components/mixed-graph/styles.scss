@@ -1,0 +1,29 @@
+:global .mixed-graph {
+    :global .bar {
+        fill: purple;
+    }
+
+    :global .bar:hover {
+        fill: blue;
+    }
+
+    :global .axis {
+        font: 10px sans-serif;
+    }
+
+    :global .axis path {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    :global .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    :global .x.axis path {
+        display: none;
+    }
+}

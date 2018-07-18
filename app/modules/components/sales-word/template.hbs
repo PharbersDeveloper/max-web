@@ -1,4 +1,3 @@
-    
 {{yield}}
 
 <div local-class="contain" class="col-md-4 col-sm-12">
@@ -10,32 +9,47 @@
             <p>{{card.subtitle}}</p>
         </div>
         <div local-class="city">
-            <p>• &nbsp;{{card.city}}</p>
+            <p>• &nbsp;{{card.area}}</p>
         </div>
         <div local-class="key-word">
+            {{#if (eq card.tag "mil")}}
             <div local-class="word-o">
-                <p>￥ {{card.num}} <span>Mil</span> </p>
+                <p>￥ {{card.num}} <span>{{card.tag}}</span> </p>
             </div>
-            <div local-class="word-t">
-                {{!-- <p>市场名</p> --}}
+            {{else}}
+            <div local-class="word-o">
+                <p>{{card.num}} <span>{{card.tag}}</span> </p>
             </div>
+            {{/if}}
         </div>
         <div local-class="trend">
             <div local-class="trend-left">
                 <div local-class="data">
                     <p>同比</p>
                 </div>
-                <div local-class="show">
-                    <p>{{card.yearOnYear}}</p>
-                </div>
+                {{#if (gte card.yearOnYear 0)}}
+                    <div local-class="show show-up">
+                        <p><span>+{{card.yearOnYear}}%</span></p>
+                    </div>
+                {{else}}
+                    <div local-class="show show-down">
+                        <p><span>{{card.yearOnYear}}%</span></p>
+                    </div>
+                {{/if}}
             </div>
             <div local-class="trend-right">
                 <div local-class="data">
                     <p>环比</p>
                 </div>
-                <div local-class="show">
-                    <p>{{card.ringRatio}}</p>
-                </div>
+                {{#if (gte card.ringRatio 0)}}
+                    <div local-class="show show-up">
+                        <p><span>+{{card.ringRatio}}%</span></p>
+                    </div>
+                {{else}}
+                    <div local-class="show show-down">
+                        <p><span>{{card.ringRatio}}%</span></p>
+                    </div>
+                {{/if}}
             </div>
         </div>
     </div>

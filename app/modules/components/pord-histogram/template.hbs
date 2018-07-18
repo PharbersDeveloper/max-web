@@ -1,6 +1,6 @@
 {{yield}}
 <div local-class="progress" class="container-fluid">
-    <div local-class="left" class="col-md-4 col-sm-4 col-xs-4">
+    <div local-class="left" class="col-md-6 col-sm-6 col-xs-6">
         <div class="col-md-8 col-sm-8 col-xs-8">
             <p local-class="title">{{data.no}} <span>{{data.prod}}</span></p>
             <p local-class="manu">{{data.manu}}</p>
@@ -13,9 +13,9 @@
             {{/if}}
         </div>
     </div>
-    <div local-class="right" class="col-md-8 col-sm-8 col-xs-8">
+    <div local-class="right" class="col-md-6 col-sm-6 col-xs-6">
         {{#bs-progress local-class="total"  as |p|}}
-            {{p.bar value=data.value  minValue=10 maxValue=50}}
+            {{p.bar value=data.value  minValue=0 maxValue=theMax}}
         {{/bs-progress}}
     </div>
 </div>

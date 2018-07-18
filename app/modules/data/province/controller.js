@@ -1,6 +1,8 @@
 import Controller from '@ember/controller';
-
+import {inject} from '@ember/service';
 export default Controller.extend({
+    ajax: inject(),
+    cookies: inject(),
     activeCi: true,
     time: '2018-04',
     rankingMax: 0,
@@ -29,28 +31,210 @@ export default Controller.extend({
         this.set('rankingRange', rankingRangeArr)
 
     },
+    getAjaxOpt(data) {
+        return {
+            method: 'POST',
+            dataType: 'json',
+            cache: false,
+            data: JSON.stringify(data),
+            contentType: 'application/json,charset=utf-8',
+            Accpt: 'application/json,charset=utf-8',
+        }
+    },
+    /**
+     *	查询市场产品卡片
+     */
+    queryMarketProdCards() {
+        let condition = {
+            "condition": {
+                "user_id": this.get('cookies').read('uid'),
+                "time": this.get('time'),
+                "market": this.get('market')
+            }
+        }
+        this.get('ajax').request('api/dashboard/nation/saleShare', this.getAjaxOpt(condition))
+            .then(({
+                status,
+                result,
+                error
+            }) => {
+                if (status === 'ok') {
+                    // console.log('查询产品cards(in country)：')
+                    // console.log(result);
+                    // this.set('cards', result.saleShareCard);
+                }
+            })
+    },
     init() {
         this._super(...arguments);
-        this.provincePieShare = [{
+        //  产品cards
+        this.cards = [{
+            title: "title",
+            subtitle: "subtitle",
+            city: "city",
+            name: "市场名称",
+            subname: 'subname',
+            value: 'value',
+            percent: '5.6%'
+        }, {
+            title: "贡献最高",
+            subtitle: "2018-04",
+            city: "全国",
+            name: "头孢",
+            subname: '北京市场',
+            value: '88.888Mil',
+            percent: '88.6%'
+        }, {
+            title: "产品下滑",
+            subtitle: "2018-04",
+            city: "",
+            name: "商品名称",
+            subname: '市场名',
+            value: '94.83Mil',
+            percent: '56.6%'
+        }, {
+            title: "产品增长",
+            subtitle: "2018-04",
+            city: "",
+            name: "青霉素",
+            subname: '大中华市场',
+            value: '9999.83Mil',
+            percent: '999.6%'
+        }, {
+            title: "产品增长",
+            subtitle: "2018-04",
+            city: "",
+            name: "青霉素",
+            subname: '大中华市场',
+            value: '9999.83Mil',
+            percent: '999.6%'
+        }, {
+            title: "产品增长",
+            subtitle: "2018-04",
+            city: "",
+            name: "青霉素",
+            subname: '大中华市场',
+            value: '9999.83Mil',
+            percent: '999.6%'
+        }];
+        // this.queryMarketProdCards();
+        //  end 产品cards
+        //  市场各省份销售概况-混合图
+        // end市场各省份销售概况-混合图
+        //  市场各省份销售概况-table
+        this.MarketSales = [{
+            label: '省份名',
+            valuePath: 'province',
+            classNames: 'tabl',
+            align: 'center',
+            sorted: false, //是否可以对列进行排序
+            minResizeWidth: '70px', //列可以调整的最小宽度
+            // breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
+        }, {
+            label: '市场大小',
+            valuePath: 'market_size',
+            classNames: 'tabl',
+            align: 'center',
+            minResizeWidth: '70px',
+            // breakpoints: ['mobile', 'tablet', 'desktop']
+        }, {
+            label: '市场增长(%)',
+            valuePath: 'market_growth',
+            // width: '100px',
+            align: 'center',
+            classNames: 'tabl',
+            minResizeWidth: '70px',
+        }, {
+            label: '销售额',
+            valuePath: 'sales_amount',
+            // width: '100px',
+            align: 'center',
+            minResizeWidth: '70px',
+        }, {
+            label: '销售增长(%)',
+            valuePath: 'sales_growth',
+            // width: '100px',
+            align: 'center',
+            minResizeWidth: '70px',
+        }, {
+            label: 'EV值(%)',
+            valuePath: 'ev_value',
+            // width: '80px',
+            align: 'center',
+            minResizeWidth: '70px',
+        }, {
+            label: '份额(%)',
+            valuePath: 'share',
+            // width: '80px',
+            align: 'center',
+            minResizeWidth: '70px',
+        }, {
+            label: '份额增长(%)',
+            valuePath: 'share_growth',
+            // width: '100px',
+            align: 'center',
+            minResizeWidth: '70px',
+        }, ];
+        this.marketSalesValue = [{
+            'province': '省份名',
+            'market_size': 41614,
+            'market_growth': 123456,
+            'sales_amount': 14614,
+            'sales_growth': 16,
+            'ev_value': 100,
+            'share': 45,
+            'share_growth': 9,
+        }, {
+            'province': '省份名',
+            'market_size': 41614,
+            'market_growth': 123456,
+            'sales_amount': 14614,
+            'sales_growth': 16,
+            'ev_value': 100,
+            'share': 45,
+            'share_growth': 9,
+        }, {
+            'province': '省份名',
+            'market_size': 41614,
+            'market_growth': 123456,
+            'sales_amount': 14614,
+            'sales_growth': 16,
+            'ev_value': 100,
+            'share': 45,
+            'share_growth': 9,
+        }, {
+            'province': '省份名',
+            'market_size': 41614,
+            'market_growth': 123456,
+            'sales_amount': 14614,
+            'sales_growth': 16,
+            'ev_value': 100,
+            'share': 45,
+            'share_growth': 9,
+        }, ];
+        //  end 市场各省份销售概况-table
+        //  市场销售组成
+        this.marketSalesPie = [{
                 prod: 'aaa',
                 sales: 343,
-                cont: 34,
+                share: 34,
                 color: '#2c82Be'
-            },
-            {
+            },{
                 prod: '9B9B9B',
                 sales: 43,
-                cont: 23,
+                share: 23,
                 color: '#3F8DC4'
-            },
-            {
+            },{
                 prod: 'ddd',
                 sales: 546,
-                cont: 45,
+                share: 45,
                 color: '#5298CA'
             }
-
         ];
+        //  end 市场销售组成
+        //  各产品年排名变化
+        
+        //  end 各产品排名变化
         this.ranking = [{
             no: 1,
             prod: "prod2",
@@ -111,55 +295,7 @@ export default Controller.extend({
             date: new Date('2018-11'),
             sales: 0
         }, ];
-        this.cards = [{
-            title: "title",
-            subtitle: "subtitle",
-            city: "city",
-            name: "市场名称",
-            subname: 'subname',
-            value: 'value',
-            percent: '5.6%'
-        }, {
-            title: "贡献最高",
-            subtitle: "2018-04",
-            city: "全国",
-            name: "头孢",
-            subname: '北京市场',
-            value: '88.888Mil',
-            percent: '88.6%'
-        }, {
-            title: "产品下滑",
-            subtitle: "2018-04",
-            city: "",
-            name: "商品名称",
-            subname: '市场名',
-            value: '94.83Mil',
-            percent: '56.6%'
-        }, {
-            title: "产品增长",
-            subtitle: "2018-04",
-            city: "",
-            name: "青霉素",
-            subname: '大中华市场',
-            value: '9999.83Mil',
-            percent: '999.6%'
-        }, {
-            title: "产品增长",
-            subtitle: "2018-04",
-            city: "",
-            name: "青霉素",
-            subname: '大中华市场',
-            value: '9999.83Mil',
-            percent: '999.6%'
-        }, {
-            title: "产品增长",
-            subtitle: "2018-04",
-            city: "",
-            name: "青霉素",
-            subname: '大中华市场',
-            value: '9999.83Mil',
-            percent: '999.6%'
-        }];
+
         this.words = [{
             title: "产品数量",
             subtitle: "2018-04",
@@ -220,100 +356,8 @@ export default Controller.extend({
             time: '2018-04',
             city: ''
         };
-        this.prodSalesValue = [{
-            'province': '省份名',
-            'market_size': 41614,
-            'market_growth': 123456,
-            'sales_amount': 14614,
-            'sales_growth': 16,
-            'ev_value': 100,
-            'share': 45,
-            'share_growth': 9,
-        }, {
-            'province': '省份名',
-            'market_size': 41614,
-            'market_growth': 123456,
-            'sales_amount': 14614,
-            'sales_growth': 16,
-            'ev_value': 100,
-            'share': 45,
-            'share_growth': 9,
-        }, {
-            'province': '省份名',
-            'market_size': 41614,
-            'market_growth': 123456,
-            'sales_amount': 14614,
-            'sales_growth': 16,
-            'ev_value': 100,
-            'share': 45,
-            'share_growth': 9,
-        }, {
-            'province': '省份名',
-            'market_size': 41614,
-            'market_growth': 123456,
-            'sales_amount': 14614,
-            'sales_growth': 16,
-            'ev_value': 100,
-            'share': 45,
-            'share_growth': 9,
-        }, ];
-        this.prodSales = [{
-            label: '省份名',
-            valuePath: 'province',
-            // width: '100px',
-            classNames: 'tabl',
-            align: 'center',
-            sorted: false, //是否可以对列进行排序
-            minResizeWidth: '70px', //列可以调整的最小宽度
-            // breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
 
-        }, {
-            label: '市场大小',
-            valuePath: 'market_size',
-            // width: '100px',
-            classNames: 'tabl',
-            align: 'center',
-            minResizeWidth: '70px',
-            // breakpoints: ['mobile', 'tablet', 'desktop']
-        }, {
-            label: '市场增长(%)',
-            valuePath: 'market_growth',
-            // width: '100px',
-            align: 'center',
-            classNames: 'tabl',
-            minResizeWidth: '70px',
 
-        }, {
-            label: '销售额',
-            valuePath: 'sales_amount',
-            // width: '100px',
-            align: 'center',
-            minResizeWidth: '70px',
-        }, {
-            label: '销售增长(%)',
-            valuePath: 'sales_growth',
-            // width: '100px',
-            align: 'center',
-            minResizeWidth: '70px',
-        }, {
-            label: 'EV值(%)',
-            valuePath: 'ev_value',
-            // width: '80px',
-            align: 'center',
-            minResizeWidth: '70px',
-        }, {
-            label: '份额(%)',
-            valuePath: 'share',
-            // width: '80px',
-            align: 'center',
-            minResizeWidth: '70px',
-        }, {
-            label: '份额增长(%)',
-            valuePath: 'share_growth',
-            // width: '100px',
-            align: 'center',
-            minResizeWidth: '70px',
-        }, ];
         this.prodCont = [{
             label: '商品名',
             valuePath: 'prod',
