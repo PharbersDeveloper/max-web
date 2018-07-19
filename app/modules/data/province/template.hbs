@@ -7,7 +7,7 @@
 		{{/each}}
 	</div>
 	<div class="container-fluid">
-		{{!-- {{mixed-graph }} --}}
+		{{mixed-graph mixedGraphData=mixedGraphData}}
 	</div>
 
 	{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
@@ -72,10 +72,9 @@
 			{{/each}}
 		</div>
 		<div class="container-fluid" local-class='nopadding multi-line'>
-			{{!-- {{line-mulit-choose }} --}}
-			<p local-class="market-title"><span>各产品份额</span><span>{{time}}</span></p>
+			<p local-class="market-title"><span>{{trendTitle.title}}</span><span>{{trendTitle.timestart}}{{trendTitle.timeover}}{{trendTitle.area}}</span></p>
 
-			{{!-- {{multi-line-market mulitLineData=marketProd}} --}}
+			{{multi-line-market mulitLineData=prodTrend}}
 		</div>
 		{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
 
@@ -89,10 +88,10 @@
 			<div class="col-md-6 col-sm-12" local-class="nopadding legend-pie-container">
 				<div local-class="inside">
 					<p local-class="pie-title">
-						<span>各产品份额</span>
-						<span>{{time}}</span>
+						<span>{{marketTitle.title}}</span>
+						<span>{{marketTitle.subtitle}}</span>
 					</p>
-					{{!-- {{legend-pie-sales pieData=marketShare}} --}}
+					{{legend-pie-sales pieData=marketShare}}
 				</div>
 			</div>
 			<div class="col-md-6 col-sm-12" local-class="nopadding horizontal-histogram">
@@ -111,13 +110,13 @@
 							<div class="col-md-8 col-sm-8 col-xs-8">
 								<div class="row">
 									{{#each rankingRange as |item|}}
-										<span class="col-md-2 col-sm-2 col-xs-2">{{item}}k</span>
+										<span class="col-md-2 col-sm-2 col-xs-2">{{item}}{{unit}}</span>
 									{{/each}}
 								</div>
 							</div>
 						</div>
 						{{#each ranking as |item|}}
-							{{!-- {{pord-histogram data=item}} --}}
+							{{pord-histogram data=item theMax=rankingMax}}
 						{{/each}}
 					</div>
 				</div>
@@ -125,7 +124,7 @@
 			</div>
 		</div>
 		<div local-class="table-sales">
-			<p local-class="con-title"><span>各产品份额</span><span>{{time}}</span></p>
+			<p local-class="con-title"><span>{{competingTitle.title}}</span><span>{{competingTitle.subtitle}}</span></p>
 			{{self-table model=competingProdValue columns=competingProd selfheight='300px'}}
 		</div>
 

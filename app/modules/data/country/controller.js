@@ -82,8 +82,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询产品cards(in country)：')
-                    // console.log(result);
+                    console.log('查询产品cards(in country)：')
+                    console.log(result);
                     this.set('cards', result.saleShareCard);
                 }
             })
