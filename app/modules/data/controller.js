@@ -1,7 +1,15 @@
 import Controller from '@ember/controller';
+
 import {
 	inject
 } from '@ember/service';
+import {
+	later
+} from '@ember/runloop';
+const {
+	keys
+} = Object;
+import $ from 'jquery';
 export default Controller.extend({
 	ajax: inject(),
 	cookies: inject(),
@@ -199,6 +207,17 @@ export default Controller.extend({
 		}, ];
 	},
 	actions: {
-
+		logut() {
+			// let cookies = this.get('cookies');
+			keys(this.get('cookies').read()).forEach(item => {
+				window.console.info(item);
+				this.get('cookies').clear(item, {
+					path: '/'
+				})
+			});
+			later(this, () => {
+				window.location = "/";
+			}, 1000)
+		},
 	}
 });

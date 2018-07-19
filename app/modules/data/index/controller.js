@@ -187,31 +187,7 @@ export default Controller.extend({
 					subname: 'subname',
 					value: 'value',
 					percent: '5.6%'
-				}, {
-					title: "贡献最高",
-					subtitle: "2018-04",
-					city: "全国",
-					name: "头孢",
-					subname: '北京市场',
-					value: '88.888Mil',
-					percent: '88.6%'
-				}, {
-					title: "产品下滑",
-					subtitle: "2018-04",
-					city: "",
-					name: "商品名称",
-					subname: '市场名',
-					value: '94.83Mil',
-					percent: '56.6%'
-				}, {
-					title: "产品增长",
-					subtitle: "2018-04",
-					city: "",
-					name: "青霉素",
-					subname: '大中华市场',
-					value: '9999.83Mil',
-					percent: '999.6%'
-				}
+				},
 			*/
 		];
 		this.titleInfo = {
