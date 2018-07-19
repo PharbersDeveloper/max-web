@@ -30,6 +30,9 @@
         color: #9B9B9B;
         letter-spacing: 1px;
         text-align: right;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .triangle {

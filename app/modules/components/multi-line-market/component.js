@@ -8,7 +8,7 @@ import {
 import d3 from 'd3';
 export default Component.extend({
     tagName: 'svg',
-    classNames: ['col-md-12', 'col-sm-12', 'col-xs-12', 'simple-line'],
+    classNames: ['col-md-12', 'col-sm-12', 'col-xs-12', 'trend-line'],
     init() {
         this._super(...arguments);
         // this.data = [];

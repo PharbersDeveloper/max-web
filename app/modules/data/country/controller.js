@@ -108,8 +108,8 @@ export default Controller.extend({
                 if (status === 'ok') {
                     // console.log('查询市场&产品趋势(in country)：')
                     // console.log(result);
-                    this.set('trendTitle',result.tableSale.prodSalesOverview)
-                    this.set('multiData',result.tableSale.multiData);
+                    this.set('trendTitle', result.tableSale.prodSalesOverview)
+                    this.set('multiData', result.tableSale.multiData);
                     // title = resulttableSale.prodSalesOverview
                     // result = result.tableSale.multiData
                     // this.set('cards', result.saleShareCard);
@@ -185,9 +185,9 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    console.log('查询各产品排名变化(in country)：')
-                    console.log(result);
-                    this.set('unit',result.unit);
+                    // console.log('查询各产品排名变化(in country)：')
+                    // console.log(result);
+                    this.set('unit', result.unit);
                     this.set('ranking', result.ranking);
                     this.computedRankingMax();
                 }
@@ -250,107 +250,60 @@ export default Controller.extend({
         //  end 各产品排名变化
 
         // 查询查询市场竞品销售情况
-        this.competingValue= [];
+        this.competingValue = [];
         this.queryCompeting();
         // end 查询查询市场竞品销售情况
         this.markets = ['first', 'second'];
 
-        this.prodSalesOverview = {
-            title: '辉瑞产品销售额',
-            time: '2018.01-2018.08',
-            currentMonth: '2018-07',
-            curMoSales: 9999.9,
-            yearYear: 99.9,
-            ring: 499,
-            totle: 146534563,
-            ave: 34572452,
-        };
-
-        this.prodSalesTable = [{
-            date: new Date('2018-01'),
-            sales: 500
-        }, {
-            date: new Date('2018-02'),
-            sales: 600
-        }, {
-            date: new Date('2018-03'),
-            sales: 500
-        }, {
-            date: new Date('2018-04'),
-            sales: 400
-        }, {
-            date: new Date('2018-05'),
-            sales: 500
-        }, {
-            date: new Date('2018-06'),
-            sales: 600
-        }, {
-            date: new Date('2018-07'),
-            sales: 500
-        }, {
-            date: new Date('2018-08'),
-            sales: 0
-        }, {
-            date: new Date('2018-09'),
-            sales: 0
-        }, {
-            date: new Date('2018-10'),
-            sales: 0
-        }, {
-            date: new Date('2018-11'),
-            sales: 0
-        }, ];
-
         this.competingColumn = [{
-                label: '商品名',
-                valuePath: 'prod',
-                // width: '100px',
-                classNames: 'tabl',
-                align: 'center',
-                sorted: false, //是否可以对列进行排序
-                minResizeWidth: '70px', //列可以调整的最小宽度
-                // breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
-
-            }, {
-                label: '生产商',
-                valuePath: 'manufacturer',
-                // width: '100px',
-                classNames: 'tabl',
-                align: 'center',
-                minResizeWidth: '70px',
-                // breakpoints: ['mobile', 'tablet', 'desktop']
-            },  {
-                label: '销售额',
-                valuePath: 'market_sale',
-                // width: '100px',
-                align: 'center',
-                minResizeWidth: '70px',
-            }, {
-                label: '销售增长(%)',
-                valuePath: 'sales_growth',
-                // width: '100px',
-                align: 'center',
-                minResizeWidth: '70px',
-            }, {
-                label: 'EV值(%)',
-                valuePath: 'ev_value',
-                // width: '80px',
-                align: 'center',
-                minResizeWidth: '70px',
-            }, {
-                label: '份额(%)',
-                valuePath: 'share',
-                // width: '80px',
-                align: 'center',
-                minResizeWidth: '70px',
-            }, {
-                label: '份额增长(%)',
-                valuePath: 'share_growth',
-                // width: '100px',
-                align: 'center',
-                minResizeWidth: '70px',
-            }
-        ];
+            label: '商品名',
+            valuePath: 'prod',
+            // width: '100px',
+            classNames: 'tabl',
+            align: 'center',
+            sorted: false, //是否可以对列进行排序
+            minResizeWidth: '70px', //列可以调整的最小宽度
+            // breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
+        }, {
+            label: '生产商',
+            valuePath: 'manufacturer',
+            sorted: false,
+            // width: '100px',
+            classNames: 'tabl',
+            align: 'center',
+            minResizeWidth: '70px',
+            // breakpoints: ['mobile', 'tablet', 'desktop']
+        }, {
+            label: '销售额',
+            valuePath: 'market_sale',
+            // width: '100px',
+            align: 'center',
+            minResizeWidth: '70px',
+        }, {
+            label: '销售增长(%)',
+            valuePath: 'sales_growth',
+            // width: '100px',
+            align: 'center',
+            minResizeWidth: '70px',
+        }, {
+            label: 'EV值(%)',
+            valuePath: 'ev_value',
+            // width: '80px',
+            align: 'center',
+            minResizeWidth: '70px',
+        }, {
+            label: '份额(%)',
+            valuePath: 'share',
+            // width: '80px',
+            align: 'center',
+            minResizeWidth: '70px',
+        }, {
+            label: '份额增长(%)',
+            valuePath: 'share_growth',
+            // width: '100px',
+            align: 'center',
+            minResizeWidth: '70px',
+        }];
 
     },
 

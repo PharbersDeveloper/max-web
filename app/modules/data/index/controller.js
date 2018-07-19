@@ -2,13 +2,21 @@ import Controller from '@ember/controller';
 import {
 	inject
 } from '@ember/service';
-
+import {computed} from '@ember/object';
 export default Controller.extend({
 	ajax: inject(),
 	cookies: inject(),
 	activeCi: true,
 	fullName: '', // 这应该后端返回firstName与lastName 有前端计算出来
-	time: '2017-03',
+	// time: '2017-03',
+	year: '2018',
+	month: '01',
+	time: computed('year','month', function() {
+		// body
+		let year = this.get('year');
+		let month = this.get('month');
+		return year+'-'+month;
+	}),
 	getAjaxOpt(data) {
 		return {
 			method: 'POST',
@@ -38,10 +46,10 @@ export default Controller.extend({
 				error
 			}) => {
 				if (status === 'ok') {
-					// console.log('查询产品销售概况')
+					console.log('查询产品销售概况')
 					console.log(result.tableSale);
 					this.set('prodSalesOverview', result.tableSale.prodSalesOverview);
-					this.set('prodSalesTable', result.tableSale.prodSalesTable)
+					this.set('prodSalesLine', result.tableSale.prodSalesTable)
 				}
 			})
 	},
@@ -87,10 +95,10 @@ export default Controller.extend({
 				error
 			}) => {
 				if (status === 'ok') {
-					console.log('查询各产品销售概况:')
+					// console.log('查询各产品销售概况:')
 					// console.log(result);
 					this.set('titleInfo', result.overView.prodSalesOverview);
-					console.log(this.get('titleInfo'))
+					// console.log(this.get('titleInfo'))
 					this.set('prodSalesValue', result.overView.prodSalesValue);
 				}
 			})
@@ -113,8 +121,8 @@ export default Controller.extend({
 				error
 			}) => {
 				if (status === 'ok') {
-					console.log('查询各产品销售贡献度：')
-					console.log(result);
+					// console.log('查询各产品销售贡献度：')
+					// console.log(result);
 					this.set('prodContValue', result.tableSale.prodContValue)
 					this.set('pieValue', result.tableSale.pie);
 					this.set('contTitle', result.tableSale.prodSalesOverview)
@@ -140,55 +148,11 @@ export default Controller.extend({
 			totle: 146534563,
 			ave: 34572452,
 		};
-		this.prodSalesTable = [
-			/*{
-					date: '2018-01',
-					sales: 500
-				}, {
-					date: '2018-02',
-					sales: 600
-				}, {
-					date: '2018-03',
-					sales: 500
-				}, {
-					date: '2018-04',
-					sales: 400
-				}, {
-					date: '2018-05',
-					sales: 500
-				}, {
-					date: '2018-06',
-					sales: 600
-				}, {
-					date: '2018-07',
-					sales: 500
-				}, {
-					date: '2018-08',
-					sales: 0
-				}, {
-					date: '2018-09',
-					sales: 0
-				}, {
-					date: '2018-10',
-					sales: 0
-				}, {
-					date: '2018-11',
-					sales: 0
-				},
+		this.prodSalesLine = [
 
-			*/
 		];
 		this.cards = [
-			/*	{
-					title: "title",
-					subtitle: "subtitle",
-					city: "city",
-					name: "市场名称",
-					subname: 'subname',
-					value: 'value',
-					percent: '5.6%'
-				},
-			*/
+
 		];
 		this.titleInfo = {
 			/*	title: '各产品销售概况',
@@ -197,72 +161,7 @@ export default Controller.extend({
 			*/
 		};
 		this.prodSalesValue = [
-			/*	{
-					'prod': '产品一',
-					'market': 'aaaa',
-					'market_scale': 4564,
-					'market_growth': 12,
-					'sales': 45175,
-					'sales_growth': 16,
-					'ev_value': 100,
-					'share': 45,
-					'share_growth': 9,
 
-				}, {
-					'prod': '产品二',
-					'market': 'aaaa',
-					'market_scale': 4564,
-					'market_growth': 135,
-					'sales': 87345,
-					'sales_growth': 68,
-					'ev_value': 468,
-					'share': 78,
-					'share_growth': 41,
-
-				}, {
-					'prod': '产品三',
-					'market': 'aaaa',
-					'market_scale': 4564,
-					'market_growth': 647,
-					'sales': 56,
-					'sales_growth': 786,
-					'ev_value': 563,
-					'share': 536,
-					'share_growth': 786,
-				}, {
-					'prod': '产品四',
-					'market': 'aaaa',
-					'market_scale': 4564,
-					'market_growth': 13422,
-					'sales': 452,
-					'sales_growth': 42,
-					'ev_value': 45,
-					'share': 656,
-					'share_growth': 76,
-
-				}, {
-					'prod': '产品5',
-					'market': 'aaaa',
-					'market_scale': 4564,
-					'market_growth': 13422,
-					'sales': 452,
-					'sales_growth': 42,
-					'ev_value': 45,
-					'share': 656,
-					'share_growth': 76,
-
-				}, {
-					'prod': '产品6',
-					'market': 'aaaa',
-					'market_scale': 4564,
-					'market_growth': 13422,
-					'sales': 452,
-					'sales_growth': 42,
-					'ev_value': 45,
-					'share': 656,
-					'share_growth': 76,
-				},
-			*/
 		];
 		this.prodSales = [{
 			label: '商品名',
@@ -379,80 +278,28 @@ export default Controller.extend({
 			minResizeWidth: '70px',
 		}];
 		this.prodContValue = [
-			/*	{
-					'prod': '产品一',
-					'market': 123456,
-					'sales': 12,
-					'cont': 45175,
-					'cont-month': 16,
-					'cont-season': 100,
-					'cont-year': 45,
-				}, {
-					'prod': '产品二',
-					'market': 54387,
-					'sales': 135,
-					'cont': 87345,
-					'cont-month': 68,
-					'cont-season': 468,
-					'cont-year': 78,
-				}, {
-					'prod': '产品三',
-					'market': 8321,
-					'sales': 647,
-					'cont': 56,
-					'cont-month': 786,
-					'cont-season': 563,
-					'cont-year': 536,
-				}, {
-					'prod': '产品四',
-					'market': 67456,
-					'sales': 13422,
-					'cont': 452,
-					'cont-month': 42,
-					'cont-season': 45,
-					'cont-year': 656,
-				}, {
-					'prod': '产品5',
-					'market': 67456,
-					'sales': 13422,
-					'cont': 452,
-					'cont-month': 42,
-					'cont-season': 45,
-					'cont-year': 656,
-				}, {
-					'prod': '产品6',
-					'market': 67456,
-					'sales': 13422,
-					'cont': 452,
-					'cont-month': 42,
-					'cont-season': 45,
-					'cont-year': 656,
-				}, {
-					'prod': '产品7',
-					'market': 67456,
-					'sales': 13422,
-					'cont': 452,
-					'cont-month': 42,
-					'cont-season': 45,
-					'cont-year': 656,
-				}, {
-					'prod': '产品8',
-					'market': 67456,
-					'sales': 13422,
-					'cont': 452,
-					'cont-month': 42,
-					'cont-season': 45,
-					'cont-year': 656,
-				}, {
-					'prod': '产品9',
-					'market': 356,
-					'sales': 34,
-					'cont': 75,
-					'cont-month': 12,
-					'cont-season': 46,
-					'cont-year': 54,
-				},
-			*/
+
 		];
+		this.years = ['2018','2017','2016'];
+		this.months = ['01','02','03','04','05','06','07','08','09','10','11','12']
 	},
+	actions: {
+		getYear: function(params) {
+            console.log(params);
+			this.set('year',params)
+			// var opt = this.get(params);
+        },
+		getMonth(params) {
+			console.log(params);
+			this.set('month',params)
+		},
+		submit() {
+			// console.log('dddd');
+			this.set('modal3',false);
+			this.queryProdOV();
+			this.queryCards();
+			this.queryProdSales();
+			this.queryProdCont();
+		},
+	}
 });

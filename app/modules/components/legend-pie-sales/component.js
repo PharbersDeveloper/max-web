@@ -12,7 +12,7 @@ import d3 from 'd3';
 
 export default Component.extend({
 	tagName: 'svg',
-	classNames: ['legend-pie'],
+	classNames: ['legend-pie-sales'],
 	width: 720,
 	height: 300,
 	attributeBindings: ['width', 'height'],
@@ -271,7 +271,7 @@ export default Component.extend({
 			.attr("transform", "translate(" + 130 + "," + 150 + ")");
 		var tooltip = svg
 			.append("div")
-			.attr("class", "tooltip");
+			.attr("class", "tooltips");
 		var arcs = svg.selectAll("g.arc")
 			.data(pie)
 			.enter().append("g")
@@ -286,17 +286,17 @@ export default Component.extend({
 					return arc2(d);
 				})
 				// tooltip
-				d3.select(".tooltip")
+				d3.select(".tooltips")
 					.style("left", left + "px")
 					.style("top", top + "px")
-					.style("opacity", 1)
-					// .html(d.data.prod + '</br>' + "销售额" + d.data.sales)
-					// .select("#value")
-					// .append('p')
-					// .attr('class', 'tip-title')
-					// .append('span')
-					// .attr('class', 'prod-color')
-					.text(d.data.prod);
+					.style("opacity", 0.8)
+					.html(d.data.prod + '</br>' + "销售额" + d.data.sales)
+					.select("#value")
+					.append('p')
+					.attr('class', 'tip-title')
+					.append('span')
+					.attr('class', 'prod-color')
+					// .text(d.data.prod);
 				// d3.select('.tip-title')
 				// 	.append('text')
 				// 	.text(d.data.prod)
@@ -306,12 +306,14 @@ export default Component.extend({
 				d3.select(this).select("path").transition().attr("d", function(d) {
 					return arc(d);
 				})
-				d3.select(".tooltip").style("opacity", 0.0);
+				d3.select(".tooltips").style("opacity", 0.0);
 			});
 
 		//绘制图例区域
 		// var color = d3.scaleOrdinal(d3.schemeCategory10);
-		var legendArea = svg.append("g")
+		let legendContainer =svg.append('div').attr('class','legendContainer');
+		// var legendArea = svg.append("g")
+		var legendArea = legendContainer.append("g")
 			.attr("transform", "translate(80,15)");
 
 		//绑定数据，设置每个图例的位置

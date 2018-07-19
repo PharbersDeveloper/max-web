@@ -1,42 +1,85 @@
 {{!-- {{outlet}} --}}
 {{data-choose activeOv=true}}
-{{date-market-choose showMarkerChoose=false market=markets}}
-<div class="container-fluid" local-class="nopadding line-sales">
-	<p local-class='title'> <span>{{prodSalesOverview.title}}</span> <span>{{prodSalesOverview.time}}</span></p>
-	<div local-class="overview" class="row">
-		<div class="col-md-8 col-sm-8 col-xs-8" local-class="total-left">
-			<p local-class="current-mo">{{prodSalesOverview.currentMonth}}</p>
-			<div local-class="raito">
-				<div local-class="left">
-					<span>￥{{prodSalesOverview.curMoSales}}</span><span>Mil</span>
-				</div>
-				<div local-class="right">
-					<p>同比<span local-class="growth">+{{prodSalesOverview.yearYear}}%</span></p>
-					<p>环比<span local-class="growth">+{{prodSalesOverview.ring}}%</span></p>
-				</div>
-			</div>
+	{{!-- {{date-market-choose showMarkerChoose=false market=markets}} --}}
+
+	<div local-class="data-market">
+
+
+		<div local-class="time-show">
+			<span local-class="show-title">时间选择：</span>
+			<p>{{time}}</p>
 		</div>
-		<div class="col-md-4 col-sm-4 col-xs-4" local-class="total-right">
-			<p><span>合计</span><span>￥{{prodSalesOverview.totle}}</span></p>
-			<p><span>月平均</span><span local-class="growth">￥{{prodSalesOverview.ave}}</span></p>
+		<div local-class="change-item">
+			{{!-- 修改筛选条件 --}}
+			{{#bs-modal open=modal3 onSubmit=(action "submit") onHidden=(action (mut modal3) false) as |modal|}}
+				{{#modal.header}}
+					<h4 class="modal-title">
+				修改筛选条件
+			</h4>
+				{{/modal.header}}
+				{{#modal.body}}
+
+					<div local-class="time-selects">
+						<span>时间选择：</span>
+						<select local-class="choose-market" name="markets" onchange= {{ action 'getYear' value="target.value"}}>
+							<option value="2018">2018</option>
+							{{#each years as |item|}}
+								<option value={{item}}>{{item}}</option>
+							{{/each}}
+						</select>
+						<select local-class="choose-market" name="markets" onchange= {{ action 'getMonth' value="target.value"}}>
+							{{!-- <option value="All">04</option> --}}
+							{{#each months as |item|}}
+								<option value={{item}}>{{item}}</option>
+							{{/each}}
+						</select>
+					</div>
+				{{/modal.body}}
+				{{#modal.footer}}
+					{{#bs-button onClick=(action modal.close)}}取消{{/bs-button}}
+					{{#bs-button type="success" onClick=(action modal.submit ) }}保存{{/bs-button}}
+				{{/modal.footer}}
+			{{/bs-modal}}
+			{{#bs-button local-class="test" onClick=(action (mut modal3) true)}} 修改筛选条件{{/bs-button}}
 		</div>
 	</div>
-	{{line-prod-sales tableData=prodSalesTable}}
-</div>
 
-<div class="container-fluid" local-class="nopadding">
-	{{#each cards as |item|}}
-		{{key-words card=item}}
-	{{/each}}
-</div>
+	<div class="container-fluid" local-class="nopadding line-sales">
+		<p local-class='title'> <span>{{prodSalesOverview.title}}</span> <span>{{prodSalesOverview.time}}</span></p>
+		<div local-class="overview" class="row">
+			<div class="col-md-8 col-sm-8 col-xs-8" local-class="total-left">
+				<p local-class="current-mo">{{prodSalesOverview.currentMonth}}</p>
+				<div local-class="raito">
+					<div local-class="left">
+						<span>￥{{prodSalesOverview.curMoSales}}</span><span>Mil</span>
+					</div>
+					<div local-class="right">
+						<p>同比<span local-class="growth">+{{prodSalesOverview.yearYear}}%</span></p>
+						<p>环比<span local-class="growth">+{{prodSalesOverview.ring}}%</span></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-4" local-class="total-right">
+				<p><span>合计</span><span>￥{{prodSalesOverview.totle}}</span></p>
+				<p><span>月平均</span><span local-class="growth">￥{{prodSalesOverview.ave}}</span></p>
+			</div>
+		</div>
+		{{line-prod-sales singleLineData=prodSalesLine}}
+	</div>
 
-<div local-class="table-persales">
-	<p local-class="pie-title"><span>{{titleInfo.title}}</span><span>{{titleInfo.subtitle}}</span></p>
-	{{self-table model=prodSalesValue columns=prodSales selfheight='300px'}}
-</div>
+	<div class="container-fluid" local-class="nopadding">
+		{{#each cards as |item|}}
+			{{key-words card=item}}
+		{{/each}}
+	</div>
 
-<div class="container-fluid" local-class="nopadding pie-table">
-	<p local-class="pie-title"><span>{{contTitle.title}}</span><span>{{contTitle.subtitle}}</span></p>
-	{{pie-chart pieData=pieValue }} {{legend-table model=prodContValue columns=prodCont selfheight='310px'}}
-</div>
+	<div local-class="table-persales">
+		<p local-class="pie-title"><span>{{titleInfo.title}}</span><span>{{titleInfo.subtitle}}</span></p>
+		{{self-table model=prodSalesValue columns=prodSales selfheight='300px'}}
+	</div>
+
+	<div class="container-fluid" local-class="nopadding pie-table">
+		<p local-class="pie-title"><span>{{contTitle.title}}</span><span>{{contTitle.subtitle}}</span></p>
+		{{pie-chart pieData=pieValue }} {{legend-table model=prodContValue columns=prodCont selfheight='310px'}}
+	</div>
 	{{!-- {{line-prod-sales line=prodSalesOverview}}  --}}

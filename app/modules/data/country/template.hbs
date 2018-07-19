@@ -1,6 +1,7 @@
 {{!-- {{outlet}} --}}
 {{data-choose activeCo=true}} {{date-market-choose showMarkerChoose=true market=markets}}
 
+
 	<div class="container-fluid" local-class="nopadding">
 		{{#each cards as |item|}}
 			{{sales-word card=item}}
@@ -63,7 +64,15 @@
 
 	<div local-class="competing-products-table">
 		<p local-class="table-title"><span>{{competingTitle.title}}</span><span>{{competingTitle.subtitle}}{{competingTitle.area}}</span></p>
-		{{self-table  model=competingValue columns=competingColumn selfheight='270px'}}
+		{{self-table model=competingValue columns=competingColumn selfheight='270px'}}
+	</div>
+
+	<div class="container-fluid" local-class='nopadding choose-line'>
+		<p local-class="trend-title">
+			<span>各产品销售趋势分析</span>
+			{{!-- <span>{{trendTitle.title}}</span> --}}
+			<span>{{trendTitle.timeStart}}至{{trendTitle.timeOver}}{{trendTitle.area}}</span>
+		</p>
+		{{line-mulit-choose }}
 	</div>
 	{{!-- {{line-mulit-choose }} --}}
-	{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
