@@ -12,7 +12,7 @@ import d3 from 'd3';
 
 export default Component.extend({
 	tagName: 'svg',
-	classNames: ['col-md-4', 'col-sm-12', 'legend-pie'],
+	classNames: ['col-md-4', 'col-sm-12', 'simple-pie'],
 	width: '100%',
 	height: 320,
 	attributeBindings: ['width', 'height'],
@@ -164,10 +164,10 @@ export default Component.extend({
 		},
 	*/
 	didReceiveAttrs() {
-		run.schedule('render', this, this.drawLegendPie)
+		run.schedule('render', this, this.drawPie)
 	},
 
-	drawLegendPie() {
+	drawPie() {
 		let svg = d3.select(this.element)
 		// let data = get(this, 'data')
 		let width = get(this, 'width')
@@ -210,8 +210,7 @@ export default Component.extend({
 				return d.cont
 			})
 
-		svg
-			.datum(pieData)
+		svg.datum(pieData)
 			// .datum(function() {
 			// 	return d.cont
 			// })

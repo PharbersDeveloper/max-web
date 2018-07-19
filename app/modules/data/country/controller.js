@@ -1,22 +1,25 @@
-
 import Controller from '@ember/controller';
 import {
     inject
 } from '@ember/service';
+import {
+    computed
+} from '@ember/object';
 export default Controller.extend({
     ajax: inject(),
     cookies: inject(),
-    time: '2017-03',
     market: '麻醉市场',
     ranktag: 'sales',
     rankingMax: 0,
-    actions: {
-        submit() {
-            Ember.Logger.log(123)
-        }
-    },
     activeCi: true,
-
+    year: '2017',
+    month: '03',
+    time: computed('year', 'month', function() {
+        // body
+        let year = this.get('year');
+        let month = this.get('month');
+        return year + '-' + month;
+    }),
     computedRankingMax() {
         let ranking = this.get('ranking');
         let range = 0;
@@ -82,8 +85,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    console.log('查询产品cards(in country)：')
-                    console.log(result);
+                    // console.log('查询产品cards(in country)：')
+                    // console.log(result);
                     this.set('cards', result.saleShareCard);
                 }
             })
@@ -213,7 +216,7 @@ export default Controller.extend({
                 if (status === 'ok') {
                     // console.log('查询查询市场竞品销售情况(in country)：')
                     // console.log(result);
-                    this.set('competingTitle',result.prodSalesOverview)
+                    this.set('competingTitle', result.prodSalesOverview)
                     this.set('competingValue', result.prodSalesValue);
                     // this.set('shareTitle', result.prodSalesOverview);
                 }
@@ -244,6 +247,7 @@ export default Controller.extend({
         //  end 各产品份额
 
         //  各产品排名变化
+        this.RankdataType = ['销售额','销售增长','份额','份额增长'];
         this.ranking = [];
         this.rankingRange = [];
         this.queryRank();
@@ -304,8 +308,40 @@ export default Controller.extend({
             align: 'center',
             minResizeWidth: '70px',
         }];
-
+        this.markets = ['麻醉市场'];
+        this.years = ['2018', '2017', '2016'];
+        this.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
     },
 
+    actions: {
+        getMarket(params) {
+            this.set('market', params)
+        },
+        getYear: function(params) {
+            this.set('year', params);
+        },
+        getMonth(params) {
+            this.set('month', params);
+        },
+        queryRank(params) {
+            if(params === '销售额'){
+                this.set('ranktag','sales')
+            } else if (params === '销售增长') {
+                this.set('ranktag','salesGrowth')
+            }else if (params === '份额') {
+                this.set('ranktag','prodShare')
+            }else if (params === '份额增长') {
+                this.set('ranktag','prodShareGrowth')
+            }
+            this.queryRank();
 
+        },
+        submit() {
+            this.set('modal3', false);
+            this.queryProdOV();
+            this.queryCards();
+            this.queryProdSales();
+            this.queryProdCont();
+        },
+    }
 });

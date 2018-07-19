@@ -569,7 +569,9 @@ export default Component.extend({
             rects2.attr("x", function(d) {
                 return x(d.province) + 18;
             });
+            // let line1 = svg.selectAll('.line');
             svg.selectAll('.line')
+            // line1.exit().remove();
                 .data([new_data])
                 .attr("class", "line")
                 .style("stroke", "#FA6F80")

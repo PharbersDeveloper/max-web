@@ -12,7 +12,7 @@ import d3 from 'd3';
 
 export default Component.extend({
 	tagName: 'svg',
-	classNames: ['legend-pie'],
+	classNames: ['legend-pie-prov'],
 	width: 720,
 	height: 300,
 	attributeBindings: ['width', 'height'],

@@ -1,6 +1,58 @@
 {{!-- {{outlet}} --}}
-{{data-choose activeCo=true}} {{date-market-choose showMarkerChoose=true market=markets}}
+{{data-choose activeCo=true}}
+{{!-- {{date-market-choose showMarkerChoose=true market=markets}} --}}
+<div class="container-fluid" local-class="data-market">
+	<div local-class='market-show'>
+		<span local-class="show-title">市场选择：</span>
+		<p>{{market}}</p>
+	</div>
 
+	<div local-class="time-show">
+		<span local-class="show-title">时间选择：</span>
+		<p>{{time}}</p>
+	</div>
+	<div local-class="change-item">
+		{{!-- 修改筛选条件 --}}
+		{{#bs-modal open=modal3 onSubmit=(action "submit") onHidden=(action (mut modal3) false) as |modal|}}
+			{{#modal.header}}
+				<h4 class="modal-title">
+				修改筛选条件
+			</h4>
+			{{/modal.header}}
+			{{#modal.body}}
+				<div local-class='market-choose-area'>
+					<span local-class="title">市场选择：</span>
+					<select local-class="choose-market" name="markets" onchange= {{ action 'getMarket' value="target.value"}}>
+					 	{{!-- <option value="All">全部</option> --}}
+						{{#each markets as |item|}}
+							<option value={{item}}>{{item}}</option>
+						{{/each}}
+			    	</select>
+				</div>
+				<div local-class="time-selects">
+					<span>时间选择：</span>
+					<select local-class="choose-market" name="markets" onchange= {{ action 'getYear' value="target.value"}}>
+						{{!-- <option value="All">2018</option> --}}
+						{{#each years as |item|}}
+							<option value={{item}}>{{item}}</option>
+						{{/each}}
+					</select>
+					<select local-class="choose-market" name="markets" onchange= {{ action 'getMonth' value="target.value"}}>
+						{{!-- <option value="All">04</option> --}}
+						{{#each months as |item|}}
+							<option value={{item}}>{{item}}</option>
+						{{/each}}
+					</select>
+				</div>
+			{{/modal.body}}
+			{{#modal.footer}}
+				{{#bs-button onClick=(action modal.close)}}取消{{/bs-button}}
+				{{#bs-button type="success" onClick=(action modal.submit ) }}保存{{/bs-button}}
+			{{/modal.footer}}
+		{{/bs-modal}}
+		{{#bs-button local-class="change" onClick=(action (mut modal3) true)}} 修改筛选条件{{/bs-button}}
+	</div>
+</div>
 
 	<div class="container-fluid" local-class="nopadding">
 		{{#each cards as |item|}}
@@ -37,9 +89,12 @@
 			<div local-class="inside">
 				<p local-class="his-title"><span>各产品排名变化</span><span>{{time}}.全国</span></p>
 				<p local-class="choose-type"><span>数据类型：</span>
-					<select class="" name="">
-						<option value="">aa</option>
-						<option value="">bb</option>
+					<select class="" name="" onchange= {{ action 'queryRank' value="target.value"}}>
+						{{#each RankdataType as |item|}}
+							<option value={{item}}>{{item}}</option>
+						{{/each}}
+						{{!-- <option value="">aa</option> --}}
+						{{!-- <option value="">bb</option> --}}
 					</select>
 			</p>
 				<div local-class="histogram">

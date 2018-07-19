@@ -11,6 +11,10 @@
         fill: blue;
     }
 
+    :global .line {
+        fill: none;
+    }
+
     :global .line2 {
         fill: none;
     }
