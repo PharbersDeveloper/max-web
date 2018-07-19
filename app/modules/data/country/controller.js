@@ -1,3 +1,4 @@
+
 import Controller from '@ember/controller';
 import {
     inject
@@ -81,8 +82,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询产品cards(in country)：')
-                    // console.log(result);
+                    console.log('查询产品cards(in country)：')
+                    console.log(result);
                     this.set('cards', result.saleShareCard);
                 }
             })
@@ -135,7 +136,7 @@ export default Controller.extend({
                 if (status === 'ok') {
                     // console.log('查询产品Mostcards(in country)：')
                     // console.log(result);
-                    this.set('words', result.saleShareCard);
+                    this.set('words', result.mostCard);
                 }
             })
     },
@@ -184,8 +185,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询各产品排名变化(in country)：')
-                    // console.log(result);
+                    console.log('查询各产品排名变化(in country)：')
+                    console.log(result);
                     this.set('unit',result.unit);
                     this.set('ranking', result.ranking);
                     this.computedRankingMax();
@@ -210,8 +211,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    console.log('查询查询市场竞品销售情况(in country)：')
-                    console.log(result);
+                    // console.log('查询查询市场竞品销售情况(in country)：')
+                    // console.log(result);
                     this.set('competingTitle',result.prodSalesOverview)
                     this.set('competingValue', result.prodSalesValue);
                     // this.set('shareTitle', result.prodSalesOverview);

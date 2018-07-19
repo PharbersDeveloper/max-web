@@ -1,5 +1,5 @@
 {{!-- {{outlet}} --}}
-{{data-choose activeCo=true}}
+{{data-choose activeCo=true}} {{date-market-choose showMarkerChoose=true market=markets}}
 
 	<div class="container-fluid" local-class="nopadding">
 		{{#each cards as |item|}}
@@ -63,7 +63,7 @@
 
 	<div local-class="competing-products-table">
 		<p local-class="table-title"><span>{{competingTitle.title}}</span><span>{{competingTitle.subtitle}}{{competingTitle.area}}</span></p>
-		{{self-table titleInfo=titleInfo model=competingValue columns=competingColumn selfheight='270px'}}
+		{{self-table  model=competingValue columns=competingColumn selfheight='270px'}}
 	</div>
 	{{!-- {{line-mulit-choose }} --}}
 	{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}

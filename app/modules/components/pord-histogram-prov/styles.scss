@@ -1,0 +1,74 @@
+.progress {
+    // padding: 0 10px;
+    margin: 6px 0;
+}
+
+.left {
+    padding: 0;
+    font-family: $font-family;
+
+    p {
+        margin: 0;
+    }
+
+    .title {
+        height: 20px;
+        line-height: 20px;
+        font-size: 14px;
+        letter-spacing: 1px;
+        color: #485465;
+
+        span:last-child {
+            // float: right;
+            display: inline;
+            margin-left: 40%;
+        }
+    }
+
+    .manu {
+        height: 14px;
+        line-height: 14px;
+        font-size: 10px;
+        color: #9B9B9B;
+        letter-spacing: 1px;
+        text-align: right;
+    }
+
+    .triangle {
+        height: 34px;
+        line-height: 34px;
+        padding-left: 0;
+        font-size: 14px;
+
+        span:first-child {
+            font-size: 18px;
+        }
+
+        .growth {
+            color: #50E3C2;
+        }
+
+        .down {
+            color: #F65165;
+        }
+
+        span:last-child {
+            font-size: 12px;
+            letter-spacing: 0.14px;
+            color: #485465;
+        }
+    }
+}
+
+.right {
+    padding-left: 0;
+
+    .total {
+        margin: 12px 0;
+        height: 10px;
+
+        p {
+            margin: 0;
+        }
+    }
+}

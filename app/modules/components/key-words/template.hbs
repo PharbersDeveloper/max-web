@@ -21,14 +21,38 @@
                 <p>{{card.subname}}</p>
             </div>
         </div>
-        <div local-class="trend">
-            <div local-class="data">
-                <p>{{card.value}}</p>
+        {{#if (eq card.tag 'mil')}}
+            <div local-class="trend">
+                <div local-class="data">
+                    <p>{{card.value}}Mil</p>
+                </div>
+                {{#if (gte card.percent 0)}}
+                    <div local-class="show show_up">
+                        <p><span class="glyphicon glyphicon-triangle-top"></span><span>+{{card.percent}}%</span></p>
+                    </div>
+                {{else}}
+                    <div local-class="show show_down">
+                        <p><span class="glyphicon glyphicon-triangle-bottom"></span><span>{{card.percent}}%</span></p>
+                    </div>
+                {{/if}}
             </div>
-            <div local-class="show">
-                <p>{{card.percent}}</p>
+        {{/if}}
+        {{#if (eq card.tag '%')}}
+            <div local-class="trend">
+                <div local-class="data">
+                    <p>{{card.value}}%</p>
+                </div>
+                {{#if (gte card.percent 0)}}
+                    <div local-class="show show_up">
+                        <p><span class="glyphicon glyphicon-triangle-top"></span><span>+{{card.percent}}%</span></p>
+                    </div>
+                {{else}}
+                    <div local-class="show show_down">
+                        <p><span class="glyphicon glyphicon-triangle-bottom"></span><span>{{card.percent}}%</span></p>
+                    </div>
+                {{/if}}
             </div>
-        </div>
+        {{/if}}
     </div>
 
 </div>
