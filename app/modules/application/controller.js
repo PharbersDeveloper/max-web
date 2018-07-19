@@ -24,7 +24,6 @@ export default Controller.extend(XmppMessageMixin, {
 			'progress': this.get('progress'),
 			'cookies': this.get('cookies')
 		};
-
 		if (status === 'yes') {
 			let conn = result;
 			this.callback(this, conn, services);
