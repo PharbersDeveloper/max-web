@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import {
     inject
 } from '@ember/service';
-import {computed} from '@ember/object';
+import { computed } from '@ember/object';
 export default Controller.extend({
     ajax: inject(),
     cookies: inject(),
@@ -13,6 +13,7 @@ export default Controller.extend({
     rankingMax: 0,
     year: '2017',
     month: '03',
+    prov: '北京',
     time: computed('year', 'month', function() {
         // body
         let year = this.get('year');
@@ -99,7 +100,7 @@ export default Controller.extend({
                 if (status === 'ok') {
                     console.log('查询查询lllllline(in pro)：')
                     console.log(result);
-                    this.set('mixedGraphTitle',result.graphSale.provLineOverview);
+                    this.set('mixedGraphTitle', result.graphSale.provLineOverview);
                     this.set('mixedGraphData', result.graphSale.mixedGraphData);
                     // this.set('marketSalesValue', result.prodSalesValue);
 
@@ -600,5 +601,8 @@ export default Controller.extend({
             this.queryPerMarketShare();
             this.queryMarketRank();
         },
+        testsubmit() {
+            console.log('aaaaaaaaaaaaa');
+        }
     }
 });

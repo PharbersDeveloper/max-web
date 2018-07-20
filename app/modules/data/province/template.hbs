@@ -60,8 +60,9 @@
 	</div>
 	<div class="container-fluid" local-class="mixed-graph">
 		<p local-class="inside-title"><span>{{mixedGraphTitle.title}}</span><span></span></p>
-		{{!-- {{mixed-graph mixedGraphData=mixedGraphData}} --}}
-		{{mixed-graph }}
+		{{!-- {{log mixedGraphData}} --}}
+		{{mixed-graph mixedGraphData=mixedGraphData}}
+		{{!-- {{mixed-graph }} --}}
 
 	</div>
 
@@ -119,8 +120,8 @@
     </div>
 </div> --}}
 
-	{{province-choose showMarkerChoose=true market=markets}}
-
+	{{#province-choose showMarkerChoose=true market=markets as |prov|}}
+	{{/province-choose}}
 		<div class="container-fluid" local-class="nopadding">
 			{{#each sales as |item|}}
 				{{sales-word card=item}}

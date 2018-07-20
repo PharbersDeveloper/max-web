@@ -1,4 +1,7 @@
 :global .mixed-graph {
+    width: 95%;
+    margin: 0 auto;
+
     :global .bar {
         fill: #53A8E2;
     }
@@ -44,5 +47,9 @@
         stroke-opacity: 0.1;
         fill: lightSteelBlue;
         fill-opacity: 0.5;
+    }
+
+    :global .legend-text {
+        font-size: 12px;
     }
 }
