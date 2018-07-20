@@ -10,7 +10,7 @@ import d3 from 'd3';
 export default Component.extend({
     // tagName: 'div',
     tagName: 'svg',
-    classNames: ['col-md-12', 'col-sm-12', 'prod-sales-container'],
+    classNames: ['col-md-12', 'col-sm-12','col-xs-12', 'prod-sales-container'],
     width: 520,
     height: 260,
     attributeBindings: ['width', 'height'],
@@ -19,7 +19,6 @@ export default Component.extend({
     },
 
     didReceiveAttrs() {
-        // run.schedule('render', this, this.drawLine);
         run.schedule('render', this, this.drawSingleLine);
 
     },

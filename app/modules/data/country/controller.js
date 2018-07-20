@@ -109,8 +109,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询市场&产品趋势(in country)：')
-                    // console.log(result);
+                    console.log('查询市场&产品趋势(in country)：')
+                    console.log(result.tableSale.multiData);
                     this.set('trendTitle', result.tableSale.prodSalesOverview)
                     this.set('multiData', result.tableSale.multiData);
                     // title = resulttableSale.prodSalesOverview
@@ -161,8 +161,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询各产品份额(in country)：')
-                    // console.log(result);
+                    console.log('查询各产品份额(in country)：')
+                    console.log(result.pie);
                     this.set('pieValue', result.pie);
                     this.set('shareTitle', result.prodSalesOverview);
 

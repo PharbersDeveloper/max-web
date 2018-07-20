@@ -97,9 +97,10 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询查询lllllline(in pro)：')
-                    // console.log(result);
-                    this.set('mixedGraphData', result.graphSale.mixedGraphData)
+                    console.log('查询查询lllllline(in pro)：')
+                    console.log(result);
+                    this.set('mixedGraphTitle',result.graphSale.provLineOverview);
+                    this.set('mixedGraphData', result.graphSale.mixedGraphData);
                     // this.set('marketSalesValue', result.prodSalesValue);
 
                 }
@@ -445,7 +446,7 @@ export default Controller.extend({
         // prodTrend
         this.prodTrend = [];
         this.queryProdTrend();
-        // prodTrend
+        // end prodTrend
         //竞品数量-卡片数据
         this.words = [];
         this.queryProdMostCards();

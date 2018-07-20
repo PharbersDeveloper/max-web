@@ -11,251 +11,252 @@ export default Component.extend({
     classNames: ['mixed-graph'],
     init() {
         this._super(...arguments);
-        // this.mixedGraphData = [{
-        //     'province': 'aa',
-        //     'scale': 22,
-        //     'sales': 20,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.09,
-        //
-        // }, {
-        //     'province': 'bb',
-        //     'scale': 55,
-        //     'sales': 50,
-        //     'market_growth': 0.09,
-        //     'prod_growth': -0.04,
-        //
-        // }, {
-        //     'province': 'cc',
-        //     'scale': 66,
-        //     'sales': 60,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.17,
-        //
-        // }, {
-        //     'province': 'dd',
-        //     'scale': 55,
-        //     'sales': 50,
-        //     'market_growth': 0.09,
-        //     'prod_growth': -0.04,
-        //
-        // }, {
-        //     'province': 'ee',
-        //     'scale': 22,
-        //     'sales': 20,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.29,
-        //
-        // }, {
-        //     'province': 'ff',
-        //     'scale': 66,
-        //     'sales': 60,
-        //     'market_growth': 0.09,
-        //     'prod_growth': -0.04,
-        //
-        // }, {
-        //     'province': 'gg',
-        //     'scale': 55,
-        //     'sales': 50,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.23,
-        //
-        // }, {
-        //     'province': 'hh',
-        //     'scale': 16,
-        //     'sales': 7,
-        //     'market_growth': 0.09,
-        //     'prod_growth': -0.04,
-        //
-        // }, {
-        //     'province': 'ii',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'jj',
-        //     'scale': 70,
-        //     'sales': 20,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'kk',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.85,
-        //
-        // }, {
-        //     'province': 'll',
-        //     'scale': 70,
-        //     'sales': 20,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'mm',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.85,
-        //
-        // }, {
-        //     'province': 'nn',
-        //     'scale': 72,
-        //     'sales': 40,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'oo',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'pp',
-        //     'scale': 70,
-        //     'sales': 60,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.85,
-        //
-        // }, {
-        //     'province': 'qq',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'rr',
-        //     'scale': 70,
-        //     'sales': 40,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'ss',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.85,
-        //
-        // }, {
-        //     'province': 'tt',
-        //     'scale': 70,
-        //     'sales': 30,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'uu',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.85,
-        //
-        // }, {
-        //     'province': 'vv',
-        //     'scale': 74,
-        //     'sales': 40,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'ww',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.85,
-        //
-        // }, {
-        //     'province': 'xx',
-        //     'scale': 70,
-        //     'sales': 60,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'yy',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.85,
-        //
-        // }, {
-        //     'province': 'zz',
-        //     'scale': 70,
-        //     'sales': 10,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'aaa',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.85,
-        //
-        // }, {
-        //     'province': 'bbb',
-        //     'scale': 70,
-        //     'sales': 45,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'ccc',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.85,
-        //
-        // }, {
-        //     'province': 'ddd',
-        //     'scale': 70,
-        //     'sales': 24,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'eee',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.01,
-        //     'prod_growth': 0.85,
-        //
-        // }, {
-        //     'province': 'fff',
-        //     'scale': 70,
-        //     'sales': 54,
-        //     'market_growth': -0.01,
-        //     'prod_growth': 0.25,
-        //
-        // }, {
-        //     'province': 'ggg',
-        //     'scale': 77,
-        //     'sales': 70,
-        //     'market_growth': -0.03,
-        //     'prod_growth': 0.85,
-        //
-        // }, {
-        //     'province': 'hhh',
-        //     'scale': 70,
-        //     'sales': 36,
-        //     'market_growth': -0.01,
-        //     'prod_growth': 0.25,
-        //
-        // }, ];
+        this.mixedGraphData = [{
+            'province': 'aa',
+            'scale': 22,
+            'sales': 20,
+            'market_growth': -0.03,
+            'prod_growth': 0.09,
+
+        }, {
+            'province': 'bb',
+            'scale': 55,
+            'sales': 50,
+            'market_growth': 0.09,
+            'prod_growth': -0.04,
+
+        }, {
+            'province': 'cc',
+            'scale': 66,
+            'sales': 60,
+            'market_growth': -0.03,
+            'prod_growth': 0.17,
+
+        }, {
+            'province': 'dd',
+            'scale': 55,
+            'sales': 50,
+            'market_growth': 0.09,
+            'prod_growth': -0.04,
+
+        }, {
+            'province': 'ee',
+            'scale': 22,
+            'sales': 20,
+            'market_growth': -0.03,
+            'prod_growth': 0.29,
+
+        }, {
+            'province': 'ff',
+            'scale': 66,
+            'sales': 60,
+            'market_growth': 0.09,
+            'prod_growth': -0.04,
+
+        }, {
+            'province': 'gg',
+            'scale': 55,
+            'sales': 50,
+            'market_growth': -0.03,
+            'prod_growth': 0.23,
+
+        }, {
+            'province': 'hh',
+            'scale': 16,
+            'sales': 7,
+            'market_growth': 0.09,
+            'prod_growth': -0.04,
+
+        }, {
+            'province': 'ii',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'jj',
+            'scale': 70,
+            'sales': 20,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'kk',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.85,
+
+        }, {
+            'province': 'll',
+            'scale': 70,
+            'sales': 20,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'mm',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.85,
+
+        }, {
+            'province': 'nn',
+            'scale': 72,
+            'sales': 40,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'oo',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'pp',
+            'scale': 70,
+            'sales': 60,
+            'market_growth': -0.03,
+            'prod_growth': 0.85,
+
+        }, {
+            'province': 'qq',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'rr',
+            'scale': 70,
+            'sales': 40,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'ss',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.85,
+
+        }, {
+            'province': 'tt',
+            'scale': 70,
+            'sales': 30,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'uu',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.85,
+
+        }, {
+            'province': 'vv',
+            'scale': 74,
+            'sales': 40,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'ww',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.85,
+
+        }, {
+            'province': 'xx',
+            'scale': 70,
+            'sales': 60,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'yy',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.85,
+
+        }, {
+            'province': 'zz',
+            'scale': 70,
+            'sales': 10,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'aaa',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.85,
+
+        }, {
+            'province': 'bbb',
+            'scale': 70,
+            'sales': 45,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'ccc',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.85,
+
+        }, {
+            'province': 'ddd',
+            'scale': 70,
+            'sales': 24,
+            'market_growth': -0.03,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'eee',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.01,
+            'prod_growth': 0.85,
+
+        }, {
+            'province': 'fff',
+            'scale': 70,
+            'sales': 54,
+            'market_growth': -0.01,
+            'prod_growth': 0.25,
+
+        }, {
+            'province': 'ggg',
+            'scale': 77,
+            'sales': 70,
+            'market_growth': -0.03,
+            'prod_growth': 0.85,
+
+        }, {
+            'province': 'hhh',
+            'scale': 70,
+            'sales': 36,
+            'market_growth': -0.01,
+            'prod_growth': 0.25,
+
+        }, ];
     },
     didReceiveAttrs() {
         this._super(...arguments);
         run.schedule('render', this, this.drawMixedGraph);
     },
     drawMixedGraph() {
+        d3.select('svg.mixed-graph').remove();
         let data = this.get('mixedGraphData');
         let svg = d3.select(this.element);
         let margin = {
@@ -446,6 +447,7 @@ export default Component.extend({
                 return x(d.province);
             })
             .y(function(d) {
+                // console.log(typeof d.market_growth)
                 return y1(d.market_growth);
             });
         let prodGrowth = d3.line()
@@ -458,7 +460,7 @@ export default Component.extend({
 
         svg.append("path")
             .data([data])
-            .attr("class", "line")
+            .attr("class", "mixedline")
             .style("stroke", "#FA6F80")
             .attr("transform", "translate(18," + 0 + ")")
             // .style("filter", "url(#drop-shadow)")
@@ -467,7 +469,7 @@ export default Component.extend({
         // 绘制产品增长折线图
         svg.append("path")
             .data([data])
-            .attr("class", "line2")
+            .attr("class", "mixedline2")
             .style("stroke", "#7CFFE2")
             .attr("transform", "translate(18," + 0 + ")")
             // .style("filter", "url(#drop-shadow)")
@@ -489,39 +491,52 @@ export default Component.extend({
             let yOverview = d3.scaleLinear().range([30, 0]);
             yOverview.domain(y.domain());
 
-            var subBars = diagram.selectAll('.subBar')
-                .data(data)
+            // var subBars = diagram.selectAll('.subBar')
+            //     .data(data)
+            //
+            // subBars.enter().append("rect")
+            //     .classed('subBar', true)
+            //     .attr('height',function(d){
+            //         return 30 - yOverview(d.scale)
+            //     })
+            //     .attr('width',6)
+            //     .attr('x',function(d) {
+            //         return xOverview(d.province);
+            //     })
+            //     .attr('y',function(d) {
+            //         return height + 30 + yOverview(d.scale)
+            //     })
+                // .attr({
+                //     height: function(d) {
+                //         return 30 - yOverview(d.scale);
+                //     },
+                //     width: function(d) {
+                //         // return xOverview.rangeBand()
+                //         return 6;
+                //     },
+                //     x: function(d) {
+                //
+                //         return xOverview(d.province);
+                //     },
+                //     y: function(d) {
+                //         // return height + 30 + yOverview(d.scale)
+                //         return height + 30 + yOverview(d.scale)
+                //     }
+                // })
 
-            subBars.enter().append("rect")
-                .classed('subBar', true)
-                .attr({
-                    height: function(d) {
-                        return 30 - yOverview(d.scale);
-                    },
-                    width: function(d) {
-                        // return xOverview.rangeBand()
-                        return 6;
-                    },
-                    x: function(d) {
-
-                        return xOverview(d.province);
-                    },
-                    y: function(d) {
-                        // return height + 30 + yOverview(d.scale)
-                        return height + 30 + yOverview(d.scale)
-                    }
-                })
-
-            var displayed = d3.scaleQuantize()
-                .domain([0, width])
-                .range(d3.range(data.length));
-
+            // var displayed = d3.scaleQuantize()
+            //     .domain([0, width])
+            //     .range(d3.range(data.length));
+            console.log('ttttttttttttttttest')
+            console.log(d3.range(data.length));
+            console.log(parseFloat(numBars * width));
+            console.log(Math.round(parseFloat(numBars * width) / data.length))
             diagram.append("rect")
                 .attr("transform", "translate(0, " + (height + margin.bottom) + ")")
                 .attr("class", "mover")
                 .attr("x", 0)
                 .attr("y", 0)
-                .attr("height", 40)
+                .attr("height", 10)
                 .attr("width", Math.round(parseFloat(numBars * width) / data.length))
                 .attr("pointer-events", "all")
                 .attr("cursor", "ew-resize")
@@ -529,6 +544,7 @@ export default Component.extend({
         }
 
         function display() {
+
             var displayed = d3.scaleQuantize()
                 .domain([0, width])
                 .range(d3.range(data.length));
@@ -569,19 +585,17 @@ export default Component.extend({
             rects2.attr("x", function(d) {
                 return x(d.province) + 18;
             });
-            // let line1 = svg.selectAll('.line');
-            svg.selectAll('.line')
-            // line1.exit().remove();
+            svg.selectAll('.mixedline')
                 .data([new_data])
-                .attr("class", "line")
+                .attr("class", "mixedline")
                 .style("stroke", "#FA6F80")
                 .attr("transform", "translate(18," + 0 + ")")
                 // .style("filter", "url(#drop-shadow)")
                 .attr("d", marketGrowth);
             // svg.append("path")
-            svg.selectAll('.line2')
+            svg.selectAll('.mixedline2')
                 .data([new_data])
-                .attr("class", "line2")
+                .attr("class", "mixedline2")
                 .style("stroke", "#7CFFE2")
                 .attr("transform", "translate(18," + 0 + ")")
                 // .style("filter", "url(#drop-shadow)")

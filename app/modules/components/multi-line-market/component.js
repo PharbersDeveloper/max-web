@@ -11,16 +11,16 @@ export default Component.extend({
     classNames: ['col-md-12', 'col-sm-12', 'col-xs-12', 'trend-line'],
     init() {
         this._super(...arguments);
-        // this.data = [];
     },
     didReceiveAttrs() {
-        run.schedule('render', this, this.drawSimpleLine)
+        run.schedule('render', this, this.drawThreeLines)
     },
-    drawSimpleLine() {
-        let data = this.get('mulitLineData');
+    drawThreeLines() {
+        let data = this.get('threeLinesData');
+
         let lineNames = ['市场销售额', '产品销售额', '产品份额'];
         let lineColor = ["#FA6F80", "#7CFFE2", "#868CE9"];
-        var svg = d3.select(this.element)
+        var svg = d3.select(this.element);
         // set the dimensions and margins of the graph
         var margin = {
                 top: 20,
@@ -34,7 +34,7 @@ export default Component.extend({
         // parse the ym / time
         // var parseTime = d3.timeParse("%d-%b-%y");
         var parseTime = d3.timeParse("%Y-%m");
-
+        let formatDateIntoYearMonth = d3.timeFormat('%Y-%m');
         // set the ranges
         var x = d3.scaleTime().range([0, width]);
         var y0 = d3.scaleLinear().range([height, 0]);
@@ -72,9 +72,7 @@ export default Component.extend({
         // append the svg obgect to the body of the page
         // appends a 'group' element to 'svg'
         // moves the 'group' element to the top left margin
-        svg
-            // .attr("width",'100%')
-            .attr('padding', '0 20px')
+        svg.attr('padding', '0 20px')
             .attr("height", 368)
             // .attr('preserveAspectRatio', 'xMidYMid','meet')
             .attr('preserveAspectRatio', 'none')
@@ -88,7 +86,11 @@ export default Component.extend({
 
         // format the data
         data.forEach(function(d) {
-            d.ym = parseTime(d.ym);
+            if(typeof d.ym === "string") {
+                d.ym = parseTime(d.ym);
+            } else {
+                d.ym = d.ym;
+            }
             d.marketSales = +d.marketSales;
             d.prodSales = +d.prodSales;
             d.share = +d.share;
@@ -143,7 +145,7 @@ export default Component.extend({
         // Add the X Axis
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x).tickFormat(formatDateIntoYearMonth));
 
         // Add the Y0 Axis
         svg.append("g")

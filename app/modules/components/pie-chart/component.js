@@ -18,62 +18,12 @@ export default Component.extend({
 	attributeBindings: ['width', 'height'],
 	init() {
 		this._super(...arguments)
-		// this.dataValue = [1,4,6,4];
 		this.margin = {
 			top: 40,
 			right: 20,
 			bottom: 30,
 			left: 20
 		};
-		// this.pieData = [];
-			/*{
-					'prod': '产品一',
-					'sales': 12,
-					'cont': 455,
-					'color': '#3399FF',
-				}, {
-					'prod': '产品二',
-					'sales': 135,
-					'cont': 845,
-					'color': 'orange',
-				}, {
-					'prod': '产品三',
-					'sales': 647,
-					'cont': 256,
-					'color': 'lightyellow',
-				}, {
-					'prod': '产品四',
-					'sales': 13422,
-					'cont': 452,
-					'color': 'lightgreen',
-				}, {
-					'prod': '产品5',
-					'sales': 13422,
-					'cont': 411,
-					'color': 'blue',
-				}, {
-					'prod': '产品6',
-					'sales': 13422,
-					'cont': 421,
-					'color': 'lightblue',
-				}, {
-					'prod': '产品7',
-					'sales': 13422,
-					'cont': 444,
-					'color': 'pink'
-				}, {
-					'prod': '产品8',
-					'sales': 13422,
-					'cont': 422,
-					'color': 'lightgray'
-				}, {
-					'prod': '其他',
-					'sales': 34,
-					'cont': 175,
-					'color': 'skyblue'
-				},
-			*/
-		// ];
 	},
 	/*
 		didInsertElement() {
@@ -169,7 +119,6 @@ export default Component.extend({
 
 	drawPie() {
 		let svg = d3.select(this.element)
-		// let data = get(this, 'data')
 		let width = get(this, 'width')
 		let height = get(this, 'height')
 
@@ -181,7 +130,7 @@ export default Component.extend({
 		var dataTitle = [];
 		var pieColor = [];
 		var pieValue = [];
-		console.log('this is from pie-chart')
+		// console.log('this is from pie-chart')
 		pieData.map(function(item, index) {
 			dataTitle.push(item.prod);
 		});

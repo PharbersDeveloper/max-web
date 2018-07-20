@@ -58,8 +58,11 @@
 			{{key-words card=item}}
 		{{/each}}
 	</div>
-	<div class="container-fluid">
-		{{mixed-graph mixedGraphData=mixedGraphData}}
+	<div class="container-fluid" local-class="mixed-graph">
+		<p local-class="inside-title"><span>{{mixedGraphTitle.title}}</span><span></span></p>
+		{{!-- {{mixed-graph mixedGraphData=mixedGraphData}} --}}
+		{{mixed-graph }}
+
 	</div>
 
 	{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
@@ -126,7 +129,7 @@
 		<div class="container-fluid" local-class='nopadding multi-line'>
 			<p local-class="market-title"><span>{{trendTitle.title}}</span><span>{{trendTitle.timestart}}{{trendTitle.timeover}}{{trendTitle.area}}</span></p>
 
-			{{multi-line-market mulitLineData=prodTrend}}
+			{{multi-line-market threeLinesData=prodTrend}}
 		</div>
 		{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
 

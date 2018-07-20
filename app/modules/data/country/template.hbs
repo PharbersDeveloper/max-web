@@ -65,7 +65,7 @@
 			<span>{{trendTitle.title}}</span>
 			<span>{{trendTitle.timeStart}}{{trendTitle.timeOver}}{{trendTitle.area}}</span>
 		</p>
-		{{multi-line-market mulitLineData=multiData}}
+		{{multi-line-market threeLinesData=multiData}}
 	</div>
 
 	<div class="container-fluid" local-class="nopadding">
@@ -93,8 +93,6 @@
 						{{#each RankdataType as |item|}}
 							<option value={{item}}>{{item}}</option>
 						{{/each}}
-						{{!-- <option value="">aa</option> --}}
-						{{!-- <option value="">bb</option> --}}
 					</select>
 			</p>
 				<div local-class="histogram">

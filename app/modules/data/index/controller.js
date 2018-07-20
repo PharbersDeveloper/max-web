@@ -10,7 +10,6 @@ export default Controller.extend({
     cookies: inject(),
     activeCi: true,
     fullName: '', // 这应该后端返回firstName与lastName 有前端计算出来
-    // time: '2017-03',
     year: '2017',
     month: '03',
     time: computed('year', 'month', function() {
@@ -122,8 +121,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    console.log('ooooo查询各产品销售贡献度：')
-                    console.log(result);
+                    // console.log('ooooo查询各产品销售贡献度：')
+                    // console.log(result);
                     this.set('prodContValue', result.tableSale.prodContValue)
                     this.set('pieValue', result.tableSale.pie);
                     this.set('contTitle', result.tableSale.prodSalesOverview)
@@ -134,7 +133,6 @@ export default Controller.extend({
         this._super(...arguments);
         this.prodSalesTitle = {};
 		this.prodSalesLine = [];
-
         this.queryProdOV();
         /**
          * card
