@@ -46,8 +46,7 @@ export default Component.extend({
             });
 
 
-        svg
-            .attr('padding', '0 20px')
+        svg.attr('padding', '0 20px')
             .attr("height", 368)
             .attr('preserveAspectRatio', 'none')
             .attr('viewBox', '-20 0 950 348')

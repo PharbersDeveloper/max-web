@@ -7,187 +7,188 @@ import {
 } from '@ember/object';
 import d3 from 'd3';
 export default Component.extend({
-    tagName: 'svg',
-    classNames: ['multi-lines-choose', 'col-md-12','col-sm-12','col-xs-12'],
+    tagName: 'div',
+    classNames: ['multi-lines-choose', 'col-md-12', 'col-sm-12', 'col-xs-12'],
     init() {
         this._super(...arguments);
         this.color = ['#FA6F80', '#7CFFE2', '#868CE9'];
-        this.chooseData = [{
-                name: "USA",
-                values: [{
-                        date: "2018-01",
-                        mainValue: 100
-                    },
-                    {
-                        date: "2018-02",
-                        mainValue: 110
-                    },
-                    {
-                        date: "2018-03",
-                        mainValue: 145
-                    },
-                    {
-                        date: "2018-04",
-                        mainValue: 241
-                    },
-                    {
-                        date: "2018-05",
-                        mainValue: 101
-                    },
-                    {
-                        date: "2018-06",
-                        mainValue: 90
-                    },
-                    {
-                        date: "2018-07",
-                        mainValue: 10
-                    },
-                    {
-                        date: "2018-08",
-                        mainValue: 35
-                    },
-                    {
-                        date: "2018-09",
-                        mainValue: 21
-                    },
-                    {
-                        date: "2018-10",
-                        mainValue: 201
-                    }
-                ]
-            },
-            {
-                name: "Canada",
-                values: [{
-                        date: "2018-01",
-                        mainValue: 108
-                    },
-                    {
-                        date: "2018-02",
-                        mainValue: 114
-                    },
-                    {
-                        date: "2018-03",
-                        mainValue: 144
-                    },
-                    {
-                        date: "2018-04",
-                        mainValue: 244
-                    },
-                    {
-                        date: "2018-05",
-                        mainValue: 144
-                    },
-                    {
-                        date: "2018-06",
-                        mainValue: 940
-                    },
-                    {
-                        date: "2018-07",
-                        mainValue: 140
-                    },
-                    {
-                        date: "2018-08",
-                        mainValue: 345
-                    },
-                    {
-                        date: "2018-09",
-                        mainValue: 241
-                    },
-                    {
-                        date: "2018-10",
-                        mainValue: 281
-                    }
-                ]
-            },
-            {
-                name: "Maxico",
-                values: [{
-                        date: "2018-01",
-                        mainValue: 1
-                    }, {
-                        date: "2018-02",
-                        mainValue: 120
-                    },
-                    {
-                        date: "2018-03",
-                        mainValue: 135
-                    },
-                    {
-                        date: "2018-04",
-                        mainValue: 281
-                    },
-                    {
-                        date: "2018-05",
-                        mainValue: 151
-                    },
-                    {
-                        date: "2018-06",
-                        mainValue: 290
-                    },
-                    {
-                        date: "2018-07",
-                        mainValue: 310
-                    },
-                    {
-                        date: "2018-08",
-                        mainValue: 135
-                    },
-                    {
-                        date: "2018-09",
-                        mainValue: 421
-                    },
-                    {
-                        date: "2018-10",
-                        mainValue: 65
-                    }
-                ]
-            },
-            {
-                name: "China",
-                values: [{
-                        date: "2018-01",
-                        mainValue: 150
-                    },
-                    {
-                        date: "2018-02",
-                        mainValue: 120
-                    },
-                    {
-                        date: "2018-03",
-                        mainValue: 245
-                    },
-                    {
-                        date: "2018-04",
-                        mainValue: 341
-                    },
-                    {
-                        date: "2018-05",
-                        mainValue: 201
-                    },
-                    {
-                        date: "2018-06",
-                        mainValue: 190
-                    },
-                    {
-                        date: "2018-07",
-                        mainValue: 110
-                    },
-                    {
-                        date: "2018-08",
-                        mainValue: 135
-                    },
-                    {
-                        date: "2018-09",
-                        mainValue: 221
-                    },
-                    {
-                        date: "2018-10",
-                        mainValue: 201
-                    }
-                ]
-            },
-        ];
+        /*    this.chooseData = [{
+                    name: "USA",
+                    values: [{
+                            ym: "2018-01",
+                            value: 100
+                        },
+                        {
+                            ym: "2018-02",
+                            value: 110
+                        },
+                        {
+                            ym: "2018-03",
+                            value: 145
+                        },
+                        {
+                            ym: "2018-04",
+                            value: 241
+                        },
+                        {
+                            ym: "2018-05",
+                            value: 101
+                        },
+                        {
+                            ym: "2018-06",
+                            value: 90
+                        },
+                        {
+                            ym: "2018-07",
+                            value: 10
+                        },
+                        {
+                            ym: "2018-08",
+                            value: 35
+                        },
+                        {
+                            ym: "2018-09",
+                            value: 21
+                        },
+                        {
+                            ym: "2018-10",
+                            value: 201
+                        }
+                    ]
+                },
+                {
+                    name: "Canada",
+                    values: [{
+                            ym: "2018-01",
+                            value: 108
+                        },
+                        {
+                            ym: "2018-02",
+                            value: 114
+                        },
+                        {
+                            ym: "2018-03",
+                            value: 144
+                        },
+                        {
+                            ym: "2018-04",
+                            value: 244
+                        },
+                        {
+                            ym: "2018-05",
+                            value: 144
+                        },
+                        {
+                            ym: "2018-06",
+                            value: 940
+                        },
+                        {
+                            ym: "2018-07",
+                            value: 140
+                        },
+                        {
+                            ym: "2018-08",
+                            value: 345
+                        },
+                        {
+                            ym: "2018-09",
+                            value: 241
+                        },
+                        {
+                            ym: "2018-10",
+                            value: 281
+                        }
+                    ]
+                },
+                {
+                    name: "Maxico",
+                    values: [{
+                            ym: "2018-01",
+                            value: 1
+                        }, {
+                            ym: "2018-02",
+                            value: 120
+                        },
+                        {
+                            ym: "2018-03",
+                            value: 135
+                        },
+                        {
+                            ym: "2018-04",
+                            value: 281
+                        },
+                        {
+                            ym: "2018-05",
+                            value: 151
+                        },
+                        {
+                            ym: "2018-06",
+                            value: 290
+                        },
+                        {
+                            ym: "2018-07",
+                            value: 310
+                        },
+                        {
+                            ym: "2018-08",
+                            value: 135
+                        },
+                        {
+                            ym: "2018-09",
+                            value: 421
+                        },
+                        {
+                            ym: "2018-10",
+                            value: 65
+                        }
+                    ]
+                },
+                {
+                    name: "China",
+                    values: [{
+                            ym: "2018-01",
+                            value: 150
+                        },
+                        {
+                            ym: "2018-02",
+                            value: 120
+                        },
+                        {
+                            ym: "2018-03",
+                            value: 245
+                        },
+                        {
+                            ym: "2018-04",
+                            value: 341
+                        },
+                        {
+                            ym: "2018-05",
+                            value: 201
+                        },
+                        {
+                            ym: "2018-06",
+                            value: 190
+                        },
+                        {
+                            ym: "2018-07",
+                            value: 110
+                        },
+                        {
+                            ym: "2018-08",
+                            value: 135
+                        },
+                        {
+                            ym: "2018-09",
+                            value: 221
+                        },
+                        {
+                            ym: "2018-10",
+                            value: 201
+                        }
+                    ]
+                },
+            ];
+            */
     },
 
     didReceiveAttrs() {
@@ -195,12 +196,14 @@ export default Component.extend({
         run.schedule('render', this, this.drawMultiLineChoose);
     },
     drawMultiLineChoose() {
-
-        let svg = d3.select(this.element);
+        let svgContainer = d3.select(this.element);
+        let svg = svgContainer.append("svg").attr('class', 'much-lines');
         let data = this.get('chooseData');
-
+        // let chooseData = this.get('chooseData');
+        console.log(data);
+        console.log("frommmmmmmmmmmmmmmmmmm component")
         var width = 900;
-        var height = 300;
+        var height = 340;
         var margin = 20;
         var duration = 250;
 
@@ -215,49 +218,49 @@ export default Component.extend({
         var circleRadius = 3;
         var circleRadiusHover = 6;
 
-
         /* Format Data */
         var parseDate = d3.timeParse("%Y-%m");
+        // let data = chooseData.map(function(item) {
+        //     let insidedata = {};
+        //     insidedata.ym = parseTime(item.ym);
+        //     insidedata.value = item.value
+        // })
         data.forEach(function(d) {
-            d.values.forEach(function(d) {
-                d.date = parseDate(d.date);
-                d.mainValue = +d.mainValue;
+            d.values.forEach(function(dd) {
+                d.ym = parseDate(d.ym);
+                d.value = +d.value;
             });
         });
 
-
         /* Scale */
         var xScale = d3.scaleTime()
-            .domain(d3.extent(data[0].values, d => d.date))
+            .domain(d3.extent(data[0].values, d => d.ym))
             .range([0, width - margin]);
         let yMax = 0;
-        for(let i = 0,len=data.length;i<len;i++) {
-            let max = d3.max(data[i].values, d => d.mainValue)
-            if(max > yMax) {
+        for (let i = 0, len = data.length; i < len; i++) {
+            let max = d3.max(data[i].values, d => d.value)
+            if (max > yMax) {
                 yMax = max
             }
         };
         var yScale = d3.scaleLinear()
-            .domain([0,yMax+yMax/3])
+            .domain([0, yMax + yMax / 3])
             .range([height - margin, 0]);
 
         var color = d3.scaleOrdinal(d3.schemeCategory10);
 
         /* Add SVG */
-        svg
-            // .attr("width", (width + margin) + "px")
-            .attr('padding','20px 20px')
-            .attr("height", (height + 40) + "px")
-            .attr('preserveAspectRatio','none')
-            .attr('viewBox','-40 -10 1000 300')
+        svg.attr("width", "100%")
+            .attr("height", 380)
+            .attr('preserveAspectRatio', 'none')
+            .attr('viewBox', '-40 -10 950 380')
             .append('g')
-            .attr("transform", `translate(${margin}, ${margin})`);
-
+        // .attr("transform", `translate(${margin}, ${margin})`);
 
         /* Add line into SVG */
         var line = d3.line()
-            .x(d => xScale(d.date))
-            .y(d => yScale(d.mainValue));
+            .x(d => xScale(d.ym))
+            .y(d => yScale(d.value));
 
         let lines = svg.append('g')
             .attr('class', 'lines');
@@ -284,9 +287,9 @@ export default Component.extend({
             .style('stroke', (d, i) => color(i))
             .style('opacity', lineOpacity)
             .on("mouseover", function(d) {
-                d3.selectAll('.line')
+                d3.selectAll('.much-lines .line')
                     .style('opacity', otherLinesOpacityHover);
-                d3.selectAll('.circle')
+                d3.selectAll('.much-lines .circle')
                     .style('opacity', circleOpacityOnLineHover);
                 d3.select(this)
                     .style('opacity', lineOpacityHover)
@@ -294,9 +297,9 @@ export default Component.extend({
                     .style("cursor", "pointer");
             })
             .on("mouseout", function(d) {
-                d3.selectAll(".line")
+                d3.selectAll(".much-lines .line")
                     .style('opacity', lineOpacity);
-                d3.selectAll('.circle')
+                d3.selectAll('.much-lines .circle')
                     .style('opacity', circleOpacity);
                 d3.select(this)
                     .style("stroke-width", lineStroke)
@@ -318,9 +321,9 @@ export default Component.extend({
                     .style("cursor", "pointer")
                     .append("text")
                     .attr("class", "text")
-                    .text(`${d.mainValue}`)
-                    .attr("x", d => xScale(d.date) + 5)
-                    .attr("y", d => yScale(d.mainValue) - 10);
+                    .text(`${d.value}`)
+                    .attr("x", d => xScale(d.ym) + 5)
+                    .attr("y", d => yScale(d.value) - 10);
             })
             .on("mouseout", function(d) {
                 d3.select(this)
@@ -330,8 +333,8 @@ export default Component.extend({
                     .selectAll(".text").remove();
             })
             .append("circle")
-            .attr("cx", d => xScale(d.date))
-            .attr("cy", d => yScale(d.mainValue))
+            .attr("cx", d => xScale(d.ym))
+            .attr("cy", d => yScale(d.value))
             .attr("r", circleRadius)
             .style('opacity', circleOpacity)
             .on("mouseover", function(d) {
@@ -365,7 +368,6 @@ export default Component.extend({
             .attr("transform", "rotate(-90)")
             .attr("fill", "#000")
             .text("Total values");
-
     }
 
 });
