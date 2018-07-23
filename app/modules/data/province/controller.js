@@ -9,6 +9,7 @@ export default Controller.extend({
     activeCi: true,
     // time: '2017-03',
     market: '麻醉市场',
+    provRankTag: 'provinceSales',
     tag: "provinceSales",
     rankingMax: 0,
     year: '2017',
@@ -153,8 +154,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询各产品份额(in pro)：')
-                    // console.log(result);
+                    console.log('查询各产品份额(in pro)：')
+                    console.log(result);
                     this.set('marketSalesPie', result.pie);
                     this.set('marketTitle', result.marketSharePart);
 
@@ -171,7 +172,7 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "tag": this.get('tag')
+                "tag": this.get('provRankTag')
             }
         }
         this.get('ajax').request('api/dashboard/province/provLevelRank', this.getAjaxOpt(condition))
@@ -358,7 +359,7 @@ export default Controller.extend({
         this.markets = ['麻醉市场'];
         this.years = ['2018', '2017', '2016'];
         this.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-
+        this.provRank = ['市场规模(mil)', '市场增长(%)', '销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
         //  市场规模卡片数据
         this.cards = [];
         this.queryMarketProdCards();
@@ -459,14 +460,12 @@ export default Controller.extend({
         this.queryPerProductShare();
         //end 产品份额-pie
 
-
         //各产品排名变化
         this.ranking = [];
         this.rankingRange = [];
         this.queryProductRank();
         this.computedRankingMax();
         //end 各产品排名变化
-
 
         //各竞品销售概况-table
         this.competingProd = [{
@@ -520,25 +519,20 @@ export default Controller.extend({
         this.prodCont = [{
             label: '商品名',
             valuePath: 'prod',
-            // width: '100px',
             classNames: 'tabl',
             align: 'center',
             sorted: false, //是否可以对列进行排序
             minResizeWidth: '70px', //列可以调整的最小宽度
-            // breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
 
         }, {
             label: '市场名',
             valuePath: 'market',
-            // width: '100px',
             classNames: 'tabl',
             align: 'center',
             minResizeWidth: '70px',
-            // breakpoints: ['mobile', 'tablet', 'desktop']
         }, {
             label: '销售额',
             valuePath: 'sales',
-            // width: '100px',
             align: 'center',
             classNames: 'tabl',
             minResizeWidth: '70px',
@@ -546,25 +540,21 @@ export default Controller.extend({
         }, {
             label: '贡献度',
             valuePath: 'cont',
-            // width: '100px',
             align: 'center',
             minResizeWidth: '70px',
         }, {
             label: '贡献度变化 -  上期(%)',
             valuePath: 'cont-month',
-            // width: '100px',
             align: 'center',
             minResizeWidth: '70px',
         }, {
             label: '贡献度变化 - 三个月(%)',
             valuePath: 'cont-season',
-            // width: '80px',
             align: 'center',
             minResizeWidth: '70px',
         }, {
             label: '贡献度变化 - 去年同期(%)',
             valuePath: 'cont-year',
-            // width: '80px',
             align: 'center',
             minResizeWidth: '70px',
         }];
@@ -579,16 +569,30 @@ export default Controller.extend({
         getMonth(params) {
             this.set('month', params);
         },
-        queryRank(params) {
-            if (params === '销售额') {
-                this.set('ranktag', 'sales')
+        queryProvRank(params) {
+            console.log(params);
+            if (params === '市场规模(mil)') {
+                this.set('provRankTag', 'sales')
             } else if (params === '销售增长') {
                 console.log('salesGrowth')
-                this.set('ranktag', 'salesGrowth')
+                this.set('provRankTag', 'salesGrowth')
             } else if (params === '份额') {
-                this.set('ranktag', 'prodShare')
+                this.set('provRankTag', 'prodShare')
             } else if (params === '份额增长') {
-                this.set('ranktag', 'prodShareGrowth')
+                this.set('provRankTag', 'prodShareGrowth')
+            }
+            this.queryMarketRank();
+        },
+        queryRank(params) {
+            if (params === '销售额') {
+                this.set('provRankTag', 'sales')
+            } else if (params === '销售增长') {
+                console.log('salesGrowth')
+                this.set('provRankTag', 'salesGrowth')
+            } else if (params === '份额') {
+                this.set('provRankTag', 'prodShare')
+            } else if (params === '份额增长') {
+                this.set('provRankTag', 'prodShareGrowth')
             }
             this.queryRank();
 
@@ -601,6 +605,7 @@ export default Controller.extend({
             this.queryPerMarketShare();
             this.queryMarketRank();
         },
+
         testsubmit() {
             console.log('aaaaaaaaaaaaa');
         }
