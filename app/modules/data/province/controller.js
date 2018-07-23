@@ -1,13 +1,25 @@
 import Controller from '@ember/controller';
-import {inject} from '@ember/service';
+import {
+    inject
+} from '@ember/service';
+import { computed } from '@ember/object';
 export default Controller.extend({
     ajax: inject(),
     cookies: inject(),
     activeCi: true,
-    time: '2017-03',
-    market:'麻醉市场',
+    // time: '2017-03',
+    market: '麻醉市场',
     tag: "provinceSales",
     rankingMax: 0,
+    year: '2017',
+    month: '03',
+    prov: '北京',
+    time: computed('year', 'month', function() {
+        // body
+        let year = this.get('year');
+        let month = this.get('month');
+        return year + '-' + month;
+    }),
     computedRankingMax() {
         let ranking = this.get('ranking');
         let range = 0;
@@ -64,8 +76,7 @@ export default Controller.extend({
                     // console.log('查询产品cards(in province)：')
                     // console.log(result);
                     this.set('cards', result.provinceWord);
-                } else {
-                }
+                } else {}
             })
     },
     /**
@@ -87,9 +98,10 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询查询lllllline(in pro)：')
-                    // console.log(result);
-                    this.set('mixedGraphData',result.graphSale.mixedGraphData)
+                    console.log('查询查询lllllline(in pro)：')
+                    console.log(result);
+                    this.set('mixedGraphTitle', result.graphSale.provLineOverview);
+                    this.set('mixedGraphData', result.graphSale.mixedGraphData);
                     // this.set('marketSalesValue', result.prodSalesValue);
 
                 }
@@ -115,7 +127,7 @@ export default Controller.extend({
                 if (status === 'ok') {
                     // console.log('查询查询市场竞品销售情况(in pro)：')
                     // console.log(result);
-                    this.set('competingTitle',result.proTableOverview)
+                    this.set('competingTitle', result.proTableOverview)
                     this.set('marketSalesValue', result.prodSalesValue);
                     // console.log(result.prodSalesValue)
                     // this.set('shareTitle', result.prodSalesOverview);
@@ -171,7 +183,7 @@ export default Controller.extend({
                 if (status === 'ok') {
                     // console.log('查询各产品排名变化(in pro)：')
                     // console.log(result);
-                    this.set('unit',result.unit);
+                    this.set('unit', result.unit);
                     this.set('ranking', result.ranking);
                     this.computedRankingMax();
                 }
@@ -225,7 +237,7 @@ export default Controller.extend({
                 if (status === 'ok') {
                     console.log('查询aaaaaaaaaaaaaaaaa')
                     console.log(result);
-                    this.set('trendTitle',result.tableSale.prodSalesOverview)
+                    this.set('trendTitle', result.tableSale.prodSalesOverview)
                     this.set('prodTrend', result.tableSale.multiData);
                 }
             })
@@ -304,7 +316,7 @@ export default Controller.extend({
                 if (status === 'ok') {
                     // console.log('查询各产品排名变化qqq(in pro)：')
                     // console.log(result);
-                    this.set('unit',result.unit);
+                    this.set('unit', result.unit);
                     this.set('ranking', result.ranking);
                     this.computedRankingMax();
                 }
@@ -333,7 +345,7 @@ export default Controller.extend({
                 if (status === 'ok') {
                     // console.log('查询查询市场竞品销售情况(in pro)：')
                     // console.log(result);
-                    this.set('competingTitle',result.prodSalesOverview)
+                    this.set('competingTitle', result.prodSalesOverview)
                     this.set('competingProdValue', result.competeSaleTable);
                     // console.log(result.prodSalesValue)
                     // this.set('shareTitle', result.prodSalesOverview);
@@ -343,6 +355,10 @@ export default Controller.extend({
 
     init() {
         this._super(...arguments);
+        this.markets = ['麻醉市场'];
+        this.years = ['2018', '2017', '2016'];
+        this.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+
         //  市场规模卡片数据
         this.cards = [];
         this.queryMarketProdCards();
@@ -354,8 +370,7 @@ export default Controller.extend({
         // end市场各省份销售概况-混合图
 
         //  市场各省份销售概况-table
-        this.MarketSales = [
-            {
+        this.MarketSales = [{
             label: '省份名',
             valuePath: 'province',
             classNames: 'tabl',
@@ -401,7 +416,7 @@ export default Controller.extend({
             // width: '80px',
             align: 'center',
             minResizeWidth: '70px',
-        },{
+        }, {
             label: '份额增长(%)',
             valuePath: 'share_growth',
             // width: '100px',
@@ -432,7 +447,7 @@ export default Controller.extend({
         // prodTrend
         this.prodTrend = [];
         this.queryProdTrend();
-        // prodTrend
+        // end prodTrend
         //竞品数量-卡片数据
         this.words = [];
         this.queryProdMostCards();
@@ -494,129 +509,13 @@ export default Controller.extend({
             align: 'center',
             minResizeWidth: '70px',
         }];
-        this.competingProdValue = [{
-            'prod': 'aaa',
-            'manufacturer': "a'a'a'",
-            "sales": 33,
-            "sales_growth": 33,
-            "ev_value": 3,
-            "share": 0,
-            "share_growth": 3,
-        }];
+        this.competingProdValue = [];
         this.queryProductSalesTable();
         //end 各竞品销售概况-table
 
-        this.markets = ['河北省', '河南省'];
-        this.prodSalesOverview = {
-            title: '辉瑞产品销售额',
-            time: '2018.01-2018.08',
-            currentMonth: '2018-07',
-            curMoSales: 9999.9,
-            yearYear: 99.9,
-            ring: 499,
-            totle: 146534563,
-            ave: 34572452,
-        };
-        this.prodSalesTable = [{
-            date: new Date('2018-01'),
-            sales: 500
-        }, {
-            date: new Date('2018-02'),
-            sales: 600
-        }, {
-            date: new Date('2018-03'),
-            sales: 500
-        }, {
-            date: new Date('2018-04'),
-            sales: 400
-        }, {
-            date: new Date('2018-05'),
-            sales: 500
-        }, {
-            date: new Date('2018-06'),
-            sales: 600
-        }, {
-            date: new Date('2018-07'),
-            sales: 500
-        }, {
-            date: new Date('2018-08'),
-            sales: 0
-        }, {
-            date: new Date('2018-09'),
-            sales: 0
-        }, {
-            date: new Date('2018-10'),
-            sales: 0
-        }, {
-            date: new Date('2018-11'),
-            sales: 0
-        }, ];
-
-        this.words = [
-            {
-            title: "产品数量",
-            subtitle: "2018-04",
-            city: "全国",
-            name: "65",
-            subname: '个',
-            value: '',
-            percent: ''
-        }, {
-            title: "产品下滑",
-            subtitle: "2018-04",
-            city: "全国",
-            name: "商品名称",
-            subname: '市场名',
-            value: '94.83Mil',
-            percent: '56.6%'
-        }, {
-            title: "产品下滑",
-            subtitle: "2018-04",
-            city: "全国",
-            name: "商品名称",
-            subname: '市场名',
-            value: '94.83Mil',
-            percent: '56.6%'
-        }, {
-            title: "产品下滑",
-            subtitle: "2018-04",
-            city: "全国",
-            name: "商品名称",
-            subname: '市场名',
-            value: '94.83Mil',
-            percent: '56.6%'
-        }
-    ];
-        this.sales = [
-            {
-            title: "市场销售总额",
-            subtitle: "2018-02",
-            city: "全国",
-            num: "625.7",
-            yearOnYear: "+4.3%",
-            ringRatio: "+4.5%",
-        }, {
-            title: "市场销售总额",
-            subtitle: "2018-02",
-            city: "全国",
-            num: "625.7",
-            yearOnYear: "+4.3%",
-            ringRatio: "+4.5%",
-        }, {
-            title: "市场销售总额",
-            subtitle: "2018-02",
-            city: "全国",
-            num: "625.7",
-            yearOnYear: "+4.3%",
-            ringRatio: "+4.5%",
-        }
-    ];
-        this.titleInfo = {
-            title: '各产品销售概况',
-            time: '2018-04',
-            city: ''
-        };
-
+        this.provinces = ['河北省', '河南省'];
+        this.prodSalesOverview = {};
+        this.prodSalesTable = [];
 
         this.prodCont = [{
             label: '商品名',
@@ -669,143 +568,41 @@ export default Controller.extend({
             align: 'center',
             minResizeWidth: '70px',
         }];
-
-        this.prodContValue = [{
-            'prod': '产品一',
-            'market': 123456,
-            'sales': 12,
-            'cont': 45175,
-            'cont-month': 16,
-            'cont-season': 100,
-            'cont-year': 45,
-        }, {
-            'prod': '产品二',
-            'market': 54387,
-            'sales': 135,
-            'cont': 87345,
-            'cont-month': 68,
-            'cont-season': 468,
-            'cont-year': 78,
-        }, {
-            'prod': '产品三',
-            'market': 8321,
-            'sales': 647,
-            'cont': 56,
-            'cont-month': 786,
-            'cont-season': 563,
-            'cont-year': 536,
-        }, {
-            'prod': '产品四',
-            'market': 67456,
-            'sales': 13422,
-            'cont': 452,
-            'cont-month': 42,
-            'cont-season': 45,
-            'cont-year': 656,
-        }, {
-            'prod': '产品5',
-            'market': 67456,
-            'sales': 13422,
-            'cont': 452,
-            'cont-month': 42,
-            'cont-season': 45,
-            'cont-year': 656,
-        }, {
-            'prod': '产品6',
-            'market': 67456,
-            'sales': 13422,
-            'cont': 452,
-            'cont-month': 42,
-            'cont-season': 45,
-            'cont-year': 656,
-        }, {
-            'prod': '产品7',
-            'market': 67456,
-            'sales': 13422,
-            'cont': 452,
-            'cont-month': 42,
-            'cont-season': 45,
-            'cont-year': 656,
-        }, {
-            'prod': '产品8',
-            'market': 67456,
-            'sales': 13422,
-            'cont': 452,
-            'cont-month': 42,
-            'cont-season': 45,
-            'cont-year': 656,
-        }, {
-            'prod': '产品9',
-            'market': 356,
-            'sales': 34,
-            'cont': 75,
-            'cont-month': 12,
-            'cont-season': 46,
-            'cont-year': 54,
-        }, ];
-        this.marketProd = [{
-                "date": "2017-01",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-02",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 25
-            }, {
-                "date": "2017-03",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-04",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 25
-            },
-            {
-                "date": "2017-05",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-06",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 25
-            }, {
-                "date": "2017-07",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-08",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 25
-            }, {
-                "date": "2017-09",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-10",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 28
-            }, {
-                "date": "2017-11",
-                "marketSales": 27,
-                "prodSales": 15,
-                "share": 20
-            }, {
-                "date": "2017-12",
-                "marketSales": 26,
-                "prodSales": 15,
-                "share": 25
-            },
-        ];
     },
+    actions: {
+        getMarket(params) {
+            this.set('market', params)
+        },
+        getYear: function(params) {
+            this.set('year', params);
+        },
+        getMonth(params) {
+            this.set('month', params);
+        },
+        queryRank(params) {
+            if (params === '销售额') {
+                this.set('ranktag', 'sales')
+            } else if (params === '销售增长') {
+                console.log('salesGrowth')
+                this.set('ranktag', 'salesGrowth')
+            } else if (params === '份额') {
+                this.set('ranktag', 'prodShare')
+            } else if (params === '份额增长') {
+                this.set('ranktag', 'prodShareGrowth')
+            }
+            this.queryRank();
 
+        },
+        submit() {
+            this.set('modal3', false);
+            this.queryMarketProdCards();
+            this.queryMixedGraph();
+            this.queryMarketSalesTable();
+            this.queryPerMarketShare();
+            this.queryMarketRank();
+        },
+        testsubmit() {
+            console.log('aaaaaaaaaaaaa');
+        }
+    }
 });

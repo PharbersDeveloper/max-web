@@ -9,7 +9,7 @@ import d3 from 'd3';
 
 export default Component.extend({
 	tagName: 'svg',
-	classNames: ['col-md-12', 'col-sm-12'],
+	classNames: ['col-md-12', 'col-sm-12','line-multi'],
 	init() {
 		this._super(...arguments)
 		this.lineTotalData = {

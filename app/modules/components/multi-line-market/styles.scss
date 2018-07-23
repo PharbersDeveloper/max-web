@@ -1,4 +1,4 @@
-:global .simple-line {
+:global .trend-line {
     :global .grid line {
         stroke: lightgrey;
         stroke-opacity: 0.7;
@@ -7,6 +7,11 @@
 
     :global .grid path {
         stroke-width: 0;
+    }
+
+    :global .line {
+        fill: none;
+        opacity: 1;
     }
 
     :global .legend {
