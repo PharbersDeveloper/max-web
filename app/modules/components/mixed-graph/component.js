@@ -13,12 +13,14 @@ export default Component.extend({
         run.scheduleOnce('render', this, this.drawMixedGraph);
     },
     drawMixedGraph() {
-        // console.info(this.get('mixedGraphData'));
         // if(this.get('mixedGraphData').length ==0) {
         // 	return;
         // }
         d3.select('svg.mixed-graph-svg').remove();
-        let svg = d3.select(this.element).append('svg')
+        d3.select('.tooltips').remove();
+
+        let svgContainer = d3.select(this.element);
+        let svg = svgContainer.append('svg')
             .attr('class', 'mixed-graph-svg')
         let data = this.get('mixedGraphData');
         let margin = {
@@ -28,11 +30,15 @@ export default Component.extend({
             left: 40
         };
         let legendTitle = ['市场规模', '产品销售额', '市场增长率', '产品增长率'];
+        let legendColor = ['#53A8E2', '#58D8FC', '#FA687A', '#76FFE0'];
         let width = 900;
         let height = 360;
         // 显示多少个柱状
         let numBars = 14;
-
+        // 定义提示区
+        let tooltip = svgContainer
+            .append('div')
+            .attr('class', 'tooltips');
         var x = d3.scaleBand()
             .rangeRound([0, width])
             .padding(.1)
@@ -50,7 +56,11 @@ export default Component.extend({
         var yAxis = d3.axisLeft()
             .scale(y)
             .ticks(10);
-
+        // 添加网格线
+        function make_y_gridlines() {
+            return d3.axisLeft(y)
+                .ticks(7)
+        }
         // create right yAxis
         var yAxisRight = d3.axisRight()
             .scale(y1)
@@ -128,7 +138,11 @@ export default Component.extend({
             .attr("dy", ".71em")
             .style("text-anchor", "end")
             .text("scale");
-
+        svg.append("g")
+            .attr("class", "grid")
+            .call(make_y_gridlines().tickSize(-width)
+                .tickFormat("")
+            );
         svg.append("g")
             .attr("class", "y axis axisRight")
             .attr("transform", "translate(" + (width) + ",0)")
@@ -142,14 +156,14 @@ export default Component.extend({
         svg.selectAll(".bar")
         let bars = svg.append("g");
         // svg.selectAll(".bar")
-        bars.selectAll(".bar")
+        let scaleBar = bars.selectAll(".bar")
             // .data(data)
             .data(data.slice(0, numBars), function(d) {
                 return d.province;
             })
             .enter().append("rect")
             .attr("y", 500)
-            .transition().duration(1000)
+            // .transition().duration(1000)
             .attr("class", "bar")
             .attr("x", function(d) {
                 return x(d.province);
@@ -162,8 +176,73 @@ export default Component.extend({
             .attr("height", function(d) {
                 return height - y(d.scale);
             });
+        scaleBar.transition()
+            .duration(1000);
 
-        bars.selectAll('.bar')
+        function makeTooltip(d, xPosition, yPosition) {
+            d3.select('.tooltips')
+                .style('left', xPosition + 'px')
+                .style('top', yPosition + 'px')
+                .html("<p class='' >" + d.province + "</p>" +
+                    "<p class='scale-bar'>" + "<span>市场规模</span>" + "<span>" + d.scale + "Mil</span></p>" +
+                    "<p class='sales-bar'>" + "<span>产品销售额</span>" + "<span>" + d.sales + "Mil</span></p>" +
+                    "<p class='market_line'>" + "<span>市场增长率</span>" + "<span>" + d.market_growth + "%</span></p>" +
+                    "<p class='prod_line'>" + "<span>产品增长率</span>" + "<span>" + d.prod_growth + "%</span></p>")
+                .style('opacity', 0.65);
+            let scale = d3.selectAll('.scale-bar').insert("svg", ".scale-bar span:first-child").attr("class", "little-legend");
+            scale.append("g").selectAll('rect')
+                .data(['scale'])
+                .enter().append("rect")
+                .attr('class', "scale-icon")
+                .attr("x", 5)
+                .attr("width", 10)
+                .attr('height', 20)
+                .attr("fill", legendColor[0]);
+            let sales = d3.selectAll('.sales-bar').insert("svg", ".sales-bar span:first-child").attr("class", "little-legend");
+            sales.append("g").selectAll('rect')
+                .data(['sales'])
+                .enter().append("rect")
+                .attr('class', "sales-icon")
+                .attr("x", 5)
+                .attr("width", 10)
+                .attr('height', 20)
+                .attr("fill", legendColor[1]);
+            let market = d3.select('.market_line').insert("svg", ".market_line span:first-child").attr("class", "little-legend");
+            market.selectAll("line")
+                .data(['market_growth'])
+                .enter()
+                .append("line")
+                .attr("x1", 5)
+                .attr("x2", 15)
+                .attr("y1", 15)
+                .attr("y2", 15)
+                .attr("stroke", legendColor[2])
+                .attr("stroke-width", '3')
+                .attr("fill", legendColor[2]);
+            let prod = d3.select('.prod_line').insert("svg", ".prod_line span:first-child").attr("class", "little-legend");
+            prod.selectAll("line")
+                .data(['prod_growth'])
+                .enter()
+                .append("line")
+                .attr("x1", 5)
+                .attr("x2", 15)
+                .attr("y1", 15)
+                .attr("y2", 15)
+                .attr("stroke", legendColor[3])
+                .attr("stroke-width", '3')
+                .attr("fill", legendColor[3]);
+        };
+        scaleBar.on("mouseover", function(d) {
+                let xPosition = parseFloat(d3.select(this).attr('x'));
+                let yPosition = parseFloat(d3.select(this).attr('y')) / 2;
+                makeTooltip(d, xPosition, yPosition);
+            })
+            .on('mouseout', function(d) {
+                d3.select('.tooltips')
+                    .style('opacity', 0);
+            })
+
+        bars.selectAll('.bar2')
             .data(data.slice(0, numBars), function(d) {
                 return d.province;
             })
@@ -178,6 +257,15 @@ export default Component.extend({
             })
             .attr("height", function(d, i, j) {
                 return height - y(d.sales);
+            })
+            .on("mouseover", function(d) {
+                let xPosition = parseFloat(d3.select(this).attr('x'));
+                let yPosition = parseFloat(d3.select(this).attr('y')) / 2;
+                makeTooltip(d, xPosition, yPosition);
+            })
+            .on('mouseout', function(d) {
+                d3.select('.tooltips')
+                    .style('opacity', 0);
             });
         // 绘制市场增长折线图
         let marketGrowth = d3.line()
@@ -202,7 +290,22 @@ export default Component.extend({
             .attr("transform", "translate(18," + 0 + ")")
             // .style("filter", "url(#drop-shadow)")
             .attr("d", marketGrowth);
-
+        // 为折线添加点
+        // let circleFormarket = svg.selectAll('circle')
+        //     .data(data)
+        //     .enter()
+        //     .append('g')
+        //     .append('circle')
+        //     .attr('class', 'market-circle')
+        //     .attr('cx', marketGrowth.x())
+        //     .attr('cy', marketGrowth.y())
+        //     .attr('r', 3)
+        //     .on('mouseover', function() {
+        //         d3.select(this).transition().duration(500).attr('r', 5)
+        //     })
+        //     .on('mouseout', function() {
+        //         d3.select(this).transition().duration(500).attr('r', 3)
+        //     })
         // 绘制产品增长折线图
         svg.append("path")
             .data([data])
@@ -211,33 +314,54 @@ export default Component.extend({
             .attr("transform", "translate(18," + 0 + ")")
             // .style("filter", "url(#drop-shadow)")
             .attr("d", prodGrowth);
+        /**
+         *   绘制提示区
+         */
 
         /**
          * 绘制图例区域
          */
         let legendArea = svg.append('g')
-            .attr('transform', 'translate(0,410)')
+            .attr('transform', 'translate(' + width / 4 + ',410)')
             .attr('class', 'legendArea');
-        // 绑定数据
-        let legend = legendArea.selectAll('text')
-            .data(legendTitle)
-            .enter()
-            .append('text')
-            .text(function(d) {
-                return d;
-            })
-            .attr('class', 'legend-text')
-            .attr('x', function(d, i) {
-                return i * 100;
-            })
-            .attr('y', 6)
-            .attr('fill', 'red')
-        // 添加图例
 
-        // legend.append('rect')
-        //     .attr('height',10)
-        // 	.attr('width',5)
-        // 	.style('fill')
+        legendArea.selectAll('rect')
+            .data(['scale', 'sales'])
+            .enter().append("rect")
+            .attr('class', d => d)
+            .attr("x", (d, i) => (width / 8) * i)
+            .attr("width", d => 10)
+            .attr('height', 20)
+            .attr("fill", (d, i) => legendColor[i]);
+
+        legendArea.append("rect")
+            .attr('class', "outline")
+            .attr("width", width)
+            .attr("height", 20);
+        legendArea.selectAll("line")
+            .data(['market_growth', 'prod_growth'])
+            .enter()
+            .append("line")
+            .attr("x1", function(d, i) {
+                return (width / 8) * (i + 2);
+            })
+            .attr("x2", function(d, i) {
+                return (width / 8) * (i + 2) + 10;
+            })
+            .attr("y1", 3)
+            .attr("y2", 3)
+            .attr("stroke", (d, i) => legendColor[i + 2])
+            .attr("stroke-width", '3')
+            .attr("fill", (d, i) => legendColor[i + 2]);
+        legendArea.selectAll("text")
+            .data(["市场规模", "产品销售额", "市场增长率", "产品增长率"])
+            .enter().append("text")
+            .attr("class", "legend-label")
+            .attr("x", (d, i) => (width / 8) * i + 15)
+            .attr("y", 2)
+            .attr("dy", 5)
+            .text(d => d);
+        // 添加图例
 
         function type(d) {
             d.sales = +d.sales;
@@ -290,10 +414,6 @@ export default Component.extend({
             // var displayed = d3.scaleQuantize()
             //     .domain([0, width])
             //     .range(d3.range(data.length));
-            // console.log('ttttttttttttttttest')
-            // console.log(d3.range(data.length));
-            // console.log(parseFloat(numBars * width));
-            // console.log(Math.round(parseFloat(numBars * width) / data.length))
             diagram.append("rect")
                 .attr("transform", "translate(0, " + (height + margin.bottom) + ")")
                 .attr("class", "mover")
@@ -316,7 +436,6 @@ export default Component.extend({
                 w = parseInt(d3.select(this).attr("width")),
                 f, nf, new_data;
             if (nx < 0 || nx + w > width) return;
-
             d3.select(this).attr("x", nx);
 
             f = displayed(xinside);
@@ -324,17 +443,19 @@ export default Component.extend({
 
             if (f === nf) return;
             new_data = data.slice(nf, nf + numBars);
-            // console.log(x)
             x.domain(new_data.map(function(d) {
                 return d.province;
             }));
             svg.select(".x.axis").call(xAxis);
 
             // let rects = bars.selectAll("rect")
+            bars.selectAll(".bar").remove();
             let rects = bars.selectAll(".bar")
                 .data(new_data, function(d) {
                     return d.province;
                 });
+            bars.selectAll(".bar2").remove();
+
             let rects2 = bars.selectAll('.bar2')
                 .data(new_data, function(d) {
                     return d.province
@@ -373,6 +494,14 @@ export default Component.extend({
                 .attr("width", 18)
                 .attr("height", function(d) {
                     return height - y(d.scale);
+                }).on("mouseover", function(d) {
+                    let xPosition = parseFloat(d3.select(this).attr('x'));
+                    let yPosition = parseFloat(d3.select(this).attr('y')) / 2;
+                    makeTooltip(d, xPosition, yPosition);
+                })
+                .on('mouseout', function(d) {
+                    d3.select('.tooltips')
+                        .style('opacity', 0);
                 });
             rects2.enter().append("rect")
                 .attr("class", "bar2")
@@ -385,10 +514,19 @@ export default Component.extend({
                 .attr("width", 18)
                 .attr("height", function(d) {
                     return height - y(d.sales);
+                }).on("mouseover", function(d) {
+                    let xPosition = parseFloat(d3.select(this).attr('x'));
+                    let yPosition = parseFloat(d3.select(this).attr('y')) / 2;
+                    makeTooltip(d, xPosition, yPosition);
+                })
+                .on('mouseout', function(d) {
+                    d3.select('.tooltips')
+                        .style('opacity', 0);
                 });
 
         }
 
     }
+
 
 });
