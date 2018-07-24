@@ -24,57 +24,6 @@ export default Component.extend({
             bottom: 30,
             left: 20
         };
-        // this.exampleData = [{
-        //     show_value: 0.12,
-        //     title: '北京',
-        //     color: 'red',
-        //     tips: [{
-        //             key: '省份销售额',
-        //             value: 546872,
-        //         },
-        //         { key: '产品份额', value: '26%' }
-        //     ]
-        // }, {
-        //     show_value: 0.24,
-        //     title: 'guanghzou',
-        //     color: 'gray',
-        //     tips: [{
-        //             key: '省份销售额',
-        //             value: 546872,
-        //         },
-        //         { key: '产品份额', value: '26%' }
-        //     ]
-        // }, {
-        //     show_value: 0.36,
-        //     title: 'shanghai',
-        //     color: 'lightblue',
-        //     tips: [{
-        //             key: '省份销售额',
-        //             value: 546872,
-        //         },
-        //         { key: '产品份额', value: '26%' }
-        //     ]
-        // }, {
-        //     show_value: 0.28,
-        //     title: 'chongqing',
-        //     color: 'green',
-        //     tips: [{
-        //             key: '省份销售额',
-        //             value: 546872,
-        //         },
-        //         { key: '产品份额', value: '26%' }
-        //     ]
-        // }, {
-        //     show_value: 0.28,
-        //     title: 'chongqing',
-        //     color: 'green',
-        //     tips: [{
-        //             key: '省份销售额',
-        //             value: 546872,
-        //         },
-        //         { key: '产品份额', value: '26%' }
-        //     ]
-        // }];
     },
 
     didReceiveAttrs() {

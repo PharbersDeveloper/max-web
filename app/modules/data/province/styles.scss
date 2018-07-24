@@ -11,7 +11,6 @@
 }
 
 .mixed-graph {
-	// width: 2000px;
 	margin: 15px;
 	padding: 10px 20px;
 	border-radius: 3px;
@@ -39,8 +38,6 @@
 
 	.legend-pie-container {
 		height: 400px;
-		// margin-right: 10px;
-		// padding: 5px 10px;
 		padding-right: 5px;
 		background-color: #F4F4F4;
 
@@ -76,9 +73,7 @@
 	}
 
 	.horizontal-histogram {
-		// padding: 10px 15px;
 		padding-left: 5px;
-		// margin-left: 10px;
 		height: 400px;
 		background: #F4F4F4;
 
@@ -174,14 +169,12 @@
 
 	.market-title {
 		padding-bottom: 20px;
-		// height: 20px;
 		line-height: 20px;
 		font-size: 0;
 
 		span:first-child {
 			margin-right: 10px;
 			font-size: 14px;
-			// font-weight: 700;
 			color: #485465;
 			letter-spacing: 1.08px;
 		}
@@ -195,15 +188,12 @@
 }
 
 .con-title {
-	// padding-bottom: 20px;
-	// height: 20px;
 	line-height: 20px;
 	font-size: 0;
 
 	span:first-child {
 		margin-right: 10px;
 		font-size: 14px;
-		// font-weight: 700;
 		color: #485465;
 		letter-spacing: 1.08px;
 	}
@@ -235,13 +225,11 @@ change:focus {
 
 .data-market {
 	margin: 10px 15px;
-	// padding: 5px 10px;
 	height: 50px;
 	line-height: 50px;
 	background-color: #FFF;
 	box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
 	border-radius: 3px;
-	// font-size: 12px;
 }
 
 .time-selects {
@@ -249,11 +237,9 @@ change:focus {
 	margin-top: 20px;
 	height: 30px;
 	line-height: 30px;
-	// text-align: center;
-	// border: 1px solid $border-color;
 	border-radius: 4px;
 	font-size: 0;
-	// background-color: #F0F3F5;
+
 	& span {
 		font-size: 14px;
 		padding: 0 10px;
@@ -280,7 +266,6 @@ change:focus {
 
 .market-choose-area {
 	display: block;
-	// margin-right: 40px;
 	height: 30px;
 	line-height: 30px;
 	line-height: 30px;
@@ -348,6 +333,93 @@ change:focus {
 		font-size: 14px;
 		color: #485465;
 		text-align: center;
+	}
+}
+
+.provs-choose {
+	margin: 15px;
+	height: 50px;
+	line-height: 50px;
+	box-shadow: 0 1px 5px 2px rgba(215,215,215,0.50);
+	border-radius: 3px;
+	background-color: #FFFFFF;
+
+	.title {
+		font-size: 14px;
+		color: #7C7C7C;
+		letter-spacing: 2.57px; // text-align: left;
+	}
+
+	.show-area {
+		display: inline-block;
+		width: 100px;
+		height: 30px;
+		line-height: 30px;
+		font-size: 14px;
+		letter-spacing: 2px;
+		border-radius: 1px;
+		text-align: center;
+		color: #FFF;
+		background-color: #60B3AD;
+	}
+
+	.hint {
+		margin-left: 14px;
+		font-size: 12px;
+		color: #9E9E9E;
+		letter-spacing: 2px; // text-align: left;
+	}
+
+	.changeBtn {
+		float: right;
+		margin-top: 10px;
+		font-size: 12px;
+		border: 0;
+		color: #9A9A9A;
+		letter-spacing: 2.4px;
+	}
+}
+
+.choose-line {
+	margin: 15px;
+	padding: 10px 20px;
+	border-radius: 3px;
+	background-color: #FFF;
+	box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
+
+	.choose-type {
+		height: 20px;
+		line-height: 20px;
+		font-size: 14px;
+		color: #717171;
+		letter-spacing: 1px;
+
+		select {
+			width: 150px;
+			height: 30px;
+			line-height: 30px;
+			background: #F4F4F4;
+			border-radius: 1px;
+		}
+	}
+
+	.trend-title {
+		height: 20px;
+		line-height: 20px;
+		font-size: 0;
+
+		span:first-child {
+			margin-right: 10px;
+			font-size: 14px;
+			color: #485465;
+			letter-spacing: 1.08px;
+		}
+
+		span:nth-child(2) {
+			font-size: 12px;
+			color: #9D9D9D;
+			letter-spacing: 1px;
+		}
 	}
 }
 @media (max-width: 900px) {

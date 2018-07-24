@@ -7,16 +7,20 @@ export default Controller.extend({
     ajax: inject(),
     cookies: inject(),
     activeCi: true,
-    // time: '2017-03',
     market: '麻醉市场',
     provRankTag: 'provinceSales',
     prodRankTag: "sales",
-    // rankingMax: 0,
+    trendTag: 'sales',
     prodRankMax: 0,
     provRankMax: 0,
     year: '2017',
     month: '03',
     prov: '北京',
+    // oldtime: computed('year', 'month', function() {
+    //     let year = this.get('year');
+    //     let month = this.get('month');
+    //     return year + '-' + month;
+    // }),
     time: computed('year', 'month', function() {
         // body
         let year = this.get('year');
@@ -158,8 +162,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    console.log('查询各产品份额(in pro)：')
-                    console.log(result);
+                    // console.log('查询各产品份额(in pro)：')
+                    // console.log(result);
                     this.set('marketSalesPie', result.pie);
                     this.set('marketTitle', result.marketSharePart);
 
@@ -240,8 +244,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    console.log('查询aaaaaaaaaaaaaaaaa')
-                    console.log(result);
+                    // console.log('查询aaaaaaaaaaaaaaaaa')
+                    // console.log(result);
                     this.set('trendTitle', result.tableSale.prodSalesOverview)
                     this.set('prodTrend', result.tableSale.multiData);
                 }
@@ -319,8 +323,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    console.log('查询各产品排名变化qqq(in pro)：')
-                    console.log(result);
+                    // console.log('查询各产品排名变化qqq(in pro)：')
+                    // console.log(result);
                     this.set('unit', result.unit);
                     this.set('prodRankValue', result.ranking);
                     // this.computedRankingMax();
@@ -354,27 +358,101 @@ export default Controller.extend({
                     // console.log(result);
                     this.set('competingTitle', result.prodSalesOverview)
                     this.set('competingProdValue', result.competeSaleTable);
-                    // console.log(result.prodSalesValue)
-                    // this.set('shareTitle', result.prodSalesOverview);
                 }
             })
     },
+    /**
+     *	查询产品销售趋势
+     */
+    queryAllProdTrend() {
+        let condition = {
+            "condition": {
+                "user_id": this.get('cookies').read('uid'),
+                "time": this.get('time'),
+                "market": this.get('market'),
+                "tag": this.get('trendTag')
+            }
+        }
+        this.get('ajax').request('api/dashboard/nation/prodTrendAnalysis', this.getAjaxOpt(condition))
+            .then(({ status, result, error }) => {
+                if (status === 'ok') {
+                    console.log('查询查询市场销售趋势(in country)：')
+                    console.log(result);
+                    this.set('AllTrendTitle', result.prodSalesOverview);
+                    this.set('AllTrendValue', result.multiData);
+                }
+            })
+    },
+    /**
+     * 查询本公司下的所有市场
+     */
+    queryMarket() {
+        let condition = {
+            "condition": {
+                "user_id": this.get('cookies').read('uid')
+            }
+        }
+        this.get('ajax').request('api/search/market/all', this.getAjaxOpt(condition))
+            .then(({ status, result, error }) => {
+                if (status === 'ok') {
+                    this.set('markets', result.markets);
+                    this.set('market', result.markets[0]);
+                    return result.markets[0];
+                }
+            })
+            .then(this.queryMarketProdCards())
+            .then(this.queryMixedGraph())
+            .then(this.queryMarketSalesTable())
+            .then(this.queryPerMarketShare())
+            .then(this.queryMarketRank())
+            .then(this.queryMarketProv())
+            .then(this.queryProdCards())
+            .then(this.queryProdTrend())
+            .then(this.queryProdMostCards())
+            .then(this.queryPerProductShare())
+            .then(this.queryProductRank())
+            .then(this.queryProductSalesTable())
+            .then(this.queryAllProdTrend());
 
+    },
+    /**
+     *	查询市场下的所有城市
+     */
+    queryMarketProv() {
+        let condition = {
+            "condition": {
+                "user_id": this.get('cookies').read('uid'),
+                "time": this.get('time'),
+                "market": this.get('market')
+            }
+        }
+        this.get('ajax').request('/api/dashboard/province/all', this.getAjaxOpt(condition))
+            .then(({ status, result, error }) => {
+                if (status === 'ok') {
+                    // console.log('查询产品cards(in province)：')
+                    // console.log(result);
+                    this.set('provs', result.provinces);
+                    this.set('prov', result.provinces[0]);
+                } else {}
+            })
+    },
     init() {
         this._super(...arguments);
-        this.markets = ['麻醉市场'];
+        this.markets = [];
         this.years = ['2018', '2017', '2016'];
         this.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
         this.provRank = ['市场规模(mil)', '市场增长(%)', '销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
         this.prodRank = ['销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
+        this.trendData = ['销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
+
         //  市场规模卡片数据
         this.cards = [];
-        this.queryMarketProdCards();
+        // this.queryMarketProdCards();
         //  end 市场规模卡片数据
 
         //  市场各省份销售概况-混合图
         this.mixedGraphData = [];
-        this.queryMixedGraph();
+        // this.queryMixedGraph();
         // end市场各省份销售概况-混合图
 
         //  市场各省份销售概况-table
@@ -392,90 +470,81 @@ export default Controller.extend({
             classNames: 'tabl',
             align: 'center',
             minResizeWidth: '70px',
-            // breakpoints: ['mobile', 'tablet', 'desktop']
         }, {
             label: '市场增长(%)',
             valuePath: 'market_groth',
-            // width: '100px',
             align: 'center',
             classNames: 'tabl',
             minResizeWidth: '70px',
         }, {
             label: '销售额',
             valuePath: 'sales_amount',
-            // width: '100px',
             align: 'center',
             minResizeWidth: '70px',
         }, {
             label: '销售增长(%)',
             valuePath: 'sales_growth',
-            // width: '100px',
             align: 'center',
             minResizeWidth: '70px',
         }, {
             label: 'EV值(%)',
             valuePath: 'ev_value',
-            // width: '80px',
             align: 'center',
             minResizeWidth: '70px',
         }, {
             label: '份额(%)',
             valuePath: 'share',
-            // width: '80px',
             align: 'center',
             minResizeWidth: '70px',
         }, {
             label: '份额增长(%)',
             valuePath: 'share_growth',
-            // width: '100px',
             align: 'center',
             minResizeWidth: '70px',
         }];
         this.marketSalesValue = [];
-        this.queryMarketSalesTable();
+        // this.queryMarketSalesTable();
         // end 市场各省份销售概况-table
 
         //  市场销售组成-pie
         this.marketSalesPie = [];
         this.marketTitle = {};
-        this.queryPerMarketShare();
+        // this.queryPerMarketShare();
         //  end 市场销售组成
 
         //  市场省份层面排行
         this.provRankValue = [];
         // this.rankingRange = [];
         this.provRankRange = [];
-        this.queryMarketRank();
-        this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
+        // this.queryMarketRank();
+        // this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
         // this.computedRankingMax();
         //  end 市场省份层面排行
 
         //市场销售总额-卡片数据
         this.sales = [];
-        this.queryProdCards();
+        // this.queryProdCards();
         //end 市场销售总额-卡片数据
         // prodTrend
         this.prodTrend = [];
-        this.queryProdTrend();
+        // this.queryProdTrend();
         // end prodTrend
         //竞品数量-卡片数据
         this.words = [];
-        this.queryProdMostCards();
+        // this.queryProdMostCards();
         //end 竞品数量-卡片数据
 
         //产品份额-pie
         this.marketSalesPie = [];
         this.marketTitle = {};
-        this.queryPerProductShare();
+        // this.queryPerProductShare();
         //end 产品份额-pie
 
         //各产品排名变化
         this.prodRankValue = [];
-        // this.rankingRange = [];
         this.prodRankRange = [];
 
-        this.queryProductRank();
-        this.computedRankingMax('prodRankValue', 'prodRankMax', 'prodRankRange');
+        // this.queryProductRank();
         //end 各产品排名变化
 
         //各竞品销售概况-table
@@ -520,10 +589,10 @@ export default Controller.extend({
             minResizeWidth: '70px',
         }];
         this.competingProdValue = [];
-        this.queryProductSalesTable();
+        // this.queryProductSalesTable();
         //end 各竞品销售概况-table
 
-        this.provinces = ['河北省', '河南省'];
+        this.provinces = [];
         this.prodSalesOverview = {};
         this.prodSalesTable = [];
 
@@ -569,6 +638,9 @@ export default Controller.extend({
             align: 'center',
             minResizeWidth: '70px',
         }];
+        this.AllTrendTitle = {};
+        this.AllTrendValue = [];
+        this.queryMarket();
     },
     actions: {
         getMarket(params) {
@@ -580,12 +652,13 @@ export default Controller.extend({
         getMonth(params) {
             this.set('month', params);
         },
+        getProv(params) {
+            this.set('prov', params)
+        },
         queryProvRank(params) {
-            console.log(params);
             if (params === '市场规模(mil)') {
                 this.set('provRankTag', 'provinceSales')
             } else if (params === '市场增长(%)') {
-                console.log('salesGrowth')
                 this.set('provRankTag', 'provMomGrowth')
             } else if (params === '销售额(mil)') {
                 this.set('provRankTag', 'companySales')
@@ -599,14 +672,11 @@ export default Controller.extend({
             this.queryMarketRank();
         },
         queryProdRank(params) {
-            console.log(params);
-            // this.prodRank = ['销售增长(%)', '份额(%)', '份额增长(%)'];
             if (params === '销售额(mil)') {
                 this.set('prodRankTag', 'sales')
             } else if (params === '销售增长(%)') {
                 this.set('prodRankTag', 'salesGrowth')
             } else if (params === '份额(%)') {
-                // console.log('salesGrowth');
                 this.set('prodRankTag', 'share')
             } else if (params === '份额增长(%)') {
                 this.set('prodRankTag', 'shareGrowth')
@@ -614,17 +684,27 @@ export default Controller.extend({
             this.queryProductRank();
 
         },
-        submit() {
-            this.set('modal3', false);
-            this.queryMarketProdCards();
-            this.queryMixedGraph();
-            this.queryMarketSalesTable();
-            this.queryPerMarketShare();
-            this.queryMarketRank();
+        queryTrend(params) {
+            console.log(params);
+            if (params === '销售额(mil)') {
+                this.set('trendTag', 'sales')
+            } else if (params === '销售增长(%)') {
+                this.set('trendTag', 'salesGrowth')
+            } else if (params === '份额(%)') {
+                this.set('trendTag', 'share')
+            } else if (params === '份额增长(%)') {
+                this.set('trendTag', 'shareGrowth')
+            }
+            this.queryAllProdTrend();
         },
+        submit() {
+            this.set('markTimeProv', false);
 
-        testsubmit() {
-            console.log('aaaaaaaaaaaaa');
+        },
+        submitProv() {
+            this.set('modalprov', false);
+
         }
+
     }
 });
