@@ -146,13 +146,14 @@ export default Controller.extend({
 			valuePath: 'prod',
 			classNames: 'tabl',
 			align: 'center',
-			sorted: false, //是否可以对列进行排序
+			sortable: false, //是否可以对列进行排序
 			minResizeWidth: '70px', //列可以调整的最小宽度
 		}, {
 			label: '市场名',
 			valuePath: 'market',
 			classNames: 'tabl',
 			align: 'center',
+			sortable: false,
 			minResizeWidth: '70px',
 		}, {
 			label: '市场规模',
@@ -208,13 +209,14 @@ export default Controller.extend({
 			valuePath: 'prod',
 			classNames: 'tabl',
 			align: 'center',
-			sorted: false, //是否可以对列进行排序
+			sortable: false, //是否可以对列进行排序
 			minResizeWidth: '70px', //列可以调整的最小宽度
 		}, {
 			label: '市场名',
 			valuePath: 'market',
 			classNames: 'tabl',
 			align: 'center',
+			sortable: false,
 			minResizeWidth: '70px',
 		}, {
 			label: '销售额',

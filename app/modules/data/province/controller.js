@@ -383,7 +383,7 @@ export default Controller.extend({
             valuePath: 'province',
             classNames: 'tabl',
             align: 'center',
-            sorted: false, //是否可以对列进行排序
+            sortable: false, //是否可以对列进行排序
             minResizeWidth: '70px', //列可以调整的最小宽度
             // breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
         }, {
@@ -484,14 +484,17 @@ export default Controller.extend({
             valuePath: 'prod',
             classNames: 'tabl',
             align: 'center',
-            sorted: false, //是否可以对列进行排序
+            sortable: false, //是否可以对列进行排序
             minResizeWidth: '70px', //列可以调整的最小宽度
         }, {
             label: '生产商',
             valuePath: 'manufacturer',
             classNames: 'tabl',
             align: 'center',
+            sortable: false,
             minResizeWidth: '70px',
+            cellClassNames: 'overf',
+            // cellCopmonent: 'table-overflow',
         }, {
             label: '销售额',
             valuePath: 'market_sale',
