@@ -98,18 +98,8 @@
 					{{/each}}
 				</div>
 			</div>
-			{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
 		</div>
 	</div>
-	{{!-- <div local-class="nopadding" class="container-fluid" >
-    <div class="col-md-6 col-sm-12" local-class="nopadding">
-        {{pie-chart pieValue=pieValue pieColor=pieColor}}
-    </div>
-    <div class="col-md-6 col-sm-12" local-class="nopadding">
-        {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}}
-    </div>
-</div> --}}
-
 	{{!-- {{province-choose showMarkerChoose=true market=markets as |prov|}} --}}
 	<div local-class="provs-choose" class="container-fluid">
 		<span local-class="title">省份选择：</span>
@@ -131,47 +121,14 @@
 							{{/each}}
 						</select>
 					</div>
-					{{!-- <div local-class="time-selects">
-						<span>时间选择：</span>
-						<select local-class="choose-market" name="markets" onchange= {{ action 'getYear' value="target.value"}}>
-							{{#each years as |item|}}
-								<option value={{item}}>{{item}}</option>
-							{{/each}}
-						</select>
-						<select local-class="choose-market" name="markets" onchange= {{ action 'getMonth' value="target.value"}}>
-							{{#each months as |item|}}
-								<option value={{item}}>{{item}}</option>
-							{{/each}}
-						</select>
-					</div> --}}
+
 				{{/modal.body}}
 				{{#modal.footer}}
 					{{#bs-button onClick=(action modal.close)}}取消{{/bs-button}}
 					{{#bs-button type="success" onClick=(action modal.submit ) }}保存{{/bs-button}}
 				{{/modal.footer}}
 			{{/bs-modal}}
-			{{!-- {{#bs-modal open=modalprov onHidden=(action (mut modalprov) false) as |modal|}}
-				{{#modal.header}}
-					<h4 class="modal-title">
-					修改筛选条件
-				</h4>
-				{{/modal.header}}
-				{{#modal.body}}
-					<div local-class='prov-choose-area'>
-						<span local-class="title">省份选择</span>
-						<select local-class="choose-prov" name="markets" onchange= {{ action 'getProv' value="target.value"}}>
-					  {{#each provs as |item|}}
-						  <option value={{item}}>{{item}}</option>
-					  {{/each}}
-				  </select>
-					</div>
-				{{/modal.body}}
-				{{#modal.footer}}
-					{{#bs-button onClick=(action modal.close)}}取消{{/bs-button}}
-					{{#bs-button type="success" onClick=(action modal.submit)}}保存{{/bs-button}}
-				{{/modal.footer}}
-			{{/bs-modal}} --}}
-			{{!-- {{#bs-button local-class="changeBtn" onClick=(action (mut modalprov) true)}} 修改筛选条件{{/bs-button}} --}}
+
 		</div>
 
 	</div>
@@ -181,12 +138,14 @@
 		{{/each}}
 	</div>
 	<div class="container-fluid" local-class='nopadding multi-line'>
-		<p local-class="market-title"><span>{{trendTitle.title}}</span><span>{{trendTitle.timestart}}{{trendTitle.timeover}}{{trendTitle.area}}</span></p>
+		<p local-class="market-title">
+			<span>{{trendTitle.title}}</span>
+			<span>{{trendTitle.timestart}}{{trendTitle.timeover}}{{trendTitle.area}}</span>
+		</p>
 
 		{{multi-line-market threeLinesData=prodTrend}}
 	</div>
 	{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
-
 	<div class="container-fluid" local-class="nopadding">
 		{{#each words as |item|}}
 			{{most-word card=item}}
@@ -214,9 +173,9 @@
 					</select>
 				</p>
 				<div local-class="share" class="container-fluid">
-					<div class="col-md-4 col-sm-4 col-xs-4">
+					<div class="col-md-6 col-sm-6 col-xs-6">
 					</div>
-					<div class="col-md-8 col-sm-8 col-xs-8">
+					<div class="col-md-6 col-sm-6 col-xs-6">
 						<div class="row">
 							{{#each prodRankRange as |item|}}
 								<span class="col-md-2 col-sm-2 col-xs-2">{{item}}</span>
@@ -226,12 +185,10 @@
 				</div>
 				<div local-class="histogram">
 					{{#each prodRankValue as |item|}}
-						{{!-- {{else}}
-						<p>数据加载中...</p> --}}
+						{{pord-histogram data=item theMax=prodRankMax}}
 					{{/each}}
 				</div>
 			</div>
-			{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
 		</div>
 	</div>
 	<div local-class="table-sales">
@@ -246,10 +203,10 @@
 		<p local-class="choose-type">
 			<span>数据类型：</span>
 			<select class="" name="" onchange= {{ action 'queryTrend' value="target.value"}}>
-					{{#each trendData as |item|}}
-						<option value={{item}}>{{item}}</option>
-					{{/each}}
-				</select>
+				{{#each trendData as |item|}}
+					<option value={{item}}>{{item}}</option>
+				{{/each}}
+			</select>
 		</p>
 		{{line-mulit-choose chooseData=AllTrendValue}}
 	</div>

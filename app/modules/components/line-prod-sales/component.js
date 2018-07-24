@@ -4,7 +4,7 @@ import { get } from '@ember/object'
 import d3 from 'd3';
 
 export default Component.extend({
-    tagName: 'svg',
+    tagName: 'div',
     classNames: ['col-md-12', 'col-sm-12', 'col-xs-12', 'prod-sales-container'],
     width: 520,
     height: 260,
@@ -18,9 +18,11 @@ export default Component.extend({
     },
     drawSingleLine() {
         const singleLineData = this.get('singleLineData');
+        d3.select('.prod-sales-container svg.single-line-svg').remove();
         let lineNames = ['产品销售额'];
         let lineColor = ["#FA6F80"];
-        var svg = d3.select(this.element)
+        let svgContainer = d3.select(this.element);
+        var svg = svgContainer.append('svg').attr('class', 'single-line-svg');
         // set the dimensions and margins of the graph
         var margin = {
                 top: 20,
@@ -32,6 +34,7 @@ export default Component.extend({
             height = 360 - margin.top - margin.bottom;
 
         var parseTime = d3.timeParse("%Y-%m");
+        let formatDateIntoYearMonth = d3.timeFormat('%Y-%m');
 
         var x = d3.scaleTime().range([0, width]);
         var y0 = d3.scaleLinear().range([height, 0]);
@@ -48,8 +51,10 @@ export default Component.extend({
 
         svg.attr('padding', '0 20px')
             .attr("height", 368)
+            .attr('width', '100%')
             .attr('preserveAspectRatio', 'none')
-            .attr('viewBox', '-20 0 950 348')
+            .attr('viewBox', '-40 0 950 348')
+            .attr("transform", "translate(10,0)")
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -70,26 +75,6 @@ export default Component.extend({
             return Math.max(d.sales);
         });
         y0.domain([0, (y0Max / 3 + y0Max)]);
-
-        // Add the valueline path.
-        svg.append("path")
-            .data([data])
-            .attr("class", "line")
-            .style("stroke", "#FA6F80")
-            .style("filter", "url(#drop-shadow)")
-            .attr("d", valueline);
-
-        // Add the X Axis
-        svg.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
-
-        // Add the Y0 Axis
-        svg.append("g")
-            .attr("class", "axisSteelBlue")
-            .attr("transform", 'translate(0,0)')
-            .call(d3.axisLeft(y0))
-
         // gridlines in x axis function
         function make_x_gridlines() {
             return d3.axisBottom(x)
@@ -117,6 +102,46 @@ export default Component.extend({
                 .tickSize(-width)
                 .tickFormat("")
             );
+        // Add the valueline path.
+        svg.append("path")
+            .data([data])
+            .attr("class", "line")
+            .style("stroke", "#FA6F80")
+            .style("filter", "url(#drop-shadow)")
+            .attr("d", valueline);
+
+        // Add the X Axis
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x).tickFormat(formatDateIntoYearMonth));
+
+        // Add the Y0 Axis
+        svg.append("g")
+            .attr("class", "axisSteelBlue")
+            .attr("transform", 'translate(0,0)')
+            .call(d3.axisLeft(y0));
+        svg.selectAll(".dot1")
+            .data(data)
+            .enter().append("circle")
+            .attr("class", "dot1")
+            .attr("r", 3)
+            .attr('fill', lineColor[0])
+            .attr("cx", function(d) { return x(d.ym); })
+            .attr("cy", function(d) { return y0(d.sales); })
+            .attr("opacity", 0.6)
+            .on("mouseover", function(d) {
+                d3.select(this)
+                    .transition()
+                    .duration(500)
+                    .attr("r", 5);
+            })
+            .on("mouseout", function(d) {
+                d3.select(this)
+                    .transition()
+                    .duration(500)
+                    .attr("r", 3);
+            });
+
         /**
          * 添加图例
          */

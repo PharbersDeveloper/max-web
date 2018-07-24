@@ -31,9 +31,10 @@ export default Component.extend({
     },
 
     drawLegendPie() {
-
-        d3.select('svg.pie-svg').remove();
+        d3.select('.legend-pie-prov svg.pie-svg').remove();
         d3.select('.legend-pie-prov .pie-tooltips').remove();
+        d3.select('.legend-pie-prov .legendContainer').remove();
+
         let svgContainer = d3.select(this.element);
         let svg = svgContainer.append("svg").attr('class', "pie-svg");
         let width = get(this, 'width')

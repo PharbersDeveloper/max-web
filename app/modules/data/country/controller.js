@@ -223,7 +223,6 @@ export default Controller.extend({
                     this.queryRanking();
                     this.queryCompeting();
                     this.queryAllProdTrend();
-
                 }
             })
     },
@@ -272,49 +271,40 @@ export default Controller.extend({
         this.competingColumn = [{
             label: '商品名',
             valuePath: 'prod',
-            // width: '100px',
             classNames: 'tabl',
             align: 'center',
             sortable: false, //是否可以对列进行排序
             minResizeWidth: '70px', //列可以调整的最小宽度
-            // breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
         }, {
             label: '生产商',
             valuePath: 'manufacturer',
             sortable: false,
-            // width: '100px',
             classNames: 'tabl',
             align: 'center',
             minResizeWidth: '70px',
-            // breakpoints: ['mobile', 'tablet', 'desktop']
         }, {
             label: '销售额',
             valuePath: 'market_sale',
-            // width: '100px',
             align: 'center',
             minResizeWidth: '70px',
         }, {
             label: '销售增长(%)',
             valuePath: 'sales_growth',
-            // width: '100px',
             align: 'center',
             minResizeWidth: '70px',
         }, {
             label: 'EV值(%)',
             valuePath: 'ev_value',
-            // width: '80px',
             align: 'center',
             minResizeWidth: '70px',
         }, {
             label: '份额(%)',
             valuePath: 'share',
-            // width: '80px',
             align: 'center',
             minResizeWidth: '70px',
         }, {
             label: '份额增长(%)',
             valuePath: 'share_growth',
-            // width: '100px',
             align: 'center',
             minResizeWidth: '70px',
         }];
@@ -350,7 +340,7 @@ export default Controller.extend({
 
         },
         queryTrend(params) {
-            console.log(params);
+            // console.log(params);
             if (params === '销售额(mil)') {
                 this.set('trendTag', 'sales')
             } else if (params === '销售增长(%)') {
@@ -363,7 +353,7 @@ export default Controller.extend({
             this.queryAllProdTrend();
         },
         submit() {
-            this.set('modal3', false);
+            this.set('markTime', false);
             this.queryProdCards();
             this.queryProdTrend();
             this.queryProdMostCards();

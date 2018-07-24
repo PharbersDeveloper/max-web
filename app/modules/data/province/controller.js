@@ -15,7 +15,7 @@ export default Controller.extend({
     provRankMax: 0,
     year: '2017',
     month: '03',
-    prov: '北京',
+    prov: '',
     // oldtime: computed('year', 'month', function() {
     //     let year = this.get('year');
     //     let month = this.get('month');
@@ -111,8 +111,6 @@ export default Controller.extend({
                     // console.log(result);
                     this.set('mixedGraphTitle', result.graphSale.provLineOverview);
                     this.set('mixedGraphData', result.graphSale.mixedGraphData);
-                    // this.set('marketSalesValue', result.prodSalesValue);
-
                 }
             })
     },
@@ -138,8 +136,6 @@ export default Controller.extend({
                     // console.log(result);
                     this.set('competingTitle', result.proTableOverview)
                     this.set('marketSalesValue', result.prodSalesValue);
-                    // console.log(result.prodSalesValue)
-                    // this.set('shareTitle', result.prodSalesOverview);
                 }
             })
     },
@@ -208,9 +204,11 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": "北京"
+                "province": this.get('prov')
             }
         }
+        console.log('++++++++++++++++++++++++++');
+        console.log(this.get('prov'));
         this.get('ajax').request('api/dashboard/province/provMarketSale', this.getAjaxOpt(condition))
             .then(({
                 status,
@@ -234,7 +232,7 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": "北京"
+                "province": this.get('prov')
             }
         }
         this.get('ajax').request('api/dashboard/province/productTrend', this.getAjaxOpt(condition))
@@ -260,7 +258,7 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": "北京"
+                "province": this.get('prov')
             }
         }
         this.get('ajax').request('api/dashboard/province/productCard', this.getAjaxOpt(condition))
@@ -285,7 +283,7 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": "北京"
+                "province": this.get('prov')
             }
         }
         this.get('ajax').request('api/dashboard/province/productShare', this.getAjaxOpt(condition))
@@ -312,7 +310,7 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": "河北",
+                "province": this.get('prov'),
                 "tag": this.get('prodRankTag')
             }
         }
@@ -344,15 +342,11 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": "河北"
+                "province": this.get('prov')
             }
         }
         this.get('ajax').request('api/dashboard/province/prodSaleOverview', this.getAjaxOpt(condition))
-            .then(({
-                status,
-                result,
-                error
-            }) => {
+            .then(({ status, result, error }) => {
                 if (status === 'ok') {
                     // console.log('查询查询市场竞品销售情况(in pro)：')
                     // console.log(result);
@@ -376,8 +370,8 @@ export default Controller.extend({
         this.get('ajax').request('api/dashboard/nation/prodTrendAnalysis', this.getAjaxOpt(condition))
             .then(({ status, result, error }) => {
                 if (status === 'ok') {
-                    console.log('查询查询市场销售趋势(in country)：')
-                    console.log(result);
+                    // console.log('查询查询市场销售趋势(in country)：')
+                    // console.log(result);
                     this.set('AllTrendTitle', result.prodSalesOverview);
                     this.set('AllTrendValue', result.multiData);
                 }
@@ -405,14 +399,14 @@ export default Controller.extend({
             .then(this.queryMarketSalesTable())
             .then(this.queryPerMarketShare())
             .then(this.queryMarketRank())
-            .then(this.queryMarketProv())
-            .then(this.queryProdCards())
-            .then(this.queryProdTrend())
-            .then(this.queryProdMostCards())
-            .then(this.queryPerProductShare())
-            .then(this.queryProductRank())
-            .then(this.queryProductSalesTable())
-            .then(this.queryAllProdTrend());
+            .then(this.queryMarketProv());
+        // .then(this.queryProdCards())
+        // .then(this.queryProdTrend())
+        // .then(this.queryProdMostCards())
+        // .then(this.queryPerProductShare())
+        // .then(this.queryProductRank())
+        // .then(this.queryProductSalesTable())
+        // .then(this.queryAllProdTrend());
 
     },
     /**
@@ -429,12 +423,29 @@ export default Controller.extend({
         this.get('ajax').request('/api/dashboard/province/all', this.getAjaxOpt(condition))
             .then(({ status, result, error }) => {
                 if (status === 'ok') {
-                    // console.log('查询产品cards(in province)：')
                     // console.log(result);
                     this.set('provs', result.provinces);
+                    console.log("/////////////////////////");
+                    console.log(result.provinces[0]);
                     this.set('prov', result.provinces[0]);
+                    this.queryProdCards();
+                    this.queryProdTrend();
+                    this.queryProdMostCards();
+                    this.queryPerProductShare();
+                    this.queryProductRank();
+                    this.queryProductSalesTable();
+                    this.queryAllProdTrend();
+                    return result.provinces[0];
                 } else {}
             })
+        // .then(this.queryProdCards())
+        // .then(this.queryProdTrend())
+        // .then(this.queryProdMostCards())
+        // .then(this.queryPerProductShare())
+        // .then(this.queryProductRank())
+        // .then(this.queryProductSalesTable())
+        // .then(this.queryAllProdTrend());
+
     },
     init() {
         this._super(...arguments);
@@ -688,7 +699,7 @@ export default Controller.extend({
 
         },
         queryTrend(params) {
-            console.log(params);
+            // console.log(params);
             if (params === '销售额(mil)') {
                 this.set('trendTag', 'sales')
             } else if (params === '销售增长(%)') {
@@ -702,11 +713,28 @@ export default Controller.extend({
         },
         submit() {
             this.set('markTimeProv', false);
-
+            this.queryMarketProdCards();
+            this.queryMixedGraph();
+            this.queryMarketSalesTable();
+            this.queryPerMarketShare();
+            this.queryMarketRank();
+            this.queryProdCards();
+            this.queryProdTrend();
+            this.queryProdMostCards();
+            this.queryPerProductShare();
+            this.queryProductRank();
+            this.queryProductSalesTable();
+            this.queryAllProdTrend();
         },
         submitProv() {
             this.set('modalprov', false);
-
+            this.queryProdCards();
+            this.queryProdTrend();
+            this.queryProdMostCards();
+            this.queryPerProductShare();
+            this.queryProductRank()
+            this.queryProductSalesTable()
+            this.queryAllProdTrend();
         }
 
     }
