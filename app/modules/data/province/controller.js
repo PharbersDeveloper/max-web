@@ -10,8 +10,10 @@ export default Controller.extend({
     // time: '2017-03',
     market: '麻醉市场',
     provRankTag: 'provinceSales',
-    tag: "provinceSales",
-    rankingMax: 0,
+    prodRankTag: "sales",
+    // rankingMax: 0,
+    prodRankMax: 0,
+    provRankMax: 0,
     year: '2017',
     month: '03',
     prov: '北京',
@@ -21,8 +23,8 @@ export default Controller.extend({
         let month = this.get('month');
         return year + '-' + month;
     }),
-    computedRankingMax() {
-        let ranking = this.get('ranking');
+    computedRankingMax(whichValue, whickMax, whickRank) {
+        let ranking = this.get(whichValue);
         let range = 0;
         let valueArr = [];
         ranking.map(function(item) {
@@ -30,7 +32,9 @@ export default Controller.extend({
         })
 
         let maxValue = Math.max(...valueArr);
-        this.set('rankingMax', maxValue);
+        // this.set('rankingMax', maxValue);
+        this.set(whickMax, maxValue);
+
         if (maxValue < 10) {
             range = 2;
         } else {
@@ -43,8 +47,8 @@ export default Controller.extend({
         for (let i = 0; i <= 5; i++) {
             rankingRangeArr.push(i * range)
         }
-        this.set('rankingRange', rankingRangeArr)
-
+        // this.set('rankingRange', rankingRangeArr);
+        this.set(whickRank, rankingRangeArr);
     },
     getAjaxOpt(data) {
         return {
@@ -99,8 +103,8 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    console.log('查询查询lllllline(in pro)：')
-                    console.log(result);
+                    // console.log('查询查询lllllline(in pro)：')
+                    // console.log(result);
                     this.set('mixedGraphTitle', result.graphSale.provLineOverview);
                     this.set('mixedGraphData', result.graphSale.mixedGraphData);
                     // this.set('marketSalesValue', result.prodSalesValue);
@@ -185,8 +189,8 @@ export default Controller.extend({
                     // console.log('查询各产品排名变化(in pro)：')
                     // console.log(result);
                     this.set('unit', result.unit);
-                    this.set('ranking', result.ranking);
-                    this.computedRankingMax();
+                    this.set('provRankValue', result.ranking);
+                    this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
                 }
             })
     },
@@ -305,7 +309,7 @@ export default Controller.extend({
                 "time": this.get('time'),
                 "market": this.get('market'),
                 "province": "河北",
-                "tag": "sales"
+                "tag": this.get('prodRankTag')
             }
         }
         this.get('ajax').request('api/dashboard/province/prodRankChange', this.getAjaxOpt(condition))
@@ -315,11 +319,13 @@ export default Controller.extend({
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询各产品排名变化qqq(in pro)：')
-                    // console.log(result);
+                    console.log('查询各产品排名变化qqq(in pro)：')
+                    console.log(result);
                     this.set('unit', result.unit);
-                    this.set('ranking', result.ranking);
-                    this.computedRankingMax();
+                    this.set('prodRankValue', result.ranking);
+                    // this.computedRankingMax();
+                    this.computedRankingMax('prodRankValue', 'prodRankMax', 'prodRankRange');
+
                 }
             })
     },
@@ -360,6 +366,7 @@ export default Controller.extend({
         this.years = ['2018', '2017', '2016'];
         this.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
         this.provRank = ['市场规模(mil)', '市场增长(%)', '销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
+        this.prodRank = ['销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
         //  市场规模卡片数据
         this.cards = [];
         this.queryMarketProdCards();
@@ -435,10 +442,12 @@ export default Controller.extend({
         //  end 市场销售组成
 
         //  市场省份层面排行
-        this.ranking = [];
-        this.rankingRange = [];
+        this.provRankValue = [];
+        // this.rankingRange = [];
+        this.provRankRange = [];
         this.queryMarketRank();
-        this.computedRankingMax();
+        this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
+        // this.computedRankingMax();
         //  end 市场省份层面排行
 
         //市场销售总额-卡片数据
@@ -461,10 +470,12 @@ export default Controller.extend({
         //end 产品份额-pie
 
         //各产品排名变化
-        this.ranking = [];
-        this.rankingRange = [];
+        this.prodRankValue = [];
+        // this.rankingRange = [];
+        this.prodRankRange = [];
+
         this.queryProductRank();
-        this.computedRankingMax();
+        this.computedRankingMax('prodRankValue', 'prodRankMax', 'prodRankRange');
         //end 各产品排名变化
 
         //各竞品销售概况-table
@@ -572,29 +583,35 @@ export default Controller.extend({
         queryProvRank(params) {
             console.log(params);
             if (params === '市场规模(mil)') {
-                this.set('provRankTag', 'sales')
-            } else if (params === '销售增长') {
+                this.set('provRankTag', 'provinceSales')
+            } else if (params === '市场增长(%)') {
                 console.log('salesGrowth')
-                this.set('provRankTag', 'salesGrowth')
-            } else if (params === '份额') {
-                this.set('provRankTag', 'prodShare')
-            } else if (params === '份额增长') {
-                this.set('provRankTag', 'prodShareGrowth')
+                this.set('provRankTag', 'provMomGrowth')
+            } else if (params === '销售额(mil)') {
+                this.set('provRankTag', 'companySales')
+            } else if (params === '销售增长(%)') {
+                this.set('provRankTag', 'companySalesMomGrowth')
+            } else if (params === '份额(%)') {
+                this.set('provRankTag', 'companyShare')
+            } else if (params === '份额增长(%') {
+                this.set('provRankTag', 'companyShareMomGrowth')
             }
             this.queryMarketRank();
         },
-        queryRank(params) {
-            if (params === '销售额') {
-                this.set('provRankTag', 'sales')
-            } else if (params === '销售增长') {
-                console.log('salesGrowth')
-                this.set('provRankTag', 'salesGrowth')
-            } else if (params === '份额') {
-                this.set('provRankTag', 'prodShare')
-            } else if (params === '份额增长') {
-                this.set('provRankTag', 'prodShareGrowth')
+        queryProdRank(params) {
+            console.log(params);
+            // this.prodRank = ['销售增长(%)', '份额(%)', '份额增长(%)'];
+            if (params === '销售额(mil)') {
+                this.set('prodRankTag', 'sales')
+            } else if (params === '销售增长(%)') {
+                this.set('prodRankTag', 'salesGrowth')
+            } else if (params === '份额(%)') {
+                // console.log('salesGrowth');
+                this.set('prodRankTag', 'share')
+            } else if (params === '份额增长(%)') {
+                this.set('prodRankTag', 'shareGrowth')
             }
-            this.queryRank();
+            this.queryProductRank();
 
         },
         submit() {
