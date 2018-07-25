@@ -11,184 +11,6 @@ export default Component.extend({
     classNames: ['multi-lines-choose', 'col-md-12', 'col-sm-12', 'col-xs-12'],
     init() {
         this._super(...arguments);
-        this.color = ['#FA6F80', '#7CFFE2', '#868CE9'];
-        /*    this.chooseData = [{
-                    name: "USA",
-                    values: [{
-                            ym: "2018-01",
-                            value: 100
-                        },
-                        {
-                            ym: "2018-02",
-                            value: 110
-                        },
-                        {
-                            ym: "2018-03",
-                            value: 145
-                        },
-                        {
-                            ym: "2018-04",
-                            value: 241
-                        },
-                        {
-                            ym: "2018-05",
-                            value: 101
-                        },
-                        {
-                            ym: "2018-06",
-                            value: 90
-                        },
-                        {
-                            ym: "2018-07",
-                            value: 10
-                        },
-                        {
-                            ym: "2018-08",
-                            value: 35
-                        },
-                        {
-                            ym: "2018-09",
-                            value: 21
-                        },
-                        {
-                            ym: "2018-10",
-                            value: 201
-                        }
-                    ]
-                },
-                {
-                    name: "Canada",
-                    values: [{
-                            ym: "2018-01",
-                            value: 108
-                        },
-                        {
-                            ym: "2018-02",
-                            value: 114
-                        },
-                        {
-                            ym: "2018-03",
-                            value: 144
-                        },
-                        {
-                            ym: "2018-04",
-                            value: 244
-                        },
-                        {
-                            ym: "2018-05",
-                            value: 144
-                        },
-                        {
-                            ym: "2018-06",
-                            value: 940
-                        },
-                        {
-                            ym: "2018-07",
-                            value: 140
-                        },
-                        {
-                            ym: "2018-08",
-                            value: 345
-                        },
-                        {
-                            ym: "2018-09",
-                            value: 241
-                        },
-                        {
-                            ym: "2018-10",
-                            value: 281
-                        }
-                    ]
-                },
-                {
-                    name: "Maxico",
-                    values: [{
-                            ym: "2018-01",
-                            value: 1
-                        }, {
-                            ym: "2018-02",
-                            value: 120
-                        },
-                        {
-                            ym: "2018-03",
-                            value: 135
-                        },
-                        {
-                            ym: "2018-04",
-                            value: 281
-                        },
-                        {
-                            ym: "2018-05",
-                            value: 151
-                        },
-                        {
-                            ym: "2018-06",
-                            value: 290
-                        },
-                        {
-                            ym: "2018-07",
-                            value: 310
-                        },
-                        {
-                            ym: "2018-08",
-                            value: 135
-                        },
-                        {
-                            ym: "2018-09",
-                            value: 421
-                        },
-                        {
-                            ym: "2018-10",
-                            value: 65
-                        }
-                    ]
-                },
-                {
-                    name: "China",
-                    values: [{
-                            ym: "2018-01",
-                            value: 150
-                        },
-                        {
-                            ym: "2018-02",
-                            value: 120
-                        },
-                        {
-                            ym: "2018-03",
-                            value: 245
-                        },
-                        {
-                            ym: "2018-04",
-                            value: 341
-                        },
-                        {
-                            ym: "2018-05",
-                            value: 201
-                        },
-                        {
-                            ym: "2018-06",
-                            value: 190
-                        },
-                        {
-                            ym: "2018-07",
-                            value: 110
-                        },
-                        {
-                            ym: "2018-08",
-                            value: 135
-                        },
-                        {
-                            ym: "2018-09",
-                            value: 221
-                        },
-                        {
-                            ym: "2018-10",
-                            value: 201
-                        }
-                    ]
-                },
-            ];
-            */
     },
 
     didReceiveAttrs() {
@@ -196,12 +18,12 @@ export default Component.extend({
         run.schedule('render', this, this.drawMultiLineChoose);
     },
     drawMultiLineChoose() {
+        d3.select('svg.much-lines').remove();
+        d3.select('.multi-lines-choose .legendContainer').remove();
         let svgContainer = d3.select(this.element);
         let svg = svgContainer.append("svg").attr('class', 'much-lines');
-        let data = this.get('chooseData');
-        // let chooseData = this.get('chooseData');
-        console.log(data);
-        console.log("frommmmmmmmmmmmmmmmmmm component")
+        // let data = this.get('chooseData');
+        let chooseData = this.get('chooseData');
         var width = 900;
         var height = 340;
         var margin = 20;
@@ -219,44 +41,69 @@ export default Component.extend({
         var circleRadiusHover = 6;
 
         /* Format Data */
-        var parseDate = d3.timeParse("%Y-%m");
-        // let data = chooseData.map(function(item) {
-        //     let insidedata = {};
-        //     insidedata.ym = parseTime(item.ym);
-        //     insidedata.value = item.value
-        // })
-        data.forEach(function(d) {
-            d.values.forEach(function(dd) {
-                d.ym = parseDate(d.ym);
-                d.value = +d.value;
-            });
-        });
+        var parseDate = d3.timeParse("%Y%m");
+        let formatDateIntoYearMonth = d3.timeFormat('%Y-%m');
 
+        let data = chooseData.map(function(item) {
+            let proditem = {};
+            proditem.name = item.name;
+            let inValues = item.values.map(function(iitem, iindex) {
+                var valueItem = {};
+                valueItem.ym = parseDate(iitem.ym);
+                valueItem.unit = iitem.unit;
+                valueItem.value = iitem.value;
+
+                return valueItem;
+            })
+            proditem.values = inValues;
+
+            return proditem;
+        })
+        // data.forEach(function(d) {
+        //     d.values.forEach(function(dd) {
+        //         dd.ym = parseDate(dd.ym);
+        //         dd.value = +dd.value;
+        //     });
+        // });
         /* Scale */
         var xScale = d3.scaleTime()
             .domain(d3.extent(data[0].values, d => d.ym))
             .range([0, width - margin]);
-        let yMax = 0;
+        let yMax = 0,
+            yMin = 0;
         for (let i = 0, len = data.length; i < len; i++) {
-            let max = d3.max(data[i].values, d => d.value)
+            let max = d3.max(data[i].values, d => d.value);
+            let min = d3.min(data[i].values, d => d.value);
             if (max > yMax) {
                 yMax = max
             }
+            if (min < yMin) {
+                yMin = min
+            }
         };
+
         var yScale = d3.scaleLinear()
-            .domain([0, yMax + yMax / 3])
+            .domain([yMin, yMax + yMax / 3])
             .range([height - margin, 0]);
 
         var color = d3.scaleOrdinal(d3.schemeCategory10);
-
         /* Add SVG */
-        svg.attr("width", "100%")
+        svg.attr("width", "90%")
             .attr("height", 380)
             .attr('preserveAspectRatio', 'none')
             .attr('viewBox', '-40 -10 950 380')
-            .append('g')
+            .append('g');
         // .attr("transform", `translate(${margin}, ${margin})`);
-
+        function make_y_gridlines() {
+            return d3.axisLeft(yScale)
+                .ticks(7)
+        };
+        svg.append("g")
+            .attr("class", "grid")
+            .call(make_y_gridlines()
+                .tickSize(-width)
+                .tickFormat("")
+            );
         /* Add line into SVG */
         var line = d3.line()
             .x(d => xScale(d.ym))
@@ -306,7 +153,6 @@ export default Component.extend({
                     .style("cursor", "none");
             });
 
-
         /* Add circles in the line */
         lines.selectAll("circle-group")
             .data(data).enter()
@@ -350,10 +196,9 @@ export default Component.extend({
                     .attr("r", circleRadius);
             });
 
-
         /* Add Axis into SVG */
-        var xAxis = d3.axisBottom(xScale).ticks(12);
-        var yAxis = d3.axisLeft(yScale).ticks(6);
+        var xAxis = d3.axisBottom(xScale).ticks(12).tickFormat(formatDateIntoYearMonth);
+        var yAxis = d3.axisLeft(yScale).ticks(7);
 
         svg.append("g")
             .attr("class", "x axis")
@@ -367,7 +212,43 @@ export default Component.extend({
             .attr("y", 15)
             .attr("transform", "rotate(-90)")
             .attr("fill", "#000")
-            .text("Total values");
+            .text("");
+        //绘制图例区域
+        let legendContainer = svgContainer.append('div').attr('class', 'legendContainer');
+        var legendArea = legendContainer.append("svg")
+            .attr('width', 90)
+            .attr('height', 30 * data.length);
+        // .attr("transform", "translate(80,15)");
+
+        //绑定数据，设置每个图例的位置
+        var legend = legendArea.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .attr("transform", function(d, i) {
+                return "translate(0," + i * 30 + ")";
+            });
+        //添加图例的矩形色块
+        legend.append("rect")
+            .attr("x", 10)
+            .attr("y", 5)
+            .attr('width', 10)
+            .attr('height', 10)
+            .style("fill", function(d, i) {
+                return color(i);
+            });
+
+        //添加图例文字
+        legend.append("text")
+            .attr("x", 24)
+            .attr("y", 9)
+            .attr('class', 'legend-text')
+            .style("fill", '#485465')
+            .style('font-size', '12px')
+            .attr("dy", ".35em")
+            .text(function(d, i) {
+                return d.name;
+            });
     }
 
 });

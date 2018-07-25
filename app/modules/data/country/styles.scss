@@ -15,7 +15,6 @@ tbody tr td:nth-child(2) {
 		span:first-child {
 			margin-right: 10px;
 			font-size: 14px;
-			// font-weight: 700;
 			color: #485465;
 			letter-spacing: 1.08px;
 		}
@@ -37,14 +36,12 @@ tbody tr td:nth-child(2) {
 
 	.market-title {
 		padding-bottom: 20px;
-		// height: 20px;
 		line-height: 20px;
 		font-size: 0;
 
 		span:first-child {
 			margin-right: 10px;
 			font-size: 14px;
-			// font-weight: 700;
 			color: #485465;
 			letter-spacing: 1.08px;
 		}
@@ -62,8 +59,6 @@ tbody tr td:nth-child(2) {
 
 	.legend-pie-container {
 		height: 400px;
-		// margin-right: 10px;
-		// padding: 5px 10px;
 		padding-right: 5px;
 		background-color: #F4F4F4;
 
@@ -85,7 +80,6 @@ tbody tr td:nth-child(2) {
 			span:first-child {
 				margin-right: 10px;
 				font-size: 14px;
-				// font-weight: 700;
 				color: #485465;
 				letter-spacing: 1.08px;
 			}
@@ -99,9 +93,7 @@ tbody tr td:nth-child(2) {
 	}
 
 	.horizontal-histogram {
-		// padding: 10px 15px;
 		padding-left: 5px;
-		// margin-left: 10px;
 		height: 400px;
 		background: #F4F4F4;
 
@@ -123,7 +115,6 @@ tbody tr td:nth-child(2) {
 			span:first-child {
 				margin-right: 10px;
 				font-size: 14px;
-				// font-weight: 700;
 				color: #485465;
 				letter-spacing: 1.08px;
 			}
@@ -154,15 +145,6 @@ tbody tr td:nth-child(2) {
 		.histogram {
 			height: 300px;
 			overflow-y: scroll;
-			// .share {
-			// 	span {
-			// 		display: inline-block;
-			// 		padding-left: 0;
-			// 		font-size: 10px;
-			// 		color: #485465;
-			// 		letter-spacing: 1px;
-			// 		text-align: left;
-			// 	}
 			// }/* 设置滚动条的样式 */
 			&::-webkit-scrollbar {
 				width: 5px;
@@ -186,10 +168,6 @@ tbody tr td:nth-child(2) {
 
 		.share {
 			padding: 0;
-
-			div {
-				padding: 0;
-			}
 
 			span {
 				display: inline-block;
@@ -238,6 +216,22 @@ tbody tr td:nth-child(2) {
 	background-color: #FFF;
 	box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
 
+	.choose-type {
+		height: 20px;
+		line-height: 20px;
+		font-size: 14px;
+		color: #717171;
+		letter-spacing: 1px;
+
+		select {
+			width: 150px;
+			height: 30px;
+			line-height: 30px;
+			background: #F4F4F4;
+			border-radius: 1px;
+		}
+	}
+
 	.trend-title {
 		height: 20px;
 		line-height: 20px;
@@ -246,7 +240,6 @@ tbody tr td:nth-child(2) {
 		span:first-child {
 			margin-right: 10px;
 			font-size: 14px;
-			// font-weight: 700;
 			color: #485465;
 			letter-spacing: 1.08px;
 		}
@@ -276,8 +269,8 @@ tbody tr td:nth-child(2) {
 }
 
 .change:active,
-.change:hover,
-change:focus {
+.change:focus,
+.change:hover {
 	background: none;
 }
 
@@ -289,7 +282,6 @@ change:focus {
 	background-color: #FFF;
 	box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
 	border-radius: 3px;
-	// font-size: 12px;
 }
 
 .time-selects {
@@ -297,11 +289,9 @@ change:focus {
 	margin-top: 20px;
 	height: 30px;
 	line-height: 30px;
-	// text-align: center;
-	// border: 1px solid $border-color;
 	border-radius: 4px;
 	font-size: 0;
-	// background-color: #F0F3F5;
+
 	& span {
 		font-size: 14px;
 		padding: 0 10px;
