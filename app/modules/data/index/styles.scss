@@ -1,3 +1,8 @@
+// .key-words div:nth-child(2){
+// 	margin: 0;
+// 	color:red;
+// }
+
 tbody tr td:nth-child(2) {
 	overflow: hidden;
 	text-overflow:ellipsis;
@@ -13,7 +18,7 @@ tbody tr td:nth-child(2) {
 	// padding: 5px 10px;
 	// font-size: 12px;
 	// font-family: $font-family;
-	margin: 15px;
+	margin: 5px;
 	padding: 5px 10px;
 	border-radius: 3px;
 	background: #FFF;
@@ -115,7 +120,7 @@ tbody tr td:nth-child(2) {
 }
 
 .table-persales {
-	margin: 15px;
+	margin: 5px 5px;
 	padding: 5px 10px;
 	border-radius: 3px;
 	background: #FFF;
@@ -138,7 +143,7 @@ tbody tr td:nth-child(2) {
 }
 
 .pie-table {
-	margin: 15px;
+	margin: 10px 5px;
 	padding: 5px 10px;
 	border-radius: 3px;
 	background: #FFF;
@@ -179,7 +184,7 @@ change:focus {
 }
 
 .data-market {
-	margin: 10px 15px;
+	margin: 5px 5px 20px 5px;
 	// padding: 5px 10px;
 	height: 50px;
 	line-height: 50px;

@@ -2,8 +2,6 @@
 	{{!-- {{date-market-choose showMarkerChoose=false market=markets}} --}}
 
 	<div local-class="data-market">
-
-
 		<div local-class="time-show">
 			<span local-class="show-title">时间选择：</span>
 			<p>{{time}}</p>
@@ -67,7 +65,7 @@
 		{{line-prod-sales singleLineData=prodSalesLine}}
 	</div>
 
-	<div class="container-fluid" local-class="nopadding">
+	<div class="container-fluid" local-class="nopadding key-words">
 		{{#each cards as |item|}}
 			{{key-words card=item}}
 		{{/each}}
