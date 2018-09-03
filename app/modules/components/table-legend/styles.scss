@@ -1,0 +1,11 @@
+.table-legend {
+	width: 100%;
+
+	.dot {
+		display: inline-block;
+		width: 3px;
+		height: 3px;
+		background-color: red;
+		margin-left: -10px;
+	}
+}

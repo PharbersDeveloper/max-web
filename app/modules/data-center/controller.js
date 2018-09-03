@@ -188,7 +188,6 @@ export default Controller.extend({
 				user_id: this.get('cookies').read('uid')
 			}
 		}
-
 		this.get('ajax').request('/api/search/market/all', this.getAjaxOpt(condition)).then(({
 			result,
 			error,

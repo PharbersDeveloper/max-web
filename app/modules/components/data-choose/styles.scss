@@ -1,0 +1,61 @@
+.data-choose {
+	margin: 0 5px;
+	padding: 5px 0;
+	height: 50px;
+	line-height: 50px;
+	background-color: #FFF;
+	box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
+	border-radius: 3px;
+
+	.left {
+		// float: left;
+		display: inline-block;
+
+		.active a {
+			color: #60B3AD;
+		}
+
+		span {
+			display: inline-block;
+			padding: 0 15px;
+			height: 40px;
+			line-height: 40px;
+			border-right: 1px solid #D2D2D2;
+			text-align: center;
+			letter-spacing: 1.17px;
+			font-size: 14px;
+			// color: #A3A3A3;
+			cursor: pointer;
+
+			a {
+				color: #A3A3A3;
+			}
+		}
+	}
+
+	.right {
+		float: right;
+		margin-right: 25px;
+
+		button {
+			padding: 0;
+			border: 0;
+			height: 30px;
+			line-height: 30px;
+			width: 110px;
+			border-radius: 3px;
+			font-size: 12px;
+			letter-spacing: 1.18px;
+			color: #FFF;
+			background-color: #60B3AD;
+		}
+	}
+}
+
+@media (max-width: 900px) {
+  .data-choose .left {
+    span {
+		padding: 0 5px;
+	}
+  }
+}

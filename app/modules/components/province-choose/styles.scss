@@ -1,0 +1,106 @@
+.status {
+	display: inline-block;
+	font-family: $font-family;
+	font-size: 12px;
+	color: #9E9E9E;
+	letter-spacing: 2px;
+	text-align: left;
+}
+
+.test {
+	border: 0;
+	line-height: 40px;
+	background: none;
+	font-family: PingFangTC-Regular;
+	font-size: 12px;
+	color: #485465;
+	letter-spacing: 2px;
+}
+
+.test:active,
+.test:focus,
+.test:hover {
+	background: none;
+}
+
+.data-market {
+	margin: 60px 5px 20px 5px;
+	// padding: 5px 10px;
+	height: 50px;
+	line-height: 50px;
+	background-color: #FFF;
+	box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
+	border-radius: 3px;
+
+	.change-item {
+		float: right;
+		margin-right: 50px;
+		display: inline-block;
+		height: 40px;
+		line-height: 40px;
+		font-size: 12px;
+		color: #485465;
+	}
+
+	.market-show {
+		display: inline-block;
+		line-height: 50px;
+		margin-right: 30px;
+
+		span {
+			padding: 0 10px;
+			font-size: 14px;
+			color: #485465;
+			letter-spacing: 1px;
+		}
+
+		p {
+			width: 100px;
+			height: 30px;
+			line-height: 30px;
+			display: inline-block;
+			background: #60B3AD;
+			border-radius: 3px;
+			font-family: PingFangTC-Regular;
+			font-size: 14px;
+			color: #485465;
+			text-align: center;
+		}
+	}
+}
+
+.market-choose-area {
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	line-height: 30px;
+	font-size: 0;
+
+	.title {
+		padding: 0 10px;
+		font-size: 14px;
+		color: #485465;
+		letter-spacing: 1px;
+	}
+}
+
+.choose-market {
+	width: 150px;
+	height: 30px;
+	margin-right: 20px;
+	line-height: 30px;
+	vertical-align: top;
+	text-align: center;
+	text-align-last: center;
+	border: 0;
+	border-radius: 5px;
+	font-size: 14px;
+	background-color: #F0F3F5;
+	color: #485465;
+
+	option {
+		font-size: 14px;
+		text-align: center;
+		color: #485465;
+	}
+}
