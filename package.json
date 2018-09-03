@@ -63,7 +63,8 @@
     "eslint-plugin-ember": "^5.0.0",
     "hack": "^0.8.1",
     "javascript-state-machine": "^3.0.1",
-    "loader.js": "^4.2.3"
+    "loader.js": "^4.2.3",
+    "pharbers-route-addon": "1.0.0"
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
