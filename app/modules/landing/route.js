@@ -1,39 +1,35 @@
 import Route from '@ember/routing/route';
+import { inject } from '@ember/service';
 // import {request} from '../request/model';
 
 export default Route.extend({
+    cookies: inject(),
     actions: {
-        login() {
+        login(username,pwd) {
             let req = this.store.createRecord('request', {
-                res: 'abcde',
-                fm_cond: this.store.createRecord('fm-cond', {
-                    skip: 10,
-                    take: 20
-                })
-            });
-            let values = [
-                {
-                    key: 'phone',
-                    val: '13720200856',
-                    type: 'eq_cond'
-                },
-                {
-                    key: 'name',
-                    val: 'Alfred',
-                    type: 'eq_cond'
+				res: 'PHProfile',
+			});
+
+			let eqValues = [
+				{type: 'eqcond', key: 'username', val: username, category: 'home'},
+				{type: 'eqcond', key: 'password', val: pwd}
+			]
+
+			eqValues.forEach((elem, index) => {
+				req.get(elem.type).pushObject(this.store.createRecord(elem.type, {
+					key: elem.key,
+					val: elem.val,
+					category: elem.category || null
+				}))
+			})
+
+			let result = this.store.object2JsonApi('request', req);
+            this.store.queryObject('/api/v1/maxlogin/0','phauth', result ).then((result) => {
+                if(result.token !== '') {
+                    this.get('cookies').write('token', result.token, {path: '/'});
+                    this.transitionTo('data-center')
                 }
-            ]
-            values.forEach((elem, index) => {
-                req.get(elem.type).pushObject(this.store.createRecord('eq-cond', {
-                    id: index,
-                    key: elem.key,
-                    val: elem.val
-                }))
-            });
-        
-            let rqbody = this.store.object2JsonApi('request', req)
-            console.info(rqbody)
-            this.store.queryObject('/api/login', 'request', rqbody)
+            })
         }
     }
 });

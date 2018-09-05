@@ -1,0 +1,74 @@
+// @media (min-width: 1200px) {
+    .navbar-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .navbar-header img {
+        margin-top: 3px;
+        width: 50px;
+        height: 50px;
+        margin-right: 20px;
+    }
+    .self-navbar {
+        margin-bottom: 0;
+        height: 60px;
+        min-width: 1214px;
+        line-height: 60px;
+        border: 0;
+        border-radius: 0;
+        background-image: linear-gradient(137deg, #4060AE 0%, #8F9CC3 100%);
+        color: #fff;
+    }
+    .self-navbar-fixed {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 3;
+        margin-bottom: 0;
+        height: 60px;
+        min-width: 1214px;
+        line-height: 60px;
+        border: 0;
+        border-radius: 0;
+        // background-color: $navbar-bgcolor;
+        background-image: linear-gradient(137deg, #4060AE 0%, #8F9CC3 100%);
+        color: #fff;
+        }
+
+    .self-navbar-title {
+        position: relative;
+        margin: 0;
+        font-size: $max-font-size-title;
+        letter-spacing: 2px;
+    }
+    .center {
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+        margin: 0;
+        font-size: $max-font-size-title;
+    }
+    .bnt-close {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 1.8rem;
+        color: $navbar-bgcolor;
+        background-color: #fff;
+        cursor: pointer;
+    }
+    .btn-close:hover {
+        color: $navbar-bgcolor;
+    }
+    .hidden {
+        display: none;
+    }
+// }

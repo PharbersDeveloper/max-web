@@ -1,0 +1,34 @@
+{{#if (has-block)}}
+{{yield}}
+{{else}}
+{{!-- 组件接受`title`文本，以及`center`样式 --}}
+<nav local-class={{unless isShow "self-navbar-fixed" "self-navbar" }}  class="navbar navbar-default">
+  <div local-class="container-fluid">
+    <div local-class="navbar-header null">
+        <img src="../../assets/images/pharbers_logo_color.png" alt="logo">
+        <p local-class="self-navbar-title">{{data.title}}</p>
+    </div>
+    {{!-- {{#link-to "data-center"}} --}}
+        <div {{action "changeExitStatus"}} local-class={{if isShow 'bnt-close' 'hidden'}}>
+            X
+        </div>
+    {{!-- {{/link-to}} --}}
+  </div>
+</nav>
+{{#bs-modal fade=false open=exitStep onHidden=(action (mut exitStep) false) as |modal|}}
+    {{#modal.header closeButton=false}}
+        <h4 class="modal-title">
+            提示
+        </h4>
+    {{/modal.header}}
+    {{#modal.body}}
+        <p>中途退出流程，将终止本次添加新数据！</p>
+    {{/modal.body}}
+    {{#modal.footer}}
+        {{#bs-button onClick=(action modal.close)}}返回{{/bs-button}}
+        {{#link-to "data-center"}}
+            {{#bs-button class="btn-only-text" }}退出{{/bs-button}}
+        {{/link-to}}
+    {{/modal.footer}}
+{{/bs-modal}}
+{{/if}}

@@ -8,6 +8,8 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('landing');
+  this.route('data-center');
+  this.route('add-data');
 });
 
 export default Router;
