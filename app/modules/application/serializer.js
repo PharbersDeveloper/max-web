@@ -11,11 +11,17 @@ export default PharbersSerializer.extend({
     keyForAttribute(key) {
         return key;
     },
-	serialize(snapshot) {
-		let json = this._super(...arguments);
-		json.data.type = singularize(json.data.type)
-		return json
+	// serialize(snapshot) {
+	// 	let json = this._super(...arguments);
+	// 	json.data.type = singularize(json.data.type)
+	// 	return json
+	// },
+	payloadKeyFromModelName(modelName) {
+		return modelName
 	},
+	modelNameFromPayloadKey(modelName) {
+		return modelName
+	}
 	normalizeResponse(store, model, payload) {
 		this._super(...arguments);
 		return payload;

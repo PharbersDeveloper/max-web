@@ -9,7 +9,6 @@ export default Route.extend({
             let req = this.store.createRecord('request', {
 				res: 'PHProfile',
 			});
-
 			let eqValues = [
 				{type: 'eqcond', key: 'username', val: username, category: 'home'},
 				{type: 'eqcond', key: 'password', val: pwd}

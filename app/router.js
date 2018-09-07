@@ -10,6 +10,9 @@ Router.map(function() {
   this.route('landing');
   this.route('data-center');
   this.route('add-data');
+  this.route('data', function() {
+    this.route('overview');
+  });
 });
 
 export default Router;

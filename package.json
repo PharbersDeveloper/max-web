@@ -63,14 +63,14 @@
     "eslint-plugin-ember": "^5.0.0",
     "hack": "^0.8.1",
     "javascript-state-machine": "^3.0.1",
-    "loader.js": "^4.2.3",
-    "pharbers-route-addon": "1.0.0"
+    "loader.js": "^4.2.3"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "pharbers-route-addon":"1.0.0"
   },
   "bugs": {
     "url": "https://github.com/Faiz2/max-web/issues"
