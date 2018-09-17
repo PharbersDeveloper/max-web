@@ -21,7 +21,7 @@ export default PharbersSerializer.extend({
 	},
 	modelNameFromPayloadKey(modelName) {
 		return modelName
-	}
+	},
 	normalizeResponse(store, model, payload) {
 		this._super(...arguments);
 		return payload;
