@@ -70,7 +70,8 @@
   },
   "dependencies": {
     "express": "^4.16.3",
-    "pharbers-route-addon":"1.0.0"
+    "pharbers-route-addon":"1.0.0",
+    "pharbers-ember-xmpp-addon":"1.0.0"
   },
   "bugs": {
     "url": "https://github.com/Faiz2/max-web/issues"

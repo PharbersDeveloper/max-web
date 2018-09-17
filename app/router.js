@@ -9,7 +9,12 @@ const Router = EmberRouter.extend({
 Router.map(function() {
   this.route('landing');
   this.route('data-center');
-  this.route('add-data');
+  this.route('add-data', function() {
+    this.route('uploadfiles');
+    this.route('generate-sample', function() {
+      this.route('sample-finish');
+    });
+  });
   this.route('data', function() {
     this.route('overview');
   });
