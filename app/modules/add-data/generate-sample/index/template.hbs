@@ -10,6 +10,12 @@
             <span local-class="tip-text">GYCX : </span>
             <span local-class="txt">&nbsp;&nbsp;{{gycxfilename}}</span>
         </p>
+
+        <div style="background:red;height:30px;">
+            {{message}}
+        </div>
+
+
         {{#unless SampleObject.isShowProgress}}
             <div local-class="btn-start" {{action "startParsingFile"}}>
                 <div local-class="btn-start-content">
@@ -73,7 +79,9 @@
         {{#each SampleObject.yearsArrayData as |item|}}
             <label class="data-checkbox" for="{{item.year}}">
                 {{input type="checkbox" id=item.year name="year" checked=item.isChecked}}
-                <span class="checkbox-span"></span>{{item.year}}
+                <span class="checkbox-span"></span>
+                {{!-- {{item.year}} --}}
+
             </label>
         {{/each}}
     {{/modal.body}}

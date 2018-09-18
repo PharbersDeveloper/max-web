@@ -3,17 +3,18 @@ import {
 	inject
 } from '@ember/service';
 import rsvp from 'rsvp';
-// import { computed } from '@ember/object';
-// import conf from 'config/environment';
-// import SampleObject from '../../../common/xmpp-message-object/SampleObjectMessage'
+
+import SampleObject from '../../../common/xmpp-message-object/SampleObjectMessage'
 import styles from '../styles';
+import XMPPMixin from '../../../common/xmpp-message-object/XMPPMixin'
 
 export default Controller.extend({
 	ajax: inject(),
 	cookies: inject(),
+	xmpp: inject(),
 	// progress: inject('circle-progress-serivce'),
 	styles,
-	// SampleObject,
+	SampleObject,
 	init() {
 		this._super(...arguments);
 		this.set('cpafilename', this.get('cookies').read('filecpa'))
@@ -41,19 +42,27 @@ export default Controller.extend({
 				}
 			};
 			new rsvp.Promise((resolve, reject) => {
-				return this.get('ajax').request('api/max/ymCalc',
-					this.getAjaxOpt(condition)).then((response) => {
-						window.console.info(response);
-						SampleObject.set('isShowProgress', true);
-						SampleObject.set('calcYearsProgress', true);
-						return resolve({
-							resule: response
-						});
-					},
-					() => {
-						return reject("Access Error");
-					}
-				);
+				// window.console.info(response);
+				SampleObject.set('isShowProgress', true);
+				SampleObject.set('fileParsingSuccess',true);
+				window.console.info(SampleObject.isShowProgress);
+				window.console.info(SampleObject.fileParsingSuccess);
+
+				// SampleObject.set('calcYearsProgress', true);
+
+				// return this.get('ajax').request('api/max/ymCalc',
+				// 	this.getAjaxOpt(condition)).then((response) => {
+				// 		window.console.info(response);
+				// 		SampleObject.set('isShowProgress', true);
+				// 		SampleObject.set('calcYearsProgress', true);
+				// 		return resolve({
+				// 			resule: response
+				// 		});
+				// 	},
+				// 	() => {
+				// 		return reject("Access Error");
+				// 	}
+				// );
 			});
 		},
 		startGenerateSample: function() {
@@ -106,7 +115,7 @@ export default Controller.extend({
 			SampleObject.set('fileParsingSuccess', false);
 			SampleObject.set('calcYearsProgress', false);
 			SampleObject.set('calcPanelProgress', false);
-			this.transitionToRoute('adddata.uploadfiles')
+			this.transitionToRoute('add-data.uploadfiles')
 			// window.location = 'uploadfiles'
 		}
 	}
