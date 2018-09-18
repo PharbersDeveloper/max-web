@@ -5,6 +5,6 @@ export default DS.Model.extend({
     company_id: DS.attr('string'),
     job_id: DS.attr('string'),
     call: DS.attr('string'),
-    message: DS.attr('string'),
-    percentage: DS.attr(''),
+    date: DS.attr('string'),
+    args: DS.attr(),
 });

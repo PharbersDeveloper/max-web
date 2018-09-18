@@ -4,19 +4,16 @@ import { inject } from '@ember/service';
 import conf from '../../../config/environment';
 
 const MessageFactory = EmberObject.create({
-    doCall(msg, instance) {
-        let msg2Json = JSON.parse(msg); //JSON
-        if(msg2Json.status === 'calcPanelProgress') {
-            instance.set('isProgresShow', true);
-        } else if(msg2Json.status === 'ymMessage') {
-
-        }
+    doCall(msg, instance, func) {
+        let msg2Json = msg; //json
+        instance.set('message', msg2Json)
     }
 });
 
 export default Mixin.create({
     xmpp: inject(),
     xmppCallBack(instance) {
+        let that = this
         function onMessage(msg) {
 			var to = msg.getAttribute('to');
 			var from = msg.getAttribute('from');

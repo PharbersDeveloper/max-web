@@ -11,9 +11,7 @@
             <span local-class="txt">&nbsp;&nbsp;{{gycxfilename}}</span>
         </p>
 
-        <div style="background:red;height:30px;">
-            {{message}}
-        </div>
+
 
 
         {{#unless SampleObject.isShowProgress}}
@@ -76,12 +74,11 @@
     {{#modal.body}}
         <p>本次上传件中含以下几个月份，</p>
         <p>请选择要进行计算的月份：（可多选）</p>
-        {{#each SampleObject.yearsArrayData as |item|}}
+        {{#each ymList as |item|}}
             <label class="data-checkbox" for="{{item.year}}">
                 {{input type="checkbox" id=item.year name="year" checked=item.isChecked}}
-                <span class="checkbox-span"></span>
+                <span class="checkbox-span"></span>{{item}}
                 {{!-- {{item.year}} --}}
-
             </label>
         {{/each}}
     {{/modal.body}}

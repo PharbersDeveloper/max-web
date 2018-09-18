@@ -9,7 +9,7 @@ export default Controller.extend(XMPPMixin, {
     xmpp: inject(),
     init() {
         this._super(...arguments);
-        // xmppCallBack(this);
+        // this.xmppCallBack(this);
         // xmppSendMessage('hello', 'jeorch');
     },
     isProgresShow: null,
@@ -19,35 +19,35 @@ export default Controller.extend(XMPPMixin, {
     }),
 
     // content: '',
-    init() {
-		let that = this;
-		function onMessage(msg) {
-			var to = msg.getAttribute('to');
-			var from = msg.getAttribute('from');
-			var type = msg.getAttribute('type');
-			var elems = msg.getElementsByTagName('body');
-            // debugger
-			if (type == "chat" && elems.length > 0) {
-				var body = elems[0];
-
-				console.info('ECHOBOT: I got a message from ' + from + ': ' +
-					that.get('xmpp').getText(body));
-                    // console.info()
-
-                that.set('message', that.get('xmpp').getText(body));
-                // console.info(message)
-			}
-			// we must return true to keep the handler alive.
-			// returning false would remove it after it finishes.
-			return true;
-		}
-		this.get('xmpp').
-			connect('lu', '123456', conf, onMessage);
-	},
-    actions: {
-		send() {
-			this.get('xmpp').send(this.get('to') + '@localhost', this.get('content'))
-		}
-	}
+    // init() {
+	// 	let that = this;
+	// 	function onMessage(msg) {
+	// 		var to = msg.getAttribute('to');
+	// 		var from = msg.getAttribute('from');
+	// 		var type = msg.getAttribute('type');
+	// 		var elems = msg.getElementsByTagName('body');
+    //         // debugger
+	// 		if (type == "chat" && elems.length > 0) {
+	// 			var body = elems[0];
+    //
+	// 			console.info('ECHOBOT: I got a message from ' + from + ': ' +
+	// 				that.get('xmpp').getText(body));
+    //                 // console.info()
+    //
+    //             that.set('message', that.get('xmpp').getText(body));
+    //             // console.info(message)
+	// 		}
+	// 		// we must return true to keep the handler alive.
+	// 		// returning false would remove it after it finishes.
+	// 		return true;
+	// 	}
+	// 	this.get('xmpp').
+	// 		connect('lu', '123456', conf, onMessage);
+	// },
+    // actions: {
+	// 	send() {
+	// 		this.get('xmpp').send(this.get('to') + '@localhost', this.get('content'))
+	// 	}
+	// }
 
 });
