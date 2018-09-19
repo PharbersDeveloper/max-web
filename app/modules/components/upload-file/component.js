@@ -127,19 +127,44 @@ export default Component.extend({
 		},
 
 		next() {
-			let pushJobIdCondition = {
-				condition: {
-					user_id: this.get('cookies').read('uid')
-				}
-			}
-			this.get('cookies').write('filecpa', this.get('filecpa'), {
-				path: '/'
-			});
-			this.get('cookies').write('filegycx', this.get('filegycx'), {
-				path: '/'
-			});
-			window.location = "/add-data/generate-sample";
-			// this.get('ajax').request('/api/job/push', this.GetAjaxOpt(pushJobIdCondition))
+			let cpa = this.get('filecpa');
+			let gycx = this.get('filegycx');
+			this.sendAction('next',cpa,gycx);
+			// let req = this.store.createRecord('request', {
+	        //     args: 'uploadfiles',
+	        // });
+	        // let eqValues = [
+	        //     {type: 'eqcond', key: 'username', val: 'username', category: 'home'},
+	        //     {type: 'eqcond', key: 'password', val: 'pwd'}
+	        // ]
+
+	        // eqValues.forEach((elem, index) => {
+	        //     req.get(elem.type).pushObject(this.store.createRecord(elem.type, {
+	        //         key: elem.key,
+	        //         val: elem.val,
+	        //         category: elem.category || null
+	        //     }))
+	        // })
+
+	        // let result = this.store.object2JsonApi('request', req);
+	        // console.log(result);
+	        // this.store.queryObject('/api/v1/maxjobgenerate/0','phmaxjob', result ).then((res) => {
+	        //     console.log(res);
+	        //     console.log(this.store.peekAll('phmaxjob').firstObject);
+	        // })
+			// let pushJobIdCondition = {
+			// 	condition: {
+			// 		user_id: this.get('cookies').read('uid')
+			// 	}
+			// }
+			// this.get('cookies').write('filecpa', this.get('filecpa'), {
+			// 	path: '/'
+			// });
+			// this.get('cookies').write('filegycx', this.get('filegycx'), {
+			// 	path: '/'
+			// });
+			// window.location = "/add-data/generate-sample";
+			// this.get('ajax').request('/api/v1/maxjobpush/0', this.GetAjaxOpt(pushJobIdCondition))
 			// 	.then(({
 			// 		result,
 			// 		error,
@@ -152,7 +177,7 @@ export default Component.extend({
 			// 			this.get('cookies').write('job_id', result.job.job_id, {
 			// 				path: '/'
 			// 			});
-			// 			window.location = "/adddata/generate-sample";
+						// this.transitionToRoute("/add-data/generate-sample");
 			// 		}
 			// 	})
 		}

@@ -23,6 +23,7 @@ export default Route.extend({
 			})
 
 			let result = this.store.object2JsonApi('request', req);
+
             this.store.queryObject('/api/v1/maxlogin/0','phauth', result ).then((result) => {
                 if(result.token !== '') {
                     this.get('cookies').write('token', result.token, {path: '/'});
