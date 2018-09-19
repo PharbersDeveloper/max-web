@@ -58,50 +58,63 @@ export default Controller.extend(XMPPMixin,{
                 console.log(resp.not_arrival_hosp_file);
 				SampleObject.set('fileParsingSuccess',true);
             })
-            // console.log(resp.not_arrival_hosp_file);
+            // SampleObject.set('fileParsingSuccess',true);
 		},
-		startGenerateSample: function() {
+		startGenerateSample () {
+			let years = this.ymList.join('#');
+			console.log(years);
+			this.store.peekAll('phmaxjob').lastObject.set('yms',years);
+			this.store.peekAll('phmaxjob').lastObject.set('call','panel');
+			let req = this.store.peekAll('phmaxjob').lastObject;
+            let result = this.store.object2JsonApi('phmaxjob', req, false);
+			console.log("this is start");
+			console.log(result);
+			this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
+                console.log(resp);
+                console.log(resp.call);
+            })
+		},
 			// TODO : 未添加异常处理
-			let years = this.get('SampleObject').ymArray.filterBy('isChecked')
-				// .map((elt, i, array) => {
-				.map((elt) => {
-					console.log(elt);
-					return elt.year
-				});
-			if (years.length === 0) {
-				// alert('未选择时间');
-				this.set('yearsNullError', true);
-			} else {
+			// let years = this.get('SampleObject').ymArray.filterBy('isChecked')
+			// 	// .map((elt, i, array) => {
+			// 	.map((elt) => {
+			// 		console.log(elt);
+			// 		return elt.year
+			// 	});
+			// if (years.length === 0) {
+			// 	// alert('未选择时间');
+			// 	this.set('yearsNullError', true);
+			// } else {
+			//
+			// 	// let condition = {
+			// 	// 	"condition": {
+			// 	// 		"job_id": this.get('cookies').read('job_id'),
+			// 	// 		"args": {
+			// 	// 			"cpa": this.get('cookies').read('cpahash'),
+			// 	// 			"gycx": this.get('cookies').read('gycxhash') || '',
+			// 	// 			"yms": years.join('#')
+			// 	// 		}
+			// 	// 	}
+			// 	// };
+			// 	// //
+			// 	// new rsvp.Promise((resolve, reject) => {
+			// 	// 	return this.get('ajax').request('api/max/panel',
+			// 	// 		this.getAjaxOpt(condition)).then((response) => {
+			// 	// 			window.console.info(response);
+			// 	// 			SampleObject.set('fileParsingSuccess', false);
+			// 	// 			SampleObject.set('calcYearsProgress', false);
+			// 	// 			SampleObject.set('calcPanelProgress', true);
+			// 	// 			return resolve({
+			// 	// 				resule: response
+			// 	// 			});
+			// 	// 		},
+			// 	// 		() => {
+			// 	// 			return reject("Access Error");
+			// 	// 		}
+			// 	// 	);
+			// 	// });
+			// }
 
-				// let condition = {
-				// 	"condition": {
-				// 		"job_id": this.get('cookies').read('job_id'),
-				// 		"args": {
-				// 			"cpa": this.get('cookies').read('cpahash'),
-				// 			"gycx": this.get('cookies').read('gycxhash') || '',
-				// 			"yms": years.join('#')
-				// 		}
-				// 	}
-				// };
-				// //
-				// new rsvp.Promise((resolve, reject) => {
-				// 	return this.get('ajax').request('api/max/panel',
-				// 		this.getAjaxOpt(condition)).then((response) => {
-				// 			window.console.info(response);
-				// 			SampleObject.set('fileParsingSuccess', false);
-				// 			SampleObject.set('calcYearsProgress', false);
-				// 			SampleObject.set('calcPanelProgress', true);
-				// 			return resolve({
-				// 				resule: response
-				// 			});
-				// 		},
-				// 		() => {
-				// 			return reject("Access Error");
-				// 		}
-				// 	);
-				// });
-			}
-		},
 		// 未显示要计算的月份
 		cantFindMonth: function() {
 			SampleObject.set('cantFindMonth', true);

@@ -10,7 +10,7 @@ import {
 	later
 } from '@ember/runloop';
 
-// import SampleObject from '../../../common/xmpp-message-object/SampleObjectMessage'
+import SampleObject from '../../../common/xmpp-message-object/SampleObjectMessage'
 // import SampleEchartsOption from '../../../components/sample-line-and-bar/getOption';
 import $ from 'jquery';
 export default Controller.extend({
