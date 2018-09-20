@@ -72,6 +72,11 @@ export default Controller.extend(XMPPMixin,{
 			this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
                 console.log(resp);
                 console.log(resp.call);
+				if(resp.call === 'panel') {
+					SampleObject.set('fileParsingSuccess',false);
+				} else {
+					console.log('years error');
+				}
             })
 		},
 			// TODO : 未添加异常处理

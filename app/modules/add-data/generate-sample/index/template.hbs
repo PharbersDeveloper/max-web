@@ -32,7 +32,11 @@
         {{else}}
             <p local-class="calc-progress-text">正在解析您的原文件。。。</p>
         {{/unless}}
+        {{#link-to 'add-data.calcmax'}}
+          <p>MAX计算</p>
+        {{/link-to}}
     </div>
+
 </div>
 
 {{!-- 重新上传文件弹框 --}}

@@ -10,10 +10,12 @@ Router.map(function() {
   this.route('landing');
   this.route('data-center');
   this.route('add-data',function() {
-      this.route('uploadfiles');
-      this.route('generate-sample',function() {
-          this.route('sample-finish');
-      });
+    this.route('uploadfiles');
+    this.route('generate-sample',function() {
+        this.route('sample-finish');
+    });
+    this.route('calcmax');
+    this.route('viewresults');
   });
   this.route('data', function() {
     this.route('overview');
