@@ -23,8 +23,14 @@ export default Controller.extend(XMPPMixin,{
 			console.log(ym);
 			let ymArray = ym.data.attributes.message.split('#');
 			console.log(ymArray);
-
-			return ymArray;
+			let checkArray = ymArray.map((item)=>{
+				return {
+					isChecked: false,
+					value: item,
+					id: item,
+				}
+			});
+			return checkArray;
 		} else {
 			return ['none'];
 		}
@@ -51,24 +57,32 @@ export default Controller.extend(XMPPMixin,{
 	actions: {
 		startParsingFile() {
 			let req = this.store.peekAll('phmaxjob').lastObject;
-			console.log(req);
+			console.log("this is ymCalc");
 			let result = this.store.object2JsonApi('phmaxjob', req, false);
 			console.log(result);
 			this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
                 console.log(resp.not_arrival_hosp_file);
-				SampleObject.set('fileParsingSuccess',true);
+
+				// SampleObject.set('fileParsingSuccess',true);
             })
             // SampleObject.set('fileParsingSuccess',true);
 		},
 		startGenerateSample () {
-			let years = this.ymList.join('#');
-			console.log(years);
-			this.store.peekAll('phmaxjob').lastObject.set('yms',years);
+			let ymList = this.get('ymList');
+			let message = this.get('message');
+			// let years = ymList.filterBy('isChecked',true).join('#');
+			let years = ymList.filterBy('isChecked',true);
+			let year = [];
+			years.forEach((k) => {
+				year.push(k.value)
+			});
+			let yearsString = year.join('#');
+			console.log(yearsString);
+
+			this.store.peekAll('phmaxjob').lastObject.set('yms',yearsString);
 			this.store.peekAll('phmaxjob').lastObject.set('call','panel');
 			let req = this.store.peekAll('phmaxjob').lastObject;
             let result = this.store.object2JsonApi('phmaxjob', req, false);
-			console.log("this is start");
-			console.log(result);
 			this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
                 console.log(resp);
                 console.log(resp.call);

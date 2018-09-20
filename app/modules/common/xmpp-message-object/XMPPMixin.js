@@ -6,14 +6,18 @@ import conf from '../../../config/environment';
 const MessageFactory = EmberObject.create({
     doCall(msg, instance, func) {
         let msg2Json = msg; //json
-        instance.set('message', msg2Json)
+        instance.set('message', msg2Json);
+        // console.log(msg2Json);
+        if(msg2Json.data.attributes.call == 'ymCalc') {
+            console.log("I am ymCalc");
+        }
     }
 });
 
 export default Mixin.create({
     xmpp: inject(),
     xmppCallBack(instance) {
-        let that = this
+        let that = this;
         function onMessage(msg) {
 			var to = msg.getAttribute('to');
 			var from = msg.getAttribute('from');

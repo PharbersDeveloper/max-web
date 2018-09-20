@@ -1,0 +1,293 @@
+/**
+*
+*btn 样式
+*/
+
+.btn-default-max {
+    height: 35px;
+    width: 100px;
+    line-height: 35px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    background-color: $btn-bgcolor;
+}
+
+/**
+*
+*view-results样式
+*/
+
+/**
+*
+*为结果页面设置wrapper样式
+*/
+
+.step-content-wrapper-noshadow {
+    position: relative;
+    margin: 40px auto 0;
+    width: 1200px;
+    border-radius: 5px;
+}
+
+.result-choosebar {
+    margin-bottom: 20px;
+    height: 80px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 4px #eee;
+    background-color: #fff;
+
+    .choosebar-content {
+        display: inline-block;
+        height: 80px;
+        line-height: 80px;
+
+        .select-title {
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            padding: 0 10px;
+        }
+
+        .choose-select {
+            width: 160px;
+            height: 40px;
+            text-align: center;
+            text-align-last: center;
+            border: 1px solid $border-color;
+            border-radius: 5px;
+            background-color: #fff;
+            option {
+                height: 20px;
+                text-align: center;
+            }
+        }
+    }
+
+    .choosebar-left {
+        float: left;
+        margin-left: 20px;
+    }
+
+    .choosebar-right {
+        float: right;
+        margin-right: 40px;
+    }
+}
+.target-item {
+    display: inline-block;
+    margin-left: 100px;
+    width: 265px;
+
+    .item-current, .item-old {
+        display: inline-block;
+        width: 48%;
+    }
+
+    .item-current {
+        text-align: left;
+
+        p:first-child {
+            font-size: 1.2rem;
+        }
+
+        p:last-child {
+
+            span:first-child {
+                font-size: 2.8rem;
+            }
+
+            span:last-child {
+                font-size: 1.6rem;
+            }
+        }
+    }
+
+    .item-old {
+        padding-left: 50px;
+
+        p:first-child {
+            font-size: 1.2rem;
+        }
+
+        // p:last-child {
+        //     font-size: 1.6rem;
+        //     color: $btn-bgcolor;
+        // }
+        & .success {
+            font-size: 1.6rem;
+            color: $btn-bgcolor;
+        }
+        & .error {
+            font-size: 1.6rem;
+            color: $btn-error-bgcolor;
+        }
+    }
+}
+
+.market-results {
+    padding:5px 30px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 4px #eee;
+    background-color: #fff;
+
+    .market-target {
+        border-bottom: 1px solid #eee;
+
+        .small-title {
+            font-size: 1.2rem;
+        }
+        .target-specific {
+            .big-text {
+                padding-top: 16px;
+                padding-left: 0;
+                font-size: 27px;
+            }
+
+            span {
+                font-size: 16px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .show-state {
+                color: $btn-bgcolor;
+            }
+        }
+    }
+
+    .result-title {
+        height: 40px;
+        line-height: 40px;
+        font-size: 1.8rem;
+        .trend-legend {
+            display: inline-block;
+            vertical-align: top;
+            font-size: 0;
+            span {
+                display: inline-block;
+                margin: 0 5px;
+                vertical-align: middle;
+            }
+            span.text {
+                font-size: 12px;
+                color: #676767;
+            }
+            span:first-child {
+                width: 8px;
+                height: 20px;
+                background-color: $btn-bgcolor;
+            }
+            span:nth-child(3) {
+                font-size: 12px;
+                font-weight: 700;
+                color: $btn-bgcolor;
+            }
+        }
+    }
+    .china-map-data {
+        height: 600px;
+
+        .china-map, .china-data {
+            float: left;
+        }
+
+        .china-map {
+            width: 700px;
+        }
+
+
+    }
+}
+/**
+*
+*镜像图图例样式
+*/
+.china-data {
+    position: relative;
+    width: 440px;
+    .mirror-legend {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        right: 60px;
+        button {
+            padding: 0;
+            width: 60px;
+            height: 26px;
+            line-height: 26px;
+            border: 0;
+            text-align: center;
+            font-size: 14px;
+            color: #676767;
+            background-color: #eee;
+
+        }
+    }
+    .text-legend {
+        position: absolute;
+        z-index: 2;
+        top: 60px;
+        width: 100%;
+        font-size: 16px;
+        color: #676767;
+        p {
+            display: inline-block;
+            margin: 0;
+            width: 49%;
+            letter-spacing: 1.2px;
+        }
+        p:first-child {
+            text-align: right;
+            padding-right: 50px;
+        }
+        p:last-child {
+            text-align: left;
+            padding-left: 60px;
+        }
+    }
+}
+/**
+*
+*end view-results样式
+*/
+/**
+*
+* 保存动画样式
+*/
+.saving {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .6);
+    .saving-content {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        font-size: 26px;
+        color: #fff;
+
+    }
+}
+
+.show {
+    height: 600px;
+    overflow: auto;
+}
+.hide {
+    height: 0;
+    overflow: hidden;
+}

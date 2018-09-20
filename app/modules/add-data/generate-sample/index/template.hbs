@@ -76,9 +76,9 @@
         <p>本次上传件中含以下几个月份，</p>
         <p>请选择要进行计算的月份：（可多选）</p>
         {{#each ymList as |item|}}
-            <label class="data-checkbox" for="{{item.year}}">
-                {{input type="checkbox" id=item.year name="year" checked=isChecked}}
-                <span class="checkbox-span"></span>{{item}}
+            <label class="data-checkbox">
+                {{input type="checkbox" id=item.id name="year" checked=item.isChecked}}
+                <span class="checkbox-span"></span>{{item.value}}
                 {{!-- {{item.year}} --}}
             </label>
         {{/each}}

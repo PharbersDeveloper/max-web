@@ -10,5 +10,6 @@ export default DS.Model.extend({
     cpa: DS.attr('string'),
     gycx: DS.attr('string'),
     not_arrival_hosp_file: DS.attr('string'),
-    yms: DS.attr('string')
+    yms: DS.attr('string'),
+    message: DS.attr('string')
 });
