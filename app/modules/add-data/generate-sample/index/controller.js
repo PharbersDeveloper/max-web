@@ -63,7 +63,7 @@ export default Controller.extend(XMPPMixin,{
 			this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
                 console.log(resp.not_arrival_hosp_file);
 
-				// SampleObject.set('fileParsingSuccess',true);
+				SampleObject.set('fileParsingSuccess',true);
             })
             // SampleObject.set('fileParsingSuccess',true);
 		},

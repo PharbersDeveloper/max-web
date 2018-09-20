@@ -8,9 +8,9 @@ const MessageFactory = EmberObject.create({
         let msg2Json = msg; //json
         instance.set('message', msg2Json);
         // console.log(msg2Json);
-        if(msg2Json.data.attributes.call == 'ymCalc') {
-            console.log("I am ymCalc");
-        }
+        // if(msg2Json.data.attributes.call == 'ymCalc') {
+        //     console.log("I am ymCalc");
+        // }
     }
 });
 
