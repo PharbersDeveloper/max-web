@@ -2,14 +2,16 @@ import Mixin from '@ember/object/mixin';
 import EmberObject from '@ember/object';
 import { inject } from '@ember/service';
 import conf from '../../../config/environment';
+import SampleObject from '../../common/xmpp-message-object/SampleObjectMessage';
 
 const MessageFactory = EmberObject.create({
     doCall(msg, instance, func) {
-        let msg2Json = msg; //json
-        instance.set('message', msg2Json);
+        let msg2Json = JSON.parse(msg); //json
         // console.log(msg2Json);
-        // if(msg2Json.data.attributes.call == 'ymCalc') {
-        //     console.log("I am ymCalc");
+        instance.set('message', msg2Json);
+        console.log(msg2Json);
+        // if (msg2Json.data.attributes.call === 'ymCalc') {
+        //     SampleObject.set('fileParsingSuccess',true);
         // }
     }
 });

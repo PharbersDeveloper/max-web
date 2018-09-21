@@ -8,19 +8,31 @@ import SampleObject from '../../../common/xmpp-message-object/SampleObjectMessag
 import styles from '../styles';
 import XMPPMixin from '../../../common/xmpp-message-object/XMPPMixin'
 import { isEmpty } from '@ember/utils';
+import { observer } from '@ember/object';
+
 export default Controller.extend(XMPPMixin,{
 	ajax: inject(),
 	cookies: inject(),
 	xmpp: inject(),
 	// progress: inject('circle-proTgress-serivce'),
 	styles,
+	message: '',
 	SampleObject,
+	observerYms: observer('message', function() {
+		// body
+		console.log("obserrrrr");
+		console.log(this.get(message));
+		// if (mes.data.attributes.call === 'ymCalc') {
+            SampleObject.set('fileParsingSuccess',true);
+        // }
+	}),
 	ymList: computed('message', function() {
-		console.log(this.get('message'));
+		// console.log(this.get('message'));
 		let message = this.get('message');
 		if(!isEmpty(message)) {
-			let ym = JSON.parse(message);
-			console.log(ym);
+			// let ym = JSON.parse(message);
+			let ym = message;
+			console.log("-----this is message and it is not empty----");
 			let ymArray = ym.data.attributes.message.split('#');
 			console.log(ymArray);
 			let checkArray = ymArray.map((item)=>{
@@ -32,7 +44,7 @@ export default Controller.extend(XMPPMixin,{
 			});
 			return checkArray;
 		} else {
-			return ['none'];
+			return ['no yms'];
 		}
 
 	}),
@@ -42,8 +54,6 @@ export default Controller.extend(XMPPMixin,{
 		this.set('gycxfilename', this.get('cookies').read('filegycx'))
 		this.xmppCallBack(this);
 	},
-
-	message: "",
 	getAjaxOpt(data) {
 		return {
 			method: 'POST',
@@ -62,8 +72,7 @@ export default Controller.extend(XMPPMixin,{
 			console.log(result);
 			this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
                 console.log(resp.not_arrival_hosp_file);
-
-				SampleObject.set('fileParsingSuccess',true);
+				// SampleObject.set('fileParsingSuccess',true);
             })
             // SampleObject.set('fileParsingSuccess',true);
 		},
