@@ -53,22 +53,22 @@ export default Controller.extend({
 			}
 		}
 
-		this.get('ajax').request('/api/search/check/simple/select', this.getAjaxOpt(condition)).then(({
-			result,
-			error,
-			status
-		}) => {
-			if (status === 'ok') {
-				this.set('markets', result.markets);
-				this.set('years', result.years);
-				later(this, () => {
-					this.queryContentData();
-				}, 1000)
-			} else {
-				this.set('sampleCheckError', true);
-				this.set('errorMessage', error.message);
-			}
-		});
+		// this.get('ajax').request('/api/search/check/simple/select', this.getAjaxOpt(condition)).then(({
+		// 	result,
+		// 	error,
+		// 	status
+		// }) => {
+		// 	if (status === 'ok') {
+		// 		this.set('markets', result.markets);
+		// 		this.set('years', result.years);
+		// 		later(this, () => {
+		// 			this.queryContentData();
+		// 		}, 1000)
+		// 	} else {
+		// 		this.set('sampleCheckError', true);
+		// 		this.set('errorMessage', error.message);
+		// 	}
+		// });
 	},
 	queryContentData() {
 		let market = $('select[name="markets"] :selected').val() || '';
@@ -81,33 +81,33 @@ export default Controller.extend({
 				years: years
 			}
 		}
-		this.get('ajax').request('/api/search/check/simple', this.getAjaxOpt(condition)).then(({
-			result,
-			error,
-			status
-		}) => {
-			if (status === 'ok') {
-				let getHospital = SampleEchartsOption.create()
-				let getProduct = SampleEchartsOption.create()
-				let getSales = SampleEchartsOption.create()
-				this.set('hospitalOption', getHospital.getOption(result.hospital))
-				this.set('productOption', getProduct.getOption(result.product))
-				this.set('salesOption', getSales.getOption(result.sales))
-				this.set('hospitalNumber', result.hospital.currentNumber)
-				this.set('lastYearHospitalNumber', result.hospital.lastYearNumber)
-
-				this.set('productNumber', result.product.currentNumber)
-				this.set('lastYearProductNumber', result.product.lastYearNumber)
-
-				this.set('salesNumber', result.sales.currentNumber)
-				this.set('lastYearSalesNumber', result.sales.lastYearNumber)
-
-				this.set('model', result.notfindhospital);
-			} else {
-				this.set('error', true);
-				this.set('errorMessage', error.message);
-			}
-		});
+		// this.get('ajax').request('/api/search/check/simple', this.getAjaxOpt(condition)).then(({
+		// 	result,
+		// 	error,
+		// 	status
+		// }) => {
+		// 	if (status === 'ok') {
+		// 		let getHospital = SampleEchartsOption.create()
+		// 		let getProduct = SampleEchartsOption.create()
+		// 		let getSales = SampleEchartsOption.create()
+		// 		this.set('hospitalOption', getHospital.getOption(result.hospital))
+		// 		this.set('productOption', getProduct.getOption(result.product))
+		// 		this.set('salesOption', getSales.getOption(result.sales))
+		// 		this.set('hospitalNumber', result.hospital.currentNumber)
+		// 		this.set('lastYearHospitalNumber', result.hospital.lastYearNumber)
+		//
+		// 		this.set('productNumber', result.product.currentNumber)
+		// 		this.set('lastYearProductNumber', result.product.lastYearNumber)
+		//
+		// 		this.set('salesNumber', result.sales.currentNumber)
+		// 		this.set('lastYearSalesNumber', result.sales.lastYearNumber)
+		//
+		// 		this.set('model', result.notfindhospital);
+		// 	} else {
+		// 		this.set('error', true);
+		// 		this.set('errorMessage', error.message);
+		// 	}
+		// });
 	},
 	init() {
 		this._super(...arguments);

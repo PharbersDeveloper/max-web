@@ -1,5 +1,4 @@
 {{outlet}}
-
 <div local-class="step-content-wrapper-noshadow">
     <div local-class="generate-sample-result">
         <div local-class="result-choosebar">
@@ -20,7 +19,7 @@
             </div>
             <div local-class="choosebar-content choosebar-right">
                 {{#bs-button local-class="btn-default-max" onClick=(action (mut uploadAgain) true)}}重新上传{{/bs-button}}
-                {{#link-to "adddata.calcmax"}}
+                {{#link-to "add-data.calcmax"}}
                     <button local-class="btn-default-max" type="button" name="button">下一步</button>
                 {{/link-to}}
             </div>
@@ -47,7 +46,8 @@
                 </div>
             </div>
             <div local-class="item-chart">
-             {{sample-line-and-bar chartsName="医院样本" eid="sample-hospital-number-line-and-bar" option=hospitalOption}}
+                {{line-prod-sales singleLineData=prodSalesLine}}
+             {{!-- {{sample-line-and-bar chartsName="医院样本" eid="sample-hospital-number-line-and-bar" option=hospitalOption}} --}}
             </div>
         </div>
         <div local-class="result-item prod-sample">
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div local-class="item-chart">
-             {{sample-line-and-bar eid="sample-product-number-line-and-bar" option=productOption}}
+             {{!-- {{sample-line-and-bar eid="sample-product-number-line-and-bar" option=productOption}} --}}
             </div>
         </div>
         <div local-class="result-item sample-sales">
@@ -97,7 +97,7 @@
                 </div>
             </div>
             <div local-class="item-chart">
-             {{sample-line-and-bar eid="sample-sales-number-line-and-bar" option=salesOption}}
+             {{!-- {{sample-line-and-bar eid="sample-sales-number-line-and-bar" option=salesOption}} --}}
             </div>
         </div>
         <div local-class="result-item hospital-list">
