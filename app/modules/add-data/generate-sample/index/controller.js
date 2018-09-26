@@ -14,20 +14,24 @@ export default Controller.extend(XMPPMixin,{
 	ajax: inject(),
 	cookies: inject(),
 	xmpp: inject(),
-	// progress: inject('circle-proTgress-serivce'),
+	progress: inject('circle-progress-service'),
 	styles,
 	message: '',
 	SampleObject,
-	observerYms: observer('message', function() {
-		// body
-		console.log("obserrrrr");
-		console.log(this.get(message));
-		// if (mes.data.attributes.call === 'ymCalc') {
+	fluResult: observer('message', function() {
+		let msg2Json = this.get('message');
+		if (msg2Json.data.attributes.call === 'ymCalc') {
             SampleObject.set('fileParsingSuccess',true);
-        // }
+        } else if (msg2Json.data.attributes.call === 'panel') {
+            console.log("this is transitionToSample");
+            this.transitionToRoute('add-data.generate-sample.sample-finish');
+        } else if(msg2Json.data.attributes.call === 'calc') {
+			this.transitionToRoute('add-data.viewresults');
+			// this.transitionToRoute('add-data.viewresults')
+		}
+
 	}),
 	ymList: computed('message', function() {
-		// console.log(this.get('message'));
 		let message = this.get('message');
 		if(!isEmpty(message)) {
 			// let ym = JSON.parse(message);
@@ -48,6 +52,7 @@ export default Controller.extend(XMPPMixin,{
 		}
 
 	}),
+
 	init() {
 		this._super(...arguments);
 		this.set('cpafilename', this.get('cookies').read('filecpa'))
@@ -97,8 +102,11 @@ export default Controller.extend(XMPPMixin,{
                 console.log(resp.call);
 				if(resp.call === 'panel') {
 					SampleObject.set('fileParsingSuccess',false);
+					SampleObject.set('calcYearsProgress', false);
+					SampleObject.set('calcPanelProgress', true);
 				} else {
-					console.log('years error');
+					console.log("解析文件失败");
+					SampleObject.set('fileParsingError',false);
 				}
             })
 		},

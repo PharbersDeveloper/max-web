@@ -19,207 +19,333 @@ export default Component.extend({
     drawSingleLine() {
         const singleLineData = this.get('singleLineData');
         d3.select('.prod-sales-container svg.single-line-svg').remove();
-        let lineNames = ['产品销售额'];
-        let lineColor = ["#FA6F80"];
-        let svgContainer = d3.select(this.element);
-        var svg = svgContainer.append('svg').attr('class', 'single-line-svg');
-        // set the dimensions and margins of the graph
+
         var margin = {
-                top: 20,
-                right: 40,
-                bottom: 30,
-                left: 50
-            },
-            width = 960 - margin.left - margin.right,
-            height = 360 - margin.top - margin.bottom;
-
-        var parseTime = d3.timeParse("%Y-%m");
-        let formatDateIntoYearMonth = d3.timeFormat('%Y-%m');
-
-        var x = d3.scaleTime().range([0, width]);
-        var y0 = d3.scaleLinear().range([height, 0]);
-
-        // define the 1st line
-        var valueline = d3.line()
-            .x(function(d) {
-                return x(d.ym);
-            })
-            .y(function(d) {
-                return y0(d.sales);
-            });
-
-
-        svg.attr('padding', '0 20px')
-            .attr("height", 368)
-            .attr('width', '100%')
-            .attr('preserveAspectRatio', 'none')
-            .attr('viewBox', '-40 0 950 348')
-            .attr("transform", "translate(10,0)")
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        // format the data
-
-        let data = singleLineData.map(function(item) {
-            let lineData = {};
-            lineData.ym = parseTime(item.ym);
-            lineData.sales = item.sales
-            return lineData
-        })
-
-        // Scale the range of the data\
-        x.domain(d3.extent(data, function(d) {
-            return d.ym;
-        }));
-        let y0Max = d3.max(data, function(d) {
-            return Math.max(d.sales);
-        });
-        y0.domain([0, (y0Max / 3 + y0Max)]);
-        // gridlines in x axis function
-        function make_x_gridlines() {
-            return d3.axisBottom(x)
-                .ticks(12)
-        }
-
-        // gridlines in y axis function
-        function make_y_gridlines() {
-            return d3.axisLeft(y0)
-                .ticks(7)
-        }
-        // add the X gridlines
-        svg.append("g")
-            .attr("class", "grid")
-            .attr("transform", "translate(0," + height + ")")
-            .call(make_x_gridlines()
-                .tickSize(-height)
-                .tickFormat("")
-            )
-
-        // add the Y gridlines
-        svg.append("g")
-            .attr("class", "grid")
-            .call(make_y_gridlines()
-                .tickSize(-width)
-                .tickFormat("")
-            );
-        // Add the valueline path.
-        svg.append("path")
-            .data([data])
-            .attr("class", "line")
-            .style("stroke", "#FA6F80")
-            .style("filter", "url(#drop-shadow)")
-            .attr("d", valueline);
-
-        // Add the X Axis
-        svg.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x).tickFormat(formatDateIntoYearMonth));
-
-        // Add the Y0 Axis
-        svg.append("g")
-            .attr("class", "axisSteelBlue")
-            .attr("transform", 'translate(0,0)')
-            .call(d3.axisLeft(y0));
-        svg.selectAll(".dot1")
-            .data(data)
-            .enter().append("circle")
-            .attr("class", "dot1")
-            .attr("r", 3)
-            .attr('fill', lineColor[0])
-            .attr("cx", function(d) { return x(d.ym); })
-            .attr("cy", function(d) { return y0(d.sales); })
-            .attr("opacity", 0.6)
-            .on("mouseover", function(d) {
-                d3.select(this)
-                    .transition()
-                    .duration(500)
-                    .attr("r", 5);
-            })
-            .on("mouseout", function(d) {
-                d3.select(this)
-                    .transition()
-                    .duration(500)
-                    .attr("r", 3);
-            });
-
-        /**
-         * 添加图例
-         */
-        var legend = svg.append("g");
-        addLegend();
-
-        function addLegend() {
-            var textGroup = legend.selectAll("text")
-                .data(lineNames);
-            textGroup.exit().remove();
-            legend.selectAll("text")
-                .data(lineNames)
-                .enter()
-                .append("text")
-                .text(function(d) {
-                    return d;
-                })
-                .attr("class", "legend")
-                .attr("x", function(d, i) {
-                    return i * 100;
-                })
-                .attr("y", 6)
-                .attr("fill", function(d, i) {
-                    return lineColor[i];
-                });
-            var lineGroup = legend.selectAll('line')
-                .data(lineNames);
-            lineGroup.exit().remove();
-            legend.selectAll("line")
-                .data(lineNames)
-                .enter()
-                .append("line")
-
-                .attr("x1", function(d, i) {
-                    return i * 100 - 20;
-                })
-                .attr("x2", function(d, i) {
-                    return i * 100 - 10;
-                })
-                .attr("y1", 3)
-                .attr("y2", 3)
-                .attr("stroke", function(d, i) {
-                    return lineColor[i];
-                })
-                .attr("stroke-width", '3')
-
-                .attr("fill", function(d, i) {
-                    return lineColor[i];
-                });
-            legend.attr("transform", "translate(" + ((width - lineNames.length * 100) / 2) + "," + (height + 30) + ")");
-            /**
-             * end 添加图例
-             */
-            /**
-             * 添加阴影
-             */
-            var defs = svg.append("defs");
-            var filter = defs.append("filter")
-                .attr("id", "drop-shadow")
-                .attr("height", "130%");
-            filter.append("feGaussianBlur")
-                .attr("in", "SourceAlpha")
-                .attr("stdDeviation", 3)
-                .attr("result", "blur");
-            filter.append("feOffset")
-                .attr("in", "blur")
-                .attr("dx", 2)
-                .attr("dy", 2)
-                .attr("result", "offsetBlur");
-            var feMerge = filter.append("feMerge");
-            feMerge.append("feMergeNode")
-                .attr("in", "offsetBlur")
-            feMerge.append("feMergeNode")
-                .attr("in", "SourceGraphic");
-            /**
-             * end 添加阴影
-             */
-        }
+    main: { // year v. innings pitched
+      top: 10, right: 40, bottom: 80, left: 80
     },
+    secondary: { // strikeouts, walks ...
+      top: 10, right: 20, bottom: 40, left: 80
+    }
+  };
+
+  var mainWidth = 625 - margin.main.left - margin.main.right;
+  var mainHeight = 400 - margin.main.top - margin.main.bottom;
+
+  var secondaryWidth = 250 - margin.secondary.left - margin.secondary.right;
+  var secondaryHeight = 200 - margin.secondary.top - margin.secondary.bottom;
+
+  // set this when you brush on the main graph
+  var filterDates = [];
+
+  /* load Verlander data */
+  d3.csv("http://dhoboy.github.io/baseball/Justin_Verlander.csv", function(err, raw) {
+    var data = raw.slice(0, raw.length - 1);
+
+    // set up crossfilter
+    var pitchingData = crossfilter(data);
+    var years = pitchingData.dimension(function(d) {
+      return +d.Year;
+    });
+
+    var metrics = {
+      'BB': "Walks",
+      'SO': "Strikeouts",
+      'H': "Hits allowed",
+      'ER': "Runs allowed",
+      'W': "Wins",
+      'L': "Loses",
+      'ERA': "Earned Run Average",
+      'CG': "Complete Games",
+      //'SHO': "Shutouts"
+    };
+
+    /* make charts */
+    var mainChart = d3.select("#mainChart")
+      .append("svg")
+      .attr("height", mainHeight + margin.main.top + margin.main.bottom)
+      .attr("width", mainWidth + margin.main.left + margin.main.right)
+        .append("g")
+        .attr("transform", "translate(" + margin.main.left + "," + margin.main.top + ")");
+
+    var secondaryCharts = Object.keys(metrics).map(function(metric) {
+      var x = d3.scaleLinear()
+                .domain(d3.extent(data, function(d) { return +d.Year; }))
+                .range([0, secondaryWidth]);
+
+      var y = d3.scaleLinear()
+                .domain(d3.extent(data, function(d) { return +d[metric]; }))
+                .range([secondaryHeight, 0]);
+
+      return (
+        { metric: metric,
+          svg: d3.select("#secondaryCharts")
+                   .append("svg")
+                   .attr("class", "secondaryChart " + metric)
+                   .attr("height", secondaryHeight + margin.secondary.top + margin.secondary.bottom)
+                   .attr("width", secondaryWidth + margin.secondary.left + margin.secondary.right)
+                     .append("g")
+                     .attr("transform", "translate(" + margin.secondary.left + "," + margin.secondary.top + ")"),
+          x: x,
+          y: y,
+          xAxis: d3.axisBottom(x).ticks(2).tickFormat(d3.format("")),
+          yAxis: d3.axisLeft(y).ticks(5)
+      });
+    });
+
+    /* for hovering on secondary charts */
+    var tooltip = d3.select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden");
+
+    /* setup main chart */
+    var mainX = d3.scaleBand()
+      .domain(data.map(function(d) {
+        return d.Year;
+      }))
+      .range([0, mainWidth])
+      .padding(0.2);
+
+    var mainY = d3.scaleLinear()
+      .domain([0, d3.max(data, function(d) { return +d.IP; })])
+      .range([mainHeight, 0]);
+
+    // for getting dates out of brush on main graph
+    var reverseMainX = d3.scaleLinear()
+      .domain([0, mainWidth])
+      .range(d3.extent(data, function(d) {
+        return +d.Year;
+      }));
+
+    /* setup main axes */
+    var mainXAxis = d3.axisBottom(mainX);
+    var mainYAxis = d3.axisLeft(mainY);
+
+    /* draw main graph */
+    (function drawMainGraph() {
+      mainChart.selectAll(".bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", function(d) {
+          return "bar yr" + d.Year;
+        })
+        .attr("x", function(d) {
+          return mainX(d.Year);
+        })
+        .attr("y", function(d) {
+          return mainY(+d.IP);
+        })
+        .attr("width", mainX.bandwidth())
+        .attr("height", function(d) {
+          return mainHeight - mainY(+d.IP);
+        });
+
+      /* draw axes */
+      var mainXAxisG = mainChart.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + mainHeight + ")")
+        .call(mainXAxis);
+
+      mainXAxisG.append("text")
+         .attr("transform", "translate(490,45)")
+         .attr("class", "axis_title")
+         .text("Year");
+
+      mainChart.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(0" + ",0)")
+        .call(mainYAxis)
+        .append("text")
+          .attr("transform", "translate(-50,0) rotate(-90)")
+          .attr("class", "axis_title")
+          .text("Innings Pitched");
+      })();
+
+      /* setup brush on main graph */
+      var brush = d3.brushX()
+        .extent([[0,-10],[mainWidth, mainHeight]])
+
+      var mainBrush = mainChart.append("g")
+        .attr("class", "brush")
+        .call(brush);
+
+      brush.on("brush end", function() {
+        var brushSection = d3.brushSelection(this);
+
+        if (brushSection === null) { // clear the brush
+          d3.selectAll(".bar")
+            .attr("class", function(d) {
+              return "bar yr" + d.Year;
+            });
+
+          redrawSecondaryCharts(data, true);
+        } else { // filter data for secondary graphs
+          var f = d3.timeFormat("%Y");
+
+          // set filterDates for secondary graphs
+          filterDates = [
+            Math.round(reverseMainX(brushSection[0])),
+            Math.round(reverseMainX(brushSection[1])) + 1
+          ];
+
+          // clear all bar highlighting
+          d3.selectAll(".bar")
+            .attr("class", function(d) {
+              return "bar yr" + d.Year + " unselected";
+            });
+
+          // highlight selected bars
+          d3.range(filterDates[0], filterDates[1]).map(function(yr) {
+            d3.select(".bar.yr" + yr)
+              .attr("class", "bar yr" + yr + " selected");
+          });
+
+          // filter the data on the years selected
+          years.filterRange(filterDates);
+          redrawSecondaryCharts(years.bottom(pitchingData.size()));
+        }
+      });
+
+    // draw secondary charts
+    (function initializeSecondaryCharts() {
+      secondaryCharts.forEach(function(chart) {
+        var metric = chart.metric;
+        var svg = chart.svg;
+        var x = chart.x;
+        var y = chart.y;
+        var xAxis = chart.xAxis;
+        var yAxis = chart.yAxis;
+
+        // draw the points
+        svg.selectAll(".point")
+          .data(data, function(d) { return d.Year; })
+          .enter()
+          .append("circle")
+          .attr("class", "point")
+          .attr("cx", function(d) {
+            return x(+d.Year);
+          })
+          .attr("cy", function(d) {
+            return y(+d[metric]);
+          })
+          .attr("r", 5);
+
+        // draw the axes
+        svg.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(0" + ",0)")
+          .call(yAxis)
+          .append("text")
+            .attr("transform", "translate(-40,0) rotate(-90)")
+            .attr("class", "axis_title")
+            .text(metrics[metric]);
+
+        svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + secondaryHeight + ")")
+          .call(xAxis)
+          .append("text")
+            .attr("transform", "translate(150,40)")
+            .attr("class", "axis_title")
+            .text("Year");
+      });
+    })();
+
+    function redrawSecondaryCharts(data, reset) {
+      console.log("data in draw secondary: ", data);
+      secondaryCharts.forEach(function(chart) {
+        var metric = chart.metric;
+        var svg = chart.svg;
+        var x = chart.x;
+        var y = chart.y;
+        var xAxis = chart.xAxis;
+        var yAxis = chart.yAxis;
+
+        x.domain(d3.extent(data, function(d) { return +d.Year; }));
+        y.domain(d3.extent(data, function(d) { return +d[metric]; }));
+
+        svg.select(".x.axis")
+          .transition()
+          .duration(reset ? 0 : 750)
+          .call(xAxis);
+
+        svg.select(".y.axis")
+          .transition()
+          .duration(reset ? 0 : 750)
+          .call(yAxis);
+
+        var points = svg.selectAll(".point")
+          .data(data, function(d) { return d.Year; })
+
+        points
+          .exit()
+          .transition()
+          .duration(reset ? 0 : 400)
+          .remove();
+
+        points
+          .transition()
+          .delay(reset ? 0 : 400)
+          .duration(reset ? 0 : 500)
+          .attr("cx", function(d) {
+            return x(d.Year);
+          });
+
+        points
+          .transition()
+          .delay(reset ? 0 : 900)
+          .duration(reset ? 0 : 500)
+          .attr("cy", function(d) {
+            return y(+d[metric]);
+          });
+
+        points
+          .enter()
+          .append("circle")
+          .attr("class", "point")
+          .attr("r", 5)
+          .attr("cx", function(d) {
+            return x(d.Year);
+          })
+          .attr("cy", function(d) {
+            return y(+d[metric]);
+          })
+          .attr("fill-opacity", reset ? 1 : 0);
+
+          // issues with the enter selection executing the
+          // fill-opacity transition only when 'reseting' graph
+          // graph resets on brush end where brush selection is null
+
+        points
+          .transition()
+          .delay(reset ? 0 : 1400)
+          .duration(reset ? 0 : 400)
+          .attr("fill-opacity", 1);
+
+        svg.selectAll(".point")
+          .on("mouseover", function(d) {
+            tooltip.html("");
+            tooltip.append("pre")
+              .text(d.Year + ": " + d[metric] + " " +  metrics[metric]);
+
+            return tooltip.style("visibility", "visible");
+          })
+          .on("mousemove", function(d) {
+            return tooltip.style("top", (d3.event.pageY-20) + "px").style("left", (d3.event.pageX+10) + "px");
+          })
+          .on("mouseout", function(d) {
+            return tooltip.style("visibility", "hidden");
+          });
+      });
+    }
+
+});
+
+
+    }
 
 });

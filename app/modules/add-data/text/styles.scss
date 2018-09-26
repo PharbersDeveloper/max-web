@@ -1,0 +1,314 @@
+// // .key-words div:nth-child(2){
+// // 	margin: 0;
+// // 	color:red;
+// // }
+//
+// tbody tr td:nth-child(2) {
+// 	overflow: hidden;
+// 	text-overflow:ellipsis;
+// 	white-space: nowrap;
+// }
+//
+// .nopadding {
+// 	padding: 0;
+// }
+// // .line-sales {}
+//
+// .line-sales {
+// 	// padding: 5px 10px;
+// 	// font-size: 12px;
+// 	// font-family: $font-family;
+// 	margin: 5px;
+// 	padding: 5px 10px;
+// 	border-radius: 3px;
+// 	background: #FFF;
+// 	box-shadow: 0 1px 5px 2px rgba(215,215,215,0.50);
+//
+// 	.title {
+// 		height: 20px;
+// 		line-height: 20px;
+// 		font-size: 0;
+//
+// 		span:first-child {
+// 			margin-right: 10px;
+// 			font-size: 14px;
+// 			// font-weight: 700;
+// 			color: #485465;
+// 			letter-spacing: 1.08px;
+// 		}
+//
+// 		span:nth-child(2) {
+// 			font-size: 12px;
+// 			color: #9D9D9D;
+// 			letter-spacing: 1px;
+// 		}
+// 	}
+//
+// 	.overview {
+// 		div {
+// 			padding: 2px;
+// 		}
+//
+// 		.total-left {
+// 			.current-mo {
+// 				padding-left: 15px;
+// 				margin: 0;
+// 				font-size: 12px;
+// 				color: #575C6C;
+// 				letter-spacing: 1px;
+// 			}
+//
+// 			.left {
+// 				display: inline-block;
+// 				vertical-align: top;
+// 				height: 50px;
+// 				line-height: 50px;
+// 				font-size: 36px;
+// 				color: #485465;
+// 				letter-spacing: 1px;
+//
+// 				span:last-child {
+// 					margin-left: 10px;
+// 					font-size: 14px;
+// 					color: #1E2429;
+// 					letter-spacing: 1px;
+// 					line-height: 50px;
+// 				}
+// 			}
+//
+// 			.right {
+// 				display: inline-block;
+// 				vertical-align: top;
+// 				margin-left: 10px;
+// 				font-size: 12px;
+// 				color: #485465;
+// 				letter-spacing: 1px;
+//
+// 				.growth {
+// 					padding-left: 10px;
+// 					color: #60B3AD;
+// 				}
+// 			}
+// 		}
+//
+// 		.total-right {
+// 			padding-left: 10px;
+// 			border-left: 1px solid #979797;
+// 			font-size: 14px;
+// 			color: #485465;
+// 			letter-spacing: 1px;
+//
+// 			p {
+// 				margin-top: 5px;
+// 				margin-bottom: 0;
+// 				height: 20px;
+// 				line-height: 20px;
+//
+// 				span:first-child {
+// 					display: inline-block;
+// 					width: 30%;
+// 				}
+//
+// 				span:last-child {
+// 					display: inline-block;
+// 					width: 66%;
+// 					text-align: right;
+// 				}
+// 			}
+// 		}
+// 	}
+// }
+//
+// .table-persales {
+// 	margin: 5px 5px;
+// 	padding: 5px 10px;
+// 	border-radius: 3px;
+// 	background: #FFF;
+// 	box-shadow: 0 1px 5px 2px rgba(215,215,215,0.50);
+//
+// 	.pie-title {
+// 		span:first-child {
+// 			font-size: 14px;
+// 			color: #485465;
+// 			letter-spacing: 1px;
+// 		}
+//
+// 		span:last-child {
+// 			margin-left: 10px;
+// 			font-size: 10px;
+// 			color: #9D9D9D;
+// 			letter-spacing: 1px;
+// 		}
+// 	}
+// }
+//
+// .pie-table {
+// 	margin: 10px 5px;
+// 	padding: 5px 10px;
+// 	border-radius: 3px;
+// 	background: #FFF;
+// 	box-shadow: 0 1px 5px 2px rgba(215,215,215,0.50);
+//
+// 	.pie-title {
+// 		span:first-child {
+// 			font-size: 14px;
+// 			color: #485465;
+// 			letter-spacing: 1px;
+// 		}
+//
+// 		span:last-child {
+// 			margin-left: 10px;
+// 			font-size: 10px;
+// 			color: #9D9D9D;
+// 			letter-spacing: 1px;
+// 		}
+// 	}
+// }
+//
+// .change {
+// 	position: absolute;
+// 	right: 30px;
+// 	border: 0;
+// 	line-height: 40px;
+// 	background: none;
+// 	font-family: PingFangTC-Regular;
+// 	font-size: 12px;
+// 	color: #485465;
+// 	letter-spacing: 2px;
+// }
+//
+// .change:active,
+// .change:hover,
+// change:focus {
+// 	background: none;
+// }
+//
+// .data-market {
+// 	margin: 5px 5px 20px 5px;
+// 	// padding: 5px 10px;
+// 	height: 50px;
+// 	line-height: 50px;
+// 	background-color: #FFF;
+// 	box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
+// 	border-radius: 3px;
+// 	// font-size: 12px;
+// }
+//
+// .time-selects {
+// 	display: block;
+// 	margin-top: 20px;
+// 	height: 30px;
+// 	line-height: 30px;
+// 	// text-align: center;
+// 	// border: 1px solid $border-color;
+// 	border-radius: 4px;
+// 	font-size: 0;
+// 	// background-color: #F0F3F5;
+// 	& span {
+// 		font-size: 14px;
+// 		padding: 0 10px;
+// 		color: #485465;
+// 		letter-spacing: 1px;
+// 	}
+//
+// 	& input {
+// 		width: 100px;
+// 		height: 34px;
+// 		text-align: center;
+// 		border: 0;
+// 		font-size: 14px;
+// 		letter-spacing: 1.2px;
+// 		color: #485465;
+// 		letter-spacing: 2px;
+// 		background-color: #F0F3F5;
+// 	}
+// }
+//
+// .market-hidden {
+// 	display: none;
+// }
+//
+// .market-choose-area {
+// 	display: block;
+// 	// margin-right: 40px;
+// 	height: 30px;
+// 	line-height: 30px;
+// 	line-height: 30px;
+// 	font-size: 0;
+//
+// 	.title {
+// 		padding: 0 10px;
+// 		font-size: 14px;
+// 		color: #485465;
+// 		letter-spacing: 1px;
+// 	}
+// }
+//
+// .choose-market {
+// 	width: 150px;
+// 	height: 30px;
+// 	margin-right: 20px;
+// 	line-height: 30px;
+// 	vertical-align: top;
+// 	text-align: center;
+// 	text-align-last: center;
+// 	border: 0;
+// 	border-radius: 5px;
+// 	font-size: 14px;
+// 	background-color: #F0F3F5;
+// 	color: #485465;
+//
+// 	option {
+// 		font-size: 14px;
+// 		text-align: center;
+// 		color: #485465;
+// 	}
+// }
+//
+// .change-item {
+// 	float: right;
+// 	margin-right: 50px;
+// 	display: inline-block;
+// 	height: 40px;
+// 	line-height: 40px;
+// 	font-size: 12px;
+// 	color: #485465;
+// }
+//
+// .market-show,
+// .time-show {
+// 	display: inline-block;
+// 	line-height: 50px;
+// 	// margin-right: 30px;
+// 	span {
+// 		padding: 0 15px;
+// 		font-size: 14px;
+// 		color: #485465;
+// 		letter-spacing: 1px;
+// 	}
+//
+// 	p {
+// 		width: 150px;
+// 		height: 33px;
+// 		line-height: 33px;
+// 		display: inline-block;
+// 		background: #F0F3F5;
+// 		border-radius: 3px;
+// 		font-family: PingFangTC-Regular;
+// 		font-size: 14px;
+// 		color: #485465;
+// 		text-align: center;
+// 	}
+// }
+// @media (max-width: 900px) {
+// 	.market-show,
+// 	.time-show {
+// 		p {
+// 			width: 100px;
+// 		}
+// 	}
+// }
+.line-sales {
+    margin-top:100px;
+    padding:30px;
+}

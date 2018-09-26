@@ -111,6 +111,7 @@ export default Controller.extend({
 	},
 	init() {
 		this._super(...arguments);
+		this.prodSalesLine = [];
 		this.set('columns', [
 			// { propertyName: 'index', 'className':'text-center', title: '序号', useSorting: false },
 			{

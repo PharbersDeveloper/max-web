@@ -3,15 +3,18 @@ import EmberObject from '@ember/object';
 import { inject } from '@ember/service';
 import conf from '../../../config/environment';
 import SampleObject from '../../common/xmpp-message-object/SampleObjectMessage';
+import Route from '@ember/routing/route';
 
 const MessageFactory = EmberObject.create({
     doCall(msg, instance, func) {
         let msg2Json = JSON.parse(msg); //json
-        // console.log(msg2Json);
         instance.set('message', msg2Json);
         console.log(msg2Json);
         // if (msg2Json.data.attributes.call === 'ymCalc') {
         //     SampleObject.set('fileParsingSuccess',true);
+        // }
+        // if (msg2Json.data.attributes.call === 'panel') {
+        //     instance.set('flu','panel');
         // }
     }
 });

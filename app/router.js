@@ -16,6 +16,7 @@ Router.map(function() {
     });
     this.route('calcmax');
     this.route('viewresults');
+    this.route('text');
   });
   this.route('data', function() {
     this.route('overview');
