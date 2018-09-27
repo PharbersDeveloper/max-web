@@ -47,13 +47,31 @@ export default Controller.extend({
 		}
 	},
 	querySelectArg() {
-		let condition = {
-			condition: {
-				job_id: this.get('cookies').read('job_id')
-			}
-		}
+		let company = this.store.peekAll('phmaxjob').firstObject.company_id;
+		console.log(company);
+		let job = this.store.peekAll('phmaxjob').firstObject.job_id;
+		console.log(job);
+		let req = this.store.createRecord('samplecheckselecter',{
+			res: "phselecter",
+			company_id: company,
+			job_id: job
+		})
 
-		// this.get('ajax').request('/api/search/check/simple/select', this.getAjaxOpt(condition)).then(({
+		let result = this.store.object2JsonApi('request', req);
+		console.log(result);
+		console.log("---checkselecter result----")
+		this.store.queryObject('/api/v1/samplecheckselecter/0','samplecheckselecter', result ).then((res) => {
+			this.set("markets",res.mkt_list);
+			this.set("years",res.ym_list);
+			this.queryContentData();
+		});
+		// let condition = {
+		// 	condition: {
+		// 		job_id: this.get('cookies').read('job_id')
+		// 	}
+		// }
+
+		// this.get('ajax').request('/api/v1/samplecheckselecter/0', this.getAjaxOpt(condition)).then(({
 		// 	result,
 		// 	error,
 		// 	status
@@ -66,21 +84,42 @@ export default Controller.extend({
 		// 		}, 1000)
 		// 	} else {
 		// 		this.set('sampleCheckError', true);
-		// 		this.set('errorMessage', error.message);
+		// 		this.set('errorMessage', "error");
 		// 	}
 		// });
 	},
 	queryContentData() {
-		let market = $('select[name="markets"] :selected').val() || '';
-		this.set('selectedMarket', market)
-		let years = $('select[name="years"] :selected').val() || '';
-		let condition = {
-			condition: {
-				job_id: this.get('cookies').read('job_id'),
-				market: market,
-				years: years
-			}
-		}
+		// let mark = $('select[name="markets"] :selected').val();
+		// console.log(mark);
+		// let years = $('select[name="years"] :selected').val() || '';
+		// console.log(years);
+		let mark = "麻醉市场";
+		let years = "201801";
+		let company = this.store.peekAll('phmaxjob').firstObject.company_id;
+		let job = this.store.peekAll('phmaxjob').firstObject.job_id;
+		let user = this.store.peekAll('phmaxjob').firstObject.user_id;
+		let req = this.store.createRecord('samplecheckbody',{
+			res: "samplecheckbody",
+			company_id: company,
+			job_id: job,
+			ym:years,
+			market:mark,
+			user_id:user
+		})
+
+		let result = this.store.object2JsonApi('request', req);
+		console.log(result);
+		console.log("---checkbody result----")
+		this.store.queryObject('/api/v1/samplecheckbody/0','samplecheckbody', result ).then((res) => {
+			console.log(res);
+		});
+		// let condition = {
+		// 	condition: {
+		// 		job_id: this.get('cookies').read('job_id'),
+		// 		market: market,
+		// 		years: years
+		// 	}
+		// }
 		// this.get('ajax').request('/api/search/check/simple', this.getAjaxOpt(condition)).then(({
 		// 	result,
 		// 	error,
@@ -112,35 +151,36 @@ export default Controller.extend({
 	init() {
 		this._super(...arguments);
 		this.prodSalesLine = [];
-		this.set('columns', [
-			// { propertyName: 'index', 'className':'text-center', title: '序号', useSorting: false },
-			{
-				propertyName: 'index',
-				'className': 'text-center',
-				useSorting: false
-			},
-			{
-				propertyName: 'hospitalName',
-				'className': 'text-center',
-				useSorting: false
-			},
-			{
-				propertyName: 'province',
-				'className': 'text-center',
-				useSorting: false
-			},
-			{
-				propertyName: 'city',
-				'className': 'text-center',
-				useSorting: false
-			},
-			{
-				propertyName: 'cityLevel',
-				'className': 'text-center',
-				useSorting: false
-			}
-		]);
 		this.querySelectArg();
+		// this.set('columns', [
+		// 	{ propertyName: 'index', 'className':'text-center', title: '序号', useSorting: false },
+		// 	{
+		// 		propertyName: 'index',
+		// 		'className': 'text-center',
+		// 		useSorting: false
+		// 	},
+		// 	{
+		// 		propertyName: 'hospitalName',
+		// 		'className': 'text-center',
+		// 		useSorting: false
+		// 	},
+		// 	{
+		// 		propertyName: 'province',
+		// 		'className': 'text-center',
+		// 		useSorting: false
+		// 	},
+		// 	{
+		// 		propertyName: 'city',
+		// 		'className': 'text-center',
+		// 		useSorting: false
+		// 	},
+		// 	{
+		// 		propertyName: 'cityLevel',
+		// 		'className': 'text-center',
+		// 		useSorting: false
+		// 	}
+		// ]);
+
 
 	},
 	actions: {

@@ -46,8 +46,7 @@
                 </div>
             </div>
             <div local-class="item-chart">
-                {{line-prod-sales singleLineData=prodSalesLine}}
-             {{!-- {{sample-line-and-bar chartsName="医院样本" eid="sample-hospital-number-line-and-bar" option=hospitalOption}} --}}
+                {{hosp-amount}}
             </div>
         </div>
         <div local-class="result-item prod-sample">
@@ -72,6 +71,7 @@
                 </div>
             </div>
             <div local-class="item-chart">
+                {{product-amount}}
              {{!-- {{sample-line-and-bar eid="sample-product-number-line-and-bar" option=productOption}} --}}
             </div>
         </div>
@@ -97,13 +97,14 @@
                 </div>
             </div>
             <div local-class="item-chart">
+                {{sample-sales}}
              {{!-- {{sample-line-and-bar eid="sample-sales-number-line-and-bar" option=salesOption}} --}}
             </div>
         </div>
         <div local-class="result-item hospital-list">
             <p local-class="item-title">样本医院列表</p>
             <div local-class="detail-list">
-                {{#models-table data=model columns=columns useFilteringByColumns=false showGlobalFilter=false filterQueryParameters=false
+                {{!-- {{#models-table data=model columns=columns useFilteringByColumns=false showGlobalFilter=false filterQueryParameters=false
                 showComponentFooter=true showColumnsDropdown=false useFilteringByColumns=false showGlobalFilter=false useNumericPagination=true
                 showPageSize=false as |mt| }}
                     {{mt.table}}
@@ -111,7 +112,8 @@
                         {{footer.summary local-class='footer-summary' }}
                         {{footer.pagination-numeric local-class='footer-num'}}
                     {{/mt.footer}}
-                {{/models-table}}
+                {{/models-table}} --}}
+                {{sample-table}}
             </div>
         </div>
     </div>
