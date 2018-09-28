@@ -10,20 +10,22 @@ export default Component.extend({
     },
     drawChart() {
         // let objectiveChart = d3.select('svg.much-lines').remove();
-        let dataset = [
-            { key: '2017 01', value: '', value2: 16 },
-            { key: '2017 02', value: '', value2: 20 },
-            { key: '2017 03', value: '', value2: 40 },
-            { key: '2017 04', value: '', value2: 24},
-            { key: '2017 05', value: 10, value2: 18 },
-            { key: '2017 06', value: '', value2: 12 },
-            { key: '2017 07', value: '', value2: 15 },
-            { key: '2017 08', value: '', value2: 23 },
-            { key: '2017 09', value: '', value2: 24 },
-            { key: '2017 10', value: '', value2: 12 },
-            { key: '2017 11', value: '', value2: 18 },
-            { key: '2017 12', value: '', value2: 26 },
-        ];
+        // let dataset = [
+        //     { key: '2017 01', value: '', value2: 16 },
+        //     { key: '2017 02', value: '', value2: 20 },
+        //     { key: '2017 03', value: '', value2: 40 },
+        //     { key: '2017 04', value: '', value2: 24},
+        //     { key: '2017 05', value: 10, value2: 18 },
+        //     { key: '2017 06', value: '', value2: 12 },
+        //     { key: '2017 07', value: '', value2: 15 },
+        //     { key: '2017 08', value: '', value2: 23 },
+        //     { key: '2017 09', value: '', value2: 24 },
+        //     { key: '2017 10', value: '', value2: 12 },
+        //     { key: '2017 11', value: '', value2: 18 },
+        //     { key: '2017 12', value: '', value2: 26 },
+        // ];
+        let dataset = this.get('dataset');
+        if(dataset != undefined) {
         //Xname,barValue,lineValue
         let barColor = '#60B3AD';
         let width = 820;
@@ -133,6 +135,6 @@ export default Component.extend({
         //     tooltip.style("opacity", 0.0);
         //     d3.select(this).attr('opacity', 1)
         // });
-
+}
     }
 });

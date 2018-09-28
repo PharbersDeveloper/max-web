@@ -92,24 +92,24 @@ export default Component.extend({
 				job_id: this.get('cookies').read('job_id')
 			}
 		}
-		this.get('ajax').request('/api/search/check/result/select',
-			this.getAjaxOpt(condition)).then(({
-			result,
-			error,
-			status
-		}) => {
-			if (status === 'ok') {
-				this.set('markets', result.markets);
-				this.set('years', result.years);
-				later(this, () => {
-					this.queryContentData()
-				}, 500)
-			} else {
-				this.set('error', true);
-				this.set('errorMessage', error.message);
-			}
-
-		})
+		// this.get('ajax').request('/api/search/check/result/select',
+		// 	this.getAjaxOpt(condition)).then(({
+		// 	result,
+		// 	error,
+		// 	status
+		// }) => {
+		// 	if (status === 'ok') {
+		// 		this.set('markets', result.markets);
+		// 		this.set('years', result.years);
+		// 		later(this, () => {
+		// 			this.queryContentData()
+		// 		}, 500)
+		// 	} else {
+		// 		this.set('error', true);
+		// 		this.set('errorMessage', error.message);
+		// 	}
+		//
+		// })
 	},
 	queryContentData() {
 		let market = $('select[name="markets"] :selected').val() || '';

@@ -36,17 +36,17 @@
                         <p>样本误差率</p>
                     </div>
                     <div local-class="legend-right-center">
-                        <p>{{hospitalNumber}}个</p>
+                        <p>{{hospitalNumber}}家</p>
                         <p>本月样本数</p>
                     </div>
                     <div local-class="legend-right-right">
-                        <p>{{lastYearHospitalNumber}}个</p>
+                        <p>{{lastYearHospitalNumber}}家</p>
                         <p>去年同月样本数</p>
                     </div>
                 </div>
             </div>
             <div local-class="item-chart">
-                {{hosp-amount}}
+                {{hosp-amount dataset=hosp_datas}}
             </div>
         </div>
         <div local-class="result-item prod-sample">
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div local-class="item-chart">
-                {{product-amount}}
+                {{product-amount dataset=pro_datas}}
              {{!-- {{sample-line-and-bar eid="sample-product-number-line-and-bar" option=productOption}} --}}
             </div>
         </div>
@@ -97,7 +97,7 @@
                 </div>
             </div>
             <div local-class="item-chart">
-                {{sample-sales}}
+                {{sample-sales dataset=sale_datas}}
              {{!-- {{sample-line-and-bar eid="sample-sales-number-line-and-bar" option=salesOption}} --}}
             </div>
         </div>
@@ -113,7 +113,7 @@
                         {{footer.pagination-numeric local-class='footer-num'}}
                     {{/mt.footer}}
                 {{/models-table}} --}}
-                {{sample-table}}
+                {{sample-table model=prodSalesValue columns=prodSales selfheight='300px'}}
             </div>
         </div>
     </div>

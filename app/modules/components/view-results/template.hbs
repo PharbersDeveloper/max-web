@@ -63,7 +63,8 @@
             </div>
             <div local-class="market-trend">
                 <p local-class="result-title">
-                    <span>{{selectedMarket}}</span> 市场趋势 <span local-class="trend-legend"> <span></span><span local-class="text">市场销售额</span> <span>——</span><span local-class="text">份额变化趋势</span></span></p>
+                <span>{{selectedMarket}}</span> 市场趋势 <span local-class="trend-legend"> <span></span><span local-class="text">市场销售额</span> <span>——</span><span local-class="text">份额变化趋势</span></span></p>
+                    {{market-trend-bar-line}}
                      {{!-- {{result-trend-line-and-bar eid="result-trend-line-and-bar" option=trendOption}} --}}
             </div>
         </div>
@@ -71,6 +72,7 @@
             <p local-class="result-title"><span>{{selectedMarket}}</span> 地区层面结果</p>
                 <div local-class="china-map-data">
                     <div local-class="china-map">
+                        {{area-map}}
                         {{!-- {{result-map eid="result-map" option=regionOption}} --}}
                     </div>
                     <div local-class="china-data">

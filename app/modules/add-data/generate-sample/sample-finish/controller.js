@@ -47,10 +47,10 @@ export default Controller.extend({
 		}
 	},
 	querySelectArg() {
-		let company = this.store.peekAll('phmaxjob').firstObject.company_id;
-		console.log(company);
-		let job = this.store.peekAll('phmaxjob').firstObject.job_id;
-		console.log(job);
+		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
+		let company = "5afa53bded925c05c6f69c54";
+		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
+		let job = "1c62ee92-8bde-1839-875c-da40f79fc489"
 		let req = this.store.createRecord('samplecheckselecter',{
 			res: "phselecter",
 			company_id: company,
@@ -61,49 +61,37 @@ export default Controller.extend({
 		console.log(result);
 		console.log("---checkselecter result----")
 		this.store.queryObject('/api/v1/samplecheckselecter/0','samplecheckselecter', result ).then((res) => {
-			this.set("markets",res.mkt_list);
-			this.set("years",res.ym_list);
-			this.queryContentData();
+			if(res !== "") {
+				this.set("markets",res.mkt_list);
+				this.set("years",res.ym_list);
+				this.queryContentData();
+			} else {
+				this.set('sampleCheckError', true);
+				this.set('errorMessage', "error");
+			}
 		});
-		// let condition = {
-		// 	condition: {
-		// 		job_id: this.get('cookies').read('job_id')
-		// 	}
-		// }
-
-		// this.get('ajax').request('/api/v1/samplecheckselecter/0', this.getAjaxOpt(condition)).then(({
-		// 	result,
-		// 	error,
-		// 	status
-		// }) => {
-		// 	if (status === 'ok') {
-		// 		this.set('markets', result.markets);
-		// 		this.set('years', result.years);
-		// 		later(this, () => {
-		// 			this.queryContentData();
-		// 		}, 1000)
-		// 	} else {
-		// 		this.set('sampleCheckError', true);
-		// 		this.set('errorMessage', "error");
-		// 	}
-		// });
 	},
 	queryContentData() {
-		// let mark = $('select[name="markets"] :selected').val();
+		// let mark = $('select option[name="markets"] :selected').val() || '';
+		// console.log(":market")
 		// console.log(mark);
-		// let years = $('select[name="years"] :selected').val() || '';
+		// let years = $('select option[name="years"] :selected').val() || '';
+		// console.log(":years")
 		// console.log(years);
-		let mark = "麻醉市场";
+		let market = "麻醉市场";
 		let years = "201801";
-		let company = this.store.peekAll('phmaxjob').firstObject.company_id;
-		let job = this.store.peekAll('phmaxjob').firstObject.job_id;
-		let user = this.store.peekAll('phmaxjob').firstObject.user_id;
+		let company = "5afa53bded925c05c6f69c54";
+		let job = "1c62ee92-8bde-1839-875c-da40f79fc489";
+		let user = "jeorch";
+		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
+		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
+		// let user = this.store.peekAll('phmaxjob').firstObject.user_id;
 		let req = this.store.createRecord('samplecheckbody',{
 			res: "samplecheckbody",
 			company_id: company,
 			job_id: job,
 			ym:years,
-			market:mark,
+			market:market,
 			user_id:user
 		})
 
@@ -111,76 +99,121 @@ export default Controller.extend({
 		console.log(result);
 		console.log("---checkbody result----")
 		this.store.queryObject('/api/v1/samplecheckbody/0','samplecheckbody', result ).then((res) => {
-			console.log(res);
+			if(res !== "") {
+				let hosp_currentNumber = res.hospital.currentNumber;
+				let hosp_lastYearNumber = res.hospital.lastYearNumber;
+				this.set('hospitalNumber',hosp_currentNumber);
+				this.set('lastYearHospitalNumber',hosp_lastYearNumber);
+				let pro_currentNumber = res.product.currentNumber;
+				let pro_lastYearNumber = res.product.lastYearNumber;
+				this.set('productNumber',pro_currentNumber);
+				this.set('lastYearProductNumber',pro_lastYearNumber);
+				let sale_currentNumber = res.sales.currentNumber;
+				let sale_lastYearNumber = res.sales.lastYearNumber;
+				this.set('salesNumber',sale_currentNumber);
+				this.set('lastYearSalesNumber',sale_lastYearNumber);
+
+				let yms = ["2018 01","2018 02","2018 03","2018 04","2018 05","2018 06","2018 07","2018 08","2018 09","2018 10","2018 11","2018 12",]
+				// 医院折线图
+				let hosp_baselines = res.hospital.baselines;
+				let hosp_samplenumbers = res.hospital.samplenumbers;
+				let hosp_data = {
+					hosp_baselines,
+					hosp_samplenumbers,
+					yms
+				};
+				let hosp_datas = [];
+				hosp_data.hosp_baselines.forEach((hosp_baselines,index) => {
+					let item = {
+						key: hosp_data.yms[index],
+						value: hosp_data.hosp_samplenumbers[index],
+						value2: hosp_baselines,
+					}
+					hosp_datas.push(item);
+				});
+				this.set('hosp_datas',hosp_datas);
+				console.log(":hosp_datas")
+				console.log(hosp_datas);
+				//产品折线图
+				let pro_baselines = res.product.baselines;
+				let pro_samplenumbers = res.product.samplenumbers;
+				let pro_data = {
+					pro_baselines,
+					pro_samplenumbers,
+					yms
+				};
+				let pro_datas = [];
+				pro_data.pro_baselines.forEach((pro_baselines,index) => {
+					let item = {
+						key: pro_data.yms[index],
+						value: pro_data.pro_samplenumbers[index],
+						value2: pro_baselines,
+					}
+					pro_datas.push(item);
+				});
+				this.set('pro_datas',pro_datas);
+				console.log(":pro_datas");
+				console.log(pro_datas);
+				//样本销售额折线图
+				let sale_baselines = res.sales.baselines;
+				let sale_samplenumbers = res.sales.samplenumbers;
+				let sale_data = {
+					sale_baselines,
+					sale_samplenumbers,
+					yms
+				};
+				let sale_datas = [];
+				sale_data.sale_baselines.forEach((sale_baselines,index) => {
+					let item = {
+						key: sale_data.yms[index],
+						value: sale_data.sale_samplenumbers[index],
+						value2: sale_baselines,
+					}
+					sale_datas.push(item);
+				});
+				this.set('sale_datas',sale_datas);
+				console.log(":sale_datas");
+				console.log(sale_datas)
+
+				let notfindhospital = res.notfindhospital;
+				console.log(":notfindhospital");
+				console.log(notfindhospital);
+				this.set('prodSalesValue',notfindhospital);
+			} else {
+				this.set('error', true);
+				this.set('errorMessage', error.message);
+			}
+
 		});
-		// let condition = {
-		// 	condition: {
-		// 		job_id: this.get('cookies').read('job_id'),
-		// 		market: market,
-		// 		years: years
-		// 	}
-		// }
-		// this.get('ajax').request('/api/search/check/simple', this.getAjaxOpt(condition)).then(({
-		// 	result,
-		// 	error,
-		// 	status
-		// }) => {
-		// 	if (status === 'ok') {
-		// 		let getHospital = SampleEchartsOption.create()
-		// 		let getProduct = SampleEchartsOption.create()
-		// 		let getSales = SampleEchartsOption.create()
-		// 		this.set('hospitalOption', getHospital.getOption(result.hospital))
-		// 		this.set('productOption', getProduct.getOption(result.product))
-		// 		this.set('salesOption', getSales.getOption(result.sales))
-		// 		this.set('hospitalNumber', result.hospital.currentNumber)
-		// 		this.set('lastYearHospitalNumber', result.hospital.lastYearNumber)
-		//
-		// 		this.set('productNumber', result.product.currentNumber)
-		// 		this.set('lastYearProductNumber', result.product.lastYearNumber)
-		//
-		// 		this.set('salesNumber', result.sales.currentNumber)
-		// 		this.set('lastYearSalesNumber', result.sales.lastYearNumber)
-		//
-		// 		this.set('model', result.notfindhospital);
-		// 	} else {
-		// 		this.set('error', true);
-		// 		this.set('errorMessage', error.message);
-		// 	}
-		// });
+
 	},
 	init() {
 		this._super(...arguments);
 		this.prodSalesLine = [];
 		this.querySelectArg();
-		// this.set('columns', [
-		// 	{ propertyName: 'index', 'className':'text-center', title: '序号', useSorting: false },
-		// 	{
-		// 		propertyName: 'index',
-		// 		'className': 'text-center',
-		// 		useSorting: false
-		// 	},
-		// 	{
-		// 		propertyName: 'hospitalName',
-		// 		'className': 'text-center',
-		// 		useSorting: false
-		// 	},
-		// 	{
-		// 		propertyName: 'province',
-		// 		'className': 'text-center',
-		// 		useSorting: false
-		// 	},
-		// 	{
-		// 		propertyName: 'city',
-		// 		'className': 'text-center',
-		// 		useSorting: false
-		// 	},
-		// 	{
-		// 		propertyName: 'cityLevel',
-		// 		'className': 'text-center',
-		// 		useSorting: false
-		// 	}
-		// ]);
-
+		this.prodSales = [{
+	            label: '序号',
+				width:'200px',
+	            valuePath: 'index',
+	            classNames: 'tabl',
+	            align: 'center',
+	            sortable: false, //是否可以对列进行排序
+	            minResizeWidth: '70px', //列可以调整的最小宽度
+	        }, {
+	            label: '医院名称',
+	            valuePath: 'hospitalName',
+	            classNames: 'tabl',
+	            align: 'left',
+	            sortable: false,
+	            minResizeWidth: '70px',
+	        }];
+	        this.prodSalesValue = [{
+				index: '1',
+				hospitalName: '临河区中心医院'
+			},{
+				index: '2',
+				hospitalName: '临河区中心医院2'
+			}];
 
 	},
 	actions: {
