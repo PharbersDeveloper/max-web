@@ -47,10 +47,10 @@ export default Controller.extend({
 		}
 	},
 	querySelectArg() {
-		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
-		let company = "5afa53bded925c05c6f69c54";
-		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
-		let job = "1c62ee92-8bde-1839-875c-da40f79fc489"
+		let company = this.store.peekAll('phmaxjob').firstObject.company_id;
+		// let company = "5afa53bded925c05c6f69c54";
+		let job = this.store.peekAll('phmaxjob').firstObject.job_id;
+		// let job = "1c62ee92-8bde-1839-875c-da40f79fc489"
 		let req = this.store.createRecord('samplecheckselecter',{
 			res: "phselecter",
 			company_id: company,
@@ -80,12 +80,12 @@ export default Controller.extend({
 		// console.log(years);
 		let market = "麻醉市场";
 		let years = "201801";
-		let company = "5afa53bded925c05c6f69c54";
-		let job = "1c62ee92-8bde-1839-875c-da40f79fc489";
-		let user = "jeorch";
-		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
-		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
-		// let user = this.store.peekAll('phmaxjob').firstObject.user_id;
+		// let company = "5afa53bded925c05c6f69c54";
+		// let job = "1c62ee92-8bde-1839-875c-da40f79fc489";
+		// let user = "jeorch";
+		let company = this.store.peekAll('phmaxjob').firstObject.company_id;
+		let job = this.store.peekAll('phmaxjob').firstObject.job_id;
+		let user = this.store.peekAll('phmaxjob').firstObject.user_id;
 		let req = this.store.createRecord('samplecheckbody',{
 			res: "samplecheckbody",
 			company_id: company,

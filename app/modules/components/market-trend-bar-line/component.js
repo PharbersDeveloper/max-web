@@ -43,6 +43,8 @@ export default Component.extend({
         yScale.domain([0, d3.max(values)]);
 
         let svgContainer = d3.select('.market-trend-bar-line');
+        console.log(":svgContainer");
+        console.log(svgContainer);
         let tooltip = svgContainer.append('div').attr("class", "_tooltip_1mas67").style("opacity", 0.0);
         let svg = svgContainer.append("svg")
             .attr('preserveAspectRatio', 'xMidYMid meet')

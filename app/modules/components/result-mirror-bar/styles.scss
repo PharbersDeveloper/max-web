@@ -1,0 +1,20 @@
+#chart {
+    margin:0px;
+    color:red;
+  }
+  .label {
+    font-size: 10px;
+    font-family: 'sans-serif';
+    alignment-baseline: middle;
+    fill: red;
+    color:red;
+  }
+  .number, .subtitle {
+    font-size: 20pt;
+    font-family: 'sans-serif';
+    alignment-baseline: middle;
+    fill: #300089;
+  }
+  .bar {
+    fill: #300089;
+  }
