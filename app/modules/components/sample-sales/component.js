@@ -24,6 +24,7 @@ export default Component.extend({
         //     { key: '2017 11', value: '', value2: 18 },
         //     { key: '2017 12', value: '', value2: 26 },
         // ];
+        d3.select('.sample-bar-line').select("svg").remove();
         let dataset = this.get('dataset');
         if(dataset != undefined) {
         //Xname,barValue,lineValue
@@ -44,6 +45,7 @@ export default Component.extend({
         xScale.domain(xDatas);
         yScale.domain([0, maxY]); //将最大数字赋值给y
 
+        // let svgContainer = d3.select('.sample-bar-line');
         let svgContainer = d3.select('.sample-bar-line');
         let tooltip = svgContainer.append('div').attr("class", "_tooltip_1mas67").style("opacity", 0.0);
         let svg = svgContainer.append("svg")

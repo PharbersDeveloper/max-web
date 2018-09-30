@@ -21,27 +21,6 @@ export default Component.extend({
 	allMonths: false,
 	chooseTrueNums: 0,
 	selectedArea: 0,
-	// months: [{
-	// 		year: '04/2018',
-	// 		isChecked: false
-	// 	},
-	// 	{
-	// 		year: '05/2018',
-	// 		isChecked: false
-	// 	},
-	// 	{
-	// 		year: '06/2018',
-	// 		isChecked: false
-	// 	},
-	// 	{
-	// 		year: '07/2018',
-	// 		isChecked: false
-	// 	},
-	// 	{
-	// 		year: '08/2018',
-	// 		isChecked: false
-	// 	},
-	// ],
 	marketSumSales: 0,
 	marketSumSalesPercentage: 0,
 	productSumSales: 0,
@@ -87,11 +66,11 @@ export default Component.extend({
 		}
 	},
 	querySelectArg() {
-		let condition = {
-			condition: {
-				job_id: this.get('cookies').read('job_id')
-			}
-		}
+		// let condition = {
+		// 	condition: {
+		// 		job_id: this.get('cookies').read('job_id')
+		// 	}
+		// }
 		// this.get('ajax').request('/api/search/check/result/select',
 		// 	this.getAjaxOpt(condition)).then(({
 		// 	result,
@@ -122,30 +101,30 @@ export default Component.extend({
 				years: year
 			}
 		}
-		this.get('ajax').request('/api/search/check/result',
-			this.getAjaxOpt(condition)).then(({
-			result,
-			error,
-			status
-		}) => {
-			if (status !== "ok") {
-				this.set('errorMessage', error.message);
-			}
-			let trend = ResultTrendEchartsOption.create()
-			let region = ResultMapEchartsOption.create()
-			let mirrorProvinces = ResultMirrorEchartsOption.create()
-			let mirrorCity = ResultMirrorEchartsOption.create()
-
-			this.set('marketSumSales', result.indicators.marketSumSales.currentNumber)
-			this.set('marketSumSalesPercentage', result.indicators.marketSumSales.lastYearPercentage)
-			this.set('productSumSales', result.indicators.productSales.currentNumber)
-			this.set('productSumSalesPercentage', result.indicators.productSales.lastYearPercentage)
-
-			this.set('trendOption', trend.getOption(result.trend))
-			this.set('regionOption', region.getOption(result.region))
-			this.set('mirrorProvinceOption', mirrorProvinces.getOption(result.mirror.provinces))
-			this.set('mirrorCityOption', mirrorCity.getOption(result.mirror.city))
-		})
+		// this.get('ajax').request('/api/search/check/result',
+		// 	this.getAjaxOpt(condition)).then(({
+		// 	result,
+		// 	error,
+		// 	status
+		// }) => {
+		// 	if (status !== "ok") {
+		// 		this.set('errorMessage', error.message);
+		// 	}
+		// 	let trend = ResultTrendEchartsOption.create()
+		// 	let region = ResultMapEchartsOption.create()
+		// 	let mirrorProvinces = ResultMirrorEchartsOption.create()
+		// 	let mirrorCity = ResultMirrorEchartsOption.create()
+		//
+		// 	this.set('marketSumSales', result.indicators.marketSumSales.currentNumber)
+		// 	this.set('marketSumSalesPercentage', result.indicators.marketSumSales.lastYearPercentage)
+		// 	this.set('productSumSales', result.indicators.productSales.currentNumber)
+		// 	this.set('productSumSalesPercentage', result.indicators.productSales.lastYearPercentage)
+		//
+		// 	this.set('trendOption', trend.getOption(result.trend))
+		// 	this.set('regionOption', region.getOption(result.region))
+		// 	this.set('mirrorProvinceOption', mirrorProvinces.getOption(result.mirror.provinces))
+		// 	this.set('mirrorCityOption', mirrorCity.getOption(result.mirror.city))
+		// })
 	},
 	actions: {
 		saveData() {

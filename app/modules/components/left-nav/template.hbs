@@ -8,7 +8,9 @@
                 {{/dd.toggle}}
                 {{#dd.menu as |menu|}}
                     {{#menu.item}}
-                        <a href="#" {{action 'logut' }}>登出</a>
+                        {{#link-to 'landing'}}
+                            登出
+                        {{/link-to}}
                     {{/menu.item}}
                 {{/dd.menu}}
             {{/bs-dropdown}}

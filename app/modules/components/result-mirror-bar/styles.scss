@@ -1,20 +1,39 @@
-#chart {
-    margin:0px;
-    color:red;
-  }
-  .label {
-    font-size: 10px;
-    font-family: 'sans-serif';
-    alignment-baseline: middle;
-    fill: red;
-    color:red;
-  }
-  .number, .subtitle {
-    font-size: 20pt;
-    font-family: 'sans-serif';
-    alignment-baseline: middle;
-    fill: #300089;
-  }
-  .bar {
-    fill: #300089;
-  }
+// #chart {
+//     margin:0px;
+//     color:red;
+//   }
+//   .label {
+//     font-size: 10px;
+//     font-family: 'sans-serif';
+//     alignment-baseline: middle;
+//     fill: red;
+//     color:red;
+//   }
+//   .number, .subtitle {
+//     font-size: 20pt;
+//     font-family: 'sans-serif';
+//     alignment-baseline: middle;
+//     fill: #300089;
+//   }
+//   .bar {
+//     fill: #300089;
+//   }
+
+.bar--positive {
+  fill: steelblue;
+}
+
+.bar--negative {
+  fill: darkorange;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}

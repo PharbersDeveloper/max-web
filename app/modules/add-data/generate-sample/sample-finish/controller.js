@@ -50,7 +50,7 @@ export default Controller.extend({
 		let company = this.store.peekAll('phmaxjob').firstObject.company_id;
 		// let company = "5afa53bded925c05c6f69c54";
 		let job = this.store.peekAll('phmaxjob').firstObject.job_id;
-		// let job = "1c62ee92-8bde-1839-875c-da40f79fc489"
+		// let job = "d1af7bd5-c164-0c15-6510-0121d66d0c9f"
 		let req = this.store.createRecord('samplecheckselecter',{
 			res: "phselecter",
 			company_id: company,
@@ -81,7 +81,7 @@ export default Controller.extend({
 		let market = "麻醉市场";
 		let years = "201801";
 		// let company = "5afa53bded925c05c6f69c54";
-		// let job = "1c62ee92-8bde-1839-875c-da40f79fc489";
+		// let job = "d1af7bd5-c164-0c15-6510-0121d66d0c9f";
 		// let user = "jeorch";
 		let company = this.store.peekAll('phmaxjob').firstObject.company_id;
 		let job = this.store.peekAll('phmaxjob').firstObject.job_id;
@@ -100,6 +100,7 @@ export default Controller.extend({
 		console.log("---checkbody result----")
 		this.store.queryObject('/api/v1/samplecheckbody/0','samplecheckbody', result ).then((res) => {
 			if(res !== "") {
+				console.log(res);
 				let hosp_currentNumber = res.hospital.currentNumber;
 				let hosp_lastYearNumber = res.hospital.lastYearNumber;
 				this.set('hospitalNumber',hosp_currentNumber);
@@ -132,8 +133,6 @@ export default Controller.extend({
 					hosp_datas.push(item);
 				});
 				this.set('hosp_datas',hosp_datas);
-				console.log(":hosp_datas")
-				console.log(hosp_datas);
 				//产品折线图
 				let pro_baselines = res.product.baselines;
 				let pro_samplenumbers = res.product.samplenumbers;
@@ -152,8 +151,6 @@ export default Controller.extend({
 					pro_datas.push(item);
 				});
 				this.set('pro_datas',pro_datas);
-				console.log(":pro_datas");
-				console.log(pro_datas);
 				//样本销售额折线图
 				let sale_baselines = res.sales.baselines;
 				let sale_samplenumbers = res.sales.samplenumbers;
@@ -172,12 +169,8 @@ export default Controller.extend({
 					sale_datas.push(item);
 				});
 				this.set('sale_datas',sale_datas);
-				console.log(":sale_datas");
-				console.log(sale_datas)
 
 				let notfindhospital = res.notfindhospital;
-				console.log(":notfindhospital");
-				console.log(notfindhospital);
 				this.set('prodSalesValue',notfindhospital);
 			} else {
 				this.set('error', true);
