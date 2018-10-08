@@ -47,12 +47,14 @@ export default Component.extend({
                         return tooltip.style("hidden", false).html("this");
                     })
                     .on("mousemove",function(d){
-                        console.log(d)
                         tooltip.classed("hidden", false)
                                .style("top", (d3.event.offsetY) + "px")
                                .style("left", (d3.event.offsetX+30) + "px")
                                .html(function(){
-                                   return d.properties.name
+                                   return d.properties.name + `<br>`
+                                   + "市场销售额：" + "10000" + `<br>`
+                                   + "产品销售额：" + "150000" + `<br>`
+                                   + "份额：" + "15%";
                                });
                     }) //鼠标当前区域现实文字
                     .on("mouseout",function(d,i){

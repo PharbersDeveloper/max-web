@@ -9,15 +9,20 @@ export default Route.extend({
         this.store.peekAll('phauth').forEach(ele => {
             company = ele.profile.company.companyname;
             username =  ele.profile.username;
+            localStorage.setItem('username',username);
+            localStorage.setItem('company',company);
         });
+        let user = localStorage.getItem('username');
+        let comp = localStorage.getItem('company')
         // this.controllerFor('data-center').set('data',{company: company,username: "bbb"})
         return RSVP.hash({
              title:"Pharbers 数据平台",
-             company: company,
-             username: username
+             company: comp,
+             username: user,
          });
 
-        this.startDate = new Date('2018-01');
-		this.endDate = new Date();
+
+        // this.startDate = new Date('2018-01');
+		// this.endDate = new Date();
     }
 });

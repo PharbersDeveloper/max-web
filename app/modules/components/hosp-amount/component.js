@@ -24,6 +24,7 @@ export default Component.extend({
         //     { key: '2017 11', value: '', value2: 18 },
         //     { key: '2017 12', value: '', value2: 26 },
         // ];
+        d3.select('.hosp-bar-line').select("svg").remove();
         let dataset = this.get('dataset');
         if(dataset != undefined) {
         //Xname,barValue,lineValue

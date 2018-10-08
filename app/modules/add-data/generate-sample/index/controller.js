@@ -21,9 +21,14 @@ export default Controller.extend(XMPPMixin,{
 	fluResult: observer('message', function() {
 		let msg2Json = this.get('message');
 		if (msg2Json.data.attributes.call === 'ymCalc') {
-            SampleObject.set('fileParsingSuccess',true);
+			SampleObject.set('isShowProgress',false);
+			SampleObject.set('calcYearsProgress',false);
+			let job_current = localStorage.getItem('job_id');
+			let job_xmpp = msg2Json.data.attributes.job_id;
+			if (job_current === job_xmpp) {
+				SampleObject.set('fileParsingSuccess',true);
+			}
         } else if (msg2Json.data.attributes.call === 'panel') {
-            console.log("this is transitionToSample");
             this.transitionToRoute('add-data.generate-sample.sample-finish');
         } else if(msg2Json.data.attributes.call === 'calc') {
 			this.transitionToRoute('add-data.viewresults');
@@ -71,17 +76,37 @@ export default Controller.extend(XMPPMixin,{
 	},
 	actions: {
 		startParsingFile() {
-			let req = this.store.peekAll('phmaxjob').lastObject;
+			SampleObject.set('isShowProgress',true);
+			SampleObject.set('calcYearsProgress',true);
+			// let req = this.store.peekAll('phmaxjob').lastObject;
+			let cpa = localStorage.getItem('cpa');
+			let gycx = localStorage.getItem('gycx');
+			let not_arrival_hosp_file = localStorage.getItem('hosp_file');
+			let job_id = localStorage.getItem('job_id');
+			let company_id = localStorage.getItem('company_id');
+			let user_id = localStorage.getItem('username');
+			let req = this.store.createRecord('phmaxjob',{
+				call: "ymCalc",
+				job_id: job_id,
+				user_id: user_id,
+				cpa: cpa,
+				gycx: gycx,
+				not_arrival_hosp_file: not_arrival_hosp_file,
+				company_id: company_id
+			})
 			console.log("this is ymCalc");
 			let result = this.store.object2JsonApi('phmaxjob', req, false);
 			console.log(result);
 			this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
                 console.log(resp.not_arrival_hosp_file);
-				// SampleObject.set('fileParsingSuccess',true);
+				// SampleObject.set('isShowProgress',true);
+				// SampleObject.set('calcYearsProgress',true);
             })
-            // SampleObject.set('fileParsingSuccess',true);
 		},
 		startGenerateSample () {
+			SampleObject.set('calcYearsProgress',false);
+			SampleObject.set('isShowProgress',true);
+			SampleObject.set('calcPanelProgress',true);
 			let ymList = this.get('ymList');
 			let message = this.get('message');
 			// let years = ymList.filterBy('isChecked',true).join('#');

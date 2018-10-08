@@ -110,12 +110,12 @@ export default Component.extend({
     //     //     .text(d => `${xValue(d)} (${xPercent(d)})`);
     // }
     drawChart() {
-        var margin = {top: 100, right: 30, bottom: 40, left: 30},
-            width = 350 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
+        var margin = {top: 100, right: 50, bottom: 40, left: -30},
+            width = 100 - margin.left - margin.right,
+            height = 200 - margin.top - margin.bottom;
 
-        var x =  d3.scaleLinear()
-            .range([0, width]);
+        var x =  d3.scaleLinear() //返回一个线性比例尺
+            .range([0, width]); //设定比例尺的值域
 
         var y = d3.scaleBand()
             .range([0, height], 0.1);
@@ -141,10 +141,10 @@ export default Component.extend({
           value:-20
         },{
           name:"C",
-          value:18
+          value:-18
         },{
           name:"D",
-          value:20
+          value:-30
         }]
           x.domain(d3.extent(data, function(d) { return d.value; })).nice();
           y.domain(data.map(function(d) { return d.name; }));
@@ -157,11 +157,11 @@ export default Component.extend({
               .attr("y", function(d) { return y(d.name); })
               .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
               .attr("height", y.bandwidth());
-
-          svg.append("g")
-              .attr("class", "x axis")
-              .attr("transform", "translate(0," + height + ")")
-              .call(xAxis);
+          //
+          // svg.append("g")
+          //     .attr("class", "x axis")
+          //     .attr("transform", "translate(0," + height + ")")
+          //     .call(xAxis);
 
           svg.append("g")
               .attr("class", "y axis")

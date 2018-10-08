@@ -10,7 +10,10 @@ export default Controller.extend({
         let result = this.store.object2JsonApi('request', req);
 
         this.store.queryObject('/api/v1/maxjobgenerate/0','phmaxjob', result ).then((res) => {
-
+            console.log("this is upload")
+            console.log(res);
+            localStorage.setItem('job_id',res.job_id)
+            localStorage.setItem('company_id',res.company_id)
         });
     },
     actions: {
@@ -26,11 +29,12 @@ export default Controller.extend({
             // do { curDate = new Date(); }
             // while(curDate-date < 500);
             this.store.queryObject('/api/v1/maxjobpush/0','phmaxjob',result).then((resp) => {
-                console.log("response");
                 console.log(resp.cpa);
                 if(!isEmpty(resp.not_arrival_hosp_file)) {
-                    console.log(resp.not_arrival_hosp_file)
-                    console.log("correct")
+                    console.log("uploadfiles is ok");
+                    localStorage.setItem('not_arrival_hosp_file',resp.not_arrival_hosp_file);
+                    localStorage.setItem('cpa',resp.cpa);
+                    localStorage.setItem('gycx',resp.gycx);
                     this.transitionToRoute('/add-data/generate-sample');
                 } else {
                     console.log("error route");

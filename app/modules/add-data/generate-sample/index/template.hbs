@@ -10,8 +10,26 @@
             <span local-class="tip-text">GYCX : </span>
             <span local-class="txt">&nbsp;&nbsp;{{gycxfilename}}</span>
         </p>
-
         {{#unless SampleObject.isShowProgress}}
+            <div local-class="btn-start" {{action "startParsingFile"}}>
+                <div local-class="btn-start-content">
+                    开始
+                </div>
+            </div>
+        {{/unless}}
+            {{#if SampleObject.calcYearsProgress}}
+                {{progress-bar}}
+            {{/if}}
+            {{#if SampleObject.calcPanelProgress}}
+                {{progress-bar}}
+            {{/if}}
+            {{!-- {{progress-bar}} --}}
+        {{!-- {{/unless}} --}}
+        <p local-class="reupload">
+            {{#bs-button onClick=(action (mut uploadAgain) true)}}上传错误？重新上传{{/bs-button}}
+        </p>
+
+        {{!-- {{#unless SampleObject.isShowProgress}}
             <div local-class="btn-start" {{action "startParsingFile"}}>
                 <div local-class="btn-start-content">
                     开始
@@ -31,10 +49,8 @@
             </p>
         {{else}}
             <p local-class="calc-progress-text">正在解析您的原文件。。。</p>
-        {{/unless}}
-        {{!-- {{#link-to 'add-data.calcmax'}}
-          <p>MAX计算</p>
-        {{/link-to}} --}}
+        {{/unless}} --}}
+
     </div>
 
 </div>

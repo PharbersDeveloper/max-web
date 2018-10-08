@@ -42,14 +42,19 @@ export default Controller.extend({
 		}
 	},
     querySelectArg() {
-		let company = this.store.peekAll('phmaxjob').firstObject.company_id;
+		let company_id = localStorage.getItem('company_id');
+		let job_id = localStorage.getItem('job_id');
+		//
+		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
+		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
+
+		// let job = "30bbdb4b-477d-92cf-f0d3-bdf6c952979e"
 		// let company = "5afa53bded925c05c6f69c54";
-		let job = this.store.peekAll('phmaxjob').firstObject.job_id;
-		// let job = "d1af7bd5-c164-0c15-6510-0121d66d0c9f"
+
 		let req = this.store.createRecord('samplecheckselecter',{
 			res: "phselecter",
-			company_id: company,
-			job_id: job
+			company_id: company_id,
+			job_id: job_id
 		})
 
 		let result = this.store.object2JsonApi('request', req);
@@ -65,19 +70,28 @@ export default Controller.extend({
 		});
     },
 	queryContentData() {
-		let company = this.store.peekAll('phmaxjob').lastObject.company_id;
-		let job = this.store.peekAll('phmaxjob').lastObject.job_id;
-		let user = this.store.peekAll('phmaxjob').lastObject.user_id;
+		// let company = this.store.peekAll('phmaxjob').lastObject.company_id;
+		// let job = this.store.peekAll('phmaxjob').lastObject.job_id;
+		// let user = this.store.peekAll('phmaxjob').lastObject.user_id;
+
+		let company_id = localStorage.getItem('company_id');
+		let job_id = localStorage.getItem('job_id');
+		let user_id = localStorage.getItem('user_id');
 		// let company = "5afa53bded925c05c6f69c54";
 		// let job = "d1af7bd5-c164-0c15-6510-0121d66d0c9f";
 		// let user = "jeorch";
-		let ym = "201801";
-		let market = "麻醉市场";
+
+		let market = $('select[name="markets"]').val() || "麻醉市场";
+		console.log(market);
+		let ym = $('select[name="years"]').val() || "201801";
+		console.log(ym);
+		// let ym = "201801";
+		// let market = "麻醉市场";
 		let req = this.store.createRecord('resultcheck',{
 			res: "result chech",
-			user_id: user,
-			job_id: job,
-			company_id: company,
+			user_id: user_id,
+			job_id: job_id,
+			company_id: company_id,
 			ym: ym,
 			market: market
 		})
@@ -91,9 +105,9 @@ export default Controller.extend({
 				let product_percentage = res.indicators.productSales.lastYearPercentage;
 				this.set('selectedMarket',selectedMarket);
 				this.set('marketSumSales',market_current);
-				this.set('marketSumSalesPercentage',market_percentage);
+				this.set('marketSumSalesPercentage',market_percentage.toFixed(2));
 				this.set('productSumSales',product_current);
-				this.set('productSumSalesPercentage',product_percentage);
+				this.set('productSumSalesPercentage',product_percentage.toFixed(2));
 
 				console.log(res.trend);
 				let trend = res.trend;

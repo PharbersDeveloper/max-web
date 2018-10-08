@@ -3875,6 +3875,13 @@ ember-cookies@^0.3.0:
     ember-cli-babel "^6.8.2"
     ember-getowner-polyfill "^1.1.0 || ^2.0.0"
 
+ember-cookies@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.npmjs.org/ember-cookies/-/ember-cookies-0.3.1.tgz#42ca530703092f6cde691103d608a6a5a58f2d76"
+  dependencies:
+    ember-cli-babel "^6.8.2"
+    ember-getowner-polyfill "^1.1.0 || ^2.0.0"
+
 ember-css-modules-sass@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ember-css-modules-sass/-/ember-css-modules-sass-1.0.0.tgz#657feddc9a257d18f2bf3bf5141c6365b1fa42ca"
@@ -7508,6 +7515,13 @@ performance-now@^0.2.0:
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
+
+pharbers-route-addon@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/pharbers-route-addon/-/pharbers-route-addon-1.0.2.tgz#929c7fc6abe3b1ee7d3488e83442c8a51a1653f5"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+    ember-cookies "^0.3.1"
 
 pify@^2.0.0:
   version "2.3.0"
