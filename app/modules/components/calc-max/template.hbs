@@ -11,7 +11,7 @@
             </div>
         {{else}}
             {{!-- {{circle-progress option=circleProgressOption eid="circle-progress"}} --}}
-            {{progress-bar}}
+            {{progress-bar newAngle=newAngle}}
         {{/unless}}
         {{#unless MaxCalculateObject.isShowCalcProgress}}
             <p local-class="calc-progress-text">准备计算</p>

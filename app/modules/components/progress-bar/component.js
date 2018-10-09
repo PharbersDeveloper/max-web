@@ -9,6 +9,9 @@ export default Component.extend({
         run.scheduleOnce('render', this, this.drawChart);
     },
     drawChart() {
+        d3.select('text').remove();
+        const Pi = Math.PI;
+        let newAngle = parseInt(this.get('newAngle')) || 0;
         var arcGenerator = d3.arc()
         .innerRadius(80)
         .outerRadius(100)
@@ -21,7 +24,7 @@ export default Component.extend({
             .style("fill", "#E1E1E1")
             .attr("d", arcGenerator);
         var upperGround = picture.append('path')
-          .datum({endAngle:Math.PI / 2})
+          .datum({endAngle:newAngle/100 *Pi*2})
           .style('fill','#60B3AD')
           .attr('d',arcGenerator)
         var dataText = d3.select('g')
@@ -30,19 +33,17 @@ export default Component.extend({
             .attr('text-anchor','middle')
             .attr('dominant-baseline','middle')
             .attr('font-size','38px')
-        d3.interval(function(){  //每隔指定的毫秒数循环调用函数或表达式
           upperGround.transition().duration(750)  //设置了当前DOM属性过渡变化为指定DOM属性过程所需时间（毫秒）
           .attrTween('d',function(d){  //插值功能API
-           var compute = d3.interpolate(d.endAngle,Math.random() * Math.PI * 2);  //实现了插值范围[当前角度值，随机角度值]
+           var compute = d3.interpolate(d.endAngle,newAngle/100 *Pi*2);  //实现了插值范围[当前角度值，随机角度值]
            return function(t){
             d.endAngle = compute(t);
-            var data = d.endAngle / Math.PI / 2 * 100;
+            var data = newAngle;
             //设置数值
             dataText.text(data.toFixed(0) + '%');
             //将新参数传入，生成新的圆弧构造器
             return arcGenerator(d);
            }
           })
-         },2000)
     }
 });

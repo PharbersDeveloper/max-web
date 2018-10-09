@@ -18,10 +18,10 @@
             </div>
         {{/unless}}
             {{#if SampleObject.calcYearsProgress}}
-                {{progress-bar}}
+                {{progress-bar newAngle=ymPercentage}}
             {{/if}}
             {{#if SampleObject.calcPanelProgress}}
-                {{progress-bar}}
+                {{progress-bar newAngle=panelPercentage}}
             {{/if}}
             {{!-- {{progress-bar}} --}}
         {{!-- {{/unless}} --}}

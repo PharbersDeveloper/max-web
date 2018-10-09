@@ -22,17 +22,41 @@ export default Controller.extend(XMPPMixin,{
 	fluResult: observer('message', function() {
 		let msg2Json = this.get('message');
 		if (msg2Json.data.attributes.call === 'ymCalc') {
-			SampleObject.set('isShowProgress',false);
-			SampleObject.set('calcYearsProgress',false);
 			let job_current = localStorage.getItem('job_id');
 			let job_xmpp = msg2Json.data.attributes.job_id;
-			if (job_current === job_xmpp) {
-				SampleObject.set('fileParsingSuccess',true);
+			let ymPercentage = msg2Json.data.attributes.percentage;
+			this.set('ymPercentage',ymPercentage);
+
+			if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
+				setTimeout(function(){
+					SampleObject.set('fileParsingSuccess',true);
+					SampleObject.set('isShowProgress',false);
+					SampleObject.set('calcYearsProgress',false);
+				},1000)
+
 			}
         } else if (msg2Json.data.attributes.call === 'panel') {
-            this.transitionToRoute('add-data.generate-sample.sample-finish');
+				let job_current = localStorage.getItem('job_id');
+				let job_xmpp = msg2Json.data.attributes.job_id;
+				let panelPercentage = msg2Json.data.attributes.percentage;
+				this.set('panelPercentage',panelPercentage);
+				let that = this;
+			   if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
+				   setTimeout(function(){
+					   that.transitionToRoute('add-data.generate-sample.sample-finish');
+				   },1000)
+			   }
         } else if(msg2Json.data.attributes.call === 'calc') {
-			MaxCalculateObject.set('calcHasDone',true);
+				let job_current = localStorage.getItem('job_id');
+				let job_xmpp = msg2Json.data.attributes.job_id;
+				let maxPercentage = msg2Json.data.attributes.percentage;
+				this.set('maxPercentage',maxPercentage);
+			   if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
+				   setTimeout(function(){
+					   MaxCalculateObject.set('calcHasDone',true);
+				   },1000)
+			   }
+
 			// this.transitionToRoute('add-data.viewresults');
 			// this.transitionToRoute('add-data.viewresults')
 		}
@@ -89,6 +113,7 @@ export default Controller.extend(XMPPMixin,{
 			let user_id = localStorage.getItem('username');
 			let req = this.store.createRecord('phmaxjob',{
 				call: "ymCalc",
+				percentage: 0,
 				job_id: job_id,
 				user_id: user_id,
 				cpa: cpa,
