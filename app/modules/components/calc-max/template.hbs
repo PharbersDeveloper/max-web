@@ -10,7 +10,8 @@
                 </div>
             </div>
         {{else}}
-            {{circle-progress option=circleProgressOption eid="circle-progress"}}
+            {{!-- {{circle-progress option=circleProgressOption eid="circle-progress"}} --}}
+            {{progress-bar}}
         {{/unless}}
         {{#unless MaxCalculateObject.isShowCalcProgress}}
             <p local-class="calc-progress-text">准备计算</p>
@@ -19,7 +20,7 @@
                 <p local-class="calc-progress-text-ing">正在进行MAX计算...</p>
             {{else}}
                 <p local-class="calc-progress-text-ing">
-                    {{#link-to "adddata.viewresults"}}
+                    {{#link-to "add-data.viewresults"}}
                         <button local-class="btn-default-max">查看结果 <span class="glyphicon glyphicon-play"></span> </button>
                     {{/link-to}}
                 </p>

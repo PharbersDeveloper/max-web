@@ -12,9 +12,8 @@ export default Component.extend({
     }
     },
     drawChart() {
+        d3.select('.market-trend-bar-line').select("svg").remove();
         let dataset = this.get("dataset");
-    
-
         let barColor = "#2DD2C2";
         let width = 900;
         let height = 200;

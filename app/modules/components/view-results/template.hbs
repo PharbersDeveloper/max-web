@@ -3,7 +3,7 @@
         <div local-class="result-choosebar">
             <div local-class="choosebar-content choosebar-left">
                 <span local-class="select-title">市场</span>
-                <select local-class="choose-select choose-market" name="markets" {{action 'queryAll' on='change'}}>
+                <select local-class="choose-select choose-market" name="markets"  {{action 'queryAll' on='change'}}>
                     {{#each markets as |item|}}
                         <option value={{item}}>{{item}}</option>
                     {{/each}}
@@ -65,7 +65,6 @@
                 <p local-class="result-title">
                 <span>{{selectedMarket}}</span> 市场趋势 <span local-class="trend-legend"> <span></span><span local-class="text">市场销售额</span> <span>——</span><span local-class="text">份额变化趋势</span></span></p>
                     {{market-trend-bar-line dataset=trend}}
-                     {{!-- {{result-trend-line-and-bar eid="result-trend-line-and-bar" option=trendOption}} --}}
             </div>
         </div>
         <div local-class="market-results">

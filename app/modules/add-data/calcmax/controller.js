@@ -1,17 +1,11 @@
 import Controller from '@ember/controller';
 import { observer } from '@ember/object';
+import MaxCalculateObject from '../../common/xmpp-message-object/MaxCalculateMessage';
 
 export default Controller.extend({
-    fluResult: observer('message', function() {
-        let msg2Json = this.get('message');
-        console.log(msg2Json);
-        if(msg2Json.data.attributes.call === 'calc') {
-			this.transitionToRoute('add-data.viewresults');
-			// this.transitionToRoute('add-data.viewresults')
-		}
-    }),
     actions: {
         startCalcMAX() {
+            MaxCalculateObject.set('isShowCalcProgress',true);
             console.log("this is calcmax");
 			this.store.peekAll('phmaxjob').lastObject.set('call','max');
 			let req = this.store.peekAll('phmaxjob').lastObject;
@@ -21,8 +15,10 @@ export default Controller.extend({
 			// let job_id = localStorage.getItem('job_id');
 			// let company_id = localStorage.getItem('company_id');
 			// let user_id = localStorage.getItem('username');
+            // let not_arrival_hosp_file = localStorage.getItem('not_arrival_hosp_file');
 			// let req = this.store.createRecord('phmaxjob',{
 			// 	call: "max",
+            //     yms: "201803",
 			// 	job_id: job_id,
 			// 	user_id: user_id,
 			// 	cpa: cpa,

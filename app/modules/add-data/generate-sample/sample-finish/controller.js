@@ -50,8 +50,6 @@ export default Controller.extend({
 		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
 		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
 
-		// let job = "971f8fb8-eabb-42c9-da47-ce1745d89411"
-		// let company = "5afa53bded925c05c6f69c54";
 		let job_id = localStorage.getItem('job_id');
 		let company_id = localStorage.getItem('company_id');
 
@@ -68,6 +66,8 @@ export default Controller.extend({
 			if(res !== "") {
 				this.set("markets",res.mkt_list);
 				this.set("years",res.ym_list);
+				localStorage.setItem('market',res.mkt_list[0]);
+				localStorage.setItem('year',res.ym_list[0]);
 				this.queryContentData();
 			} else {
 				this.set('sampleCheckError', true);
@@ -79,18 +79,13 @@ export default Controller.extend({
 		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
 		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
 		// let user = this.store.peekAll('phmaxjob').firstObject.user_id;
-		// let market = "麻醉市场";
-		// let years = "201801";
-
-		let market = $('select[name="markets"]').val() || "麻醉市场";
+		let market = $('select[name="markets"]').val() || localStorage.getItem('market');
 		console.log(market);
-		let years = $('select[name="years"]').val() || "201801";
+		let years = $('select[name="years"]').val() || localStorage.getItem('year');
 		console.log(years);
-		// let company = "5afa53bded925c05c6f69c54";
-		// let job = "971f8fb8-eabb-42c9-da47-ce1745d89411";
 		let job_id = localStorage.getItem('job_id');
 		let company_id = localStorage.getItem('company_id');
-		let user = "jeorch";
+		let user = localStorage.getItem('username');;
 
 		let req = this.store.createRecord('samplecheckbody',{
 			res: "samplecheckbody",

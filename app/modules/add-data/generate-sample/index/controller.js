@@ -4,7 +4,8 @@ import {
 } from '@ember/service';
 import rsvp from 'rsvp';
 import { computed } from '@ember/object';
-import SampleObject from '../../../common/xmpp-message-object/SampleObjectMessage'
+import SampleObject from '../../../common/xmpp-message-object/SampleObjectMessage';
+import MaxCalculateObject from '../../../common/xmpp-message-object/MaxCalculateMessage';
 import styles from '../styles';
 import XMPPMixin from '../../../common/xmpp-message-object/XMPPMixin'
 import { isEmpty } from '@ember/utils';
@@ -31,7 +32,8 @@ export default Controller.extend(XMPPMixin,{
         } else if (msg2Json.data.attributes.call === 'panel') {
             this.transitionToRoute('add-data.generate-sample.sample-finish');
         } else if(msg2Json.data.attributes.call === 'calc') {
-			this.transitionToRoute('add-data.viewresults');
+			MaxCalculateObject.set('calcHasDone',true);
+			// this.transitionToRoute('add-data.viewresults');
 			// this.transitionToRoute('add-data.viewresults')
 		}
 
