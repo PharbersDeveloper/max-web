@@ -1,41 +1,53 @@
 import Controller from '@ember/controller';
-import {
-	inject
-} from '@ember/service';
-import XmppMessageMixin from './XmppMessageMixin';
-import {
-	later
-} from '@ember/runloop';
-const {
-	keys
-} = Object;
-export default Controller.extend(XmppMessageMixin, {
-	webIm: inject('xmpp-service'),
-	progress: inject('circle-progress-serivce'),
-	cookies: inject(),
-	init() {
-		this._super(...arguments);
-		const {
-			result,
-			status,
-			message
-		} = this.get('webIm').load();
-		let services = {
-			'progress': this.get('progress'),
-			'cookies': this.get('cookies')
-		};
-		if (status === 'yes') {
-			let conn = result;
-			this.callback(this, conn, services);
-		} else {
-			later(this, function() {
-				this.set('webImErrorMessage', message);
-				let cookies = this.get('cookies')
-				keys(cookies.read()).forEach(item => {
-					cookies.clear(item)
-				});
-				this.transitionToRoute('/');
-			}, 500);
-		}
-	},
+import XMPPMixin from '../common/xmpp-message-object/XMPPMixin';
+import { computed } from '@ember/object';
+import { inject } from '@ember/service';
+import conf from '../../config/environment';
+
+export default Controller.extend(XMPPMixin, {
+    message: null,
+    xmpp: inject(),
+    init() {
+        this._super(...arguments);
+        // this.xmppCallBack(this);
+        // xmppSendMessage('hello', 'jeorch');
+    },
+    isProgresShow: null,
+    getProgres: computed('isProgresShow', function() {
+        // body
+        this.get('isProgresShow')
+    }),
+
+    // content: '',
+    // init() {
+	// 	let that = this;
+	// 	function onMessage(msg) {
+	// 		var to = msg.getAttribute('to');
+	// 		var from = msg.getAttribute('from');
+	// 		var type = msg.getAttribute('type');
+	// 		var elems = msg.getElementsByTagName('body');
+    //         // debugger
+	// 		if (type == "chat" && elems.length > 0) {
+	// 			var body = elems[0];
+    //
+	// 			console.info('ECHOBOT: I got a message from ' + from + ': ' +
+	// 				that.get('xmpp').getText(body));
+    //                 // console.info()
+    //
+    //             that.set('message', that.get('xmpp').getText(body));
+    //             // console.info(message)
+	// 		}
+	// 		// we must return true to keep the handler alive.
+	// 		// returning false would remove it after it finishes.
+	// 		return true;
+	// 	}
+	// 	this.get('xmpp').
+	// 		connect('lu', '123456', conf, onMessage);
+	// },
+    // actions: {
+	// 	send() {
+	// 		this.get('xmpp').send(this.get('to') + '@localhost', this.get('content'))
+	// 	}
+	// }
+
 });

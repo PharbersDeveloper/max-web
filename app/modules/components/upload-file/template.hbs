@@ -18,7 +18,7 @@
                 {{/unless}}
             </div>
 
-            {{#file-upload name="file-cpa" multiple=false onfileadd=(action "uploadCpaFile") accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" as |queue|}}
+            {{#file-upload name="file-cpa" multiple=false onfileadd=(action "uploadCpaFile" ) accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" as |queue|}}
                 {{#if queue.files.length}}
                     <div local-class="upload-progress-container">
                         <div local-class="upload-progress">

@@ -1,36 +1,6 @@
-{{nav-bar title=title isCenter=false isShow=false }}
+{{nav-bar data=model isShow=false }}
 <div local-class="wrapper-container">
-    <div local-class="wrapper-menu">
-        <div local-class="menu-user">
-            <div local-class="user-name">
-                <span local-class="name-span">{{fullName}}</span>&nbsp;
-                {{#bs-dropdown tagName="span" as |dd|}}
-                    {{#dd.toggle}}
-                        <span local-class="chevron-down" class="glyphicon glyphicon-chevron-down"></span>
-                    {{/dd.toggle}}
-                    {{#dd.menu as |menu|}}
-                        {{#menu.item}}
-                            <a href="#" {{action 'logut' }}>登出</a>
-                            {{!-- {{#menu.link-to "index"}}登出{{/menu.link-to}} --}}
-                        {{/menu.item}}
-                        {{!-- {{menu.divider}}
-                        {{#menu.item}}
-                            {{#menu.link-to "index"}}Home{{/menu.link-to}}
-                        {{/menu.item}} --}}
-                    {{/dd.menu}}
-                {{/bs-dropdown}}
-                {{!-- <span class="glyphicon glyphicon-bell"> </span> --}}
-            </div>
-            <div local-class="user-status">
-                <span local-class="status-span"></span>
-                <span>{{account}}</span>
-            </div>
-        </div>
-        <ul local-class="menu-tabs">
-            <li local-class="item-tab active">
-                <span class="glyphicon glyphicon-th"></span>&nbsp;数据工具</li>
-        </ul>
-    </div>
+    {{left-nav data=model}}
     <div local-class="wrapper-content">
         <p local-class="content-title">
             <p>
@@ -48,9 +18,9 @@
                     </select>
                     <span local-class="select-title">时间选择</span>
                     <div local-class="time-selects" class="input-group input-daterange">
-                        {{bootstrap-datepicker  changeMonth="changeStartMonth" value=startDate autoclose=true minViewMode=1 format="mm/yyyy" keyboardNavigation=true language="zh-CN"}}
+                        {{bootstrap-datepicker  changeMonth="changeStartMonth" value='2018-01' autoclose=true minViewMode=1 format="mm/yyyy" keyboardNavigation=true language="zh-CN"}}
                         <span local-class="middle-text">to</span>
-                        {{bootstrap-datepicker name='endDate' changeMonth="changeEndMonth" value=endDate autoclose=true minViewMode=1 format="mm/yyyy" language="zh-CN"}}
+                        {{bootstrap-datepicker name='endDate' changeMonth="changeEndMonth" value='endDate' autoclose=true minViewMode=1 format="mm/yyyy" language="zh-CN"}}
                     </div>
                     <span>
                         <button {{action 'search'}} local-class="btn-output" class="btn" type="button" name="btn-output">查询</button>
@@ -60,7 +30,7 @@
                     </span>
                 </div>
                 <div local-class="choosebar-content choosebar-right">
-                    {{#link-to "adddata.uploadfiles" }}
+                    {{#link-to "add-data.uploadfiles" }}
                         <div local-class="btn-add-data">
                             <div local-class="add-data-content left-section">
                                 +
@@ -71,10 +41,11 @@
                         </div>
                     {{/link-to}}
                 </div>
+
             </div>
 
             <div local-class="detail-list">
-                {{#models-table-server-paginated
+                {{!-- {{#models-table-server-paginated
                     data=model
                     columns=columns
                     filterQueryParameters=filterQueryParameters
@@ -102,7 +73,7 @@
                         </div>
                       {{/footer.pagination-numeric}}
                     {{/mt.footer}}
-                {{/models-table-server-paginated}}
+                {{/models-table-server-paginated}} --}}
 
             </div>
         </div>
@@ -176,5 +147,7 @@
 {{#bs-modal-simple fade=false open=error title="提示" closeTitle="确定" onHidden=(action (mut error) false)}}
   <p>{{errorMessage}}</p>
 {{/bs-modal-simple}}
+
+{{outlet}}
 
 {{outlet}}

@@ -1,0 +1,29 @@
+<div local-class="wrapper-menu">
+    <div local-class="menu-user">
+        <div local-class="user-name">
+            <span local-class="name-span">{{data.company}}</span>&nbsp;
+            {{#bs-dropdown tagName="span" as |dd|}}
+                {{#dd.toggle}}
+                    <span local-class="chevron-down" class="glyphicon glyphicon-chevron-down"></span>
+                {{/dd.toggle}}
+                {{#dd.menu as |menu|}}
+                    {{#menu.item}}
+                        {{#link-to 'landing'}}
+                            登出
+                        {{/link-to}}
+                    {{/menu.item}}
+                {{/dd.menu}}
+            {{/bs-dropdown}}
+            {{!-- <span class="glyphicon glyphicon-bell"> </span> --}}
+        </div>
+        <div local-class="user-status">
+            <span local-class="status-span"></span>
+            <span>{{data.username}}</span>
+        </div>
+    </div>
+    <ul local-class="menu-tabs">
+        <li local-class="item-tab active">
+            <span class="glyphicon glyphicon-th"></span>&nbsp;数据工具</li>
+    </ul>
+</div>
+{{yield}}

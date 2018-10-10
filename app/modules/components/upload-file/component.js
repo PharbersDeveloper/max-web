@@ -1,4 +1,7 @@
 import Component from '@ember/component';
+// import { computed } from '@ember/object';
+// import conf from '../config/environment';
+
 import {
 	inject
 } from '@ember/service';
@@ -15,7 +18,7 @@ export default Component.extend({
 	errorMessage: '',
 	filecpa: "",
 	filegycx: "",
-	getAjaxOpt(data) {
+	GetAjaxOpt(data){
 		return {
 			method: 'POST',
 			dataType: "json",
@@ -32,13 +35,18 @@ export default Component.extend({
 		},
 		// 上传cpa文件
 		uploadCpaFile(file) {
-			return file.upload('/api/file/upload').then(({
+            console.log(file);
+
+			return file.upload('/upload').then(({
 				body: {
 					result,
 					error,
 					status
 				}
 			}) => {
+                console.log(result);
+                // console.log(error);
+                console.log(status);
 				if (status === 'ok') {
 					this.set('filecpa', file.get('name'));
 					this.set('isDisabled', false);
@@ -72,7 +80,7 @@ export default Component.extend({
 		//  上传gycx文件
 		uploadGycxFile(file) {
 
-			return file.upload('/api/file/upload').then(({
+			return file.upload('/upload').then(({
 				body: {
 					result,
 					error,
@@ -117,34 +125,11 @@ export default Component.extend({
 				this.set('isDisabled', true)
 			}
 		},
+
 		next() {
-			let pushJobIdCondition = {
-				condition: {
-					user_id: this.get('cookies').read('uid')
-				}
-			}
-			this.get('cookies').write('filecpa', this.get('filecpa'), {
-				path: '/'
-			});
-			this.get('cookies').write('filegycx', this.get('filegycx'), {
-				path: '/'
-			});
-			this.get('ajax').request('/api/job/push', this.getAjaxOpt(pushJobIdCondition))
-				.then(({
-					result,
-					error,
-					status
-				}) => {
-					if (status === 'error') {
-						this.set('uploadError', true);
-						this.set('errorMessage', error.message);
-					} else {
-						this.get('cookies').write('job_id', result.job.job_id, {
-							path: '/'
-						});
-						window.location = "/adddata/generate-sample";
-					}
-				})
+			let cpa = this.get('filecpa');
+			let gycx = this.get('filegycx');
+			this.sendAction('next',cpa,gycx);
 		}
 	}
 });

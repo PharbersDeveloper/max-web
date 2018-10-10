@@ -3,7 +3,7 @@
         <div local-class="result-choosebar">
             <div local-class="choosebar-content choosebar-left">
                 <span local-class="select-title">市场</span>
-                <select local-class="choose-select choose-market" name="markets" {{action 'queryAll' on='change'}}>
+                <select local-class="choose-select choose-market" name="markets"  {{action 'queryAll' on='change'}}>
                     {{#each markets as |item|}}
                         <option value={{item}}>{{item}}</option>
                     {{/each}}
@@ -15,9 +15,9 @@
                     {{/each}}
                 </select>
             </div>
-            {{!-- <div local-class="choosebar-content choosebar-right">
+            <div local-class="choosebar-content choosebar-right">
                 <button {{action 'saveData'}} local-class="btn-default-max" type="button" name="button">保存</button>
-            </div> --}}
+            </div>
         </div>
         <div local-class="market-results">
             <div local-class="market-target">
@@ -63,15 +63,15 @@
             </div>
             <div local-class="market-trend">
                 <p local-class="result-title">
-                    <span>{{selectedMarket}}</span> 市场趋势 <span local-class="trend-legend"> <span></span><span local-class="text">市场销售额</span> <span>——</span><span local-class="text">份额变化趋势</span></span></p>
-                     {{result-trend-line-and-bar eid="result-trend-line-and-bar" option=trendOption}}
+                <span>{{selectedMarket}}</span> 市场趋势 <span local-class="trend-legend"> <span></span><span local-class="text">市场销售额</span> <span>——</span><span local-class="text">份额变化趋势</span></span></p>
+                    {{market-trend-bar-line dataset=trend}}
             </div>
         </div>
         <div local-class="market-results">
             <p local-class="result-title"><span>{{selectedMarket}}</span> 地区层面结果</p>
                 <div local-class="china-map-data">
                     <div local-class="china-map">
-                        {{result-map eid="result-map" option=regionOption}}
+                        {{area-map}}
                     </div>
                     <div local-class="china-data">
                         <div local-class="mirror-legend">
@@ -88,10 +88,11 @@
                         </div>
 
                         <div local-class="{{if (eq selectedArea 0) 'show' 'hide'}}" >
-                            {{result-mirror-bar eid="result-mirror-province-bar" option=mirrorProvinceOption}}
+                            {{result-mirror-bar}}
                         </div>
                         <div local-class="{{if (eq selectedArea 1) 'show' 'hide'}}">
-                            {{result-mirror-bar eid="result-mirror-city-bar" option=mirrorCityOption}}
+                            {{!-- {{result-mirror-bar}} --}}
+                            {{!-- {{result-mirror-bar eid="result-mirror-city-bar" option=mirrorCityOption}} --}}
                         </div>
                     </div>
                 </div>
