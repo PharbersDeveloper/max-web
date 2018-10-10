@@ -23,7 +23,6 @@
             {{#if SampleObject.calcPanelProgress}}
                 {{progress-bar newAngle=panelPercentage}}
             {{/if}}
-            {{!-- {{progress-bar}} --}}
         {{!-- {{/unless}} --}}
         <p local-class="reupload">
             {{#bs-button onClick=(action (mut uploadAgain) true)}}上传错误？重新上传{{/bs-button}}

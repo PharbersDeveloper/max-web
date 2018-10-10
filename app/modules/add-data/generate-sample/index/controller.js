@@ -1,7 +1,5 @@
 import Controller from '@ember/controller';
-import {
-	inject
-} from '@ember/service';
+import { inject } from '@ember/service';
 import rsvp from 'rsvp';
 import { computed } from '@ember/object';
 import SampleObject from '../../../common/xmpp-message-object/SampleObjectMessage';
@@ -12,10 +10,8 @@ import { isEmpty } from '@ember/utils';
 import { observer } from '@ember/object';
 
 export default Controller.extend(XMPPMixin,{
-	ajax: inject(),
 	cookies: inject(),
 	xmpp: inject(),
-	progress: inject('circle-progress-service'),
 	styles,
 	message: '',
 	SampleObject,

@@ -12,6 +12,8 @@ export default Component.extend({
         d3.select('text').remove();
         const Pi = Math.PI;
         let newAngle = parseInt(this.get('newAngle')) || 0;
+        console.log("this is progress component")
+        console.log(newAngle);
         var arcGenerator = d3.arc()
         .innerRadius(80)
         .outerRadius(100)
@@ -33,7 +35,7 @@ export default Component.extend({
             .attr('text-anchor','middle')
             .attr('dominant-baseline','middle')
             .attr('font-size','38px')
-          upperGround.transition().duration(750)  //设置了当前DOM属性过渡变化为指定DOM属性过程所需时间（毫秒）
+          upperGround.transition().duration(1000)  //设置了当前DOM属性过渡变化为指定DOM属性过程所需时间（毫秒）
           .attrTween('d',function(d){  //插值功能API
            var compute = d3.interpolate(d.endAngle,newAngle/100 *Pi*2);  //实现了插值范围[当前角度值，随机角度值]
            return function(t){

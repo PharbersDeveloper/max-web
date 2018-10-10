@@ -12,7 +12,10 @@ export default Component.extend({
         var margin = {top: 0, right: 10, bottom: 10, left: 10};
         var width = 1200 - margin.left - margin.right;
         var height = 900 - margin.top - margin.bottom;
-        var color = d3.scaleOrdinal(d3.schemeCategory20c);
+        // var color = d3.scaleOrdinal(d3.schemeCategory20c);
+        //scaleOrdinal获取或指定当前比例尺的输入域
+        let colorArray = ["#30d3c1","#5cd3c6","#89d4cc","#b0dad6","#d1e4e1"]
+        var color = d3.scaleOrdinal(colorArray);
         var projection = d3.geoMercator()
                            .center([110, 25])
                            .scale([800])
@@ -36,14 +39,14 @@ export default Component.extend({
         			.data(china.features)
         			.enter()
         			.append("path")
-        			.attr("stroke","gray")
-        			.attr("stroke-width",1)
+        			.attr("stroke","#fff") //map border color
+        			.attr("stroke-width",1) // border width
                     .attr("fill", function(d,i){
-        				return color(i);
-        			}) //map border color
+        				return color(i); // area color
+        			})
         			.attr("d", path )
         			.on("mouseover",function(d,i){
-                        d3.select(this).attr("fill","#2DD2C2").attr("stroke-width",2);
+                        d3.select(this).attr("fill","gray").attr("stroke-width",2);
                         return tooltip.style("hidden", false).html("this");
                     })
                     .on("mousemove",function(d){
