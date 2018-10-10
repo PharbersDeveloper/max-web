@@ -83,6 +83,8 @@ export default Controller.extend({
 		let result = this.store.object2JsonApi('request',req);
 		this.store.queryObject('/api/v1/resultcheck/0','resultcheck', result ).then((res) => {
 		    if(res !== "") {
+				console.log("this is res")
+				console.log(res.region)
 				// let selectedMarket = res.market;
 				let market_current = res.indicators.marketSumSales.currentNumber;
 				let market_percentage = res.indicators.marketSumSales.lastYearPercentage;
