@@ -18,7 +18,14 @@
 //   .bar {
 //     fill: #300089;
 //   }
+.mirror-bar {
+    svg {
+        overflow: inherit;
+    }
+    :global(.currentYearSvg) {
 
+    }
+}
 .bar--positive {
   fill: steelblue;
 }

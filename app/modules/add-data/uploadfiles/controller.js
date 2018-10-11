@@ -3,11 +3,14 @@ import { isEmpty } from '@ember/utils';
 
 export default Controller.extend({
     getData() {
-        let req = this.store.createRecord('request', {
-            args: 'uploadfiles',
-        });
-
-        let result = this.store.object2JsonApi('request', req);
+        let company_id = localStorage.getItem('company_id');
+		let user_id = localStorage.getItem('username');
+        let req = this.store.createRecord('phmaxjob',{
+			res: "uploadfiles",
+			user_id: user_id,
+			company_id: company_id,
+		})
+        let result = this.store.object2JsonApi('phmaxjob', req);
 
         this.store.queryObject('/api/v1/maxjobgenerate/0','phmaxjob', result ).then((res) => {
             console.log("this is upload")
