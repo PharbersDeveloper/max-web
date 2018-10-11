@@ -97,12 +97,12 @@ export default Controller.extend({
 				// console.log(res.trend);
 				let trend = res.trend;
 				this.set('trend',trend);
+				//折线图数据
 
 				let regionList = res.region;
 				let noValueList = [];
 				let valueList = [];
 				let listValue = regionList.map(function(i) {
-					console.log(i.value);
 					if(i.value = 0) {
 						let noValue = i.name;
 						noValueList.push(noValue);
@@ -113,9 +113,10 @@ export default Controller.extend({
 				})
 				this.set("noValueList",noValueList);
 				this.set("valueList",valueList);
-				console.log(noValueList);
-				console.log(valueList);
+				// 地图数据
 
+				let mirrorProvinces = res.mirror.provinces;
+				console.log(mirrorProvinces)
 			} else {
 				this.set('sampleCheckError', true);
 				this.set('errorMessage', "error");

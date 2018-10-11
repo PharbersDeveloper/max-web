@@ -18,11 +18,11 @@ export default Component.extend({
 
         var y = d3.scaleBand() //d3.scaleBand()并不是一个连续性的比例尺
             .range([0, height])
-            .padding(0.2); // y轴之间的值的间隙
+            .padding(0.3); // y轴之间的值的间隙
 
         var yRight = d3.scaleBand() //d3.scaleBand()并不是一个连续性的比例尺
             .range([0, height])
-            .padding(0.2);
+            .padding(0.3);
 
         var xAxis = d3.axisBottom()
             .scale(x) // x坐标轴
@@ -41,7 +41,7 @@ export default Component.extend({
             .attr("height", height + margin.top + margin.bottom)
             .attr('class','lastYearSvg')
             .append("g")
-            .attr("transform", "translate(-95," + margin.top + ")");
+            .attr("transform", "translate(-110," + margin.top + ")");
         var svgRight = d3.select("#chart").append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
@@ -66,7 +66,7 @@ export default Component.extend({
           province:"北京",
         }];
         var currentData = [{
-            name:" . A",
+            name:"A",
             value:15,
             province:"北京",
           },{
