@@ -1,0 +1,70 @@
+{{yield}}
+
+<div local-class="contain" class="col-md-3 col-sm-6">
+    <div local-class="inside-contain">
+        <div local-class="title">
+            <p>{{card.title}}</p>
+        </div>
+        <div local-class="subtitle">
+            <p>{{card.subtitle}}</p>
+        </div>
+        <div local-class="city">
+            <p>• &nbsp;{{card.leaftitle}}</p>
+        </div>
+        {{#if (eq card.tag 'count')}}
+            <div local-class="key-word key-num">
+                <div local-class="word-o word-num">
+                    <p>{{card.name}} <span>个</span></p>
+                </div>
+                <div local-class="word-t">
+                    <p>{{card.subname}}</p>
+                </div>
+            </div>
+        {{else}}
+            <div local-class="key-word">
+                <div local-class="word-o">
+                    <p>{{card.name}}</p>
+                </div>
+                <div local-class="word-t">
+                    <p>{{card.subname}}</p>
+                </div>
+            </div>
+        {{/if}}
+        {{#if (eq card.tag 'count')}}
+            <div local-class="trend-null trend"></div>
+        {{/if}}
+        {{#if (eq card.tag 'mil')}}
+            <div local-class="trend">
+                <div local-class="data">
+                    <p>{{card.value}}Mil</p>
+                </div>
+                {{#if (gte card.percent 0)}}
+                    <div local-class="show show_up">
+                        <p><span class="glyphicon glyphicon-triangle-top"></span><span>+{{card.percent}}%</span></p>
+                    </div>
+                {{else}}
+                    <div local-class="show show_down">
+                        <p><span class="glyphicon glyphicon-triangle-bottom"></span><span>{{card.percent}}%</span></p>
+                    </div>
+                {{/if}}
+            </div>
+        {{/if}}
+        {{#if (eq card.tag '%')}}
+            <div local-class="trend">
+                <div local-class="data">
+                    <p>份额{{card.value}}%</p>
+                </div>
+                {{#if (gte card.percent 0)}}
+                    <div local-class="show show_up">
+                        <p><span class="glyphicon glyphicon-triangle-top"></span><span>+{{card.percent}}%</span></p>
+                    </div>
+                {{else}}
+                    <div local-class="show show_down">
+                        <p><span class="glyphicon glyphicon-triangle-bottom"></span><span>{{card.percent}}%</span></p>
+                    </div>
+                {{/if}}
+            </div>
+        {{/if}}
+
+    </div>
+</div>

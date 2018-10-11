@@ -206,7 +206,7 @@ export default Controller.extend({
      * 查询本公司下的所有市场
      */
     queryMarket() {
-/*         let condition = {
+        /* let condition = {
             "condition": {
                 "user_id": this.get('cookies').read('uid')
             }
@@ -230,7 +230,31 @@ export default Controller.extend({
         this._super(...arguments);
 
         // 产品销量卡片
-        this.cards = [];
+        this.cards = [{
+            title: "title",
+            subtitle: "subtitle",
+            leaftitle: "area",
+            num: 625.7,
+            tag: 'mil',
+            yearOnYear: 4.3,
+            ringRatio: 4.3,
+        }, {
+            title: "title",
+            subtitle: "subtitle",
+            leaftitle: "area",
+            num: 625.7,
+            tag: 'mil',
+            yearOnYear: 4.3,
+            ringRatio: 4.3,
+        }, {
+            title: "title",
+            subtitle: "subtitle",
+            leaftitle: "area",
+            num: 25.77,
+            tag:'%',
+            yearOnYear: 4.3,
+            ringRatio: 4.3,
+        }];
         // this.queryProdCards();
         // end 产品销量卡片
 
@@ -241,7 +265,37 @@ export default Controller.extend({
         // end 市场&产品趋势
 
         // Most cards
-        this.words = [];
+        this.words = [{
+            title:'竟品数量',
+            subtitle:'2018-04',
+            leaftitle:'全国',
+            name:65
+        },{
+            title: "title",
+            subtitle: "subtitle",
+            leaftitle: "全国",
+            name: "市场名称",
+            subname: 'subname',
+            value: 94.83,
+            percent: 5.6
+        }, {
+            title: "产品下滑",
+            subtitle: "2018-04",
+            leaftitle: "",
+            name: "商品名称",
+            subname: '市场名',
+            value: 94.83,
+            percent: 56.6,
+        }, {
+            title: "产品下滑",
+            subtitle: "2018-04",
+            leaftitle: "",
+            name: "商品名称",
+            subname: '市场名',
+            value: 94.83,
+            percent: 56.6
+        }];
+
         // this.queryProdMostCards();
         //  end most card
 
