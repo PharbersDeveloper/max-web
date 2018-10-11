@@ -1,0 +1,129 @@
+{{data-choose activeCo=true}}
+<div class="container-fluid" local-class="data-market">
+    <div local-class='market-show'>
+        <span local-class="show-title">市场选择：</span>
+        <p>{{market}}</p>
+    </div>
+
+    <div local-class="time-show">
+        <span local-class="show-title">时间选择：</span>
+        <p>{{time}}</p>
+    </div>
+    <div local-class="change-item">
+        {{#bs-modal open=markTime onSubmit=(action "submit") onHidden=(action (mut markTime) false) as |modal|}}
+        {{#modal.header}}
+        <h4 class="modal-title">修改筛选条件</h4>
+        {{/modal.header}}
+        {{#modal.body}}
+        <div local-class='market-choose-area'>
+            <span local-class="title">市场选择：</span>
+            <select local-class="choose-market" name="markets" onchange={{ action 'getMarket' value="target.value"}}>
+                {{#each markets as |item|}}
+                <option value={{item}}>{{item}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div local-class="time-selects">
+            <span>时间选择：</span>
+            <select local-class="choose-market" name="markets" onchange={{ action 'getYear' value="target.value"}}>
+                {{#each years as |item|}}
+                <option value={{item}}>{{item}}</option>
+                {{/each}}
+            </select>
+            <select local-class="choose-market" name="markets" onchange={{ action 'getMonth' value="target.value"}}>
+                {{#each months as |item|}}
+                <option value={{item}}>{{item}}</option>
+                {{/each}}
+            </select>
+        </div>
+        {{/modal.body}}
+        {{#modal.footer}}
+        {{#bs-button onClick=(action modal.close)}}取消{{/bs-button}}
+        {{#bs-button type="success" onClick=(action modal.submit ) }}保存{{/bs-button}}
+        {{/modal.footer}}
+        {{/bs-modal}}
+        {{#bs-button local-class="change" onClick=(action (mut markTime) true)}} 修改筛选条件{{/bs-button}}
+    </div>
+</div>
+
+<div class="container-fluid" local-class="nopadding">
+    {{#each cards as |item|}}
+    {{sales-word card=item}}
+    {{/each}}
+</div>
+
+<div class="container-fluid" local-class='nopadding multi-line'>
+    <p local-class="market-title">
+        <span>{{trendTitle.title}}</span>
+        <span>{{trendTitle.timeStart}}{{trendTitle.timeOver}}{{trendTitle.area}}</span>
+    </p>
+    {{multi-line-market threeLinesData=multiData}}
+</div>
+
+<div class="container-fluid" local-class="nopadding">
+    {{#each words as |item|}}
+    {{most-word card=item}}
+    {{/each}}
+</div>
+
+<div class="container-fluid" local-class="pie-histogram">
+    <div class="col-md-6 col-sm-12" local-class="nopadding legend-pie-container">
+        <div local-class="inside">
+            <p local-class="pie-title">
+                <span>{{shareTitle.title}}</span>
+                <span>{{shareTitle.subtitle}}{{shareTitle.area}}</span>
+            </p>
+            {{legend-pie-sales pieData=pieValue}}
+        </div>
+
+    </div>
+    <div class="col-md-6 col-sm-12" local-class="nopadding horizontal-histogram">
+        <div local-class="inside">
+            <p local-class="his-title"><span>各产品排名变化</span><span>{{time}}.全国</span></p>
+            <p local-class="choose-type"><span>数据类型：</span>
+                <select class="" name="" onchange={{ action 'queryRank' value="target.value"}}>
+                    {{#each RankdataType as |item|}}
+                    <option value={{item}}>{{item}}({{unit}})</option>
+                    {{/each}}
+                </select>
+            </p>
+            <div local-class="share" class="container-fluid">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="row">
+                        {{#each rankingRange as |item|}}
+                        <span class="col-md-2 col-sm-2 col-xs-2">{{item}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <div local-class="histogram">
+                {{#each ranking as |item|}}
+                {{pord-histogram data=item theMax=rankingMax}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div local-class="competing-products-table">
+    <p local-class="table-title"><span>{{competingTitle.title}}</span><span>{{competingTitle.subtitle}}{{competingTitle.area}}</span></p>
+    {{self-table model=competingValue columns=competingColumn selfheight='270px'}}
+</div>
+
+<div class="container-fluid" local-class='nopadding choose-line'>
+    <p local-class="trend-title">
+        <span>各产品销售趋势分析</span>{{!-- <span>{{trendTitle.title}}</span> --}}
+        <span>{{trendTitle.timeStart}}至{{trendTitle.timeOver}}{{trendTitle.area}}</span>
+    </p>
+    <p local-class="choose-type">
+        <span>数据类型：</span>
+        <select class="" name="" onchange={{ action 'queryTrend' value="target.value"}}>
+            {{#each trendData as |item|}}
+            <option value={{item}}>{{item}}</option>
+            {{/each}}
+        </select>
+    </p>
+    {{line-mulit-choose chooseData=AllTrendValue}}
+</div>

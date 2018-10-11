@@ -8,7 +8,12 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('landing');
-  this.route('data-center');
+  this.route('data-center', function() {
+    this.route('overview');
+    this.route('city');
+    this.route('province');
+    this.route('country');
+  });
   this.route('add-data',function() {
     this.route('uploadfiles');
     this.route('generate-sample',function() {

@@ -76,6 +76,7 @@
                 {{/models-table-server-paginated}} --}}
 
             </div>
+            {{outlet}}
         </div>
     </div>
 </div>
@@ -147,7 +148,5 @@
 {{#bs-modal-simple fade=false open=error title="提示" closeTitle="确定" onHidden=(action (mut error) false)}}
   <p>{{errorMessage}}</p>
 {{/bs-modal-simple}}
-
-{{outlet}}
 
 {{outlet}}
