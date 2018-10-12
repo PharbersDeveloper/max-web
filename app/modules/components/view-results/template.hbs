@@ -88,11 +88,10 @@
                         </div>
 
                         <div local-class="{{if (eq selectedArea 0) 'show' 'hide'}}" >
-                            {{result-mirror-bar}}
+                            {{result-mirror-bar currentData=currentData lastData=lastData}}
                         </div>
                         <div local-class="{{if (eq selectedArea 1) 'show' 'hide'}}">
-                            {{!-- {{result-mirror-bar}} --}}
-                            {{!-- {{result-mirror-bar eid="result-mirror-city-bar" option=mirrorCityOption}} --}}
+                            {{result-mirror-bar currentData=currentData lastData=lastData}}
                         </div>
                     </div>
                 </div>

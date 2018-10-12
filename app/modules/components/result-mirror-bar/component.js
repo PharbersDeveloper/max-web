@@ -9,23 +9,41 @@ export default Component.extend({
         run.scheduleOnce('render', this, this.drawChart);
     },
     drawChart() {
+        let currentData = this.get('currentData');
+        let lastData = this.get('lastData');
+        if(currentData != undefined && lastData != undefined) {
+
         var margin = {top: 100, right: 50, bottom: 40, left: -30},
             width = 150 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom;
+            height = 550 - margin.top - margin.bottom;
+        function getMaxOfArray(numArray) {
+            return Math.max.apply(null, numArray);
+        }
+        let currentXArray = currentData.map(function(ele,idx,arr) {
+            return ele.marketSales;
+        });
+        let currentXArrayMax = Math.ceil(Math.max.apply(null,currentXArray));
+        console.log(currentXArrayMax);
 
         var x =  d3.scaleLinear() //返回一个线性比例尺
-            .range([0, width]); //设定比例尺的值域
+            .range([0, currentXArrayMax]); //设定比例尺的值域
+
+        var xRight =  d3.scaleLinear() //返回一个线性比例尺
+            .range([0, currentXArrayMax]); //设定比例尺的值域
 
         var y = d3.scaleBand() //d3.scaleBand()并不是一个连续性的比例尺
             .range([0, height])
-            .padding(0.3); // y轴之间的值的间隙
+            .padding(0.4); // y轴之间的值的间隙
 
         var yRight = d3.scaleBand() //d3.scaleBand()并不是一个连续性的比例尺
             .range([0, height])
-            .padding(0.3);
+            .padding(0.4);
 
         var xAxis = d3.axisBottom()
             .scale(x) // x坐标轴
+
+        var xAxisRight = d3.axisBottom()
+            .scale(xRight) // x坐标轴
 
         var yAxis = d3.axisRight()
             .scale(y)
@@ -41,66 +59,37 @@ export default Component.extend({
             .attr("height", height + margin.top + margin.bottom)
             .attr('class','lastYearSvg')
             .append("g")
-            .attr("transform", "translate(-110," + margin.top + ")");
+            .attr("transform", "translate(50," + margin.top + ")");
         var svgRight = d3.select("#chart").append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .attr('class','currentYearSvg')
                 .append("g")
-                .attr("transform", "translate(-130," + margin.top + ")");
-        var data = [{
-          name:"A",
-          value:-15,
-          province:"北京",
-        },{
-          name:"B",
-          value:-20,
-          province:"北京",
-        },{
-          name:"C",
-          value:-18,
-          province:"北京",
-        },{
-          name:"D",
-          value:-30,
-          province:"北京",
-        }];
-        var currentData = [{
-            name:"A",
-            value:15,
-            province:"北京",
-          },{
-            name:"B",
-            value:20,
-            province:"北京",
-          },{
-            name:"C",
-            value:18,
-            province:"北京",
-          },{
-            name:"D",
-            value:30,
-            province:"北京",
-        }];
-        x.domain(d3.extent(data, function(d) { return d.value; })).nice(); // X定义域取数组中的最大值和最小值，并取整
-        y.domain(data.map(function(d) { return d.name +  d.province; })); // Y轴定义域
-        yRight.domain(data.map(function(d) { return d.name; }));
+                .attr("transform", "translate(30," + margin.top + ")");
 
+        x.domain(d3.extent(lastData, function(d) { return d.marketSales; })).nice();
+        xRight.domain(d3.extent(currentData, function(d) { return d.marketSales; })).nice();
+        // X定义域取数组中的最大值和最小值，并取整 => 柱状图长度
+        y.domain(lastData.map(function(d) { return d.keyLast +  d.area; })); // Y轴定义域
+        yRight.domain(currentData.map(function(d) { return d.key + d.area; }));
+        //柱状图排名和省份
         svg.selectAll(".bar")
-            .data(data)
+            .data(lastData)
             .enter().append("rect")
-            .attr("class", function(d) { return "bar bar--" + (d.value < 0 ? "negative" : "positive"); })
-            .attr("x", function(d) { return x(Math.min(0, d.value)); })
-            .attr("y", function(d) { return y(d.name + d.province); })
-            .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+            .attr("class", function(d) { return "bar bar--" + (d.marketSales < 0 ? "negative" : "positive"); })
+            .attr("x", function(d) { return x(Math.min(0, d.marketSales)); }) //绘制矩形的x坐标的位置
+            .attr("y", function(d) {
+                 return y(d.keyLast + d.area); }) //绘制矩形的y坐标的位置
+            .attr("width", function(d) { return Math.abs(x(d.marketSales) - x(0)); })
             .attr("height", y.bandwidth());
         svgRight.selectAll(".bar")
             .data(currentData)
             .enter().append("rect")
-            .attr("class", function(d) { return "bar bar--" + (d.value < 0 ? "negative" : "positive"); })
-            .attr("x", function(d) { return x(Math.min(0, d.value)); })
-            .attr("y", function(d) { return y(d.name + d.province); })
-            .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+            .attr("class", function(d) { return "bar bar--" + (d.marketSales < 0 ? "negative" : "positive"); })
+            .attr("x", function(d) { return x(Math.min(0, d.marketSales)); })
+            .attr("y", function(d,i) {
+                 return yRight(d.key+d.area)})
+            .attr("width", function(d) { return Math.abs(x(d.marketSales) - x(0)); })
             .attr("height", y.bandwidth());
 
         // svg.append("g")
@@ -121,11 +110,11 @@ export default Component.extend({
               .selectAll("text")
               .attr("transform", "translate(-30,0)");
 
-        function type(d) {
-          d.value = +d.value;
-          return d;
-        }
+        // function type(d) {
+        //   d.value = +d.value;
+        //   return d;
+        // }
     }
-
+}
 
 });

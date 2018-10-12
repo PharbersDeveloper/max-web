@@ -39,7 +39,7 @@
     font-family: PingFangTC-Semibold;
     font-size: 12px;
     color: #4A4A4A;
-    letter-spacing: 3px;
+    letter-spacing: 5px;
     text-align: left;
 }
 :global(.axisRight text) {
@@ -47,8 +47,9 @@
     font-family: PingFangTC-Semibold;
     font-size: 12px;
     color: #4A4A4A;
-    letter-spacing: 3px;
-    text-align: left;
+    letter-spacing: 5px;
+    text-align: center;
+    padding-left: 5px;
 }
 :global(.axis path) {
     opacity: 0;

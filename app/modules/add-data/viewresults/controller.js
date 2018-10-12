@@ -115,8 +115,46 @@ export default Controller.extend({
 				this.set("valueList",valueList);
 				// 地图数据
 
-				let mirrorProvinces = res.mirror.provinces;
+				let mirrorProvincesCurrent = res.mirror.provinces.current;
+				let mirrorProvincesLast = res.mirror.provinces.lastyear;
+				let mirrorProvinces = {
+					mirrorProvincesCurrent,
+					mirrorProvincesLast
+				}
 				console.log(mirrorProvinces)
+				let current = [];
+				mirrorProvinces.mirrorProvincesCurrent.forEach((mirrorProvincesCurrent,index)=>{
+					let item = {
+						key: index+1,
+						marketSales: mirrorProvincesCurrent.marketSales,
+						area: "",
+					}
+					current.push(item);
+				})
+				this.set('current',current);
+				console.log("this is current")
+				console.log(current)
+
+				let lastYear = [];
+				mirrorProvinces.mirrorProvincesLast.forEach((mirrorProvincesLast,index)=>{
+					let item = {
+						key: index+1,
+						marketSales: -mirrorProvincesLast.marketSales,
+						areaLast: mirrorProvincesLast.area,
+						area: mirrorProvinces.mirrorProvincesCurrent[index].area,
+					}
+					lastYear.push(item);
+				})
+				lastYear.forEach((a)=>{
+					lastYear.forEach((b)=>{
+						if(a.area === b.areaLast) {
+							a.keyLast = b.key;
+						}
+					})
+				})
+				this.set('lastYear',lastYear);
+				console.log("this is last")
+				console.log(lastYear)
 			} else {
 				this.set('sampleCheckError', true);
 				this.set('errorMessage', "error");
