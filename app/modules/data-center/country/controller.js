@@ -259,8 +259,28 @@ export default Controller.extend({
         // end 产品销量卡片
 
         // 市场&产品趋势
-        this.trendTitle = {};
-        this.multiData = [];
+        this.trendTitle = {
+            title: '市场规模 & 辉瑞产品销售趋势',
+            timeStart: '2018-01',
+            timeOver: '2018-08',
+            area: '全国',
+        };
+        this.multiData = [{
+            "date": "2017-01",
+            "marketSales": 27,
+            "prodSales": 15,
+            "share": 20
+        }, {
+            "date": "2017-02",
+            "marketSales": 26,
+            "prodSales": 15,
+            "share": 25
+        }, {
+            "date": "2017-03",
+            "marketSales": 27,
+            "prodSales": 15,
+            "share": 20
+        }, ];
         // this.queryProdTrend();
         // end 市场&产品趋势
 
@@ -300,25 +320,177 @@ export default Controller.extend({
         //  end most card
 
         // 各产品份额
-        this.shareTitle = {};
-        this.pieValue = [];
+        this.shareTitle = {
+            title: '各产品份额',
+            subtitle: '2018-01',
+            area: '全国'
+        };
+        this.pieValue = [{
+			'prod': '产品一',
+			'sales': 12,
+			'share': 455,
+			'color': '#3399FF',
+		}, {
+			'prod': '产品二',
+			'sales': 135,
+			'share': 845,
+			'color': 'orange',
+		}, {
+			'prod': '产品三',
+			'sales': 647,
+			'share': 256,
+			'color': 'lightyellow',
+		}, {
+			'prod': '产品四',
+			'sales': 13422,
+			'share': 452,
+			'color': 'lightgreen',
+		}, {
+			'prod': '产品5',
+			'sales': 13422,
+			'share': 411,
+			'color': 'blue',
+		}, {
+			'prod': '产品6',
+			'sales': 13422,
+			'share': 421,
+			'color': 'lightblue',
+		}, {
+			'prod': '产品7',
+			'sales': 13422,
+			'share': 444,
+			'color': 'pink'
+		}, {
+			'prod': '产品8',
+			'sales': 13422,
+			'share': 422,
+			'color': 'lightgray'
+		}, {
+			'prod': '其他',
+			'sales': 34,
+			'share': 175,
+			'color': 'skyblue'
+		}, ];
         // this.queryPerProdShare();
         //  end 各产品份额
 
         //  各产品排名变化
         this.RankdataType = ['销售额', '销售增长', '份额', '份额增长'];
-        this.ranking = [];
+        this.ranking = [{
+            no: 1,
+            prod: "prod2",
+            manu: "生产商2",
+            growth: 4,
+            value: 38
+        }];
         this.rankingRange = [];
         // this.queryRanking();
         //  end 各产品排名变化
 
         // 查询查询市场竞品销售情况
-        this.competingValue = [];
+        this.competingTitle = {
+            title: '各产品销售概况',
+            subtitle: '2018-01',
+            city:'全国'
+        };
+        this.competingValue = [{
+            'prod': '产品一',
+            'manufacturer':"aaaaa",
+            'market_sale': 123456,
+            'sales_growth': 16,
+            'ev_value': 100,
+            'share': 45,
+            'share_growth': 9,
+        }, {
+            'prod': '产品二',
+            'manufacturer':"aaaaa",
+            'market_sale': 123456,
+            'sales_growth': 16,
+            'ev_value': 100,
+            'share': 45,
+            'share_growth': 9,
+        },{
+            'prod': '产品三',
+            'manufacturer':"aaaaa",
+            'market_sale': 123456,
+            'sales_growth': 16,
+            'ev_value': 100,
+            'share': 45,
+            'share_growth': 9,
+        },{
+            'prod': '产品四',
+            'manufacturer':"aaaaa",
+            'market_sale': 123456,
+            'sales_growth': 16,
+            'ev_value': 100,
+            'share': 45,
+            'share_growth': 9,
+        },{
+            'prod': '产品五',
+            'manufacturer':"aaaaa",
+            'market_sale': 123456,
+            'sales_growth': 16,
+            'ev_value': 100,
+            'share': 45,
+            'share_growth': 9,
+        },{
+            'prod': '产品六',
+            'manufacturer':"aaaaa",
+            'market_sale': 123456,
+            'sales_growth': 16,
+            'ev_value': 100,
+            'share': 45,
+            'share_growth': 9,
+        }, ];
         // this.queryCompeting();
         // end 查询查询市场竞品销售情况
         // 查询所有产品销售趋势分析
-        this.AllTrendTitle = {};
-        this.AllTrendValue = [];
+        this.AllTrendTitle = {
+            title: '麻醉市场产品销售趋势分析',
+            timeStart: '2018-01',
+            timeOver: '2018-08',
+            area: '全国',
+        };
+        this.AllTrendValue = [{
+            name: "product1",
+            values: [{
+                    ym: "2018-01",
+                    value: 100,
+                    unit: ''
+                },
+                {
+                    ym: "2018-02",
+                    value: 110,
+                    unit: ''
+                }
+            ]
+        }, {
+            name: "product2",
+            values: [{
+                    ym: "2018-01",
+                    value: 100,
+                    unit: ''
+                },
+                {
+                    ym: "2018-02",
+                    value: 110,
+                    unit: ''
+                }
+            ]
+        }, {
+            name: "product3",
+            values: [{
+                    ym: "2018-01",
+                    value: 100,
+                    unit: ''
+                },
+                {
+                    ym: "2018-02",
+                    value: 110,
+                    unit: ''
+                }
+            ]
+        }];
         // this.queryAllProdTrend();
         //	end
 

@@ -89,7 +89,7 @@ export default Component.extend({
         var color = d3.scaleOrdinal(d3.schemeCategory10);
         /* Add SVG */
         svg.attr("width", "90%")
-            .attr("height", 380)
+            .attr("height", 300)
             .attr('preserveAspectRatio', 'none')
             .attr('viewBox', '-40 -10 950 380')
             .append('g');

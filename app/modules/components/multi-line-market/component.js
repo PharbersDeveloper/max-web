@@ -74,7 +74,7 @@ export default Component.extend({
         // moves the 'group' element to the top left margin
         svg.attr('padding', '0 20px')
             .attr('width', '100%')
-            .attr("height", 368)
+            .attr("height", 300)
             // .attr('preserveAspectRatio', 'xMidYMid','meet')
             .attr('preserveAspectRatio', 'none')
             .attr('viewBox', '-40 0 950 348')

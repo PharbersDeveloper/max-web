@@ -47,18 +47,12 @@
 </div>
 
 <div local-class='block-area2'>
-    {{!-- <div class='col-md-4' local-class='block-area2-a'>
-    </div>
-    <div class='col-md-4' local-class='block-area2-b'>
-    </div>
-    <div class='col-md-4' local-class='block-area2-c'>
-    </div> --}}
     {{#each cards as |item|}}
     {{sales-word card=item}}
     {{/each}}
 </div>
 
-<div local-class='block-area3'>
+<div local-class='nopadding multi-line'>
     <p local-class="market-title">
         <span>{{trendTitle.title}}</span>
         <span>{{trendTitle.timeStart}}{{trendTitle.timeOver}}{{trendTitle.area}}</span>
@@ -67,28 +61,69 @@
 </div>
 
 <div local-class='block-area4'>
-    {{!-- <div class='col-md-4' local-class='block-area4-a'>
-    </div>
-    <div class='col-md-4' local-class='block-area4-b'>
-    </div>
-    <div class='col-md-4' local-class='block-area4-c'>
-    </div>
-    <div class='col-md-4' local-class='block-area4-d'>
-    </div> --}}
     {{#each words as |item|}}
     {{most-word card=item}}
     {{/each}}
 </div>
 
 <div local-class='block-area5'>
-    {{!-- <div class='col-md-6' local-class='block-area5-a'>
+    <div class="col-md-6 col-sm-12" local-class="nopadding legend-pie-container">
+        <div local-class="inside">
+            <p local-class="pie-title">
+                <span>{{shareTitle.title}}</span>
+                <span>{{shareTitle.subtitle}}{{shareTitle.area}}</span>
+            </p>
+            {{legend-pie-sales pieData=pieValue}}
+        </div>
+
     </div>
-    <div class='col-md-6' local-class='block-area5-b'>
-    </div> --}}
+    <div class="col-md-6 col-sm-12" local-class="nopadding horizontal-histogram">
+        <div local-class="inside">
+            <p local-class="his-title"><span>各产品排名变化</span><span>{{time}}.全国</span></p>
+            <p local-class="choose-type"><span>数据类型：</span>
+                <select class="" name="" onchange={{ action 'queryRank' value="target.value"}}>
+                    {{#each RankdataType as |item|}}
+                    <option value={{item}}>{{item}}({{unit}})</option>
+                    {{/each}}
+                </select>
+            </p>
+            <div local-class="share" class="container-fluid">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="row">
+                        {{#each rankingRange as |item|}}
+                        <span class="col-md-2 col-sm-2 col-xs-2">{{item}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <div local-class="histogram">
+                {{#each ranking as |item|}}
+                {{pord-histogram data=item theMax=rankingMax}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
 </div>
 
-<div local-class='block-area6'>
+<div local-class='competing-products-table'>
+    <p local-class="table-title"><span>{{competingTitle.title}}</span><span>{{competingTitle.subtitle}}{{competingTitle.area}}</span></p>
+    {{self-table model=competingValue columns=competingColumn selfheight='250px'}}
 </div>
 
-<div local-class='block-area6'>
+<div local-class='nopadding choose-line'>
+    <p local-class="trend-title">
+        <span>各产品销售趋势分析</span>{{!-- <span>{{trendTitle.title}}</span> --}}
+        <span>{{trendTitle.timeStart}}至{{trendTitle.timeOver}}{{trendTitle.area}}</span>
+    </p>
+    <p local-class="choose-type">
+        <span>数据类型：</span>
+        <select class="" name="" onchange={{ action 'queryTrend' value="target.value"}}>
+            {{#each trendData as |item|}}
+            <option value={{item}}>{{item}}</option>
+            {{/each}}
+        </select>
+    </p>
+    {{line-mulit-choose chooseData=AllTrendValue}}
 </div>
