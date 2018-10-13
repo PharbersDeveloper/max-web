@@ -121,7 +121,7 @@ export default Controller.extend({
 					mirrorProvincesCurrent,
 					mirrorProvincesLast
 				}
-				console.log(mirrorProvinces)
+				console.log(res.mirror)
 				let current = [];
 				mirrorProvinces.mirrorProvincesCurrent.forEach((mirrorProvincesCurrent,index)=>{
 					let item = {
@@ -132,8 +132,6 @@ export default Controller.extend({
 					current.push(item);
 				})
 				this.set('current',current);
-				console.log("this is current")
-				console.log(current)
 
 				let lastYear = [];
 				mirrorProvinces.mirrorProvincesLast.forEach((mirrorProvincesLast,index)=>{
@@ -153,8 +151,43 @@ export default Controller.extend({
 					})
 				})
 				this.set('lastYear',lastYear);
-				console.log("this is last")
-				console.log(lastYear)
+
+				let mirrorCityCurrent = res.mirror.city.current;
+				let mirrorCityLast = res.mirror.city.lastyear;
+				let mirrorCity = {
+					mirrorCityCurrent,
+					mirrorCityLast
+				}
+				console.log(mirrorCity)
+				let currentCity = [];
+				mirrorCity.mirrorCityCurrent.forEach((mirrorCityCurrent,index)=>{
+					let item = {
+						key: index+1,
+						marketSales: mirrorCityCurrent.marketSales,
+						area: "",
+					}
+					currentCity.push(item);
+				})
+				this.set('currentCity',currentCity);
+
+				let lastYearCity = [];
+				mirrorCity.mirrorCityLast.forEach((mirrorCityLast,index)=>{
+					let item = {
+						key: index+1,
+						marketSales: -mirrorCityLast.marketSales,
+						areaLast: mirrorCityLast.area,
+						area: mirrorCity.mirrorCityCurrent[index].area,
+					}
+					lastYearCity.push(item);
+				})
+				lastYearCity.forEach((a)=>{
+					lastYearCity.forEach((b)=>{
+						if(a.area === b.areaLast) {
+							a.keyLast = b.key;
+						}
+					})
+				})
+				this.set('lastYearCity',lastYearCity);
 			} else {
 				this.set('sampleCheckError', true);
 				this.set('errorMessage', "error");

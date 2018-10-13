@@ -286,8 +286,10 @@
 .show {
     height: 600px;
     overflow: auto;
+    display: block;
 }
 .hide {
     height: 0;
     overflow: hidden;
+    display: none;
 }

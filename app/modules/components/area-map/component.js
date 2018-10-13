@@ -9,6 +9,7 @@ export default Component.extend({
         run.scheduleOnce('render', this, this.drawChart);
     },
     drawChart() {
+        d3.select('.map-area').select("svg").remove();
         let valueName = this.get('valueName');
         if(valueName != undefined) {
             var margin = {top: 0, right: 10, bottom: 10, left: 10};
