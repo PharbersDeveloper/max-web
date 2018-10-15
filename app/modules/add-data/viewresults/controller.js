@@ -35,8 +35,8 @@ export default Controller.extend({
     querySelectArg() {
 		let company_id = localStorage.getItem('company_id');
 		let job_id = localStorage.getItem('job_id');
-		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
-		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
+		// let company = this.store.peekAll('phmaxjob').lastObject.company_id;
+		// let job = this.store.peekAll('phmaxjob').lastObject.job_id;
 
 		let req = this.store.createRecord('samplecheckselecter',{
 			res: "phselecter",
@@ -198,6 +198,26 @@ export default Controller.extend({
 		queryAll(mAndY) {
 			this.queryContentData(mAndY.market,mAndY.year);
 			// console.log(mAndY);
+		},
+		export() {
+			let company_id = localStorage.getItem('company_id');
+			let job_id = localStorage.getItem('job_id');
+			let market = localStorage.getItem('market');
+			let ym = localStorage.getItem('year');
+			// let company = this.store.peekAll('phmaxjob').lastObject.company_id;
+			// let job = this.store.peekAll('phmaxjob').lastObject.job_id;
+
+			let req = this.store.createRecord('exportmaxresult',{
+				res: "export",
+				company_id: company_id,
+				job_id: job_id,
+				market: market,
+				ym: ym
+			})
+			let result = this.store.object2JsonApi('request', req);
+			this.store.queryObject('。。。','exportmaxresult', result ).then((res) => {
+
+			});
 		}
 	}
 });

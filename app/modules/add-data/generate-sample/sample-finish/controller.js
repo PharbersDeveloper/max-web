@@ -66,8 +66,8 @@ export default Controller.extend({
 
 	},
 	querySelectArg() {
-		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
-		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
+		// let job = this.store.peekAll('phmaxjob').lastObject.job_id;
+		// let company = this.store.peekAll('phmaxjob').lastObject.company_id;
 
 		let job_id = localStorage.getItem('job_id');
 		let company_id = localStorage.getItem('company_id');
@@ -95,9 +95,9 @@ export default Controller.extend({
 		});
 	},
 	queryContentData() {
-		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
-		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
-		// let user = this.store.peekAll('phmaxjob').firstObject.user_id;
+		// let company = this.store.peekAll('phmaxjob').lastObject.company_id;
+		// let job = this.store.peekAll('phmaxjob').lastObject.job_id;
+		// let user = this.store.peekAll('phmaxjob').lastObject.user_id;
 		let market = $('select[name="markets"]').val() || localStorage.getItem('market');
 		console.log(market);
 		let years = $('select[name="years"]').val() || localStorage.getItem('year');

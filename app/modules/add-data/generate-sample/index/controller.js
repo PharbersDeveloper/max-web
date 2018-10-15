@@ -80,7 +80,9 @@ export default Controller.extend(XMPPMixin,{
 			// let req = this.store.peekAll('phmaxjob').lastObject;
 			let cpa = localStorage.getItem('cpa');
 			let gycx = localStorage.getItem('gycx');
-			let not_arrival_hosp_file = localStorage.getItem('hosp_file');
+			let not_arrival_hosp_file = localStorage.getItem('not_arrival_hosp_file');
+			console.log("this is in index")
+			console.log(not_arrival_hosp_file);
 			let job_id = localStorage.getItem('job_id');
 			let company_id = localStorage.getItem('company_id');
 			let user_id = localStorage.getItem('username');

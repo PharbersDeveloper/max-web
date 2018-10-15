@@ -67,6 +67,9 @@ export default Component.extend({
 		saveData() {
 			this.set('isSave', true)
 		},
+		export() {
+			this.sendAction('export');
+		},
 		queryAll() {
 			let mAndY = this.queryContentData();
 			this.sendAction('queryAll',mAndY);
