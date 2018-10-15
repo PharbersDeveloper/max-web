@@ -9,20 +9,18 @@ const MessageFactory = EmberObject.create({
     doCall(msg, instance, func) {
         let msg2Json = JSON.parse(msg); //json
         instance.set('message', msg2Json);
-        console.log(msg2Json);
-        // if (msg2Json.data.attributes.call === 'ymCalc') {
-        //     SampleObject.set('fileParsingSuccess',true);
-        // }
-        // if (msg2Json.data.attributes.call === 'panel') {
-        //     instance.set('flu','panel');
-        // }
+        console.info('instance ====> ' + instance)
     }
 });
 
 export default Mixin.create({
     xmpp: inject(),
     xmppCallBack(instance) {
+        console.info('xmppCallBack instance ====> ' + instance)
         let that = this;
+        //TODO alex 这块需要多链接Instance或替换新的Instance
+        console.info(that.get('xmpp').get('connection'))
+        that.get('xmpp').set('connection', undefined);
         function onMessage(msg) {
 			var to = msg.getAttribute('to');
 			var from = msg.getAttribute('from');
@@ -34,13 +32,13 @@ export default Mixin.create({
 
 				console.info('ECHOBOT: I got a message from ' + from + ': ' +
 					that.get('xmpp').getText(body));
-                    // console.info()
                 MessageFactory.doCall(that.get('xmpp').getText(body), instance)
                 // instance.set('number', '123')
                 // console.info(message)
 			}
 			return true;
 		}
+        console.info('xmpps')
 		this.get('xmpp').connect('lu', '123456', conf, onMessage);
     },
     xmppSendMessage(msg, to) {

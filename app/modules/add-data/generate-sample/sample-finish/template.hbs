@@ -19,9 +19,9 @@
             </div>
             <div local-class="choosebar-content choosebar-right">
                 {{#bs-button local-class="btn-default-max" onClick=(action (mut uploadAgain) true)}}重新上传{{/bs-button}}
-                {{#link-to "add-data.calcmax"}}
-                    <button local-class="btn-default-max" type="button" name="button">下一步</button>
-                {{/link-to}}
+
+                {{#bs-button local-class="btn-default-max" onClick=(action 'next')}}下一步{{/bs-button}}
+
             </div>
         </div>
         <div local-class="result-item hospital-sample">

@@ -2,21 +2,22 @@ import Controller from '@ember/controller';
 import { inject } from '@ember/service';
 import rsvp from 'rsvp';
 import { computed } from '@ember/object';
+import { observer } from '@ember/object';
 import SampleObject from '../../../common/xmpp-message-object/SampleObjectMessage';
 import MaxCalculateObject from '../../../common/xmpp-message-object/MaxCalculateMessage';
-import styles from '../styles';
 import XMPPMixin from '../../../common/xmpp-message-object/XMPPMixin'
 import { isEmpty } from '@ember/utils';
-import { observer } from '@ember/object';
+import styles from '../styles';
+import conf from '../../../../config/environment';
 
 export default Controller.extend(XMPPMixin,{
 	cookies: inject(),
-	xmpp: inject(),
 	styles,
 	message: '',
 	SampleObject,
 	fluResult: observer('message', function() {
 		let msg2Json = this.get('message');
+		console.log("this is in generate controller")
 		if (msg2Json.data.attributes.call === 'ymCalc') {
 			let job_current = localStorage.getItem('job_id');
 			let job_xmpp = msg2Json.data.attributes.job_id;
@@ -42,21 +43,7 @@ export default Controller.extend(XMPPMixin,{
 					   that.transitionToRoute('add-data.generate-sample.sample-finish');
 				   },1000)
 			   }
-        } else if(msg2Json.data.attributes.call === 'calc') {
-				let job_current = localStorage.getItem('job_id');
-				let job_xmpp = msg2Json.data.attributes.job_id;
-				let maxPercentage = msg2Json.data.attributes.percentage;
-				this.set('maxPercentage',maxPercentage);
-			   if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
-				   setTimeout(function(){
-					   MaxCalculateObject.set('calcHasDone',true);
-				   },1000)
-			   }
-
-			// this.transitionToRoute('add-data.viewresults');
-			// this.transitionToRoute('add-data.viewresults')
-		}
-
+        }
 	}),
 	ymList: computed('message', function() {
 		let message = this.get('message');
@@ -79,23 +66,13 @@ export default Controller.extend(XMPPMixin,{
 		}
 
 	}),
-
 	init() {
 		this._super(...arguments);
 		this.set('cpafilename', this.get('cookies').read('filecpa'))
 		this.set('gycxfilename', this.get('cookies').read('filegycx'))
 		this.xmppCallBack(this);
 	},
-	getAjaxOpt(data) {
-		return {
-			method: 'POST',
-			dataType: "json",
-			cache: false,
-			data: JSON.stringify(data),
-			contentType: "application/json,charset=utf-8",
-			Accpt: "application/json,charset=utf-8",
-		}
-	},
+
 	actions: {
 		startParsingFile() {
 			SampleObject.set('isShowProgress',true);
