@@ -11,6 +11,9 @@ export default Component.extend({
         exitStepFlow() {
             this.set('exitStep',false);
 
-        }
+        },
+        quit() {
+			window.location.href="../data-center";
+		}
     }
 });

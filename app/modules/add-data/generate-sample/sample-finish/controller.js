@@ -211,7 +211,7 @@ export default Controller.extend({
 			SampleObject.set('fileParsingSuccess', false);
 			SampleObject.set('calcYearsProgress', false);
 			SampleObject.set('calcPanelProgress', false);
-			this.transitionToRoute('adddata.uploadfiles')
+			this.transitionToRoute('add-data.uploadfiles')
 			// window.location = 'uploadfiles'
 		},
 		next() {
