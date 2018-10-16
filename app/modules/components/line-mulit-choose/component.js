@@ -41,7 +41,7 @@ export default Component.extend({
         var circleRadiusHover = 6;
 
         /* Format Data */
-        var parseDate = d3.timeParse("%Y%m");
+        var parseDate = d3.timeParse("%Y-%m");
         let formatDateIntoYearMonth = d3.timeFormat('%Y-%m');
 
         let data = chooseData.map(function(item) {

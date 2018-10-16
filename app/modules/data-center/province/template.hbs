@@ -57,7 +57,7 @@
 		{{mixed-graph mixedGraphData=mixedGraphData}}
 	</div>
 	<div local-class="table-sales">
-		<p local-class="con-title"><span>{{competingTitle.title}}</span><span>{{time}}</span></p>
+		<p local-class="con-title"><span>{{provSalesTitle.title}}</span><span>{{time}}</span></p>
 		{{self-table model=marketSalesValue columns=MarketSales selfheight='300px'}}
 	</div>
 
@@ -104,7 +104,7 @@
 	<div local-class="provs-choose" class="container-fluid">
 		<span local-class="title">省份选择：</span>
 		<span local-class="show-area">{{prov}}</span>
-		<span local-class="hint">——选择单一省份，查看省份销售详细数据</span>
+		<span local-class="hint">—可选择单一省份，查看省份销售详细数据</span>
 		{{#bs-button local-class="changeBtn" onClick=(action (mut modalprov) true)}} 修改筛选条件{{/bs-button}}
 
 		<div local-class="prov-change-item">
@@ -158,6 +158,7 @@
 				<p local-class="pie-title">
 					<span>{{marketTitle.title}}</span>
 					<span>{{marketTitle.subtitle}}</span>
+					<span>{{marketTitle.province}}</span>
 				</p>
 				{{legend-pie-sales pieData=marketShare}}
 			</div>
@@ -192,13 +193,13 @@
 		</div>
 	</div>
 	<div local-class="table-sales">
-		<p local-class="con-title"><span>{{competingTitle.title}}</span><span>{{competingTitle.subtitle}}</span></p>
+		<p local-class="con-title"><span>{{competingTitle.title}}</span><span>{{competingTitle.subtitle}}&nbsp;{{competingTitle.city}}</span></p>
 		{{self-table model=competingProdValue columns=competingProd selfheight='300px'}}
 	</div>
 	<div class="container-fluid" local-class='nopadding choose-line'>
 		<p local-class="trend-title">
 			<span>{{AllTrendTitle.title}}</span>{{!-- <span>{{trendTitle.title}}</span> --}}
-			<span>{{AllTrendTitle.timeStart}}至{{AllTrendTitle.timeOver}}{{AllTrendTitle.area}}</span>
+			<span>{{AllTrendTitle.timeStart}}至{{AllTrendTitle.timeOver}}&nbsp;{{AllTrendTitle.area}}</span>
 		</p>
 		<p local-class="choose-type">
 			<span>数据类型：</span>

@@ -115,7 +115,7 @@ export default Controller.extend({
             })
     },
     /**
-     *	查询市场各省份销售概况-table
+     *	查询市场各城市销售概况-table
      */
     queryMarketSalesTable() {
         let condition = {
@@ -463,42 +463,42 @@ export default Controller.extend({
         this.cards = [{
 		title: "title",
 		subtitle: "time",
-		name: "省份名称",
+		name: "城市名称",
 		tag: "mil",
 		value: 88.88,
 		percent: -8,
 	},{
 		title: "title",
 		subtitle: "time",
-		name: "省份名称",
+		name: "城市名称",
 		tag: "mil",
 		value: 88.88,
 		percent: 4.3,
 	},{
 		title: "title",
 		subtitle: "time",
-		name: "省份名称",
+		name: "城市名称",
 		tag: "mil",
 		value: 88.88,
 		percent: 4.3,
 	},{
 		title: "title",
 		subtitle: "time",
-		name: "省份名称",
+		name: "城市名称",
 		tag: "mil",
 		value: 88.88,
 		percent: 4.3,
 	},{
 		title: "title",
 		subtitle: "time",
-		name: "省份名称",
+		name: "城市名称",
 		tag: "%",
 		value: 88.88,
 		percent: 4.3,
 	},{
 		title: "title",
 		subtitle: "time",
-		name: "省份名称",
+		name: "城市名称",
 		tag: "%",
 		value: 88.88,
 		percent: 4.3,
@@ -506,9 +506,9 @@ export default Controller.extend({
         // this.queryMarketProdCards();
         //  end 市场规模卡片数据
 
-        //  市场各省份销售概况-混合图
+        //  市场各城市销售概况-混合图
         this.mixedGraphTitle = {
-            title: '市场各省份销售概况',
+            title: '市场各城市销售概况',
         };
         this.mixedGraphData = [{
             'province': 'aa',
@@ -533,14 +533,14 @@ export default Controller.extend({
 
         }, ];
         // this.queryMixedGraph();
-        // end市场各省份销售概况-混合图
+        // end市场各城市销售概况-混合图
 
-        //  市场各省份销售概况-table
+        //  市场各城市销售概况-table
         this.provSalesTitle = {
             title:'市场各省销售概况',
         }
         this.MarketSales = [{
-            label: '省份名',
+            label: '城市名',
             valuePath: 'province',
             classNames: 'tabl',
             align: 'center',
@@ -586,7 +586,7 @@ export default Controller.extend({
             minResizeWidth: '70px',
         }];
         this.marketSalesValue = [{
-            'province': '省份名',
+            'province': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -595,7 +595,7 @@ export default Controller.extend({
             'share': 45,
             'share_growth': 9,
         }, {
-            'province': '省份名',
+            'province': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -604,7 +604,7 @@ export default Controller.extend({
             'share': 45,
             'share_growth': 9,
         }, {
-            'province': '省份名',
+            'province': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -613,7 +613,7 @@ export default Controller.extend({
             'share': 45,
             'share_growth': 9,
         }, {
-            'province': '省份名',
+            'province': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -622,7 +622,7 @@ export default Controller.extend({
             'share': 45,
             'share_growth': 9,
         }, {
-            'province': '省份名',
+            'province': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -631,7 +631,7 @@ export default Controller.extend({
             'share': 45,
             'share_growth': 9,
         }, {
-            'province': '省份名',
+            'province': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -641,7 +641,7 @@ export default Controller.extend({
             'share_growth': 9,
         }];
         // this.queryMarketSalesTable();
-        // end 市场各省份销售概况-table
+        // end 市场各城市销售概况-table
 
         //  市场销售组成-pie
         this.marketSalesPie = [{
@@ -650,7 +650,7 @@ export default Controller.extend({
             title: '北京',
             color: 'red',
             tips: [{
-                    key: '省份销售额',
+                    key: '城市销售额',
                     value: 546872,
                     unit: 'mil'
                 },
@@ -666,7 +666,7 @@ export default Controller.extend({
             title: '北京',
             color: 'red',
             tips: [{
-                    key: '省份销售额',
+                    key: '城市销售额',
                     value: 546872,
                     unit: 'mil'
                 },
@@ -682,7 +682,7 @@ export default Controller.extend({
             title: '北京',
             color: 'red',
             tips: [{
-                    key: '省份销售额',
+                    key: '城市销售额',
                     value: 546872,
                     unit: 'mil'
                 },
@@ -700,7 +700,7 @@ export default Controller.extend({
         // this.queryPerMarketShare();
         //  end 市场销售组成
 
-        //  市场省份层面排行
+        //  市场城市层面排行
         this.provRankValue = [
             {
                 no: 1,
@@ -713,7 +713,7 @@ export default Controller.extend({
         // this.queryMarketRank();
         // this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
         // this.computedRankingMax();
-        //  end 市场省份层面排行
+        //  end 市场城市层面排行
 
         //市场销售总额-卡片数据
         this.sales = [{

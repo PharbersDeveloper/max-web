@@ -266,17 +266,17 @@ export default Controller.extend({
             area: '全国',
         };
         this.multiData = [{
-            "date": "2017-01",
+            "ym": "2017-01",
             "marketSales": 27,
             "prodSales": 15,
             "share": 20
         }, {
-            "date": "2017-02",
+            "ym": "2017-02",
             "marketSales": 26,
             "prodSales": 15,
             "share": 25
         }, {
-            "date": "2017-03",
+            "ym": "2017-03",
             "marketSales": 27,
             "prodSales": 15,
             "share": 20
@@ -326,50 +326,185 @@ export default Controller.extend({
             area: '全国'
         };
         this.pieValue = [{
-			'prod': '产品一',
-			'sales': 12,
-			'share': 455,
+			'title': '产品一',
+			'show_value': 10,
+			'share': 848,
 			'color': '#3399FF',
+			'tips': [{
+                key:'生产商:',
+                value:'XXX公司',
+                unit:'',
+            },
+            {
+                key:'销售额:',
+                value:'848',
+                unit:'',
+            },
+            {
+                key:'份额:',
+                value:'10',
+                unit:'',
+            },],
 		}, {
-			'prod': '产品二',
-			'sales': 135,
+			'title': '产品二',
+			'show_value': 8,
 			'share': 845,
 			'color': 'orange',
+			'tips':  [{
+                key:'生产商:',
+                value:'XXX公司',
+                unit:'',
+            },
+            {
+                key:'销售额:',
+                value:'845',
+                unit:'',
+            },
+            {
+                key:'份额:',
+                value:'8',
+                unit:'',
+            },],
 		}, {
-			'prod': '产品三',
-			'sales': 647,
+			'title': '产品三',
+			'show_value': 2,
 			'share': 256,
 			'color': 'lightyellow',
+			'tips': [{
+                key:'生产商:',
+                value:'XXX公司',
+                unit:'',
+            },
+            {
+                key:'销售额:',
+                value:'256',
+                unit:'',
+            },
+            {
+                key:'份额:',
+                value:'2',
+                unit:'',
+            },],
 		}, {
-			'prod': '产品四',
-			'sales': 13422,
+			'title': '产品四',
+			'show_value': 18,
 			'share': 452,
 			'color': 'lightgreen',
+			'tips': [{
+                key:'生产商:',
+                value:'XXX公司',
+                unit:'',
+            },
+            {
+                key:'销售额:',
+                value:'452',
+                unit:'',
+            },
+            {
+                key:'份额:',
+                value:'18',
+                unit:'',
+            },],
 		}, {
-			'prod': '产品5',
-			'sales': 13422,
+			'title': '产品5',
+			'show_value': 2,
 			'share': 411,
 			'color': 'blue',
+			'tips': [{
+                key:'生产商:',
+                value:'XXX公司',
+                unit:'',
+            },
+            {
+                key:'销售额:',
+                value:'411',
+                unit:'',
+            },
+            {
+                key:'份额:',
+                value:'2',
+                unit:'',
+            },],
 		}, {
-			'prod': '产品6',
-			'sales': 13422,
+			'title': '产品6',
+			'show_value': 7,
 			'share': 421,
 			'color': 'lightblue',
+			'tips': [{
+                key:'生产商:',
+                value:'XXX公司',
+                unit:'',
+            },
+            {
+                key:'销售额:',
+                value:'421',
+                unit:'',
+            },
+            {
+                key:'份额:',
+                value:'7',
+                unit:'',
+            },],
 		}, {
-			'prod': '产品7',
-			'sales': 13422,
+			'title': '产品7',
+			'show_value': 10,
 			'share': 444,
-			'color': 'pink'
+			'color': 'pink',
+			'tips': [{
+                key:'生产商:',
+                value:'XXX公司',
+                unit:'',
+            },
+            {
+                key:'销售额:',
+                value:'444',
+                unit:'',
+            },
+            {
+                key:'份额:',
+                value:'10',
+                unit:'',
+            },],
 		}, {
-			'prod': '产品8',
-			'sales': 13422,
+			'title': '产品8',
+			'show_value': 14,
 			'share': 422,
-			'color': 'lightgray'
+			'color': 'lightgray',
+			'tips': [{
+                key:'生产商:',
+                value:'XXX公司',
+                unit:'',
+            },
+            {
+                key:'销售额:',
+                value:'422',
+                unit:'',
+            },
+            {
+                key:'份额:',
+                value:'14',
+                unit:'',
+            },],
 		}, {
-			'prod': '其他',
-			'sales': 34,
+			'title': '其他',
+			'show_value': 30,
 			'share': 175,
-			'color': 'skyblue'
+			'color': 'skyblue',
+			'tips': [{
+                key:'生产商:',
+                value:'XXX公司',
+                unit:'',
+            },
+            {
+                key:'销售额:',
+                value:'175',
+                unit:'',
+            },
+            {
+                key:'份额:',
+                value:'30',
+                unit:'',
+            },],
 		}, ];
         // this.queryPerProdShare();
         //  end 各产品份额
@@ -460,7 +595,7 @@ export default Controller.extend({
                 },
                 {
                     ym: "2018-02",
-                    value: 110,
+                    value: 100,
                     unit: ''
                 }
             ]
@@ -481,12 +616,12 @@ export default Controller.extend({
             name: "product3",
             values: [{
                     ym: "2018-01",
-                    value: 100,
+                    value: 90,
                     unit: ''
                 },
                 {
                     ym: "2018-02",
-                    value: 110,
+                    value: 120,
                     unit: ''
                 }
             ]
