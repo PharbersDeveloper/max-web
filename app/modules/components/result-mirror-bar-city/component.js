@@ -24,7 +24,6 @@ export default Component.extend({
             return ele.marketSales;
         });
         let currentXArrayMax = Math.ceil(Math.max.apply(null,currentXArray));
-        console.log(currentXArrayMax);
 
         var x =  d3.scaleLinear() //返回一个线性比例尺
             .range([0, currentXArrayMax]); //设定比例尺的值域

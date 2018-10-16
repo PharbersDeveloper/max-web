@@ -121,7 +121,6 @@ export default Controller.extend({
 					mirrorProvincesCurrent,
 					mirrorProvincesLast
 				}
-				console.log(res.mirror)
 				let current = [];
 				mirrorProvinces.mirrorProvincesCurrent.forEach((mirrorProvincesCurrent,index)=>{
 					let item = {
@@ -158,7 +157,6 @@ export default Controller.extend({
 					mirrorCityCurrent,
 					mirrorCityLast
 				}
-				console.log(mirrorCity)
 				let currentCity = [];
 				mirrorCity.mirrorCityCurrent.forEach((mirrorCityCurrent,index)=>{
 					let item = {
@@ -199,7 +197,7 @@ export default Controller.extend({
 			this.queryContentData(mAndY.market,mAndY.year);
 			// console.log(mAndY);
 		},
-		export() {
+		exportFiles() {
 			let company_id = localStorage.getItem('company_id');
 			let job_id = localStorage.getItem('job_id');
 			let market = localStorage.getItem('market');
@@ -215,8 +213,46 @@ export default Controller.extend({
 				ym: ym
 			})
 			let result = this.store.object2JsonApi('request', req);
-			this.store.queryObject('。。。','exportmaxresult', result ).then((res) => {
-
+			this.store.queryObject('/api/v1/exportmaxresult/0','exportmaxresult', result ).then((res) => {
+				if(res.result_path != '') {
+					let resultPath = res.result_path;
+					var url = '/download/' + resultPath;
+					var xhr = new XMLHttpRequest();
+					xhr.open('GET', url, true);        // 也可以使用POST方式，根据接口
+					xhr.responseType = "blob";    // 返回类型blob
+					  // 定义请求完成的处理函数，请求前也可以增加加载框/禁用下载按钮逻辑
+					xhr.onload = function (res) {
+						  // 请求完成
+						  if (this.status === 200) {
+							  // 返回200
+							  var a = document.createElement('a');
+							  a.download = resultPath;
+							  a.href = res.currentTarget.responseURL;
+							  $("body").append(a);    // 修复firefox中无法触发click
+							  a.click();
+							  $(a).remove();
+							  // var blob = this.response;
+							  // var reader = new FileReader();
+							  // reader.readAsDataURL(blob);
+							  // reader.onload = function (e) {
+								//   console.log(e);
+								//   // 转换完成，创建一个a标签用于下载
+								//   console.log(document);
+								//   console.log(resultPath);
+								//   var a = document.createElement('a');
+								//   a.download = resultPath;
+								//   a.href = res.currentTarget.responseURL;
+								//   console.log(a);
+								//   $("body").append(a);    // 修复firefox中无法触发click
+								//   a.click();
+								//   $(a).remove();
+							  //
+							  // }
+						  }
+					  };
+					  // 发送ajax请求
+					  xhr.send()
+				}
 			});
 		}
 	}

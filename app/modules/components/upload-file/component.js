@@ -35,8 +35,6 @@ export default Component.extend({
 		},
 		// 上传cpa文件
 		uploadCpaFile(file) {
-            console.log(file);
-
 			return file.upload('/upload').then(({
 				body: {
 					result,
@@ -44,9 +42,6 @@ export default Component.extend({
 					status
 				}
 			}) => {
-                console.log(result);
-                // console.log(error);
-                console.log(status);
 				if (status === 'ok') {
 					this.set('filecpa', file.get('name'));
 					this.set('isDisabled', false);

@@ -99,9 +99,6 @@
     {{#if isDisabled}}
         <button {{action 'pleaseUploadFile'}} class="btn-default-max" local-class="to-generate-sample" type="button" name="btn-second-step">下一步</button>
     {{else}}
-        {{!-- {{#link-to "adddata.generate-sample"}}
-            <button local-class={{unless isDisabled "useable" }} class="btn-default-max" local-class="to-generate-sample" type="button" name="btn-second-step">下一步</button>
-        {{/link-to}} --}}
         <button {{action 'next'}} local-class={{unless isDisabled "useable" }} class="btn-default-max" local-class="to-generate-sample" type="button" name="btn-second-step">下一步</button>
 
     {{/if}}

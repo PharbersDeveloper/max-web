@@ -79,7 +79,6 @@ export default Controller.extend({
 		})
 
 		let result = this.store.object2JsonApi('request', req);
-		console.log(result);
 		console.log("---checkselecter result----")
 		this.store.queryObject('/api/v1/samplecheckselecter/0','samplecheckselecter', result ).then((res) => {
 			if(res !== "") {
@@ -116,11 +115,9 @@ export default Controller.extend({
 		})
 
 		let result = this.store.object2JsonApi('request', req);
-		console.log(result);
 		console.log("---checkbody result----")
 		this.store.queryObject('/api/v1/samplecheckbody/0','samplecheckbody', result ).then((res) => {
 			if(res !== "") {
-				console.log(res);
 				let hosp_currentNumber = res.hospital.currentNumber;
 				let hosp_lastYearNumber = res.hospital.lastYearNumber;
 				this.set('hospitalNumber',hosp_currentNumber);

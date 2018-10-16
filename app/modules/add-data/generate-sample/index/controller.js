@@ -50,9 +50,7 @@ export default Controller.extend(XMPPMixin,{
 		if(!isEmpty(message)) {
 			// let ym = JSON.parse(message);
 			let ym = message;
-			console.log("-----this is message and it is not empty----");
 			let ymArray = ym.data.attributes.message.split('#');
-			console.log(ymArray);
 			let checkArray = ymArray.map((item)=>{
 				return {
 					isChecked: false,
@@ -81,8 +79,6 @@ export default Controller.extend(XMPPMixin,{
 			let cpa = localStorage.getItem('cpa');
 			let gycx = localStorage.getItem('gycx');
 			let not_arrival_hosp_file = localStorage.getItem('not_arrival_hosp_file');
-			console.log("this is in index")
-			console.log(not_arrival_hosp_file);
 			let job_id = localStorage.getItem('job_id');
 			let company_id = localStorage.getItem('company_id');
 			let user_id = localStorage.getItem('username');
@@ -98,9 +94,7 @@ export default Controller.extend(XMPPMixin,{
 			})
 			console.log("this is ymCalc");
 			let result = this.store.object2JsonApi('phmaxjob', req, false);
-			console.log(result);
 			this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
-                console.log(resp.not_arrival_hosp_file);
 				// SampleObject.set('isShowProgress',true);
 				// SampleObject.set('calcYearsProgress',true);
             })
@@ -118,15 +112,12 @@ export default Controller.extend(XMPPMixin,{
 				year.push(k.value)
 			});
 			let yearsString = year.join('#');
-			console.log(yearsString);
 
 			this.store.peekAll('phmaxjob').lastObject.set('yms',yearsString);
 			this.store.peekAll('phmaxjob').lastObject.set('call','panel');
 			let req = this.store.peekAll('phmaxjob').lastObject;
             let result = this.store.object2JsonApi('phmaxjob', req, false);
 			this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
-                console.log(resp);
-                console.log(resp.call);
 				if(resp.call === 'panel') {
 					SampleObject.set('fileParsingSuccess',false);
 					SampleObject.set('calcYearsProgress', false);

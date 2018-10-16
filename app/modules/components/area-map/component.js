@@ -78,9 +78,9 @@ export default Component.extend({
                                     return colorArray[0]
                                 } else if(d.properties.name == valueName[1]) {
                                     return colorArray[1];
-                                } else if(d.properties.name == valueName[2] || d.properties.name == valueName[3] || d.properties.name == valueName[4]) {
+                                } else if(d.properties.name == valueName[2] || d.properties.name == valueName[3] || d.properties.name == valueName[4] || d.properties.name == valueName[5]) {
                                     return colorArray[2];
-                                }else if(d.properties.name == valueName[5] || d.properties.name == valueName[6] || d.properties.name == valueName[7]) {
+                                }else if(d.properties.name == valueName[6] || d.properties.name == valueName[7] || d.properties.name == valueName[8] || d.properties.name == valueName[9] || d.properties.name == valueName[10]) {
                                     return colorArray[3];
                                 }else {
                                     return colorArray[4];

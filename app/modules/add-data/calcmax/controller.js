@@ -17,14 +17,11 @@ export default Controller.extend(XMPPMixin,{
 				let maxPercentage = msg2Json.data.attributes.percentage;
                 localStorage.setItem('thispercentage',0);
                 if(localStorage.getItem('thispercentage') <= maxPercentage) {
-                    console.log("maxpercentage is right")
                     this.set('maxPercentage',maxPercentage);
                     localStorage.setItem('thispercentage',maxPercentage);
                 }
-
-                console.log("this is max controller")
+                console.log("this is in max controller")
                 console.log(maxPercentage)
-
 			   if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
 				   setTimeout(function(){
 					   MaxCalculateObject.set('calcHasDone',true);
@@ -39,7 +36,6 @@ export default Controller.extend(XMPPMixin,{
         this._super(...arguments);
 		this.set('cpafilename', this.get('cookies').read('filecpa'))
 		this.set('gycxfilename', this.get('cookies').read('filegycx'))
-        console.info('123456')
 		this.xmppCallBack(this);
     },
     actions: {
@@ -49,10 +45,11 @@ export default Controller.extend(XMPPMixin,{
 			this.store.peekAll('phmaxjob').lastObject.set('call','max');
 			let req = this.store.peekAll('phmaxjob').lastObject;
             let result = this.store.object2JsonApi('phmaxjob', req, false);
-            console.log(result);
             this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
-                console.log(resp.call);
             })
+        },
+        viewresults() {
+            this.transitionToRoute('add-data.viewresults');
         }
     }
 });
