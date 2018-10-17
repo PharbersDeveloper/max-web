@@ -707,11 +707,17 @@ export default Controller.extend({
                 province: "province2",
                 growth: 4,
                 value: 38
+            },
+            {
+                no: 1,
+                province: "province2",
+                growth: 4,
+                value: 30
             }];
         // this.rankingRange = [];
         this.provRankRange = [];
         // this.queryMarketRank();
-        // this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
+        this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
         // this.computedRankingMax();
         //  end 市场省份层面排行
 

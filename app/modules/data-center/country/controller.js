@@ -517,8 +517,24 @@ export default Controller.extend({
             manu: "生产商2",
             growth: 4,
             value: 38
+        },
+        {
+            no: 2,
+            prod: "prod4",
+            manu: "生产商2",
+            growth: 4,
+            value: 30
+        },
+        {
+            no: 3,
+            prod: "prod7",
+            manu: "生产商2",
+            growth: 4,
+            value: 18
         }];
         this.rankingRange = [];
+        this.unit = '%';
+        this.computedRankingMax();
         // this.queryRanking();
         //  end 各产品排名变化
 
