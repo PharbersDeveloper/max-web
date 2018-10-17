@@ -34,7 +34,7 @@ export default Component.extend({
             let g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
             let tooltip = d3.select("div.tooltip"); // 各个地图信息展示区域
 
-            var url = "http://jeorch.top/ChindMapD3/china.geojson";
+            var url = "/resource/china.geojson";
             d3.json(url, function(error, china) {
               if (error) throw error;
               svg.selectAll("path")

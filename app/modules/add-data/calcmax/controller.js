@@ -15,14 +15,22 @@ export default Controller.extend(XMPPMixin,{
 				let job_current = localStorage.getItem('job_id');
 				let job_xmpp = msg2Json.data.attributes.job_id;
 				let maxPercentage = msg2Json.data.attributes.percentage;
-                localStorage.setItem('thispercentage',0);
-                if(localStorage.getItem('thispercentage') <= maxPercentage) {
-                    this.set('maxPercentage',maxPercentage);
-                    localStorage.setItem('thispercentage',maxPercentage);
-                }
-                console.log("this is in max controller")
+                console.log("maxPercentage")
                 console.log(maxPercentage)
-			   if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
+
+                if(maxPercentage > localStorage.getItem('thispercentage')) {
+                    console.log("thispercentage")
+                    console.log(localStorage.getItem('thispercentage'));
+                    this.set('maxPercentage',maxPercentage);
+                    console.log("maxPercentage new")
+                    console.log(maxPercentage)
+                    localStorage.setItem('thispercentage',maxPercentage);
+                    console.log("thispercentage new")
+                    console.log(localStorage.getItem('thispercentage'))
+                }
+                // console.log("this is in max controller")
+                // console.log(maxPercentage)
+	             if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
 				   setTimeout(function(){
 					   MaxCalculateObject.set('calcHasDone',true);
 				   },1000)
@@ -42,6 +50,7 @@ export default Controller.extend(XMPPMixin,{
         startCalcMAX() {
             MaxCalculateObject.set('isShowCalcProgress',true);
             console.log("this is calcmax");
+            localStorage.setItem('thispercentage',0);
 			this.store.peekAll('phmaxjob').lastObject.set('call','max');
 			let req = this.store.peekAll('phmaxjob').lastObject;
             let result = this.store.object2JsonApi('phmaxjob', req, false);
