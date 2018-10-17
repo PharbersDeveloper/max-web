@@ -8,14 +8,14 @@ export default Controller.extend({
     cookies: inject(),
     activeCi: true,
     market: '麻醉市场',
-    provRankTag: 'provinceSales',
+    cityRankTag: 'citySales',
     prodRankTag: "sales",
     trendTag: 'sales',
     prodRankMax: 0,
-    provRankMax: 0,
+    cityRankMax: 0,
     year: '2017',
     month: '03',
-    prov: '',
+    city: '北京市',
     // oldtime: computed('year', 'month', function() {
     //     let year = this.get('year');
     //     let month = this.get('month');
@@ -75,16 +75,16 @@ export default Controller.extend({
                 "market": this.get('market')
             }
         }
-        this.get('ajax').request('api/dashboard/province/provinceName', this.getAjaxOpt(condition))
+        this.get('ajax').request('api/dashboard/city/cityName', this.getAjaxOpt(condition))
             .then(({
                 status,
                 result,
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询产品cards(in province)：')
+                    // console.log('查询产品cards(in city)：')
                     // console.log(result);
-                    this.set('cards', result.provinceWord);
+                    this.set('cards', result.cityWord);
                 } else {}
             })
     },
@@ -100,16 +100,16 @@ export default Controller.extend({
                 "market": this.get('market'),
             }
         }
-        this.get('ajax').request('api/dashboard/province/lineOverview', this.getAjaxOpt(condition))
+        this.get('ajax').request('api/dashboard/city/lineOverview', this.getAjaxOpt(condition))
             .then(({
                 status,
                 result,
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询查询lllllline(in pro)：')
+                    // console.log('查询查询lllllline(in city)：')
                     // console.log(result);
-                    this.set('mixedGraphTitle', result.graphSale.provLineOverview);
+                    this.set('mixedGraphTitle', result.graphSale.cityLineOverview);
                     this.set('mixedGraphData', result.graphSale.mixedGraphData);
                 }
             })
@@ -125,16 +125,16 @@ export default Controller.extend({
                 "market": this.get('market'),
             }
         }
-        this.get('ajax').request('api/dashboard/province/tableOverview', this.getAjaxOpt(condition))
+        this.get('ajax').request('api/dashboard/city/tableOverview', this.getAjaxOpt(condition))
             .then(({
                 status,
                 result,
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询查询市场竞品销售情况(in pro)：')
+                    // console.log('查询查询市场竞品销售情况(in city)：')
                     // console.log(result);
-                    this.set('provSalesTitle', result.proTableOverview)
+                    this.set('citySalesTitle', result.cityTableOverview)
                     this.set('marketSalesValue', result.prodSalesValue);
                 }
             })
@@ -151,14 +151,14 @@ export default Controller.extend({
                 "market": this.get('market')
             }
         }
-        this.get('ajax').request('api/dashboard/province/marketPart', this.getAjaxOpt(condition))
+        this.get('ajax').request('api/dashboard/city/marketPart', this.getAjaxOpt(condition))
             .then(({
                 status,
                 result,
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询各产品份额(in pro)：')
+                    // console.log('查询各产品份额(in city)：')
                     // console.log(result);
                     this.set('marketSalesPie', result.pie);
                     this.set('marketTitle', result.marketSharePart);
@@ -176,21 +176,21 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "tag": this.get('provRankTag')
+                "tag": this.get('cityRankTag')
             }
         }
-        this.get('ajax').request('api/dashboard/province/provLevelRank', this.getAjaxOpt(condition))
+        this.get('ajax').request('api/dashboard/city/cityLevelRank', this.getAjaxOpt(condition))
             .then(({
                 status,
                 result,
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询各产品排名变化(in pro)：')
+                    // console.log('查询各产品排名变化(in city)：')
                     // console.log(result);
                     this.set('unit', result.unit);
-                    this.set('provRankValue', result.ranking);
-                    this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
+                    this.set('cityRankValue', result.ranking);
+                    this.computedRankingMax('cityRankValue', 'cityRankMax', 'cityRankRange');
                 }
             })
     },
@@ -204,12 +204,12 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": this.get('prov')
+                "city": this.get('city')
             }
         }
         console.log('++++++++++++++++++++++++++');
-        console.log(this.get('prov'));
-        this.get('ajax').request('api/dashboard/province/provMarketSale', this.getAjaxOpt(condition))
+        console.log(this.get('city'));
+        this.get('ajax').request('api/dashboard/city/cityMarketSale', this.getAjaxOpt(condition))
             .then(({
                 status,
                 result,
@@ -232,10 +232,10 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": this.get('prov')
+                "city": this.get('city')
             }
         }
-        this.get('ajax').request('api/dashboard/province/productTrend', this.getAjaxOpt(condition))
+        this.get('ajax').request('api/dashboard/city/productTrend', this.getAjaxOpt(condition))
             .then(({
                 status,
                 result,
@@ -258,19 +258,19 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": this.get('prov')
+                "city": this.get('city')
             }
         }
-        this.get('ajax').request('api/dashboard/province/productCard', this.getAjaxOpt(condition))
+        this.get('ajax').request('api/dashboard/city/productCard', this.getAjaxOpt(condition))
             .then(({
                 status,
                 result,
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询竞品数量(in pro)：')
+                    // console.log('查询竞品数量(in city)：')
                     // console.log(result);
-                    this.set('words', result.proProductCard);
+                    this.set('words', result.cityProductCard);
                 }
             })
     },
@@ -283,17 +283,17 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": this.get('prov')
+                "city": this.get('city')
             }
         }
-        this.get('ajax').request('api/dashboard/province/productShare', this.getAjaxOpt(condition))
+        this.get('ajax').request('api/dashboard/city/productShare', this.getAjaxOpt(condition))
             .then(({
                 status,
                 result,
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询各产品份额qqq(in pro)：')
+                    // console.log('查询各产品份额qqq(in city)：')
                     // console.log(result);
                     this.set('marketShare', result.pie);
                     this.set('marketTitle', result.marketSharePart);
@@ -310,18 +310,18 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": this.get('prov'),
+                "city": this.get('city'),
                 "tag": this.get('prodRankTag')
             }
         }
-        this.get('ajax').request('api/dashboard/province/prodRankChange', this.getAjaxOpt(condition))
+        this.get('ajax').request('api/dashboard/city/prodRankChange', this.getAjaxOpt(condition))
             .then(({
                 status,
                 result,
                 error
             }) => {
                 if (status === 'ok') {
-                    // console.log('查询各产品排名变化qqq(in pro)：')
+                    // console.log('查询各产品排名变化qqq(in city)：')
                     // console.log(result);
                     this.set('unit', result.unit);
                     this.set('prodRankValue', result.ranking);
@@ -342,13 +342,13 @@ export default Controller.extend({
                 "user_id": this.get('cookies').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
-                "province": this.get('prov')
+                "city": this.get('city')
             }
         }
-        this.get('ajax').request('api/dashboard/province/prodSaleOverview', this.getAjaxOpt(condition))
+        this.get('ajax').request('api/dashboard/city/prodSaleOverview', this.getAjaxOpt(condition))
             .then(({ status, result, error }) => {
                 if (status === 'ok') {
-                    // console.log('查询查询市场竞品销售情况(in pro)：')
+                    // console.log('查询查询市场竞品销售情况(in city)：')
                     // console.log(result);
                     this.set('competingTitle', result.prodSalesOverview)
                     this.set('competingProdValue', result.competeSaleTable);
@@ -399,7 +399,7 @@ export default Controller.extend({
         //     .then(this.queryMarketSalesTable())
         //     .then(this.queryPerMarketShare())
         //     .then(this.queryMarketRank())
-        //     .then(this.queryMarketProv());
+        //     .then(this.queryMarketCity());
 
 
             
@@ -415,7 +415,7 @@ export default Controller.extend({
     /**
      *	查询市场下的所有城市
      */
-    queryMarketProv() {
+    queryMarketCity() {
         let condition = {
             "condition": {
                 "user_id": this.get('cookies').read('uid'),
@@ -423,14 +423,14 @@ export default Controller.extend({
                 "market": this.get('market')
             }
         }
-        this.get('ajax').request('/api/dashboard/province/all', this.getAjaxOpt(condition))
+        this.get('ajax').request('/api/dashboard/city/all', this.getAjaxOpt(condition))
             .then(({ status, result, error }) => {
                 if (status === 'ok') {
                     // console.log(result);
-                    this.set('provs', result.provinces);
+                    this.set('citys', result.citys);
                     console.log("/////////////////////////");
-                    console.log(result.provinces[0]);
-                    this.set('prov', result.provinces[0]);
+                    console.log(result.citys[0]);
+                    this.set('city', result.citys[0]);
                     this.queryProdCards();
                     this.queryProdTrend();
                     this.queryProdMostCards();
@@ -438,7 +438,7 @@ export default Controller.extend({
                     this.queryProductRank();
                     this.queryProductSalesTable();
                     this.queryAllProdTrend();
-                    return result.provinces[0];
+                    return result.citys[0];
                 } else {}
             })
         // .then(this.queryProdCards())
@@ -455,7 +455,7 @@ export default Controller.extend({
         this.markets = [];
         this.years = ['2018', '2017', '2016'];
         this.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-        this.provRank = ['市场规模(mil)', '市场增长(%)', '销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
+        this.cityRank = ['市场规模(mil)', '市场增长(%)', '销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
         this.prodRank = ['销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
         this.trendData = ['销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
 
@@ -511,21 +511,21 @@ export default Controller.extend({
             title: '市场各城市销售概况',
         };
         this.mixedGraphData = [{
-            'province': 'aa',
+            'city': 'aa',
             'scale': 22,
             'sales': 20,
             'market_growth': -0.03,
             'prod_growth': 0.09,
 
         }, {
-            'province': 'bb',
+            'city': 'bb',
             'scale': 55,
             'sales': 50,
             'market_growth': 0.09,
             'prod_growth': -0.04,
 
         }, {
-            'province': 'cc',
+            'city': 'cc',
             'scale': 66,
             'sales': 60,
             'market_growth': -0.03,
@@ -536,12 +536,12 @@ export default Controller.extend({
         // end市场各城市销售概况-混合图
 
         //  市场各城市销售概况-table
-        this.provSalesTitle = {
-            title:'市场各省销售概况',
+        this.citySalesTitle = {
+            title:'市场各市销售概况',
         }
         this.MarketSales = [{
             label: '城市名',
-            valuePath: 'province',
+            valuePath: 'city',
             classNames: 'tabl',
             align: 'center',
             sortable: false, //是否可以对列进行排序
@@ -586,7 +586,7 @@ export default Controller.extend({
             minResizeWidth: '70px',
         }];
         this.marketSalesValue = [{
-            'province': '城市名',
+            'city': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -595,7 +595,7 @@ export default Controller.extend({
             'share': 45,
             'share_growth': 9,
         }, {
-            'province': '城市名',
+            'city': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -604,7 +604,7 @@ export default Controller.extend({
             'share': 45,
             'share_growth': 9,
         }, {
-            'province': '城市名',
+            'city': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -613,7 +613,7 @@ export default Controller.extend({
             'share': 45,
             'share_growth': 9,
         }, {
-            'province': '城市名',
+            'city': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -622,7 +622,7 @@ export default Controller.extend({
             'share': 45,
             'share_growth': 9,
         }, {
-            'province': '城市名',
+            'city': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -631,7 +631,7 @@ export default Controller.extend({
             'share': 45,
             'share_growth': 9,
         }, {
-            'province': '城市名',
+            'city': '城市名',
             'market_size':41614,
             'market_groth': 123456,
             'sales_amount':14614,
@@ -701,17 +701,17 @@ export default Controller.extend({
         //  end 市场销售组成
 
         //  市场城市层面排行
-        this.provRankValue = [
+        this.cityRankValue = [
             {
                 no: 1,
-                province: "province2",
+                city: "city2",
                 growth: 4,
                 value: 38
             }];
         // this.rankingRange = [];
-        this.provRankRange = [];
+        this.cityRankRange = [];
         // this.queryMarketRank();
-        // this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
+        // this.computedRankingMax('cityRankValue', 'cityRankMax', 'cityRankRange');
         // this.computedRankingMax();
         //  end 市场城市层面排行
 
@@ -769,7 +769,7 @@ export default Controller.extend({
         this.words = [{
             title:'竞品数量',
             subtitle:'2018-04',
-            province:'北京市',
+            city:'北京市',
             name:65
         },{
             title: "title",
@@ -984,7 +984,7 @@ export default Controller.extend({
         this.marketTitle = {
             title: '各产品销售概况',
             subtitle: '2018-01',
-            province:"北京市"
+            city:"北京市"
         };
         // this.queryPerProductShare();
         //end 产品份额-pie
@@ -1111,7 +1111,7 @@ export default Controller.extend({
         // this.queryProductSalesTable();
         //end 各竞品销售概况-table
 
-        this.provinces = [];
+        this.citys = [];
         this.prodSalesOverview = {};
         this.prodSalesTable = [];
 
@@ -1216,22 +1216,22 @@ export default Controller.extend({
         getMonth(params) {
             this.set('month', params);
         },
-        getProv(params) {
-            this.set('prov', params)
+        getCity(params) {
+            this.set('city', params)
         },
-        queryProvRank(params) {
+        queryCityRank(params) {
             if (params === '市场规模(mil)') {
-                this.set('provRankTag', 'provinceSales')
+                this.set('cityRankTag', 'citySales')
             } else if (params === '市场增长(%)') {
-                this.set('provRankTag', 'provMomGrowth')
+                this.set('cityRankTag', 'cityMomGrowth')
             } else if (params === '销售额(mil)') {
-                this.set('provRankTag', 'companySales')
+                this.set('cityRankTag', 'companySales')
             } else if (params === '销售增长(%)') {
-                this.set('provRankTag', 'companySalesMomGrowth')
+                this.set('cityRankTag', 'companySalesMomGrowth')
             } else if (params === '份额(%)') {
-                this.set('provRankTag', 'companyShare')
+                this.set('cityRankTag', 'companyShare')
             } else if (params === '份额增长(%') {
-                this.set('provRankTag', 'companyShareMomGrowth')
+                this.set('cityRankTag', 'companyShareMomGrowth')
             }
             this.queryMarketRank();
         },
@@ -1262,7 +1262,7 @@ export default Controller.extend({
             this.queryAllProdTrend();
         },
         submit() {
-            this.set('markTimeProv', false);
+            this.set('markTimeCity', false);
             this.queryMarketProdCards();
             this.queryMixedGraph();
             this.queryMarketSalesTable();
@@ -1276,8 +1276,8 @@ export default Controller.extend({
             this.queryProductSalesTable();
             this.queryAllProdTrend();
         },
-        submitProv() {
-            this.set('modalprov', false);
+        submitCity() {
+            this.set('modalcity', false);
             this.queryProdCards();
             this.queryProdTrend();
             this.queryProdMostCards();

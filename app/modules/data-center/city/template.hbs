@@ -12,7 +12,7 @@
 			<p>{{time}}</p>
 		</div>
 		<div local-class="change-item">
-			{{#bs-modal open=markTimeProv onSubmit=(action "submit") onHidden=(action (mut markTimeProv) false) as |modal|}}
+			{{#bs-modal open=markTimeCity onSubmit=(action "submit") onHidden=(action (mut markTimeCity) false) as |modal|}}
 				{{#modal.header}}
 					<h4 class="modal-title">修改筛选条件</h4>
 				{{/modal.header}}
@@ -44,7 +44,7 @@
 					{{#bs-button type="success" onClick=(action modal.submit ) }}保存{{/bs-button}}
 				{{/modal.footer}}
 			{{/bs-modal}}
-			{{#bs-button local-class="change" onClick=(action (mut markTimeProv) true)}} 修改筛选条件{{/bs-button}}
+			{{#bs-button local-class="change" onClick=(action (mut markTimeCity) true)}} 修改筛选条件{{/bs-button}}
 		</div>
 	</div>
 	<div class="container-fluid" local-class="nopadding">
@@ -54,10 +54,10 @@
 	</div>
 	<div class="container-fluid" local-class="mixed-graph">
 		<p local-class="inside-title"><span>{{mixedGraphTitle.title}}</span><span></span></p>
-		{{mixed-graph mixedGraphData=mixedGraphData}}
+		{{mixed-graph-city mixedGraphData=mixedGraphData}}
 	</div>
 	<div local-class="table-sales">
-		<p local-class="con-title"><span>{{provSalesTitle.title}}</span><span>{{time}}</span></p>
+		<p local-class="con-title"><span>{{citySalesTitle.title}}</span><span>{{time}}</span></p>
 		{{self-table model=marketSalesValue columns=MarketSales selfheight='300px'}}
 	</div>
 
@@ -75,8 +75,8 @@
 			<div local-class="inside">
 				<p local-class="his-title"><span>城市层面排行</span><span>{{time}}</span></p>
 				<p local-class="choose-type"><span>数据类型：</span>
-					<select class="" name="" onchange= {{ action 'queryProvRank' value="target.value"}}>
-						{{#each provRank as |item|}}
+					<select class="" name="" onchange= {{ action 'queryCityRank' value="target.value"}}>
+						{{#each cityRank as |item|}}
 							<option value={{item}}>{{item}}</option>
 						{{/each}}
 					</select>
@@ -86,15 +86,15 @@
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-6">
 						<div class="row">
-							{{#each provRankRange as |item|}}
+							{{#each cityRankRange as |item|}}
 								<span class="col-md-2 col-sm-2 col-xs-2">{{item}}</span>
 							{{/each}}
 						</div>
 					</div>
 				</div>
 				<div local-class="histogram">
-					{{#each provRankValue as |item|}}
-						{{pord-histogram-prov data=item theMax=provRankMax}}
+					{{#each cityRankValue as |item|}}
+						{{pord-histogram-city data=item theMax=cityRankMax}}
 					{{/each}}
 				</div>
 			</div>
@@ -103,20 +103,20 @@
 	{{!-- {{province-choose showMarkerChoose=true market=markets as |prov|}} --}}
 	<div local-class="provs-choose" class="container-fluid">
 		<span local-class="title">城市选择：</span>
-		<span local-class="show-area">{{prov}}</span>
+		<span local-class="show-area">{{city}}</span>
 		<span local-class="hint">—可选择单一城市，查看城市销售详细数据</span>
-		{{#bs-button local-class="changeBtn" onClick=(action (mut modalprov) true)}} 修改筛选条件{{/bs-button}}
+		{{#bs-button local-class="changeBtn" onClick=(action (mut modalcity) true)}} 修改筛选条件{{/bs-button}}
 
 		<div local-class="prov-change-item">
-			{{#bs-modal open=modalprov onSubmit=(action "submitProv") onHidden=(action (mut modalprov) false) as |modal|}}
+			{{#bs-modal open=modalcity onSubmit=(action "submitCity") onHidden=(action (mut modalcity) false) as |modal|}}
 				{{#modal.header}}
 					<h4 class="modal-title">修改筛选条件</h4>
 				{{/modal.header}}
 				{{#modal.body}}
 					<div local-class='market-choose-area'>
 						<span local-class="title">城市选择：</span>
-						<select local-class="choose-market" name="provs" onchange= {{ action 'getProv' value="target.value"}}>
-							{{#each provs as |item|}}
+						<select local-class="choose-market" name="citys" onchange= {{ action 'getCity' value="target.value"}}>
+							{{#each citys as |item|}}
 								<option value={{item}}>{{item}}</option>
 							{{/each}}
 						</select>
@@ -158,7 +158,7 @@
 				<p local-class="pie-title">
 					<span>{{marketTitle.title}}</span>
 					<span>{{marketTitle.subtitle}}</span>
-					<span>{{marketTitle.province}}</span>
+					<span>{{marketTitle.city}}</span>
 				</p>
 				{{legend-pie-sales pieData=marketShare}}
 			</div>

@@ -8,7 +8,7 @@ import {
 export default Controller.extend({
     ajax: inject(),
     cookies: inject(),
-    market: '',
+    market: '麻醉市场',
     ranktag: 'sales',
     trendTag: 'sales',
     rankingMax: 0,

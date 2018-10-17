@@ -114,18 +114,115 @@ export default Controller.extend({
     },
     init() {
         this._super(...arguments);
-        this.prodSalesTitle = {};
-        this.prodSalesLine = [];
+        this.prodSalesTitle = {
+            title: '辉瑞产品销售额',
+            timeStart: '2018-01',
+            timeOver: '2018-08',
+            currentMonth: '2018-04',
+            curMoSales: 9935.4,
+            yearYear: 4.3,
+            ring: 4.3,
+            totle: 146534563,
+            ave: 34572452,
+        };
+        this.prodSalesLine = [{
+			ym: '2018-01',
+			sales: 400
+		}, {
+			ym: '2018-02',
+			sales: 700
+		}, {
+			ym: '2018-03',
+			sales: 500
+		}, {
+			ym: '2018-04',
+			sales: 500
+		}, {
+			ym: '2018-05',
+			sales: 700
+		}, {
+			ym: '2018-06',
+			sales: 500
+		}, {
+			ym: '2018-07',
+			sales: 800
+		}, {
+			ym: '2018-08',
+			sales: 0
+		}, {
+			ym: '2018-09',
+			sales: 0
+		}, {
+			ym: '2018-10',
+			sales: 0
+		}, {
+			ym: '2018-11',
+			sales: 0
+		}, {
+			ym: '2018-12',
+			sales: 0
+		}];
         // this.queryProdOV();
         /**
          * card
          */
-        this.cards = [];
+        this.cards = [{
+            title: "title",
+            subtitle: "subtitle",
+            name: "市场名称",
+            subname: 'subname',
+            tag: "mil",
+            value: '94.83',
+            percent: '5.6'
+        }, {
+            title: "产品下滑",
+            subtitle: "2018-04",
+            name: "商品名称",
+            subname: '市场名',
+            tag: "mil",
+            value: '94.83',
+            percent: '-56.6'
+        }, {
+            title: "产品下滑",
+            subtitle: "2018-04",
+            name: "商品名称",
+            subname: '市场名',
+            tag: "mil",
+            value: '94.83',
+            percent: '-56.6'
+        },{
+            title: "title",
+            subtitle: "subtitle",
+            name: "市场名称",
+            subname: 'subname',
+            tag: "mil",
+            value: '94.83',
+            percent: '5.6'
+        }, {
+            title: "产品下滑",
+            subtitle: "2018-04",
+            name: "商品名称",
+            subname: '市场名',
+            tag: "mil",
+            value: '94.83',
+            percent: '56.6'
+        }, {
+            title: "产品下滑",
+            subtitle: "2018-04",
+            name: "商品名称",
+            subname: '市场名',
+            tag: "mil",
+            value: '94.83',
+            percent: '56.6'
+        }];
         // this.queryCards();
         /**
          * 产品销售概况table
          */
-        this.titleInfo = {};
+        this.titleInfo = {
+            title: '各产品销售概况',
+            subtitle: '2018-01',
+        };
         this.prodSales = [{
             label: '商品名',
             valuePath: 'prod',
@@ -177,15 +274,217 @@ export default Controller.extend({
             align: 'center',
             minResizeWidth: '70px',
         }];
-        this.prodSalesValue = [];
+        this.prodSalesValue = [
+            {
+                'prod': '产品二',
+                'market': 'aaaa',
+                'market_scale': 4564,
+                'market_growth': 135,
+                'sales': 87345,
+                'sales_growth': 68,
+                'ev_value': 468,
+                'share': 78,
+                'share_growth': 41,
+        
+            }, {
+                'prod': '产品三',
+                'market': 'aaaa',
+                'market_scale': 4564,
+                'market_growth': 647,
+                'sales': 56,
+                'sales_growth': 786,
+                'ev_value': 563,
+                'share': 536,
+                'share_growth': 786,
+            }];
         // this.queryProdSales();
 
         /**
          * 产品贡献度 pie and table
          */
-        this.contTitle = {};
-        this.prodContValue = [];
-        this.pieValue = [];
+        this.contTitle = {
+            title: '各产品销售概况',
+            subtitle: '2018-01',
+        };
+        this.prodContValue = [{
+			'prod': '产品一',
+			'market': 123456,
+			'sales': 12,
+			'cont': 45175,
+			'cont-month': 16,
+			'cont-season': 100,
+			'cont-year': 45,
+		}, {
+			'prod': '产品二',
+			'market': 54387,
+			'sales': 135,
+			'cont': 87345,
+			'cont-month': 68,
+			'cont-season': 468,
+			'cont-year': 78,
+		}, {
+			'prod': '产品三',
+			'market': 8321,
+			'sales': 647,
+			'cont': 56,
+			'cont-month': 786,
+			'cont-season': 563,
+			'cont-year': 536,
+		}, {
+			'prod': '产品四',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品5',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品6',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品7',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品8',
+			'market': 67456,
+			'sales': 13422,
+			'cont': 452,
+			'cont-month': 42,
+			'cont-season': 45,
+			'cont-year': 656,
+		}, {
+			'prod': '产品9',
+			'market': 356,
+			'sales': 34,
+			'cont': 75,
+			'cont-month': 12,
+			'cont-season': 46,
+			'cont-year': 54,
+		}, ];
+        this.pieValue = [{
+			'title': '产品一',
+			'show_value': 10,
+			'share': 848,
+			'color': '#3399FF',
+			'tips': [{
+                key:'销售额:',
+                value:'848',
+                unit:'',
+            },
+            {
+                key:'贡献度:',
+                value:'10',
+                unit:'',
+            },],
+		}, {
+			'title': '产品二',
+			'show_value': 8,
+			'share': 845,
+			'color': 'orange',
+			'tips':  [{
+                key:'销售额:',
+                value:'845',
+                unit:'',
+            },
+            {
+                key:'贡献度:',
+                value:'8',
+                unit:'',
+            },],
+		}, {
+			'title': '产品三',
+			'show_value': 2,
+			'share': 256,
+			'color': 'lightyellow',
+			'tips': [{
+                key:'销售额:',
+                value:'256',
+                unit:'',
+            },
+            {
+                key:'贡献度:',
+                value:'2',
+                unit:'',
+            },],
+		}, {
+			'title': '产品四',
+			'show_value': 18,
+			'share': 452,
+			'color': 'lightgreen',
+			'tips': [{
+                key:'销售额:',
+                value:'452',
+                unit:'',
+            },
+            {
+                key:'贡献度:',
+                value:'18',
+                unit:'',
+            },],
+		}, {
+			'title': '产品5',
+			'show_value': 2,
+			'share': 411,
+			'color': 'blue',
+			'tips': [{
+                key:'销售额:',
+                value:'411',
+                unit:'',
+            },
+            {
+                key:'贡献度:',
+                value:'2',
+                unit:'',
+            },],
+		}, {
+			'title': '产品6',
+			'show_value': 7,
+			'share': 421,
+			'color': 'lightblue',
+			'tips': [{
+                key:'销售额:',
+                value:'421',
+                unit:'',
+            },
+            {
+                key:'贡献度:',
+                value:'7',
+                unit:'',
+            },],
+		}, {
+			'title': '产品7',
+			'show_value': 10,
+			'share': 444,
+			'color': 'pink',
+			'tips': [{
+                key:'销售额:',
+                value:'444',
+                unit:'',
+            },
+            {
+                key:'贡献度:',
+                value:'10',
+                unit:'',
+            },],
+		}, ];
 
         // this.queryProdCont();
 

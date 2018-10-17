@@ -15,7 +15,7 @@ export default Controller.extend({
     provRankMax: 0,
     year: '2017',
     month: '03',
-    prov: '',
+    prov: '北京市',
     // oldtime: computed('year', 'month', function() {
     //     let year = this.get('year');
     //     let month = this.get('month');
