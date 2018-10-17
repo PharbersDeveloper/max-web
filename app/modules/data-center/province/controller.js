@@ -716,6 +716,7 @@ export default Controller.extend({
             }];
         // this.rankingRange = [];
         this.provRankRange = [];
+        this.marketRankingUnit = "%";
         // this.queryMarketRank();
         this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
         // this.computedRankingMax();
@@ -1012,6 +1013,7 @@ export default Controller.extend({
                 value: 38
             }];
         this.prodRankRange = [];
+        this.prodRankingUnit = "%";
 
         // this.queryProductRank();
         //end 各产品排名变化

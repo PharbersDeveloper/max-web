@@ -1,10 +1,13 @@
 {{yield}}
 <div local-class="progress" class="container-fluid">
     <div local-class="left" class="col-md-6 col-sm-6 col-xs-6">
-        <div class="col-md-8 col-sm-8 col-xs-8">
-            <p local-class="title">{{data.no}} <span>{{data.city}}</span></p>
+        <div class="col-md-2 col-sm-2 col-xs-2">
+            <p local-class="title">{{data.no}}</p>
         </div>
-        <div class="col-md-4 col-sm-4 col-xs-4" local-class="triangle">
+        <div class="col-md-4 col-sm-4 col-xs-4">
+            <p local-class="title">{{data.province}}</p>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6" local-class="triangle">
             {{#if (gte data.growth 0)}}
                 <span local-class='growth' class='glyphicon glyphicon-triangle-top'></span> <span>{{data.growth}}</span>
             {{else}}
@@ -18,3 +21,4 @@
         {{/bs-progress}}
     </div>
 </div>
+<div local-class="div-line"></div>

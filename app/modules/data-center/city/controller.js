@@ -710,8 +710,9 @@ export default Controller.extend({
             }];
         // this.rankingRange = [];
         this.cityRankRange = [];
+        this.marketRankingUnit = "%";
         // this.queryMarketRank();
-        // this.computedRankingMax('cityRankValue', 'cityRankMax', 'cityRankRange');
+        this.computedRankingMax('cityRankValue', 'cityRankMax', 'cityRankRange');
         // this.computedRankingMax();
         //  end 市场城市层面排行
 
@@ -1006,6 +1007,7 @@ export default Controller.extend({
                 value: 38
             }];
         this.prodRankRange = [];
+        this.prodRankingUnit = "%";
 
         // this.queryProductRank();
         //end 各产品排名变化
