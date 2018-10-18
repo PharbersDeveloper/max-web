@@ -6,7 +6,6 @@ import {
     computed
 } from '@ember/object';
 export default Controller.extend({
-    ajax: inject(),
     cookies: inject(),
     activeCi: true,
     fullName: '', // 这应该后端返回firstName与lastName 有前端计算出来
@@ -18,35 +17,64 @@ export default Controller.extend({
         let month = this.get('month');
         return year + '-' + month;
     }),
-    getAjaxOpt(data) {
-        return {
-            method: 'POST',
-            dataType: "json",
-            cache: false,
-            data: JSON.stringify(data),
-            contentType: "application/json,charset=utf-8",
-            Accpt: "application/json,charset=utf-8",
-        }
-    },
 
     /**
-     *	查询产品销售概况
+     *	查询产品销售额
      *
      */
     queryProdOV() {
-        let condition = {
-            "condition": {
-                "user_id": this.get('cookies').read('uid'),
-                "time": this.get('time')
+        // let condition = {
+        //     "condition": {
+        //         "company_id": localStorage.getItem('company_id'),
+        //         "time": this.get('time')
+        //     }
+        // }
+        // console.log(condition)
+        // this.get('ajax').request('/api/dashboard/saleData', this.getAjaxOpt(condition))
+        //     .then(({ status, result, error }) => {
+        //         if (status === 'ok') {
+        //             this.set('prodSalesTitle', result.tableSale.prodSalesOverview);
+        //             this.set('prodSalesLine', result.tableSale.prodSalesTable)
+        //         }
+        //     })
+
+        let company_id = localStorage.getItem('company_id');
+        let time = this.get('time');
+
+        let req = this.store.createRecord('request', {
+            res: 'bind_course_goods',
+        });
+        //要发送的数据格式
+        let eqValues = [{
+                type: 'eqcond',
+                key: 'company_id',
+                val: company_id,
+                category: null
+            },
+            {
+                type: 'eqcond',
+                key: 'time',
+                val: time,
+                category: null
             }
-        }
-        this.get('ajax').request('/api/dashboard/saleData', this.getAjaxOpt(condition))
-            .then(({ status, result, error }) => {
-                if (status === 'ok') {
-                    this.set('prodSalesTitle', result.tableSale.prodSalesOverview);
-                    this.set('prodSalesLine', result.tableSale.prodSalesTable)
-                }
-            })
+        ]
+        //组建的一对多的关系
+        eqValues.forEach((elem, index) => {
+            req.get(elem.type).pushObject(this.store.createRecord(elem.type, {
+                key: elem.key,
+                val: elem.val,
+                category: elem.category || null
+            }))
+        })
+        //遍历数组
+        let result = this.store.object2JsonApi('request', req);
+        //转成jsonAPI格式
+        console.log(result); //request
+        this.store.queryObject('/api/v1/dashboard/saleData', 'tablesale', result).then((result) => {
+            this.set('prodSalesTitle', result.ProdSalesOverview);
+            this.set('prodSalesLine', result.ProdSalesTable);
+        }) //response
+
     },
     /**
      *	查询卡片数据
@@ -162,7 +190,7 @@ export default Controller.extend({
 			ym: '2018-12',
 			sales: 0
 		}];
-        // this.queryProdOV();
+        this.queryProdOV();
         /**
          * card
          */
