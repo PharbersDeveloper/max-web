@@ -256,7 +256,6 @@ export default Component.extend({
     })();
 
     function redrawSecondaryCharts(data, reset) {
-      console.log("data in draw secondary: ", data);
       secondaryCharts.forEach(function(chart) {
         var metric = chart.metric;
         var svg = chart.svg;

@@ -15,28 +15,17 @@ export default Controller.extend(XMPPMixin,{
 				let job_current = localStorage.getItem('job_id');
 				let job_xmpp = msg2Json.data.attributes.job_id;
 				let maxPercentage = msg2Json.data.attributes.percentage;
-                console.log("maxPercentage")
-                console.log(maxPercentage)
-
                 if(maxPercentage > localStorage.getItem('thispercentage')) {
-                    console.log("thispercentage")
-                    console.log(localStorage.getItem('thispercentage'));
                     this.set('maxPercentage',maxPercentage);
-                    console.log("maxPercentage new")
-                    console.log(maxPercentage)
                     localStorage.setItem('thispercentage',maxPercentage);
-                    console.log("thispercentage new")
-                    console.log(localStorage.getItem('thispercentage'))
                 }
-                // console.log("this is in max controller")
-                // console.log(maxPercentage)
+                console.log("this is in max controller")
+                console.log(maxPercentage)
 	             if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
 				   setTimeout(function(){
 					   MaxCalculateObject.set('calcHasDone',true);
 				   },1000)
 			   }
-			// this.transitionToRoute('add-data.viewresults');
-			// this.transitionToRoute('add-data.viewresults')
 		}
 
 	}),
