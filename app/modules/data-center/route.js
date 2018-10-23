@@ -6,11 +6,15 @@ export default Route.extend({
         // console.info(this.modelFor('phauth'))
         let company = '';
         let username = '';
+        let company_id = '';
+        console.log(11111)
         this.store.peekAll('phauth').forEach(ele => {
             company = ele.profile.company.companyname;
             username =  ele.profile.username;
-            localStorage.setItem('username',username);
-            localStorage.setItem('company',company);
+            company_id = ele.profile.company.id;
+            localStorage.setItem('company_id', company_id)
+            localStorage.setItem('username', username);
+            localStorage.setItem('company', company);
         });
         let user = localStorage.getItem('username');
         let comp = localStorage.getItem('company')
