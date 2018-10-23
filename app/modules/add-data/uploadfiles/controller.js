@@ -27,12 +27,15 @@ export default Controller.extend({
             let result = this.store.object2JsonApi('phmaxjob', req, false);
             // TODO：Alex这块儿可能有问题
             this.store.peekAll('phmaxjob').lastObject.set('cpa','');
+            this.store.peekAll('phmaxjob').lastObject.set('gycx','');
 
             this.store.queryObject('/api/v1/maxjobpush/0','phmaxjob',result).then((resp) => {
                 if(!isEmpty(resp.not_arrival_hosp_file)) {
                     localStorage.setItem('not_arrival_hosp_file',resp.not_arrival_hosp_file);
                     localStorage.setItem('cpa',resp.cpa);
                     localStorage.setItem('gycx',resp.gycx);
+                    console.log(resp.gycx);
+                    console.log(localStorage.getItem('gycx'))
                     this.transitionToRoute('/add-data/generate-sample');
                 } else {
                     console.log("error route!!!!!");

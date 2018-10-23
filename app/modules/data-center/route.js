@@ -7,7 +7,6 @@ export default Route.extend({
         let company = '';
         let username = '';
         let company_id = '';
-        console.log(11111)
         this.store.peekAll('phauth').forEach(ele => {
             company = ele.profile.company.companyname;
             username =  ele.profile.username;
