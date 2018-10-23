@@ -11,7 +11,7 @@ export default Route.extend({
 			});
             //要发送的数据格式
 			let eqValues = [
-				{type: 'eqcond', key: 'username', val: username, category: 'home'},
+				{type: 'eqcond', key: 'username', val: username},
 				{type: 'eqcond', key: 'password', val: pwd}
 			]
             //组建的一对多的关系
