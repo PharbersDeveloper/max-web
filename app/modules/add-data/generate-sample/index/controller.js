@@ -19,24 +19,49 @@ export default Controller.extend(XMPPMixin,{
 		let msg2Json = this.get('message');
 		console.log("this is in generate controller")
 		if (msg2Json.data.attributes.call === 'ymCalc') {
+			console.log("ymcalc")
 			let job_current = localStorage.getItem('job_id');
+			console.log(job_current);
 			let job_xmpp = msg2Json.data.attributes.job_id;
+			console.log(job_xmpp);
 			let ymPercentage = msg2Json.data.attributes.percentage;
-			this.set('ymPercentage',ymPercentage);
+			if(ymPercentage > localStorage.getItem('ympercentage')) {
+				this.set('ymPercentage',ymPercentage);
+				localStorage.setItem('ympercentage',ymPercentage);
+				if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
+					let ymArray = msg2Json.data.attributes.message.split('#');
+					let checkArray = ymArray.map((item)=>{
+						return {
+							isChecked: false,
+							value: item,
+							id: item,
+						}
+					});
+					this.set('ymList',checkArray)
+					setTimeout(function(){
+						SampleObject.set('fileParsingSuccess',true);
+						SampleObject.set('isShowProgress',false);
+						SampleObject.set('calcYearsProgress',false);
+					},1000)
 
-			if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
-				setTimeout(function(){
-					SampleObject.set('fileParsingSuccess',true);
-					SampleObject.set('isShowProgress',false);
-					SampleObject.set('calcYearsProgress',false);
-				},1000)
-
+				}
 			}
         } else if (msg2Json.data.attributes.call === 'panel') {
+			console.log(111)
 				let job_current = localStorage.getItem('job_id');
 				let job_xmpp = msg2Json.data.attributes.job_id;
 				let panelPercentage = msg2Json.data.attributes.percentage;
-				this.set('panelPercentage',panelPercentage);
+				// this.set('panelPercentage',panelPercentage);
+				console.log("xmpp per")
+				console.log(panelPercentage)
+				if(panelPercentage > localStorage.getItem('panelpercentage')) {
+					console.log("local per")
+					console.log(localStorage.getItem('panelpercentage'))
+					this.set('panelPercentage',panelPercentage);
+					localStorage.setItem('panelpercentage',panelPercentage);
+				}
+				console.log("this is panelPercentage")
+				console.log(panelPercentage)
 				let that = this;
 			   if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
 				   setTimeout(function(){
@@ -45,25 +70,28 @@ export default Controller.extend(XMPPMixin,{
 			   }
         }
 	}),
-	ymList: computed('message', function() {
-		let message = this.get('message');
-		if(!isEmpty(message)) {
-			// let ym = JSON.parse(message);
-			let ym = message;
-			let ymArray = ym.data.attributes.message.split('#');
-			let checkArray = ymArray.map((item)=>{
-				return {
-					isChecked: false,
-					value: item,
-					id: item,
-				}
-			});
-			return checkArray;
-		} else {
-			return ['no yms'];
-		}
-
-	}),
+	// ymList: computed('message', function() {
+	// 	let msg2Json = this.get('message');
+	// 	let ymPercentage = msg2Json.data.attributes.percentage;
+	// 	console.log(222)
+	// 	if(msg2Json != '') {
+	// 		console.log(111)
+	// 		let ymArray = msg2Json.data.attributes.message.split('#');
+	// 		console.log(ymArray)
+	// 		let checkArray = ymArray.map((item)=>{
+	// 			return {
+	// 				isChecked: false,
+	// 				value: item,
+	// 				id: item,
+	// 			}
+	// 		});
+	// 		console.log(checkArray);
+	// 		return checkArray;
+	// 	} else {
+	// 		return ['no yms'];
+	// 	}
+	//
+	// }),
 	init() {
 		this._super(...arguments);
 		this.set('cpafilename', this.get('cookies').read('filecpa'))
@@ -75,6 +103,7 @@ export default Controller.extend(XMPPMixin,{
 		startParsingFile() {
 			SampleObject.set('isShowProgress',true);
 			SampleObject.set('calcYearsProgress',true);
+			localStorage.setItem('ympercentage',0);
 			// let req = this.store.peekAll('phmaxjob').lastObject;
 			let cpa = localStorage.getItem('cpa');
 			let gycx = localStorage.getItem('gycx');
@@ -103,30 +132,38 @@ export default Controller.extend(XMPPMixin,{
 			SampleObject.set('calcYearsProgress',false);
 			SampleObject.set('isShowProgress',true);
 			SampleObject.set('calcPanelProgress',true);
+			localStorage.setItem('panelpercentage',0);
 			let ymList = this.get('ymList');
-			let message = this.get('message');
+			// let message = this.get('message');
 			// let years = ymList.filterBy('isChecked',true).join('#');
 			let years = ymList.filterBy('isChecked',true);
+			console.log("thisi is ymChoose")
+			console.log(years)
 			let year = [];
 			years.forEach((k) => {
 				year.push(k.value)
 			});
-			let yearsString = year.join('#');
+			console.log(year)
+			if (year.length === 0) {
+				this.set('yearsNullError', true);
+			} else {
+				let yearsString = year.join('#');
 
-			this.store.peekAll('phmaxjob').lastObject.set('yms',yearsString);
-			this.store.peekAll('phmaxjob').lastObject.set('call','panel');
-			let req = this.store.peekAll('phmaxjob').lastObject;
-            let result = this.store.object2JsonApi('phmaxjob', req, false);
-			this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
-				if(resp.call === 'panel') {
-					SampleObject.set('fileParsingSuccess',false);
-					SampleObject.set('calcYearsProgress', false);
-					SampleObject.set('calcPanelProgress', true);
-				} else {
-					console.log("解析文件失败");
-					SampleObject.set('fileParsingError',false);
-				}
-            })
+				this.store.peekAll('phmaxjob').lastObject.set('yms',yearsString);
+				this.store.peekAll('phmaxjob').lastObject.set('call','panel');
+				let req = this.store.peekAll('phmaxjob').lastObject;
+	            let result = this.store.object2JsonApi('phmaxjob', req, false);
+				this.store.queryObject('/api/v1/maxjobsend/0','phmaxjob',result).then((resp) => {
+					if(resp.call === 'panel') {
+						SampleObject.set('fileParsingSuccess',false);
+						SampleObject.set('calcYearsProgress', false);
+						SampleObject.set('calcPanelProgress', true);
+					} else {
+						console.log("解析文件失败");
+						SampleObject.set('fileParsingError',false);
+					}
+	            })
+			}
 		},
 			// TODO : 未添加异常处理
 			// let years = this.get('SampleObject').ymArray.filterBy('isChecked')

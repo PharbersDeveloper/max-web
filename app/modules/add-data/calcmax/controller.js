@@ -15,9 +15,9 @@ export default Controller.extend(XMPPMixin,{
 				let job_current = localStorage.getItem('job_id');
 				let job_xmpp = msg2Json.data.attributes.job_id;
 				let maxPercentage = msg2Json.data.attributes.percentage;
-                if(maxPercentage > localStorage.getItem('thispercentage')) {
+                if(maxPercentage > localStorage.getItem('maxpercentage')) {
                     this.set('maxPercentage',maxPercentage);
-                    localStorage.setItem('thispercentage',maxPercentage);
+                    localStorage.setItem('maxpercentage',maxPercentage);
                 }
                 console.log("this is in max controller")
                 console.log(maxPercentage)
@@ -39,7 +39,7 @@ export default Controller.extend(XMPPMixin,{
         startCalcMAX() {
             MaxCalculateObject.set('isShowCalcProgress',true);
             console.log("this is calcmax");
-            localStorage.setItem('thispercentage',0);
+            localStorage.setItem('maxpercentage',0);
 			this.store.peekAll('phmaxjob').lastObject.set('call','max');
 			let req = this.store.peekAll('phmaxjob').lastObject;
             let result = this.store.object2JsonApi('phmaxjob', req, false);

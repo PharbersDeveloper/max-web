@@ -11,7 +11,34 @@ export default Component.extend({
     drawChart() {
         d3.select('#chart').select("svg").remove();
         let currentData = this.get('currentData');
+        // let currentData = [
+        //     {key: 1, marketSales: "57.27", area: ""},
+        //     {key: 2, marketSales: "47.09", area: ""},
+        //     {key: 3, marketSales: "45.27", area: ""},
+        //     {key: 4, marketSales: "37.89", area: ""},
+        //     {key: 5, marketSales: "34.65", area: ""},
+        //     {key: 6, marketSales: "30.74", area: ""},
+        //     {key: 7, marketSales: "30.74", area: ""},
+        //     {key: 8, marketSales: "30.74", area: ""},
+        //     {key: 9, marketSales: "30.74", area: ""},
+        //     {key: 10, marketSales: "30.74", area: ""},
+        // ]
+        console.log(currentData)
         let lastData = this.get('lastData');
+    //     let lastData = [
+    //         {key: 1, marketSales: -1, areaLast: "江苏", area: "江苏", keyLast: 1},
+    //         {key: 2, marketSales: -1, areaLast: "山东", area: "山东", keyLast: 2},
+    //         {key: 3, marketSales: -1, areaLast: "广东", area: "广东", keyLast: 3},
+    //         {key: 4, marketSales: -1, areaLast: "浙江", area: "浙江", keyLast: 4},
+    //         {key: 5, marketSales: -1, areaLast: "河南", area: "河南", keyLast: 5},
+    //         {key: 6, marketSales: -1, areaLast: "江苏", area: "江苏", keyLast: 6},
+    //         {key: 7, marketSales: -1, areaLast: "山东", area: "山东", keyLast:7},
+    //         {key: 8, marketSales: -1, areaLast: "广东", area: "广东", keyLast: 8},
+    //         {key: 9, marketSales: -1, areaLast: "浙江", area: "浙江", keyLast: 9},
+    //         {key: 10, marketSales: -1, areaLast: "河南", area: "河南", keyLast: 10},
+    //
+    // ]
+        console.log(lastData)
         if(currentData != undefined && lastData != undefined) {
 
         var margin = {top: 100, right: 50, bottom: 40, left: -30},

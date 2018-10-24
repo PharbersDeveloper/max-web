@@ -131,6 +131,7 @@ export default Controller.extend({
 					current.push(item);
 				})
 				this.set('current',current);
+				console.log(current);
 
 				let lastYear = [];
 				mirrorProvinces.mirrorProvincesLast.forEach((mirrorProvincesLast,index)=>{
@@ -150,6 +151,7 @@ export default Controller.extend({
 					})
 				})
 				this.set('lastYear',lastYear);
+				console.log(lastYear);
 
 				let mirrorCityCurrent = res.mirror.city.current;
 				let mirrorCityLast = res.mirror.city.lastyear;
@@ -167,6 +169,7 @@ export default Controller.extend({
 					currentCity.push(item);
 				})
 				this.set('currentCity',currentCity);
+				console.log(currentCity)
 
 				let lastYearCity = [];
 				mirrorCity.mirrorCityLast.forEach((mirrorCityLast,index)=>{
@@ -186,6 +189,7 @@ export default Controller.extend({
 					})
 				})
 				this.set('lastYearCity',lastYearCity);
+				console.log(lastYearCity)
 			} else {
 				this.set('sampleCheckError', true);
 				this.set('errorMessage', "error");
