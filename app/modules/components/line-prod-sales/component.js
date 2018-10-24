@@ -42,6 +42,7 @@ export default Component.extend({
         // define the 1st line
         var valueline = d3.line()
             .x(function(d) {
+                // console.log(x(d.ym))
                 return x(d.ym);
             })
             .y(function(d) {

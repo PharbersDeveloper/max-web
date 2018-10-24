@@ -60,7 +60,10 @@ export default Component.extend({
             pieValue.push(item.show_value);
         });
         pieData.map((item, index) => pieTips.push(item.tips));
-        console.log(pieData);
+        if (pieData.length == 0) {
+            console.log("no pie data!!!!!!!!!!!!!!!!!!!!");
+            return;
+        }
         var outerRadius = 140;
         var innerRadius = 85;
         let data = pieValue;

@@ -19,7 +19,7 @@
 				{{#modal.body}}
 					<div local-class='market-choose-area'>
 						<span local-class="title">市场选择：</span>
-						<select local-class="choose-market" name="markets" onchange= {{ action 'getMarket' value="target.value"}}>
+						<select local-class="choose-market" id = "select-market" name="markets" onchange= {{ action 'getMarket' value="target.value"}}>
 							{{#each markets as |item|}}
 								<option value={{item}}>{{item}}</option>
 							{{/each}}
@@ -27,12 +27,12 @@
 					</div>
 					<div local-class="time-selects">
 						<span>时间选择：</span>
-						<select local-class="choose-market" name="markets" onchange= {{ action 'getYear' value="target.value"}}>
+						<select local-class="choose-market" id = "select-year" name="markets" onchange= {{ action 'getYear' value="target.value"}}>
 							{{#each years as |item|}}
 								<option value={{item}}>{{item}}</option>
 							{{/each}}
 						</select>
-						<select local-class="choose-market" name="markets" onchange= {{ action 'getMonth' value="target.value"}}>
+						<select local-class="choose-market" id = "select-month" name="markets" onchange= {{ action 'getMonth' value="target.value"}}>
 							{{#each months as |item|}}
 								<option value={{item}}>{{item}}</option>
 							{{/each}}
@@ -115,7 +115,7 @@
 				{{#modal.body}}
 					<div local-class='market-choose-area'>
 						<span local-class="title">省份选择：</span>
-						<select local-class="choose-market" name="provs" onchange= {{ action 'getProv' value="target.value"}}>
+						<select local-class="choose-market" id = "select-prov" name="provs" onchange= {{ action 'getProv' value="target.value"}}>
 							{{#each provs as |item|}}
 								<option value={{item}}>{{item}}</option>
 							{{/each}}

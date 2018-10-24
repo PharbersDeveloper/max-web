@@ -27,7 +27,29 @@ export default Component.extend({
 	}),
 
 	table: computed('model', function() {
-		return new Table(this.get('columns'), this.get('model'));
+		let handledData = [];
+		this.get('model').forEach(function(d){
+			let temp = {
+				province:"",
+				market_size:"",
+				market_growth:"",
+				sales_amount:"",
+				sales_growth:"",
+				ev_value:"",
+				share:"",
+				share_growth:"",
+			}
+			temp.province = d.province;
+			temp.market_size = d.market_size;
+			temp.market_growth = d.market_growth;
+			temp.sales_amount = d.sales_amount;
+			temp.sales_growth = d.sales_growth;
+			temp.ev_value = d.ev_value;
+			temp.share = d.share;
+			temp.share_growth = d.share_growth;
+			handledData.push(temp);
+		});
+		return new Table(this.get('columns'), handledData);
 	}),
 	actions: {
 		onColumnClick(column) {

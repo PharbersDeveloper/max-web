@@ -27,7 +27,29 @@ export default Component.extend({
 	}),
 
 	table: computed('model', function() {
-		return new Table(this.get('columns'), this.get('model'));
+		console.log(this.get('model'));
+		let handledData = [];
+		this.get('model').forEach(function(d){
+			let temp = {
+				prod:"",
+				market:"",
+				sales:"",
+				cont:"",
+				cont_month:"",
+				cont_season:"",
+				cont_year:"",
+			}
+			temp.prod = d.prod;
+			temp.market = d.market;
+			temp.sales = d.sales;
+			temp.cont = d.cont;
+			temp.cont_month = d.contMonth;
+			temp.cont_season = d.contSeason;
+			temp.cont_year = d.contYear;
+			handledData.push(temp);
+		});
+		console.log(handledData);
+		return new Table(this.get('columns'), handledData);
 	}),
 	actions: {
 		onColumnClick(column) {

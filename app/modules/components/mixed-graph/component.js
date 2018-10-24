@@ -13,9 +13,10 @@ export default Component.extend({
         run.scheduleOnce('render', this, this.drawMixedGraph);
     },
     drawMixedGraph() {
-        // if(this.get('mixedGraphData').length ==0) {
-        // 	return;
-        // }
+        if(this.get('mixedGraphData').length == 0){
+            console.log("no mixedGraphData!!!!!!!!!!!");
+            return;
+        }
         d3.select('svg.mixed-graph-svg').remove();
         d3.select('.tooltips').remove();
 
@@ -23,6 +24,25 @@ export default Component.extend({
         let svg = svgContainer.append('svg')
             .attr('class', 'mixed-graph-svg')
         let data = this.get('mixedGraphData');
+
+        let handledData = [];
+        data.forEach(function(d){
+            let temp = {
+                province:"",
+                scale:"",
+                sales:"",
+                market_growth:"",
+                prod_growth:"",
+            }
+            temp.province = "" + d.province;
+            temp.scale = d.scale;
+            temp.sales = d.sales;
+            temp.market_growth = +d.market_growth;
+            temp.prod_growth = +d.prod_growth;
+            handledData.push(temp);
+        });
+        console.log(handledData);
+
         let margin = {
             top: 20,
             right: 20,
@@ -75,16 +95,16 @@ export default Component.extend({
             // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
             .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
-        x.domain(data.slice(0, numBars).map(function(d) {
+        x.domain(handledData.slice(0, numBars).map(function(d) {
             return d.province;
         }))
         // 左Y轴的最大值
         // 市场规模
-        let scaleMax = d3.max(data, function(d) {
+        let scaleMax = d3.max(handledData, function(d) {
             return d.scale;
         })
         //  市场销售额
-        let salesMax = d3.max(data, function(d) {
+        let salesMax = d3.max(handledData, function(d) {
             return d.sales;
         });
         if (scaleMax > salesMax) {
@@ -93,16 +113,16 @@ export default Component.extend({
             y.domain([0, (salesMax + salesMax / 3)]);
         }
         //  右Y轴的最大值以及最小值
-        let marketMax = d3.max(data, function(d) {
+        let marketMax = d3.max(handledData, function(d) {
             return d.market_growth;
         });
-        let marketMin = d3.min(data, function(d) {
+        let marketMin = d3.min(handledData, function(d) {
             return d.market_growth;
         });
-        let prodMax = d3.max(data, function(d) {
+        let prodMax = d3.max(handledData, function(d) {
             return d.prod_growth;
         })
-        let prodMin = d3.min(data, function(d) {
+        let prodMin = d3.min(handledData, function(d) {
             return d.prod_growth;
         });
         let minimum = 0;
@@ -158,7 +178,7 @@ export default Component.extend({
         // svg.selectAll(".bar")
         let scaleBar = bars.selectAll(".bar")
             // .data(data)
-            .data(data.slice(0, numBars), function(d) {
+            .data(handledData.slice(0, numBars), function(d) {
                 return d.province;
             })
             .enter().append("rect")
@@ -243,7 +263,7 @@ export default Component.extend({
             })
 
         bars.selectAll('.bar2')
-            .data(data.slice(0, numBars), function(d) {
+            .data(handledData.slice(0, numBars), function(d) {
                 return d.province;
             })
             .enter().append("rect")
@@ -270,21 +290,27 @@ export default Component.extend({
         // 绘制市场增长折线图
         let marketGrowth = d3.line()
             .x(function(d) {
-                return x(d.province);
+                // console.log(d.province)
+                return x(d.province)
             })
             .y(function(d) {
+                // console.log(d.market_growth)
                 return y1(d.market_growth);
             });
         let prodGrowth = d3.line()
             .x(function(d) {
-                return x(d.province);
+                return x(d.province)
             })
             .y(function(d) {
+                // console.log(d.prod_growth)
                 return y1(d.prod_growth);
             });
-
+        
+        // console.log(prodGrowth);
+        // console.log(marketGrowth);
+        let initLine = handledData.slice(0,numBars);
         svg.append("path")
-            .data([data])
+            .data([initLine])
             .attr("class", "mixedline")
             .style("stroke", "#FA6F80")
             .attr("transform", "translate(18," + 0 + ")")
@@ -308,7 +334,7 @@ export default Component.extend({
         //     })
         // 绘制产品增长折线图
         svg.append("path")
-            .data([data])
+            .data([initLine])
             .attr("class", "mixedline2")
             .style("stroke", "#7CFFE2")
             .attr("transform", "translate(18," + 0 + ")")
@@ -370,7 +396,7 @@ export default Component.extend({
         // 设置滑动区域
         if (true) {
             var xOverview = d3.scaleBand()
-                .domain(data.map(function(d) {
+                .domain(handledData.map(function(d) {
                     return d.province;
                 }))
                 .rangeRound([0, width])
@@ -420,7 +446,7 @@ export default Component.extend({
                 .attr("x", 0)
                 .attr("y", 0)
                 .attr("height", 10)
-                .attr("width", Math.round(parseFloat(numBars * width) / data.length))
+                .attr("width", Math.round(parseFloat(numBars * width) / handledData.length))
                 .attr("pointer-events", "all")
                 .attr("cursor", "ew-resize")
                 .call(d3.drag().on("drag", display));
@@ -430,7 +456,7 @@ export default Component.extend({
 
             var displayed = d3.scaleQuantize()
                 .domain([0, width])
-                .range(d3.range(data.length));
+                .range(d3.range(handledData.length));
             var xinside = parseInt(d3.select(this).attr("x")),
                 nx = xinside + d3.event.dx,
                 w = parseInt(d3.select(this).attr("width")),
@@ -442,7 +468,7 @@ export default Component.extend({
             nf = displayed(nx);
 
             if (f === nf) return;
-            new_data = data.slice(nf, nf + numBars);
+            new_data = handledData.slice(nf, nf + numBars);
             x.domain(new_data.map(function(d) {
                 return d.province;
             }));
@@ -462,6 +488,8 @@ export default Component.extend({
                 });
 
             rects.attr("x", function(d) {
+                console.log('rect----');
+                console.log(x(d.province));
                 return x(d.province);
             });
             rects2.attr("x", function(d) {
@@ -486,8 +514,10 @@ export default Component.extend({
             rects.enter().append("rect")
                 .attr("class", "bar")
                 .attr("x", function(d) {
+                    console.log('rect----');
+                console.log(x(d.province));
                     return x(d.province);
-                })
+                }) 
                 .attr("y", function(d) {
                     return y(d.scale);
                 })

@@ -16,13 +16,13 @@
 
         <div local-class="time-selects">
             <span>时间选择：</span>
-            <select local-class="choose-market" name="markets" onchange={{ action 'getYear' value="target.value"}}>
+            <select local-class="choose-market" name="markets" id="select-year" onchange={{ action 'getYear' value="target.value"}}>
                 {{!-- <option value="2018">2018</option> --}}
                 {{#each years as |item|}}
                 <option value={{item}}>{{item}}</option>
                 {{/each}}
             </select>
-            <select local-class="choose-market" name="markets" onchange={{ action 'getMonth' value="target.value"}}>
+            <select local-class="choose-market" name="markets" id="select-month" onchange={{ action 'getMonth' value="target.value"}}>
                 {{!-- <option value="All">04</option> --}}
                 {{#each months as |item|}}
                 <option value={{item}}>{{item}}</option>

@@ -174,6 +174,44 @@ export default Component.extend({
         var pieColor = [];
         var pieValue = [];
         let pieTips = [];
+
+        let handledData = [];
+        pieData.map(function(d,index){
+            let tempData = [];
+            d.TipDetail.map(function(t,index){
+                let temp = {
+                    key:"",
+                    value:"",
+                    unit:"",
+                }
+                temp.key = t.key;
+                temp.value = t.value;
+                temp.unit = t.unit;
+                tempData.push(temp);
+            });
+            let temp = {
+                show_value:"",
+                show_unit:"",
+                title:"",
+                color:"",
+                prod:"",
+                sales:"",
+                cont:"",
+                TipDetail:[],
+            }
+            temp.show_value = d.show_value;
+            temp.show_unit = d.show_unit;
+            temp.title = d.title;
+            temp.color = d.color;
+            temp.prod = d.prod;
+            temp.sales = d.sales;
+            temp.cont = d.cont;
+            temp.TipDetail = tempData;
+            handledData.push(temp);
+        });
+        pieData = handledData;
+        console.log(handledData)
+        
         pieData.map(function(item, index) {
             dataTitle.push(item.title);
         });
@@ -183,7 +221,7 @@ export default Component.extend({
         pieData.map(function(item, index) {
             pieValue.push(item.show_value);
         });
-        pieData.map((item, index) => pieTips.push(item.tips));
+        pieData.map((item, index) => pieTips.push(item.TipDetail));
         var outerRadius = 140;
         var innerRadius = 85;
         let data = pieValue;
@@ -212,7 +250,7 @@ export default Component.extend({
             .attr("class", "sales-tooltips");
 
         function htmlText(d, i) {
-            let tips = d.data.tips;
+            let tips = d.data.TipDetail;
             let tipsStr = "";
             for (let m = 0, len = tips.length; m < len; m++) {
                 tipsStr += "<p class='tipsline'><span>" + tips[m].key + "</span><span>" + tips[m].value + tips[m].unit + "</span></p>";
