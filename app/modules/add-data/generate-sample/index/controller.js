@@ -19,11 +19,8 @@ export default Controller.extend(XMPPMixin,{
 		let msg2Json = this.get('message');
 		console.log("this is in generate controller")
 		if (msg2Json.data.attributes.call === 'ymCalc') {
-			console.log("ymcalc")
 			let job_current = localStorage.getItem('job_id');
-			console.log(job_current);
 			let job_xmpp = msg2Json.data.attributes.job_id;
-			console.log(job_xmpp);
 			let ymPercentage = msg2Json.data.attributes.percentage;
 			if(ymPercentage > localStorage.getItem('ympercentage')) {
 				this.set('ymPercentage',ymPercentage);
@@ -47,21 +44,14 @@ export default Controller.extend(XMPPMixin,{
 				}
 			}
         } else if (msg2Json.data.attributes.call === 'panel') {
-			console.log(111)
 				let job_current = localStorage.getItem('job_id');
 				let job_xmpp = msg2Json.data.attributes.job_id;
 				let panelPercentage = msg2Json.data.attributes.percentage;
 				// this.set('panelPercentage',panelPercentage);
-				console.log("xmpp per")
-				console.log(panelPercentage)
 				if(panelPercentage > localStorage.getItem('panelpercentage')) {
-					console.log("local per")
-					console.log(localStorage.getItem('panelpercentage'))
 					this.set('panelPercentage',panelPercentage);
 					localStorage.setItem('panelpercentage',panelPercentage);
 				}
-				console.log("this is panelPercentage")
-				console.log(panelPercentage)
 				let that = this;
 			   if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
 				   setTimeout(function(){
@@ -129,6 +119,7 @@ export default Controller.extend(XMPPMixin,{
             })
 		},
 		startGenerateSample () {
+			console.log("this is panelCalc")
 			SampleObject.set('calcYearsProgress',false);
 			SampleObject.set('isShowProgress',true);
 			SampleObject.set('calcPanelProgress',true);
@@ -137,13 +128,10 @@ export default Controller.extend(XMPPMixin,{
 			// let message = this.get('message');
 			// let years = ymList.filterBy('isChecked',true).join('#');
 			let years = ymList.filterBy('isChecked',true);
-			console.log("thisi is ymChoose")
-			console.log(years)
 			let year = [];
 			years.forEach((k) => {
 				year.push(k.value)
 			});
-			console.log(year)
 			if (year.length === 0) {
 				this.set('yearsNullError', true);
 			} else {
