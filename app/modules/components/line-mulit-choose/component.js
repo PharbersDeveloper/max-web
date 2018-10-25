@@ -20,7 +20,6 @@ export default Component.extend({
     },
     drawMultiLineChoose() {
         if(this.get('chooseData').length == 0){
-            console.log("no data!!!");
             return;
         }
         d3.select('svg.much-lines').remove();
@@ -53,7 +52,6 @@ export default Component.extend({
             handledData.push(temp);
         });
         chooseData = handledData;
-        console.log(chooseData);
 
         var width = 900;
         var height = 340;
@@ -73,6 +71,7 @@ export default Component.extend({
 
         /* Format Data */
         var parseDate = d3.timeParse("%Y%m");
+        var parseAnotherDate = d3.timeParse("%Y-%m");
         let formatDateIntoYearMonth = d3.timeFormat('%Y-%m');
 
         let data = chooseData.map(function(item) {
@@ -80,7 +79,11 @@ export default Component.extend({
             proditem.name = item.name;
             let inValues = item.values.map(function(iitem, iindex) {
                 var valueItem = {};
-                valueItem.ym = parseDate(iitem.ym);
+                if (iitem.ym.search("-") != -1) {
+                    valueItem.ym = parseAnotherDate(iitem.ym);
+                } else {
+                    valueItem.ym = parseDate(iitem.ym);
+                }
                 valueItem.unit = iitem.unit;
                 valueItem.value = iitem.value;
 

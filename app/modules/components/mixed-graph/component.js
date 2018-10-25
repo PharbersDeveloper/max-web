@@ -14,7 +14,6 @@ export default Component.extend({
     },
     drawMixedGraph() {
         if(this.get('mixedGraphData').length == 0){
-            console.log("no mixedGraphData!!!!!!!!!!!");
             return;
         }
         d3.select('svg.mixed-graph-svg').remove();
@@ -41,7 +40,6 @@ export default Component.extend({
             temp.prod_growth = +d.prod_growth;
             handledData.push(temp);
         });
-        console.log(handledData);
 
         let margin = {
             top: 20,
@@ -290,11 +288,9 @@ export default Component.extend({
         // 绘制市场增长折线图
         let marketGrowth = d3.line()
             .x(function(d) {
-                // console.log(d.province)
                 return x(d.province)
             })
             .y(function(d) {
-                // console.log(d.market_growth)
                 return y1(d.market_growth);
             });
         let prodGrowth = d3.line()
@@ -302,12 +298,9 @@ export default Component.extend({
                 return x(d.province)
             })
             .y(function(d) {
-                // console.log(d.prod_growth)
                 return y1(d.prod_growth);
             });
-        
-        // console.log(prodGrowth);
-        // console.log(marketGrowth);
+
         let initLine = handledData.slice(0,numBars);
         svg.append("path")
             .data([initLine])
@@ -488,8 +481,6 @@ export default Component.extend({
                 });
 
             rects.attr("x", function(d) {
-                console.log('rect----');
-                console.log(x(d.province));
                 return x(d.province);
             });
             rects2.attr("x", function(d) {
@@ -514,8 +505,6 @@ export default Component.extend({
             rects.enter().append("rect")
                 .attr("class", "bar")
                 .attr("x", function(d) {
-                    console.log('rect----');
-                console.log(x(d.province));
                     return x(d.province);
                 }) 
                 .attr("y", function(d) {

@@ -210,7 +210,6 @@ export default Component.extend({
             handledData.push(temp);
         });
         pieData = handledData;
-        console.log(handledData)
         
         pieData.map(function(item, index) {
             dataTitle.push(item.title);

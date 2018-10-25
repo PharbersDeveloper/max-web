@@ -25,12 +25,15 @@ export default Component.extend({
             left: 20
         };
     },
-
+    
     didReceiveAttrs() {
         run.scheduleOnce('render', this, this.drawLegendPie)
     },
-
+    
     drawLegendPie() {
+        if (this.get('pieData').length == 0) {
+            return;
+        }
         d3.select('.legend-pie-city svg.pie-svg').remove();
         d3.select('.legend-pie-city .pie-tooltips').remove();
         d3.select('.legend-pie-city .legendContainer').remove();
@@ -60,10 +63,6 @@ export default Component.extend({
             pieValue.push(item.show_value);
         });
         pieData.map((item, index) => pieTips.push(item.tips));
-        if (pieData.length == 0) {
-            console.log("no pie data!!!!!!!!!!!!!!!!!!!!");
-            return;
-        }
         var outerRadius = 140;
         var innerRadius = 85;
         let data = pieValue;

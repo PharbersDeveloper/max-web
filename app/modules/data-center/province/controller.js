@@ -54,8 +54,6 @@ export default Controller.extend({
         }
         // this.set('rankingRange', rankingRangeArr);
         this.set(whickRank, rankingRangeArr);
-        console.log(whickRank);
-        console.log(rankingRangeArr);
     },
     /**
      *	查询市场产品卡片
@@ -127,7 +125,6 @@ export default Controller.extend({
             if (result.ProvinceWord.length == 0) {
             } else {
                 this.set('cards', result.ProvinceWord)
-                console.log(this.cards.length);
             }
         }) //response
     },
@@ -197,14 +194,12 @@ export default Controller.extend({
         //遍历数组
         let result = this.store.object2JsonApi('request', req);
         //转成jsonAPI格式
-        // console.log(result);
          //request
         this.store.queryObject('/api/v1/dashboard/province/lineOverview', 'provincelineoverview', result).then((result) => {
             this.set('mixedGraphTitle', result.ProdSalesOverview);
             if (result.MixedGraphLine.length == 0) {
             } else {
-                // this.set('mixedGraphData', result.MixedGraphLine);
-                console.log(this.mixedGraphData.length);
+                this.set('mixedGraphData', result.MixedGraphLine);
             }
         }) //response
     },
@@ -273,14 +268,12 @@ export default Controller.extend({
         //遍历数组
         let result = this.store.object2JsonApi('request', req);
         //转成jsonAPI格式
-        // console.log(result);
          //request
         this.store.queryObject('/api/v1/dashboard/province/tableOverview', 'provincetableoverview', result).then((result) => {
             this.set('provSalesTitle', result.ProdSalesOverview)
             if (result.ProdSalesValue.length == 0) {
             } else {
                 this.set('marketSalesValue', result.ProdSalesValue);
-                console.log(this.marketSalesValue);
             }
         }) //response
     },
@@ -358,7 +351,6 @@ export default Controller.extend({
             if (result.Pie.length == 0) {
             } else {
                 this.set('marketSalesPie', result.Pie);
-                console.log(this.marketSalesPie.length);
             }
         }) //response
     },
@@ -440,12 +432,10 @@ export default Controller.extend({
          //request
         this.store.queryObject('/api/v1/dashboard/province/provLevelRank', 'provincelevelrank', result).then((result) => {
             this.set('marketRankingUnit', result.unit);
-            console.log(this.marketRankingUnit);
             if (result.Ranking.length == 0) {
             } else {
                 this.set('provRankValue', result.Ranking);
                 this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
-                console.log(this.provRankValue.length);
             }
         }) //response
     },
@@ -529,7 +519,6 @@ export default Controller.extend({
             if (result.SaleShareCard.length == 0) {
             } else {
                 this.set('sales', result.SaleShareCard);
-                console.log(this.sales.length);
             }
         }) //response
     },
@@ -613,7 +602,6 @@ export default Controller.extend({
             if (result.MultipleLine.length == 0) {
             } else {
                 this.set('prodTrend', result.MultipleLine);
-                console.log(this.prodTrend.length);
             }
         }) //response
     },
@@ -694,7 +682,6 @@ export default Controller.extend({
             if (result.ProProductCard.length == 0) {
             } else {
                 this.set('words', result.ProProductCard);
-                console.log(this.words.length);
             }
         }) //response
     },
@@ -778,7 +765,6 @@ export default Controller.extend({
             if (result.Pie.length == 0) {
             } else {
                 this.set('marketShare', result.Pie);
-                console.log(this.marketShare.length);
             }
         }) //response
     },
@@ -872,7 +858,6 @@ export default Controller.extend({
             } else {
                 this.set('prodRankValue', result.Ranking);
                 this.computedRankingMax('prodRankValue', 'prodRankMax', 'prodRankRange');
-                console.log(this.prodRankValue.length);
             }
         }) //response
     },
@@ -953,7 +938,6 @@ export default Controller.extend({
             if (result.ProdSalesValue.length == 0) {
             } else {
                 this.set('competingProdValue', result.ProdSalesValue);
-                console.log(this.competingProdValue.length);
             }
         }) //response
     },
@@ -1039,7 +1023,6 @@ export default Controller.extend({
             if (result.ProdTrendLine.length == 0) {
             } else {
                 this.set('AllTrendValue', result.ProdTrendLine);
-                console.log(this.AllTrendValue.length);
             }
         }) //response
     },
@@ -1257,131 +1240,131 @@ export default Controller.extend({
             // title: '市场各省份销售概况',
         };
         this.mixedGraphData = [
-            {
-            'province': 'aa',
-            'scale': 22,
-            'sales': 20,
-            'market_growth': -0.03,
-            'prod_growth': 0.09,
+        //     {
+        //     'province': 'aa',
+        //     'scale': 22,
+        //     'sales': 20,
+        //     'market_growth': -0.03,
+        //     'prod_growth': 0.09,
 
-        }, {
-            'province': 'bb',
-            'scale': 55,
-            'sales': 50,
-            'market_growth': 0.09,
-            'prod_growth': -0.04,
+        // }, {
+        //     'province': 'bb',
+        //     'scale': 55,
+        //     'sales': 50,
+        //     'market_growth': 0.09,
+        //     'prod_growth': -0.04,
 
-        }, {
-            'province': 'cc',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': -0.03,
-            'prod_growth': 0.17,
+        // }, {
+        //     'province': 'cc',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': -0.03,
+        //     'prod_growth': 0.17,
 
-        },  {
-            'province': 'dd',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': -0.03,
-            'prod_growth': 0.17,
+        // },  {
+        //     'province': 'dd',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': -0.03,
+        //     'prod_growth': 0.17,
 
-        },
-        {
-            'province': 'ee',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': -0.03,
-            'prod_growth': 0.17,
+        // },
+        // {
+        //     'province': 'ee',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': -0.03,
+        //     'prod_growth': 0.17,
 
-        },
-        {
-            'province': 'ff',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': -0.03,
-            'prod_growth': 0.17,
+        // },
+        // {
+        //     'province': 'ff',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': -0.03,
+        //     'prod_growth': 0.17,
 
-        },
-        {
-            'province': 'gg',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': -0.03,
-            'prod_growth': 0.17,
+        // },
+        // {
+        //     'province': 'gg',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': -0.03,
+        //     'prod_growth': 0.17,
 
-        },
-        {
-            'province': 'hh',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': -0.03,
-            'prod_growth': 0.17,
+        // },
+        // {
+        //     'province': 'hh',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': -0.03,
+        //     'prod_growth': 0.17,
 
-        },
+        // },
 
-        {
-            'province': 'ii',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': -0.03,
-            'prod_growth': 0.17,
+        // {
+        //     'province': 'ii',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': -0.03,
+        //     'prod_growth': 0.17,
 
-        },
-        {
-            'province': 'jj',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': 0.09,
-            'prod_growth': -0.04,
+        // },
+        // {
+        //     'province': 'jj',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': 0.09,
+        //     'prod_growth': -0.04,
 
-        },
-        {
-            'province': 'kk',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': -0.03,
-            'prod_growth': 0.17,
+        // },
+        // {
+        //     'province': 'kk',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': -0.03,
+        //     'prod_growth': 0.17,
 
-        },
-        {
-            'province': 'll',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': 0.09,
-            'prod_growth': -0.04,
+        // },
+        // {
+        //     'province': 'll',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': 0.09,
+        //     'prod_growth': -0.04,
 
-        },        {
-            'province': 'mm',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': -0.03,
-            'prod_growth': 0.17,
+        // },        {
+        //     'province': 'mm',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': -0.03,
+        //     'prod_growth': 0.17,
 
-        },
-        {
-            'province': 'nn',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': 0.09,
-            'prod_growth': -0.04,
+        // },
+        // {
+        //     'province': 'nn',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': 0.09,
+        //     'prod_growth': -0.04,
 
-        },
-        {
-            'province': 'oo',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': -0.03,
-            'prod_growth': 0.17,
+        // },
+        // {
+        //     'province': 'oo',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': -0.03,
+        //     'prod_growth': 0.17,
 
-        },
-        {
-            'province': 'pp',
-            'scale': 66,
-            'sales': 60,
-            'market_growth': 0.09,
-            'prod_growth': -0.04,
+        // },
+        // {
+        //     'province': 'pp',
+        //     'scale': 66,
+        //     'sales': 60,
+        //     'market_growth': 0.09,
+        //     'prod_growth': -0.04,
 
-        },
+        // },
     ];
         // this.queryMixedGraph();
         // end市场各省份销售概况-混合图

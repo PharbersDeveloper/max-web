@@ -27,7 +27,6 @@ export default Component.extend({
 	}),
 
 	table: computed('model', function() {
-		console.log(this.get('model'));
 		let handledData = [];
 		this.get('model').forEach(function(d){
 			let temp = {
@@ -48,7 +47,6 @@ export default Component.extend({
 			temp.cont_year = d.contYear;
 			handledData.push(temp);
 		});
-		console.log(handledData);
 		return new Table(this.get('columns'), handledData);
 	}),
 	actions: {

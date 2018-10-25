@@ -105,7 +105,6 @@ export default Controller.extend({
             if (result.SaleShareCard.length == 0) {
             } else {
                 this.set('cards', result.SaleShareCard)
-                console.log(this.cards.length);
             }
         }) //response
     },
@@ -168,7 +167,6 @@ export default Controller.extend({
          //request
         this.store.queryObject('/api/v1/dashboard/nation/marketTrend', 'nationmarkettrend', result).then((result) => {
             this.set('trendTitle', result.ProdSalesOverview)
-            console.log(result.MultipleLine.length)
             if (result.MultipleLine.length == 0) {
             } else {
                 this.set('multiData', result.MultipleLine);
@@ -235,7 +233,6 @@ export default Controller.extend({
             if (result.MostCard.length == 0) {
             } else {
                 this.set('words', result.MostCard);
-                console.log(this.cards.length);
             }
         }) //response
     },
@@ -301,7 +298,6 @@ export default Controller.extend({
             if (result.Pie.length == 0) {
             } else {
                 this.set('pieValue', result.Pie);
-                console.log(this.pieValue.length);
             }
         }) //response
     },
@@ -438,7 +434,6 @@ export default Controller.extend({
          //request
         this.store.queryObject('/api/v1/dashboard/nation/productTable', 'nationproducttable', result).then((result) => {
             this.set('competingTitle', result.ProdSalesOverview);
-            console.log(result.ProdSalesValue.length);
             if (result.ProdSalesValue.length == 0) {
             } else {
                 this.set('competingValue', result.ProdSalesValue);
@@ -511,7 +506,6 @@ export default Controller.extend({
          //request
         this.store.queryObject('/api/v1/dashboard/nation/prodTrendAnalysis', 'nationprodtrendanalysis', result).then((result) => {
             this.set('AllTrendTitle', result.ProdSalesOverview);
-            console.log(result.ProdTrendLine.length);
             if (result.ProdTrendLine.length == 0) {
             } else {
                 this.set('AllTrendValue', result.ProdTrendLine);
