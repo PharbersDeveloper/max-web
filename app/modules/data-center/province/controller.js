@@ -5,6 +5,7 @@ import {
 import { computed } from '@ember/object';
 import $ from 'jquery';
 export default Controller.extend({
+    i18n: inject(),
     cookies: inject(),
     market: '麻醉市场',
     provRankTag: 'provinceSales',
@@ -1182,10 +1183,41 @@ export default Controller.extend({
         this.markets = [];
         this.years = ['2018', '2017', '2016'];
         this.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-        this.provRank = ['市场规模(mil)', '市场增长(%)', '销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
-        this.prodRank = ['销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
-        this.trendData = ['销售额(mil)', '销售增长(%)', '份额(%)', '份额增长(%)'];
-
+        this.provRank = [
+            // '市场规模(mil)',
+            this.i18n.t('biDashboard.common.rankMarketSize') + "",
+            // '市场增长(%)',
+            this.i18n.t('biDashboard.common.rankMarketGrowth') + "",
+            // '销售额(mil)',
+            this.i18n.t('biDashboard.common.rankSales') + "",
+            // '销售增长(%)',
+            this.i18n.t('biDashboard.common.rankSalesGrowth') + "",
+            // '份额(%)',
+            this.i18n.t('biDashboard.common.rankShare') + "",
+            // '份额增长(%)'
+            this.i18n.t('biDashboard.common.rankShareGrowth') + "",
+        ];
+        this.prodRank = [
+            // '销售额(mil)',
+            this.i18n.t('biDashboard.common.rankSales') + "",
+            // '销售增长(%)',
+            this.i18n.t('biDashboard.common.rankSalesGrowth') + "",
+            // '份额(%)',
+            this.i18n.t('biDashboard.common.rankShare') + "",
+            // '份额增长(%)'
+            this.i18n.t('biDashboard.common.rankShareGrowth') + "",
+        ];
+        this.trendData = [
+            // '销售额(mil)',
+            this.i18n.t('biDashboard.common.rankSales') + "",
+            // '销售增长(%)',
+            this.i18n.t('biDashboard.common.rankSalesGrowth') + "",
+            // '份额(%)',
+            this.i18n.t('biDashboard.common.rankShare') + "",
+            // '份额增长(%)'
+            this.i18n.t('biDashboard.common.rankShareGrowth') + "",
+        ];
+        
         //  市场规模卡片数据
         this.cards = [
     //         {
@@ -1375,7 +1407,8 @@ export default Controller.extend({
         }
         this.MarketSales = [
             {
-            label: '省份名',
+            // label: '省份名',
+            label: this.i18n.t('biDashboard.province.provinceName') + "",
             valuePath: 'province',
             classNames: 'tabl',
             align: 'center',
@@ -1383,39 +1416,46 @@ export default Controller.extend({
             minResizeWidth: '70px', //列可以调整的最小宽度
             // breakpoints: ['mobile', 'tablet', 'desktop'],  可以隐藏的列
         }, {
-            label: '市场大小',
+            // label: '市场大小',
+            label: this.i18n.t('biDashboard.province.marketSize') + "",
             valuePath: 'market_size',
             classNames: 'tabl',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '市场增长(%)',
+            // label: '市场增长(%)',
+            label: this.i18n.t('biDashboard.common.tableMarketGrowth') + "",
             valuePath: 'market_growth',
             align: 'center',
             classNames: 'tabl',
             minResizeWidth: '70px',
         }, {
-            label: '销售额',
+            // label: '销售额',
+            label: this.i18n.t('biDashboard.common.tableSales') + "",
             valuePath: 'sales_amount',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '销售增长(%)',
+            // label: '销售增长(%)',
+            label: this.i18n.t('biDashboard.common.tableSalesGrowth') + "",
             valuePath: 'sales_growth',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: 'EV值(%)',
+            // label: 'EV值(%)',
+            label: this.i18n.t('biDashboard.common.tableEvValue') + "",
             valuePath: 'ev_value',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '份额(%)',
+            // label: '份额(%)',
+            label: this.i18n.t('biDashboard.common.tableShare') + "",
             valuePath: 'share',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '份额增长(%)',
+            // label: '份额增长(%)',
+            label: this.i18n.t('biDashboard.common.tableShareGrowth') + "",
             valuePath: 'share_growth',
             align: 'center',
             minResizeWidth: '70px',
@@ -1870,14 +1910,16 @@ export default Controller.extend({
 
         //各竞品销售概况-table
         this.competingProd = [{
-            label: '商品名',
+            // label: '商品名',
+            label: this.i18n.t('biDashboard.common.tableName') + "",
             valuePath: 'prod',
             classNames: 'tabl',
             align: 'center',
             sortable: false, //是否可以对列进行排序
             minResizeWidth: '70px', //列可以调整的最小宽度
         }, {
-            label: '生产商',
+            // label: '生产商',
+            label: this.i18n.t('biDashboard.common.tableManufacturer') + "",
             valuePath: 'manufacturer',
             classNames: 'tabl',
             align: 'center',
@@ -1886,28 +1928,33 @@ export default Controller.extend({
             cellClassNames: 'overf',
             // cellCopmonent: 'table-overflow',
         }, {
-            label: '销售额',
+            // label: '销售额',
+            label: this.i18n.t('biDashboard.common.tableSales') + "",
             valuePath: 'market_sale',
             align: 'center',
             classNames: 'tabl',
             minResizeWidth: '70px',
         }, {
-            label: '销售增长',
+            // label: '销售增长',
+            label: this.i18n.t('biDashboard.common.tableSalesGrowth') + "",
             valuePath: 'sales_growth',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: 'EV值(%)',
+            // label: 'EV值(%)',
+            label: this.i18n.t('biDashboard.common.tableEvValue') + "",
             valuePath: 'ev_value',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '份额(%)',
+            // label: '份额(%)',
+            label: this.i18n.t('biDashboard.common.tableShare') + "",
             valuePath: 'share',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '份额增长(%)',
+            // label: '份额增长(%)',
+            label: this.i18n.t('biDashboard.common.tableShareGrowth') + "",
             valuePath: 'share_growth',
             align: 'center',
             minResizeWidth: '70px',
@@ -1976,46 +2023,53 @@ export default Controller.extend({
         this.prodSalesTable = [];
 
         this.prodCont = [{
-            label: '商品名',
-            valuePath: 'prod',
-            classNames: 'tabl',
-            align: 'center',
-            sorted: false, //是否可以对列进行排序
-            minResizeWidth: '70px', //列可以调整的最小宽度
+        //     label: '商品名',
+        //     label: this.i18n.t('biDashboard.common.tableName') + "",
+        //     valuePath: 'prod',
+        //     classNames: 'tabl',
+        //     align: 'center',
+        //     sorted: false, //是否可以对列进行排序
+        //     minResizeWidth: '70px', //列可以调整的最小宽度
 
-        }, {
-            label: '市场名',
-            valuePath: 'market',
-            classNames: 'tabl',
-            align: 'center',
-            minResizeWidth: '70px',
-        }, {
-            label: '销售额',
-            valuePath: 'sales',
-            align: 'center',
-            classNames: 'tabl',
-            minResizeWidth: '70px',
+        // }, {
+        //     label: '市场名',
+        //     label: this.i18n.t('biDashboard.common.tableName') + "",
+        //     valuePath: 'market',
+        //     classNames: 'tabl',
+        //     align: 'center',
+        //     minResizeWidth: '70px',
+        // }, {
+        //     label: '销售额',
+        //     label: this.i18n.t('biDashboard.common.tableName') + "",
+        //     valuePath: 'sales',
+        //     align: 'center',
+        //     classNames: 'tabl',
+        //     minResizeWidth: '70px',
 
-        }, {
-            label: '贡献度',
-            valuePath: 'cont',
-            align: 'center',
-            minResizeWidth: '70px',
-        }, {
-            label: '贡献度变化 -  上期(%)',
-            valuePath: 'cont-month',
-            align: 'center',
-            minResizeWidth: '70px',
-        }, {
-            label: '贡献度变化 - 三个月(%)',
-            valuePath: 'cont-season',
-            align: 'center',
-            minResizeWidth: '70px',
-        }, {
-            label: '贡献度变化 - 去年同期(%)',
-            valuePath: 'cont-year',
-            align: 'center',
-            minResizeWidth: '70px',
+        // }, {
+        //     label: '贡献度',
+        //     label: this.i18n.t('biDashboard.common.tableName') + "",
+        //     valuePath: 'cont',
+        //     align: 'center',
+        //     minResizeWidth: '70px',
+        // }, {
+        //     label: '贡献度变化 -  上期(%)',
+        //     label: this.i18n.t('biDashboard.common.tableName') + "",
+        //     valuePath: 'cont-month',
+        //     align: 'center',
+        //     minResizeWidth: '70px',
+        // }, {
+        //     label: '贡献度变化 - 三个月(%)',
+        //     label: this.i18n.t('biDashboard.common.tableName') + "",
+        //     valuePath: 'cont-season',
+        //     align: 'center',
+        //     minResizeWidth: '70px',
+        // }, {
+        //     label: '贡献度变化 - 去年同期(%)',
+        //     label: this.i18n.t('biDashboard.common.tableName') + "",
+        //     valuePath: 'cont-year',
+        //     align: 'center',
+        //     minResizeWidth: '70px',
         }];
         this.AllTrendTitle = {
             // title: '麻醉市场产品销售趋势分析',
@@ -2081,43 +2135,42 @@ export default Controller.extend({
             this.set('prov', params)
         },
         queryProvRank(params) {
-            if (params === '市场规模(mil)') {
+            if (params === this.i18n.t('biDashboard.common.rankMarketSize') + "") {
                 this.set('provRankTag', 'provinceSales')
-            } else if (params === '市场增长(%)') {
+            } else if (params === this.i18n.t('biDashboard.common.rankMarketGrowth') + "") {
                 this.set('provRankTag', 'provMomGrowth')
-            } else if (params === '销售额(mil)') {
+            } else if (params === this.i18n.t('biDashboard.common.rankSales') + "") {
                 this.set('provRankTag', 'companySales')
-            } else if (params === '销售增长(%)') {
+            } else if (params === this.i18n.t('biDashboard.common.rankSalesGrowth') + "") {
                 this.set('provRankTag', 'companySalesMomGrowth')
-            } else if (params === '份额(%)') {
+            } else if (params === his.i18n.t('biDashboard.common.rankShare') + "") {
                 this.set('provRankTag', 'companyShare')
-            } else if (params === '份额增长(%') {
+            } else if (params === this.i18n.t('biDashboard.common.rankShareGrowth') + "") {
                 this.set('provRankTag', 'companyShareMomGrowth')
             }
             this.queryMarketRank();
         },
         queryProdRank(params) {
-            if (params === '销售额(mil)') {
+            if (params === this.i18n.t('biDashboard.common.rankSales') + "") {
                 this.set('prodRankTag', 'sales')
-            } else if (params === '销售增长(%)') {
+            } else if (params === this.i18n.t('biDashboard.common.rankSalesGrowth') + "") {
                 this.set('prodRankTag', 'salesGrowth')
-            } else if (params === '份额(%)') {
+            } else if (params === this.i18n.t('biDashboard.common.rankShare') + "") {
                 this.set('prodRankTag', 'share')
-            } else if (params === '份额增长(%)') {
+            } else if (params === this.i18n.t('biDashboard.common.rankShareGrowth') + "") {
                 this.set('prodRankTag', 'shareGrowth')
             }
             this.queryProductRank();
 
         },
         queryTrend(params) {
-            // console.log(params);
-            if (params === '销售额(mil)') {
+            if (params === this.i18n.t('biDashboard.common.rankSales') + "") {
                 this.set('trendTag', 'sales')
-            } else if (params === '销售增长(%)') {
+            } else if (params === this.i18n.t('biDashboard.common.rankSalesGrowth') + "") {
                 this.set('trendTag', 'salesGrowth')
-            } else if (params === '份额(%)') {
+            } else if (params === this.i18n.t('biDashboard.common.rankShare') + "") {
                 this.set('trendTag', 'share')
-            } else if (params === '份额增长(%)') {
+            } else if (params === this.i18n.t('biDashboard.common.rankShareGrowth') + "") {
                 this.set('trendTag', 'shareGrowth')
             }
             this.queryAllProdTrend();

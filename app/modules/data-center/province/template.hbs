@@ -3,22 +3,22 @@
 	{{!-- {{date-market-choose showMarkerChoose=true market=markets}} --}}
 	<div class="container-fluid" local-class="data-market">
 		<div local-class='market-show'>
-			<span local-class="show-title">市场选择：</span>
+			<span local-class="show-title">{{t 'biDashboard.common.marketChoose' }}:</span>
 			<p>{{market}}</p>
 		</div>
 
 		<div local-class="time-show">
-			<span local-class="show-title">时间选择：</span>
+			<span local-class="show-title">{{t 'biDashboard.common.timeChoose' }}:</span>
 			<p>{{time}}</p>
 		</div>
 		<div local-class="change-item">
 			{{#bs-modal open=markTimeProv onSubmit=(action "submit") onHidden=(action (mut markTimeProv) false) as |modal|}}
 				{{#modal.header}}
-					<h4 class="modal-title">修改筛选条件</h4>
+					<h4 class="modal-title">{{t 'biDashboard.common.changeFilterCondition' }}</h4>
 				{{/modal.header}}
 				{{#modal.body}}
 					<div local-class='market-choose-area'>
-						<span local-class="title">市场选择：</span>
+						<span local-class="title">{{t 'biDashboard.common.marketChoose' }}:</span>
 						<select local-class="choose-market" id = "select-market" name="markets" onchange= {{ action 'getMarket' value="target.value"}}>
 							{{#each markets as |item|}}
 								<option value={{item}}>{{item}}</option>
@@ -26,7 +26,7 @@
 						</select>
 					</div>
 					<div local-class="time-selects">
-						<span>时间选择：</span>
+						<span>{{t 'biDashboard.common.timeChoose' }}:</span>
 						<select local-class="choose-market" id = "select-year" name="markets" onchange= {{ action 'getYear' value="target.value"}}>
 							{{#each years as |item|}}
 								<option value={{item}}>{{item}}</option>
@@ -40,11 +40,11 @@
 					</div>
 				{{/modal.body}}
 				{{#modal.footer}}
-					{{#bs-button onClick=(action modal.close)}}取消{{/bs-button}}
-					{{#bs-button type="success" onClick=(action modal.submit ) }}保存{{/bs-button}}
+					{{#bs-button onClick=(action modal.close)}}{{t 'biDashboard.common.cancel' }}{{/bs-button}}
+					{{#bs-button type="success" onClick=(action modal.submit ) }}{{t 'biDashboard.common.save' }}{{/bs-button}}
 				{{/modal.footer}}
 			{{/bs-modal}}
-			{{#bs-button local-class="change" onClick=(action (mut markTimeProv) true)}} 修改筛选条件{{/bs-button}}
+			{{#bs-button local-class="change" onClick=(action (mut markTimeProv) true)}} {{t 'biDashboard.common.changeFilterCondition' }}{{/bs-button}}
 		</div>
 	</div>
 	<div class="container-fluid" local-class="nopadding">
@@ -73,8 +73,8 @@
 		</div>
 		<div class="col-md-6 col-sm-12" local-class="nopadding horizontal-histogram">
 			<div local-class="inside">
-				<p local-class="his-title"><span>省份层面排行</span><span>{{time}}</span></p>
-				<p local-class="choose-type"><span>数据类型：</span>
+				<p local-class="his-title"><span>{{t 'biDashboard.province.provinceLevelRank' }}</span><span>{{time}}</span></p>
+				<p local-class="choose-type"><span>{{t 'biDashboard.common.dataType' }}:</span>
 					<select class="" name="" onchange= {{ action 'queryProvRank' value="target.value"}}>
 						{{#each provRank as |item|}}
 							<option value={{item}}>{{item}}</option>
@@ -102,19 +102,19 @@
 	</div>
 	{{!-- {{province-choose showMarkerChoose=true market=markets as |prov|}} --}}
 	<div local-class="provs-choose" class="container-fluid">
-		<span local-class="title">省份选择：</span>
+		<span local-class="title">{{t 'biDashboard.province.provinceChoose' }}:</span>
 		<span local-class="show-area">{{prov}}</span>
-		<span local-class="hint">—可选择单一省份，查看省份销售详细数据</span>
-		{{#bs-button local-class="changeBtn" onClick=(action (mut modalprov) true)}} 修改筛选条件{{/bs-button}}
+		<span local-class="hint">{{t 'biDashboard.province.provinceChooseHint' }}</span>
+		{{#bs-button local-class="changeBtn" onClick=(action (mut modalprov) true)}} {{t 'biDashboard.common.changeFilterCondition' }}{{/bs-button}}
 
 		<div local-class="prov-change-item">
 			{{#bs-modal open=modalprov onSubmit=(action "submitProv") onHidden=(action (mut modalprov) false) as |modal|}}
 				{{#modal.header}}
-					<h4 class="modal-title">修改筛选条件</h4>
+					<h4 class="modal-title">{{t 'biDashboard.common.changeFilterCondition' }}</h4>
 				{{/modal.header}}
 				{{#modal.body}}
 					<div local-class='market-choose-area'>
-						<span local-class="title">省份选择：</span>
+						<span local-class="title">{{t 'biDashboard.province.provinceChoose' }}:</span>
 						<select local-class="choose-market" id = "select-prov" name="provs" onchange= {{ action 'getProv' value="target.value"}}>
 							{{#each provs as |item|}}
 								<option value={{item}}>{{item}}</option>
@@ -124,8 +124,8 @@
 
 				{{/modal.body}}
 				{{#modal.footer}}
-					{{#bs-button onClick=(action modal.close)}}取消{{/bs-button}}
-					{{#bs-button type="success" onClick=(action modal.submit ) }}保存{{/bs-button}}
+					{{#bs-button onClick=(action modal.close)}}{{t 'biDashboard.common.cancel' }}{{/bs-button}}
+					{{#bs-button type="success" onClick=(action modal.submit ) }}{{t 'biDashboard.common.save' }}{{/bs-button}}
 				{{/modal.footer}}
 			{{/bs-modal}}
 
@@ -165,8 +165,8 @@
 		</div>
 		<div class="col-md-6 col-sm-12" local-class="nopadding horizontal-histogram">
 			<div local-class="inside">
-				<p local-class="his-title"><span>各产品排名变化</span><span>{{time}}</span></p>
-				<p local-class="choose-type"><span>数据类型：</span>
+				<p local-class="his-title"><span>{{t 'biDashboard.common.prodRankChange' }}</span><span>{{time}}</span></p>
+				<p local-class="choose-type"><span>{{t 'biDashboard.common.dataType' }}</span>
 					<select class="" name="" onchange= {{ action 'queryProdRank' value="target.value"}}>
 						{{#each prodRank as |item|}}
 							<option value={{item}}>{{item}}</option>
@@ -199,10 +199,10 @@
 	<div class="container-fluid" local-class='nopadding choose-line'>
 		<p local-class="trend-title">
 			<span>{{AllTrendTitle.title}}</span>{{!-- <span>{{trendTitle.title}}</span> --}}
-			<span>{{AllTrendTitle.timeStart}}至{{AllTrendTitle.timeOver}}&nbsp;{{AllTrendTitle.area}}</span>
+			<span>{{AllTrendTitle.timeStart}}{{t 'biDashboard.common.dateTo' }}{{AllTrendTitle.timeOver}}&nbsp;{{AllTrendTitle.area}}</span>
 		</p>
 		<p local-class="choose-type">
-			<span>数据类型：</span>
+			<span>{{t 'biDashboard.common.dataType' }}</span>
 			<select class="" name="" onchange= {{ action 'queryTrend' value="target.value"}}>
 				{{#each trendData as |item|}}
 					<option value={{item}}>{{item}}</option>

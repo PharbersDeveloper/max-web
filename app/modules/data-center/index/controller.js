@@ -7,6 +7,7 @@ import {
 } from '@ember/object';
 import $ from 'jquery';
 export default Controller.extend({
+    i18n: inject(),
     cookies: inject(),
     fullName: '', // 这应该后端返回firstName与lastName 有前端计算出来
     year: '2017',
@@ -416,52 +417,61 @@ export default Controller.extend({
             // subtitle: '2018-01',
         };
         this.prodSales = [{
-            label: '商品名',
+            // label: '商品名',
+            label: this.i18n.t('biDashboard.common.tableName') + "",
             valuePath: 'prod',
             classNames: 'tabl',
             align: 'center',
             sortable: false, //是否可以对列进行排序
             minResizeWidth: '70px', //列可以调整的最小宽度
         }, {
-            label: '市场名',
+            // label: '市场名',
+            label: this.i18n.t('biDashboard.common.tableMarketName') + "",
             valuePath: 'market',
             classNames: 'tabl',
             align: 'center',
             sortable: false,
             minResizeWidth: '70px',
         }, {
-            label: '市场规模',
+            // label: '市场规模',
+            label: this.i18n.t('biDashboard.common.tableMarketSize') + "",
             valuePath: 'market_scale',
             align: 'center',
             classNames: 'tabl',
             minResizeWidth: '70px',
         }, {
-            label: '市场增长',
+            // label: '市场增长',
+            label: this.i18n.t('biDashboard.common.tableMarketGrowth') + "",
             valuePath: 'market_growth',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '销售额',
+            // label: '销售额',
+            label: this.i18n.t('biDashboard.common.tableSales') + "",
             valuePath: 'sales',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '销售增长',
+            // label: '销售增长',
+            label: this.i18n.t('biDashboard.common.tableSalesGrowth') + "",
             valuePath: 'sales_growth',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: 'EV值',
+            // label: 'EV值',
+            label: this.i18n.t('biDashboard.common.tableEvValue') + "",
             valuePath: 'ev_value',
             align: 'center',
             minResizeWidth: '50px',
         }, {
-            label: '份额(%)',
+            // label: '份额(%)',
+            label: this.i18n.t('biDashboard.common.tableShare') + "",
             valuePath: 'share',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '份额增长(%)',
+            // label: '份额增长(%)',
+            label: this.i18n.t('biDashboard.common.tableShareGrowth') + "",
             valuePath: 'share_growth',
             align: 'center',
             minResizeWidth: '70px',
@@ -684,42 +694,49 @@ export default Controller.extend({
     ];
         this.prodCont = [
             {
-            label: '商品名',
+            // label: '商品名',
+            label: this.i18n.t('biDashboard.common.tableName') + "",
             valuePath: 'prod',
             classNames: 'tabl',
             align: 'center',
             sortable: false, //是否可以对列进行排序
             minResizeWidth: '70px', //列可以调整的最小宽度
         }, {
-            label: '市场名',
+            // label: '市场名',
+            label: this.i18n.t('biDashboard.common.tableMarketName') + "",
             valuePath: 'market',
             classNames: 'tabl',
             align: 'center',
             sortable: false,
             minResizeWidth: '70px',
         }, {
-            label: '销售额',
+            // label: '销售额',
+            label: this.i18n.t('biDashboard.common.tableSales') + "",
             valuePath: 'sales',
             align: 'center',
             classNames: 'tabl',
             minResizeWidth: '70px',
         }, {
-            label: '贡献度',
+            // label: '贡献度',
+            label: this.i18n.t('biDashboard.common.tableContribution') + "",
             valuePath: 'cont',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '贡献度变化 -  上期(%)',
+            // label: '贡献度变化 -  上期(%)',
+            label: this.i18n.t('biDashboard.common.tableConChangeLastPeriod') + "",
             valuePath: 'cont_month',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '贡献度变化 - 三个月(%)',
+            // label: '贡献度变化 - 三个月(%)',
+            label: this.i18n.t('biDashboard.common.tableConChangeThreeMonth') + "",
             valuePath: 'cont_season',
             align: 'center',
             minResizeWidth: '70px',
         }, {
-            label: '贡献度变化 - 去年同期(%)',
+            // label: '贡献度变化 - 去年同期(%)',
+            label: this.i18n.t('biDashboard.common.tableConChangeLastYear') + "",
             valuePath: 'cont_year',
             align: 'center',
             minResizeWidth: '70px',

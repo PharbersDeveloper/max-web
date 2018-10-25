@@ -51,6 +51,7 @@
     "ember-data": "~3.3.0",
     "ember-export-application-global": "^2.0.0",
     "ember-file-upload": "^2.4.2",
+    "ember-i18n": "^5.3.0",
     "ember-light-table": "^1.13.1",
     "ember-load-initializers": "^1.0.0",
     "ember-models-table": "^2.5.0",
@@ -70,8 +71,8 @@
   },
   "dependencies": {
     "express": "^4.16.3",
-    "pharbers-route-addon": "^1.0.2",
-    "pharbers-ember-xmpp-addon": "1.0.0"
+    "pharbers-ember-xmpp-addon": "1.0.0",
+    "pharbers-route-addon": "^1.0.2"
   },
   "bugs": {
     "url": "https://github.com/Faiz2/max-web/issues"

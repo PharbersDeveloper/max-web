@@ -13,6 +13,7 @@ const {
 import $ from 'jquery';
 
 export default Controller.extend({
+	i18n: inject(),
 	ajax: inject(),
 	cookies: inject(),
 	styles,
