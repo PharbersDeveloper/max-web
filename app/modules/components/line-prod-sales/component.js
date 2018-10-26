@@ -1,9 +1,13 @@
 import Component from '@ember/component';
 import { run } from '@ember/runloop'
 import { get } from '@ember/object'
+import {
+    inject
+} from '@ember/service';
 import d3 from 'd3';
 
 export default Component.extend({
+    i18n: inject(),
     tagName: 'div',
     classNames: ['col-md-12', 'col-sm-12', 'col-xs-12', 'prod-sales-container'],
     width: 520,
@@ -19,7 +23,10 @@ export default Component.extend({
     drawSingleLine() {
         const singleLineData = this.get('singleLineData');
         d3.select('.prod-sales-container svg.single-line-svg').remove();
-        let lineNames = ['产品销售额'];
+        let lineNames = [
+            // '产品销售额'
+            this.i18n.t('biDashboard.common.prodSales') + "",
+    ];
         let lineColor = ["#FA6F80"];
         let svgContainer = d3.select(this.element);
         var svg = svgContainer.append('svg').attr('class', 'single-line-svg');

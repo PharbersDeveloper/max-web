@@ -641,7 +641,7 @@ export default Controller.extend({
             // '份额增长(%)'
             this.i18n.t('biDashboard.common.rankShareGrowth') + "",
         ];
-        console.log(this.i18n.t('biDashboard.common.rankSales'))
+        
         // 产品销量卡片
         this.cards = [];
         // this.queryProdCards();

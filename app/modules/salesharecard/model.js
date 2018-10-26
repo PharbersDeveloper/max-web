@@ -8,4 +8,5 @@ export default DS.Model.extend({
     tag: DS.attr(),
     yearOnYear: DS.attr(),
     ringRatio: DS.attr(),
+    area: DS.attr(),
 });

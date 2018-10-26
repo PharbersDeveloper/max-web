@@ -1,8 +1,12 @@
 import Component from '@ember/component';
 import { run, later } from '@ember/runloop';
 import { get } from '@ember/object';
+import {
+    inject
+} from '@ember/service';
 import d3 from 'd3';
 export default Component.extend({
+    i18n: inject(),
     tagName: 'div',
     classNames: ['mixed-graph'],
     init() {
@@ -47,7 +51,16 @@ export default Component.extend({
             bottom: 30,
             left: 40
         };
-        let legendTitle = ['市场规模', '产品销售额', '市场增长率', '产品增长率'];
+        let legendTitle = [
+            // '市场规模',
+            this.i18n.t('biDashboard.common.marketSize') + "",
+            // '产品销售额',
+            this.i18n.t('biDashboard.common.prodSales') + "",
+            // '市场增长率',
+            this.i18n.t('biDashboard.common.marketGrowth') + "",
+            // '产品增长率'
+            this.i18n.t('biDashboard.common.prodGrowth') + "",
+        ];
         let legendColor = ['#53A8E2', '#58D8FC', '#FA687A', '#76FFE0'];
         let width = 900;
         let height = 360;

@@ -762,7 +762,7 @@ export default Controller.extend({
         // console.log(result);
          //request
         this.store.queryObject('/api/v1/dashboard/province/productShare', 'provinceproductshare', result).then((result) => {
-            this.set('marketTitle', result.ProdSalesOverview);
+            this.set('prodMarketTitle', result.ProdSalesOverview);
             if (result.Pie.length == 0) {
             } else {
                 this.set('marketShare', result.Pie);
@@ -1877,7 +1877,7 @@ export default Controller.extend({
         //     },],
         // }, 
     ];
-        this.marketTitle = {
+        this.prodMarketTitle = {
             // title: '各产品销售概况',
             // subtitle: '2018-01',
             // province:"北京市"
@@ -2143,7 +2143,7 @@ export default Controller.extend({
                 this.set('provRankTag', 'companySales')
             } else if (params === this.i18n.t('biDashboard.common.rankSalesGrowth') + "") {
                 this.set('provRankTag', 'companySalesMomGrowth')
-            } else if (params === his.i18n.t('biDashboard.common.rankShare') + "") {
+            } else if (params === this.i18n.t('biDashboard.common.rankShare') + "") {
                 this.set('provRankTag', 'companyShare')
             } else if (params === this.i18n.t('biDashboard.common.rankShareGrowth') + "") {
                 this.set('provRankTag', 'companyShareMomGrowth')

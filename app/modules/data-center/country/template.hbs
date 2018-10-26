@@ -55,7 +55,7 @@
 <div local-class='nopadding multi-line'>
     <p local-class="market-title">
         <span>{{trendTitle.title}}</span>
-        <span>{{trendTitle.timeStart}}-{{trendTitle.timeOver}}&nbsp;{{trendTitle.area}}</span>
+        <span>{{trendTitle.timeStart}}&nbsp;{{t 'biDashboard.common.dateTo' }}&nbsp;{{trendTitle.timeOver}}&nbsp;{{trendTitle.area}}</span>
     </p>
     {{multi-line-market threeLinesData=multiData}}
 </div>
@@ -83,7 +83,10 @@
             <p local-class="choose-type"><span>{{t 'biDashboard.common.dataType' }}:</span>
                 <select class="" name="" onchange={{ action 'queryRank' value="target.value"}}>
                     {{#each RankdataType as |item|}}
-                    <option value={{item}}>{{item}}({{unit}})</option>
+                    <option value={{item}}>
+                        {{item}}
+                        {{!-- ({{unit}}) --}}
+                        </option>
                     {{/each}}
                 </select>
             </p>
@@ -108,7 +111,7 @@
 </div>
 
 <div local-class='competing-products-table'>
-    <p local-class="table-title"><span>{{competingTitle.title}}</span><span>{{competingTitle.subtitle}}{{competingTitle.area}}</span></p>
+    <p local-class="table-title"><span>{{competingTitle.title}}</span><span>{{competingTitle.subtitle}}&nbsp;{{competingTitle.area}}</span></p>
     {{self-table model=competingValue columns=competingColumn selfheight='250px'}}
 </div>
 
@@ -116,7 +119,7 @@
     <p local-class="trend-title">
         {{!-- <span>各产品销售趋势分析</span> --}}
         <span>{{trendTitle.title}}</span>
-        <span>{{trendTitle.timeStart}}{{t 'biDashboard.common.dateTo' }}{{trendTitle.timeOver}}&nbsp;{{trendTitle.area}}</span>
+        <span>{{trendTitle.timeStart}}&nbsp;{{t 'biDashboard.common.dateTo' }}&nbsp;{{trendTitle.timeOver}}&nbsp;{{trendTitle.area}}</span>
     </p>
     <p local-class="choose-type">
         <span>{{t 'biDashboard.common.dataType' }}:</span>

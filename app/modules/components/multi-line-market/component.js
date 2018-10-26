@@ -5,8 +5,12 @@ import {
 import {
     get
 } from '@ember/object';
+import {
+    inject
+} from '@ember/service';
 import d3 from 'd3';
 export default Component.extend({
+    i18n: inject(),
     tagName: 'div',
     classNames: ['col-md-12', 'col-sm-12', 'col-xs-12', 'third-line'],
     init() {
@@ -19,7 +23,14 @@ export default Component.extend({
         d3.select('svg.third-line-svg').remove();
         let data = this.get('threeLinesData');
         let handledData = [];
-        let lineNames = ['市场销售额', '产品销售额', '产品份额'];
+        let lineNames = [
+            // '市场销售额',
+            this.i18n.t('biDashboard.common.marketSales') + "",
+            // '产品销售额',
+            this.i18n.t('biDashboard.common.prodSales') + "",
+            // '产品份额'
+            this.i18n.t('biDashboard.common.prodShare') + "",
+        ];
         let lineColor = ["#FA6F80", "#7CFFE2", "#868CE9"];
         var svgContainer = d3.select(this.element);
         let svg = svgContainer.append('svg').attr('class', 'third-line-svg')

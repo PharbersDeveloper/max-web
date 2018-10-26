@@ -140,7 +140,7 @@
 	<div class="container-fluid" local-class='nopadding multi-line'>
 		<p local-class="market-title">
 			<span>{{trendTitle.title}}</span>
-			<span>{{trendTitle.timestart}}{{trendTitle.timeover}}{{trendTitle.area}}</span>
+			<span>{{trendTitle.timeStart}}&nbsp;{{t 'biDashboard.common.dateTo' }}&nbsp;{{trendTitle.timeOver}}&nbsp;{{trendTitle.area}}</span>
 		</p>
 
 		{{multi-line-market threeLinesData=prodTrend}}
@@ -156,9 +156,9 @@
 		<div class="col-md-6 col-sm-12" local-class="nopadding legend-pie-container">
 			<div local-class="inside">
 				<p local-class="pie-title">
-					<span>{{marketTitle.title}}</span>
-					<span>{{marketTitle.subtitle}}</span>
-					<span>{{marketTitle.province}}</span>
+					<span>{{prodMarketTitle.title}}</span>
+					<span>{{prodMarketTitle.subtitle}}</span>
+					<span>{{prodMarketTitle.area}}</span>
 				</p>
 				{{legend-pie-sales pieData=marketShare}}
 			</div>
@@ -199,7 +199,7 @@
 	<div class="container-fluid" local-class='nopadding choose-line'>
 		<p local-class="trend-title">
 			<span>{{AllTrendTitle.title}}</span>{{!-- <span>{{trendTitle.title}}</span> --}}
-			<span>{{AllTrendTitle.timeStart}}{{t 'biDashboard.common.dateTo' }}{{AllTrendTitle.timeOver}}&nbsp;{{AllTrendTitle.area}}</span>
+			<span>{{AllTrendTitle.timeStart}}&nbsp;{{t 'biDashboard.common.dateTo' }}&nbsp;{{AllTrendTitle.timeOver}}&nbsp;{{AllTrendTitle.area}}</span>
 		</p>
 		<p local-class="choose-type">
 			<span>{{t 'biDashboard.common.dataType' }}</span>

@@ -5,4 +5,5 @@ export default DS.Model.extend({
     subtitle: DS.attr(),
     province: DS.attr(),
     name: DS.attr(),
+    leaftitle: DS.attr(),
 });
