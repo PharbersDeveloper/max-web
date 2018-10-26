@@ -165,7 +165,7 @@ export default Component.extend({
         //绘制图例区域
         let legendContainer = svgContainer.append('div').attr('class', 'legendContainer');
         var legendArea = legendContainer.append("svg")
-            .attr('width', 90)
+            .attr('width', 400)
             .attr('height', 30 * pieData.length);
         //绑定数据，设置每个图例的位置
         var legend = legendArea.selectAll("g")
