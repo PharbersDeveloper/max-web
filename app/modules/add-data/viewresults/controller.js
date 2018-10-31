@@ -204,8 +204,13 @@ export default Controller.extend({
 		exportFiles() {
 			let company_id = localStorage.getItem('company_id');
 			let job_id = localStorage.getItem('job_id');
-			let market = localStorage.getItem('market');
-			let ym = localStorage.getItem('year');
+			let market = $('select[name="markets"]').val() || localStorage.getItem('market');
+			console.log("this is export");
+			console.log(market);
+			let ym = $('select[name="years"]').val() || localStorage.getItem('year');
+			console.log(ym);
+			// let market = localStorage.getItem('market');
+			// let ym = localStorage.getItem('year');
 			// let company = this.store.peekAll('phmaxjob').lastObject.company_id;
 			// let job = this.store.peekAll('phmaxjob').lastObject.job_id;
 
