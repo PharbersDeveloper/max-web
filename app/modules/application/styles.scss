@@ -1,8 +1,9 @@
 @import 'bootstrap';
 @import 'ember-power-select';
+@import "standard-base";
 $navbar-bgcolor: #737373;
 $content-bgcolor: #fafafa;
-$btn-bgcolor: #60b3ad;
+$btn-bgcolor: $ph-color-assist-main;
 $btn-error-bgcolor: red;
 $border-color: #7e7e7e;
 $max-font-size-title: 2.2rem;

@@ -25,7 +25,8 @@ module.exports = function(defaults) {
 			includePaths: [
 				'node_modules/bootstrap-sass/assets/stylesheets',
 				'node_modules/ember-power-select/app/styles',
-				'node_modules/ember-basic-dropdown/app/styles'
+				'node_modules/ember-basic-dropdown/app/styles',
+				'node_modules/pharbers-standard-base-addon/app/styles'
 			]
 		},
 		// cssModules: {

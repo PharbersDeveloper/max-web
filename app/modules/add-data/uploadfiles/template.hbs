@@ -1,4 +1,7 @@
 {{step-flow stepOne=true stepTwo=false stepThree=false stepFour=false}}
-{{!-- {{ upload-file nextAction=(action 'next')}} --}}
-{{upload-file next=(action 'next')}}
+<div local-class="layout-fixed-outer">
+    <div local-class="layout-fixed-inner">
+        {{upload-file next=(action 'next')}}
+    </div>
+</div>
 {{outlet}}
