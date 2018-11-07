@@ -1,5 +1,52 @@
 {{outlet}}
-<div local-class="step-content-wrapper">
+    {{#layout-push direction='row' classNames="layout-flex-outer"}}
+        {{#layout-push direction='row' split=false mid=true classNames="layout-flex-inner"}}
+            {{#layout-push direction='col' classNames="generate-sample-flex-outer"}}
+                {{#layout-push direction='row' classNames="generate-sample-hint"}}
+                    <p local-class="explain-text">将对你本次上传的原文件，进行清洗、过滤后，生成本次计算的样本。數據格式規範模板 </p>
+                    <p local-class="explain-text">点此下载</p>
+                {{/layout-push}}
+                {{#layout-push direction='row' classNames="generate-sample-file-cap"}}
+                    <p local-class="file-name">
+                        <span local-class="tip-text">CAP : </span>
+                        <span local-class="txt">&nbsp;&nbsp;{{cpafilename}}</span>
+                    </p>
+                {{/layout-push}}
+                {{#layout-push direction='row' classNames="generate-sample-file-gycx"}}
+                    <p local-class="file-name">
+                        <span local-class="tip-text">GYCX : </span>
+                        <span local-class="txt">&nbsp;&nbsp;{{gycxfilename}}</span>
+                    </p>
+                {{/layout-push}}
+                {{#layout-push direction='row' classNames="generate-sample-big-btn"}}
+                    {{#unless SampleObject.isShowProgress}}
+                        <div local-class="btn-start" {{action "startParsingFile"}}>
+                            <div local-class="btn-start-content">
+                                开始
+                            </div>
+                        </div>
+                    {{/unless}}
+                    {{#if SampleObject.calcYearsProgress}}
+                        {{progress-bar newAngle=ymPercentage}}
+                    {{/if}}
+                    {{#if SampleObject.calcPanelProgress}}
+                        {{progress-bar newAngle=panelPercentage}}
+                    {{/if}}
+                {{/layout-push}}
+                {{#layout-push direction='row' classNames="generate-sample-reupload-btn"}}
+                        {{!-- {{base-button content="上传错误？重新上传" onClick=(action (mut uploadAgain)}} --}}
+                        {{base-button type="second" content="上传错误？重新上传" onClick=uploadAgain}}
+                {{/layout-push}}
+            {{/layout-push}}
+        {{/layout-push}}
+    {{/layout-push}}
+
+
+
+
+
+    
+{{!-- <div local-class="step-content-wrapper">
     <div local-class="generate-sample-content">
         <p local-class="explain-text">将对你本次上传的原文件，进行清洗、过滤后，生成本次计算的样本。</p>
         <p local-class="file-name">
@@ -23,11 +70,14 @@
             {{#if SampleObject.calcPanelProgress}}
                 {{progress-bar newAngle=panelPercentage}}
             {{/if}}
-        {{!-- {{/unless}} --}}
+
         <p local-class="reupload">
             {{#bs-button onClick=(action (mut uploadAgain) true)}}上传错误？重新上传{{/bs-button}}
         </p>
 
+
+    </div>
+</div> --}}
         {{!-- {{#unless SampleObject.isShowProgress}}
             <div local-class="btn-start" {{action "startParsingFile"}}>
                 <div local-class="btn-start-content">
@@ -50,9 +100,6 @@
             <p local-class="calc-progress-text">正在解析您的原文件。。。</p>
         {{/unless}} --}}
 
-    </div>
-
-</div>
 
 {{!-- 重新上传文件弹框 --}}
 {{#bs-modal

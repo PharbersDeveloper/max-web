@@ -1,22 +1,10 @@
-/**
-*
-*基本wrapper样式
-*/
-.step-content-wrapper {
-    position: relative;
-    width: 1152px;
-
-    min-height: 600px;
-    background-color: $ph-color-assist-card;
-    box-shadow: 2px 2px 4px 4px #eee;
-    border-radius: 4px;
-}
-
 // 新版本样式
 :global(.step-flex-outer) {
+    width: 1152px;
+    min-height: 616px;
+    background-color: $ph-color-assist-card;
 
     :global(.upload-hint) {
-        // padding: 30px 0;
         margin: 24px auto auto 152px;
 
         p {
@@ -71,6 +59,7 @@
 
                     .dropzone-upload-area {
                         padding-top: 24px;
+                        text-align: center;
 
                         &.active {
                             border-color: $btn-bgcolor;
@@ -157,6 +146,19 @@
 }
 
   // 旧版本样式
+/**
+*
+*基本wrapper样式
+*/
+// .step-content-wrapper {
+//     position: relative;
+//     width: 1152px;
+//     min-height: 616px;
+//     background-color: $ph-color-assist-card;
+//     box-shadow: 2px 2px 4px 4px #eee;
+//     border-radius: 4px;
+// }
+
   // .step-left,
   // .step-right {
   //   // float: left;

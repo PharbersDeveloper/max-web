@@ -4,7 +4,7 @@ import d3 from 'd3';
 
 export default Component.extend({
     tagName: 'div',
-    classNames: ['col-md-12', 'col-sm-12', 'col-xs-12'],
+    classNames: [],
     didReceiveAttrs() {
         run.scheduleOnce('render', this, this.drawChart);
     },
@@ -20,7 +20,7 @@ export default Component.extend({
         .startAngle(0);
         var picture = d3.select('svg')
         .append('g')
-        .attr('transform','translate(290,180)');
+        .attr('transform','translate(576,100)');
         var backGround = picture.append("path")
             .datum({endAngle: 2 * Math.PI})
             .style("fill", "#E1E1E1")

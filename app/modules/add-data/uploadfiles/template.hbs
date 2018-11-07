@@ -1,7 +1,7 @@
 {{step-flow stepOne=true stepTwo=false stepThree=false stepFour=false}}
-<div local-class="layout-fixed-outer">
-    <div local-class="layout-fixed-inner">
-        {{upload-file next=(action 'next')}}
-    </div>
-</div>
+    {{#layout-push direction='row' classNames="layout-flex-outer"}}
+        {{#layout-push direction='row' split=false mid=true classNames="layout-flex-inner"}}
+            {{upload-file next=(action 'next')}}
+        {{/layout-push}}
+    {{/layout-push}}
 {{outlet}}
