@@ -11,7 +11,7 @@ export default Route.extend({
 			});
             //要发送的数据格式
 			let eqValues = [
-				{type: 'eqcond', key: 'username', val: username, category: 'home'},
+				{type: 'eqcond', key: 'username', val: username},
 				{type: 'eqcond', key: 'password', val: pwd}
 			]
             //组建的一对多的关系
@@ -25,11 +25,11 @@ export default Route.extend({
             //遍历数组
 			let result = this.store.object2JsonApi('request', req);
             //转成jsonAPI格式
-            console.log(result); //request
+            // result是request
             this.store.queryObject('/api/v1/maxlogin/0','phauth', result ).then((result) => {
                 if(result.token !== '') {
                     this.get('cookies').write('token', result.token, {path: '/'});
-                    this.transitionTo('data-center')
+                    this.transitionTo('data-center');
                 }
             }) //response
 

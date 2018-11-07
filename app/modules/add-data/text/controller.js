@@ -18,21 +18,6 @@ export default Controller.extend({
      *
      */
     queryProdSales() {
-        // let condition = {
-        //     "condition": {
-        //         "user_id": this.get('cookies').read('uid'),
-        //         "time": this.get('time')
-        //     }
-        // }
-        // this.get('ajax').request('api/dashboard/overView', this.getAjaxOpt(condition))
-        //     .then(({ status, result, error }) => {
-        //         if (status === 'ok') {
-        //             // console.log('查询各产品销售概况:')
-        //             // console.log(result);
-        //             this.set('titleInfo', result.overView.prodSalesOverview);
-        //             this.set('prodSalesValue', result.overView.prodSalesValue);
-        //         }
-        //     })
     },
     /**
      *	查询各产品销售贡献度

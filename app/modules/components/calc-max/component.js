@@ -11,5 +11,8 @@ export default Component.extend({
         startCalcMAX() {
             this.sendAction('startCalcMAX');
         },
+        viewresults() {
+            this.sendAction('viewresults');
+        }
     },
 });

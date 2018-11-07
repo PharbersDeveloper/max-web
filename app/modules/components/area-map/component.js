@@ -9,6 +9,7 @@ export default Component.extend({
         run.scheduleOnce('render', this, this.drawChart);
     },
     drawChart() {
+        d3.select('.map-area').select("svg").remove();
         let valueName = this.get('valueName');
         if(valueName != undefined) {
             var margin = {top: 0, right: 10, bottom: 10, left: 10};
@@ -33,7 +34,7 @@ export default Component.extend({
             let g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
             let tooltip = d3.select("div.tooltip"); // 各个地图信息展示区域
 
-            var url = "http://jeorch.top/ChindMapD3/china.geojson";
+            var url = "/resource/china.geojson";
             d3.json(url, function(error, china) {
               if (error) throw error;
               svg.selectAll("path")
@@ -77,9 +78,9 @@ export default Component.extend({
                                     return colorArray[0]
                                 } else if(d.properties.name == valueName[1]) {
                                     return colorArray[1];
-                                } else if(d.properties.name == valueName[2] || d.properties.name == valueName[3] || d.properties.name == valueName[4]) {
+                                } else if(d.properties.name == valueName[2] || d.properties.name == valueName[3] || d.properties.name == valueName[4] || d.properties.name == valueName[5]) {
                                     return colorArray[2];
-                                }else if(d.properties.name == valueName[5] || d.properties.name == valueName[6] || d.properties.name == valueName[7]) {
+                                }else if(d.properties.name == valueName[6] || d.properties.name == valueName[7] || d.properties.name == valueName[8] || d.properties.name == valueName[9] || d.properties.name == valueName[10]) {
                                     return colorArray[3];
                                 }else {
                                     return colorArray[4];

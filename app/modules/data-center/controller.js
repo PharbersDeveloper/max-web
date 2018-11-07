@@ -69,7 +69,9 @@ export default Controller.extend({
 				}
 			})
 		},
-
+		addData() {
+			this.transitionToRoute('add-data.uploadfiles');
+		},
 		doPageSearch(currentPage, pn) {
 			this.set('currentPage', currentPage)
 			this.set('modalTablePageObj', pn);

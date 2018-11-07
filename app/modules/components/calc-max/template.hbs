@@ -20,9 +20,7 @@
                 <p local-class="calc-progress-text-ing">正在进行MAX计算...</p>
             {{else}}
                 <p local-class="calc-progress-text-ing">
-                    {{#link-to "add-data.viewresults"}}
-                        <button local-class="btn-default-max">查看结果 <span class="glyphicon glyphicon-play"></span> </button>
-                    {{/link-to}}
+                        <button local-class="btn-default-max" {{action "viewresults"}}>查看结果 <span class="glyphicon glyphicon-play"></span> </button>
                 </p>
             {{/unless}}
         {{/unless}}

@@ -1,22 +1,22 @@
 import Controller from '@ember/controller';
-import XMPPMixin from '../common/xmpp-message-object/XMPPMixin';
-import { computed } from '@ember/object';
-import { inject } from '@ember/service';
-import conf from '../../config/environment';
+// import XMPPMixin from '../common/xmpp-message-object/XMPPMixin';
+// import { computed } from '@ember/object';
+// import { inject } from '@ember/service';
+// import conf from '../../config/environment';
 
-export default Controller.extend(XMPPMixin, {
-    message: null,
-    xmpp: inject(),
-    init() {
-        this._super(...arguments);
-        // this.xmppCallBack(this);
-        // xmppSendMessage('hello', 'jeorch');
-    },
-    isProgresShow: null,
-    getProgres: computed('isProgresShow', function() {
-        // body
-        this.get('isProgresShow')
-    }),
+export default Controller.extend({
+    // message: null,
+    // xmpp: inject(),
+    // init() {
+    //     this._super(...arguments);
+    //     // this.xmppCallBack(this);
+    //     // xmppSendMessage('hello', 'jeorch');
+    // },
+    // isProgresShow: null,
+    // getProgres: computed('isProgresShow', function() {
+    //     // body
+    //     this.get('isProgresShow')
+    // }),
 
     // content: '',
     // init() {

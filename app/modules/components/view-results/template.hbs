@@ -17,6 +17,7 @@
             </div>
             <div local-class="choosebar-content choosebar-right">
                 <button {{action 'saveData'}} local-class="btn-default-max" type="button" name="button">保存</button>
+                <button {{action 'exportFiles'}} local-class="btn-default-max" type="button" name="button">导出</button>
             </div>
         </div>
         <div local-class="market-results">
@@ -88,11 +89,10 @@
                         </div>
 
                         <div local-class="{{if (eq selectedArea 0) 'show' 'hide'}}" >
-                            {{result-mirror-bar}}
+                            {{result-mirror-bar currentData=currentData lastData=lastData}}
                         </div>
                         <div local-class="{{if (eq selectedArea 1) 'show' 'hide'}}">
-                            {{!-- {{result-mirror-bar}} --}}
-                            {{!-- {{result-mirror-bar eid="result-mirror-city-bar" option=mirrorCityOption}} --}}
+                            {{result-mirror-bar-city currentDataCity=currentDataCity lastDataCity=lastDataCity}}
                         </div>
                     </div>
                 </div>

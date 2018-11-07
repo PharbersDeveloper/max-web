@@ -35,8 +35,8 @@ export default Controller.extend({
     querySelectArg() {
 		let company_id = localStorage.getItem('company_id');
 		let job_id = localStorage.getItem('job_id');
-		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
-		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
+		// let company = this.store.peekAll('phmaxjob').lastObject.company_id;
+		// let job = this.store.peekAll('phmaxjob').lastObject.job_id;
 
 		let req = this.store.createRecord('samplecheckselecter',{
 			res: "phselecter",
@@ -97,12 +97,12 @@ export default Controller.extend({
 				// console.log(res.trend);
 				let trend = res.trend;
 				this.set('trend',trend);
+				//折线图数据
 
 				let regionList = res.region;
 				let noValueList = [];
 				let valueList = [];
 				let listValue = regionList.map(function(i) {
-					console.log(i.value);
 					if(i.value = 0) {
 						let noValue = i.name;
 						noValueList.push(noValue);
@@ -113,9 +113,83 @@ export default Controller.extend({
 				})
 				this.set("noValueList",noValueList);
 				this.set("valueList",valueList);
-				console.log(noValueList);
-				console.log(valueList);
+				// 地图数据
 
+				let mirrorProvincesCurrent = res.mirror.provinces.current;
+				let mirrorProvincesLast = res.mirror.provinces.lastyear;
+				let mirrorProvinces = {
+					mirrorProvincesCurrent,
+					mirrorProvincesLast
+				}
+				let current = [];
+				mirrorProvinces.mirrorProvincesCurrent.forEach((mirrorProvincesCurrent,index)=>{
+					let item = {
+						key: index+1,
+						marketSales: mirrorProvincesCurrent.marketSales,
+						area: "",
+					}
+					current.push(item);
+				})
+				this.set('current',current);
+				console.log(current);
+
+				let lastYear = [];
+				mirrorProvinces.mirrorProvincesLast.forEach((mirrorProvincesLast,index)=>{
+					let item = {
+						key: index+1,
+						marketSales: -mirrorProvincesLast.marketSales,
+						areaLast: mirrorProvincesLast.area,
+						area: mirrorProvinces.mirrorProvincesCurrent[index].area,
+					}
+					lastYear.push(item);
+				})
+				lastYear.forEach((a)=>{
+					lastYear.forEach((b)=>{
+						if(a.area === b.areaLast) {
+							a.keyLast = b.key;
+						}
+					})
+				})
+				this.set('lastYear',lastYear);
+				console.log(lastYear);
+
+				let mirrorCityCurrent = res.mirror.city.current;
+				let mirrorCityLast = res.mirror.city.lastyear;
+				let mirrorCity = {
+					mirrorCityCurrent,
+					mirrorCityLast
+				}
+				let currentCity = [];
+				mirrorCity.mirrorCityCurrent.forEach((mirrorCityCurrent,index)=>{
+					let item = {
+						key: index+1,
+						marketSales: mirrorCityCurrent.marketSales,
+						area: "",
+					}
+					currentCity.push(item);
+				})
+				this.set('currentCity',currentCity);
+				console.log(currentCity)
+
+				let lastYearCity = [];
+				mirrorCity.mirrorCityLast.forEach((mirrorCityLast,index)=>{
+					let item = {
+						key: index+1,
+						marketSales: -mirrorCityLast.marketSales,
+						areaLast: mirrorCityLast.area,
+						area: mirrorCity.mirrorCityCurrent[index].area,
+					}
+					lastYearCity.push(item);
+				})
+				lastYearCity.forEach((a)=>{
+					lastYearCity.forEach((b)=>{
+						if(a.area === b.areaLast) {
+							a.keyLast = b.key;
+						}
+					})
+				})
+				this.set('lastYearCity',lastYearCity);
+				console.log(lastYearCity)
 			} else {
 				this.set('sampleCheckError', true);
 				this.set('errorMessage', "error");
@@ -126,6 +200,69 @@ export default Controller.extend({
 		queryAll(mAndY) {
 			this.queryContentData(mAndY.market,mAndY.year);
 			// console.log(mAndY);
+		},
+		exportFiles() {
+			let company_id = localStorage.getItem('company_id');
+			let job_id = localStorage.getItem('job_id');
+			let market = $('select[name="markets"]').val() || localStorage.getItem('market');
+			console.log("this is export");
+			console.log(market);
+			let ym = $('select[name="years"]').val() || localStorage.getItem('year');
+			console.log(ym);
+			// let market = localStorage.getItem('market');
+			// let ym = localStorage.getItem('year');
+			// let company = this.store.peekAll('phmaxjob').lastObject.company_id;
+			// let job = this.store.peekAll('phmaxjob').lastObject.job_id;
+
+			let req = this.store.createRecord('exportmaxresult',{
+				res: "export",
+				company_id: company_id,
+				job_id: job_id,
+				market: market,
+				ym: ym
+			})
+			let result = this.store.object2JsonApi('request', req);
+			this.store.queryObject('/api/v1/exportmaxresult/0','exportmaxresult', result ).then((res) => {
+				if(res.result_path != '') {
+					let resultPath = res.result_path;
+					var url = '/download/' + resultPath;
+					var xhr = new XMLHttpRequest();
+					xhr.open('GET', url, true);        // 也可以使用POST方式，根据接口
+					xhr.responseType = "blob";    // 返回类型blob
+					  // 定义请求完成的处理函数，请求前也可以增加加载框/禁用下载按钮逻辑
+					xhr.onload = function (res) {
+						  // 请求完成
+						  if (this.status === 200) {
+							  // 返回200
+							  var a = document.createElement('a');
+							  a.download = resultPath;
+							  a.href = res.currentTarget.responseURL;
+							  $("body").append(a);    // 修复firefox中无法触发click
+							  a.click();
+							  $(a).remove();
+							  // var blob = this.response;
+							  // var reader = new FileReader();
+							  // reader.readAsDataURL(blob);
+							  // reader.onload = function (e) {
+								//   console.log(e);
+								//   // 转换完成，创建一个a标签用于下载
+								//   console.log(document);
+								//   console.log(resultPath);
+								//   var a = document.createElement('a');
+								//   a.download = resultPath;
+								//   a.href = res.currentTarget.responseURL;
+								//   console.log(a);
+								//   $("body").append(a);    // 修复firefox中无法触发click
+								//   a.click();
+								//   $(a).remove();
+							  //
+							  // }
+						  }
+					  };
+					  // 发送ajax请求
+					  xhr.send()
+				}
+			});
 		}
 	}
 });

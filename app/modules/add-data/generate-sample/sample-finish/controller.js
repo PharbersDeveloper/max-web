@@ -36,19 +36,38 @@ export default Controller.extend({
 		let number = (this.get('salesNumber') - this.get('lastYearSalesNumber')) / this.get('lastYearSalesNumber');
 		return (parseFloat(number) * 100).toFixed(2);
 	}),
-	getAjaxOpt(data) {
-		return {
-			method: 'POST',
-			dataType: "json",
-			cache: false,
-			data: JSON.stringify(data),
-			contentType: "application/json,charset=utf-8",
-			Accpt: "application/json,charset=utf-8",
-		}
+	init() {
+		this._super(...arguments);
+		this.prodSalesLine = [];
+		this.querySelectArg();
+		this.prodSales = [{
+	            label: '序号',
+				width:'200px',
+	            valuePath: 'index',
+	            classNames: 'tabl',
+	            align: 'center',
+	            sortable: false, //是否可以对列进行排序
+	            minResizeWidth: '70px', //列可以调整的最小宽度
+	        }, {
+	            label: '医院名称',
+	            valuePath: 'hospitalName',
+	            classNames: 'tabl',
+	            align: 'left',
+	            sortable: false,
+	            minResizeWidth: '70px',
+	        }];
+	        this.prodSalesValue = [{
+				index: '1',
+				hospitalName: '临河区中心医院'
+			},{
+				index: '2',
+				hospitalName: '临河区中心医院2'
+			}];
+
 	},
 	querySelectArg() {
-		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
-		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
+		// let job = this.store.peekAll('phmaxjob').lastObject.job_id;
+		// let company = this.store.peekAll('phmaxjob').lastObject.company_id;
 
 		let job_id = localStorage.getItem('job_id');
 		let company_id = localStorage.getItem('company_id');
@@ -60,8 +79,6 @@ export default Controller.extend({
 		})
 
 		let result = this.store.object2JsonApi('request', req);
-		console.log(result);
-		console.log("---checkselecter result----")
 		this.store.queryObject('/api/v1/samplecheckselecter/0','samplecheckselecter', result ).then((res) => {
 			if(res !== "") {
 				this.set("markets",res.mkt_list);
@@ -76,9 +93,9 @@ export default Controller.extend({
 		});
 	},
 	queryContentData() {
-		// let company = this.store.peekAll('phmaxjob').firstObject.company_id;
-		// let job = this.store.peekAll('phmaxjob').firstObject.job_id;
-		// let user = this.store.peekAll('phmaxjob').firstObject.user_id;
+		// let company = this.store.peekAll('phmaxjob').lastObject.company_id;
+		// let job = this.store.peekAll('phmaxjob').lastObject.job_id;
+		// let user = this.store.peekAll('phmaxjob').lastObject.user_id;
 		let market = $('select[name="markets"]').val() || localStorage.getItem('market');
 		console.log(market);
 		let years = $('select[name="years"]').val() || localStorage.getItem('year');
@@ -97,11 +114,8 @@ export default Controller.extend({
 		})
 
 		let result = this.store.object2JsonApi('request', req);
-		console.log(result);
-		console.log("---checkbody result----")
 		this.store.queryObject('/api/v1/samplecheckbody/0','samplecheckbody', result ).then((res) => {
 			if(res !== "") {
-				console.log(res);
 				let hosp_currentNumber = res.hospital.currentNumber;
 				let hosp_lastYearNumber = res.hospital.lastYearNumber;
 				this.set('hospitalNumber',hosp_currentNumber);
@@ -181,35 +195,7 @@ export default Controller.extend({
 		});
 
 	},
-	init() {
-		this._super(...arguments);
-		this.prodSalesLine = [];
-		this.querySelectArg();
-		this.prodSales = [{
-	            label: '序号',
-				width:'200px',
-	            valuePath: 'index',
-	            classNames: 'tabl',
-	            align: 'center',
-	            sortable: false, //是否可以对列进行排序
-	            minResizeWidth: '70px', //列可以调整的最小宽度
-	        }, {
-	            label: '医院名称',
-	            valuePath: 'hospitalName',
-	            classNames: 'tabl',
-	            align: 'left',
-	            sortable: false,
-	            minResizeWidth: '70px',
-	        }];
-	        this.prodSalesValue = [{
-				index: '1',
-				hospitalName: '临河区中心医院'
-			},{
-				index: '2',
-				hospitalName: '临河区中心医院2'
-			}];
 
-	},
 	actions: {
 		queryAll() {
 			this.queryContentData()
@@ -220,8 +206,11 @@ export default Controller.extend({
 			SampleObject.set('fileParsingSuccess', false);
 			SampleObject.set('calcYearsProgress', false);
 			SampleObject.set('calcPanelProgress', false);
-			this.transitionToRoute('adddata.uploadfiles')
+			this.transitionToRoute('add-data.uploadfiles')
 			// window.location = 'uploadfiles'
+		},
+		next() {
+			this.transitionToRoute('add-data.calcmax')
 		}
 	}
 });
