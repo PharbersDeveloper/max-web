@@ -26,7 +26,7 @@
                         <p local-class="result-title"><span>{{selectedMarket}}</span> 市场指标</p>
                     {{/layout-push}}
                     {{#layout-push direction='row' classNames="view-result-target-content"}}
-                        <div local-class="target-item">
+                        {{#layout-push direction='col' classNames="view-result-target-content-top"}}
                             <div local-class="item-current">
                                 <p>市场总销售额</p>
                                 <p><span>￥{{marketSumSales}}</span>&nbsp;&nbsp;&nbsp;<span>Mil</span></p>
@@ -39,8 +39,8 @@
                                 <p local-class="error">-{{marketSumSalesPercentage}}%</p>
                                 {{/if}}
                             </div>
-                        </div>
-                        <div local-class="target-item">
+                        {{/layout-push}}
+                        {{#layout-push direction='col' classNames="view-result-target-content-top"}}
                             <div local-class="item-current">
                                 <p>产品销售额</p>
                                 <p><span>￥{{productSumSales}}</span>&nbsp;&nbsp;&nbsp;<span>Mil</span></p>
@@ -52,14 +52,14 @@
                                 {{else}}
                                 <p local-class="error">-{{productSumSalesPercentage}}%</p>
                                 {{/if}}
-                            </div>
-                        </div>
-                        <div local-class="target-item">
+                            </div>  
+                        {{/layout-push}}
+                        {{#layout-push direction='col' classNames="view-result-target-content-top"}}
                             <div local-class="item-current">
                                 <p>份额</p>
-                                <p><span>{{computeShare}}%</span><span></span></p>
+                                <p><span>{{computeShare}}</span><span>%</span></p>
                             </div>
-                        </div>
+                        {{/layout-push}}
                     {{/layout-push}}
                 {{/layout-push}}
                 {{#layout-push direction='col' classNames="view-result-trend"}}

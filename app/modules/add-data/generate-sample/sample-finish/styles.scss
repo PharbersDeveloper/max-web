@@ -46,8 +46,6 @@
     }
     :global(.sample-finish-graph) {
         height: 480px;
-        // justify-content: space-between;
-        // align-items: center;
         background-color: $ph-color-assist-card;
         margin-bottom: 16px;
 
@@ -69,9 +67,9 @@
 
             :global(.sample-finish-graph-left) {
                 margin-left: 16px;
-                // height: 50px;
                 line-height: 35px;
-                font-size: 0;   p {
+                font-size: 0;   
+                p {
                     margin-bottom: 16px!important;
                     line-height: 25px;
                 }
@@ -99,16 +97,18 @@
             }
             :global(.sample-finish-graph-right) {
                 margin-right: 16px;
+                color: $ph-fc-title;
 
                 :global(.sample-finish-graph-right-left) {
                     display: inline-block;
-                    padding: 0 10px;
-                    width: 100px;
+                    margin: 0 16px;
+                    width: 110px;
                     line-height: 32px;
-                    // height: 50px;
                     text-align: center;
+
                     p {
                         line-height: 32px;
+                        font-size: 20px;
                     }
                     p:first-child {
                         margin-bottom: 16px!important;
@@ -117,7 +117,6 @@
                         margin: 0;
                         height: 32px;
                         border-radius: 4px;
-                        font-size: $ph-fs-content;
                         color: $ph-color-assist-card;
                         background-color: $ph-color-func-success;
                     }
@@ -125,7 +124,6 @@
                         margin: 0;
                         height: 32px;
                         border-radius: 4px;
-                        font-size: $ph-fs-content;
                         color: $ph-color-assist-card;
                         background-color: $ph-color-func-error;
                     }
@@ -139,10 +137,13 @@
                 }
                 :global(.sample-finish-graph-right-mid) {
                     display: inline-block;
-                    padding: 0 10px;
-                    width: 100px;
-                    // height: 50px;
+                    margin: 0 16px;
+                    width: 110px;
                     text-align: center;
+
+                    span {
+                        font-size: $ph-fs-content;
+                    }
                     p {
                         line-height: 32px;
                     }
@@ -151,7 +152,7 @@
                         margin: 0;
                         height: 32px;
                         border-radius: 4px;
-                        font-size: $ph-fs-content;
+                        font-size: 20px;
                     }
         
                     p:last-child {
@@ -163,10 +164,13 @@
                 }
                 :global(.sample-finish-graph-right-right) {
                     display: inline-block;
-                    padding: 0 10px;
-                    width: 100x;
-                    // height: 50px;
+                    margin: 0 16px;
+                    width: 110px;
                     text-align: center;
+
+                    span {
+                        font-size: $ph-fs-content;
+                    }
                     p {
                         line-height: 32px;
                     }
@@ -180,7 +184,7 @@
                         margin: 0;
                         height: 32px;
                         border-radius: 4px;
-                        font-size: $ph-fs-content;
+                        font-size: 20px;
                     }
         
                     p:last-child {

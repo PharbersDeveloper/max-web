@@ -61,10 +61,10 @@
         :global(.view-result-target-content){
             justify-content: space-evenly;
 
-            .target-item {
-                display: inline-block;
+            :global(.view-result-target-content-top){
                 margin-bottom: 16px;
-                width: 265px;
+                width: 240px;
+                color: $ph-fc-title;
                 
                 p {
                     margin: 0;
@@ -84,33 +84,27 @@
                     p:last-child {
             
                         span:first-child {
-                            font-size: $ph-fs-emphasize;
+                            font-size: 36px;
                         }
             
                         span:last-child {
-                            font-size: $ph-fs-title;
+                            font-size: 20px;
                         }
                     }
                 }
             
                 .item-old {
-                    padding-left: 50px;
             
-                    p:first-child {
-                        font-size: $ph-fs-content
+                    p {
+                        font-size: $ph-fs-content;
+                        display: inline;
+                        padding-right: 8px;
                     }
-            
-                    // p:last-child {
-                    //     font-size: 1.6rem;
-                    //     color: $btn-bgcolor;
-                    // }
                     & .success {
-                        font-size: $ph-fs-title;
-                        color: $btn-bgcolor;
+                        color: $ph-color-func-success;
                     }
                     & .error {
-                        font-size: $ph-fs-title;
-                        color: $btn-error-bgcolor;
+                        color: $ph-color-func-error;
                     }
                 }
             }
