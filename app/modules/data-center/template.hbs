@@ -3,8 +3,44 @@
     {{left-nav data=model}}
     <div local-class="wrapper-content">
         <p local-class="content-title">
-            <p>
-                <span class="glyphicon glyphicon-th"></span>&nbsp;数据工具</p>
+            <p><span class="glyphicon glyphicon-th"></span>&nbsp;数据工具</p>
+        </p>
+        {{#layout-push direction='row' classNames="data-center-choosebar"}}
+            {{#layout-push direction='row' classNames="data-center-choosebar-left"}}
+                <span local-class="select-title">市场</span>
+                <select local-class="choose-market" name="markets">
+                    <option value="All">全部</option>
+                    {{#each markets as |item|}}
+                        <option value={{item}}>{{item}}</option>
+                    {{/each}}
+                </select>
+                <span local-class="select-title">时间选择</span>
+                <div local-class="time-selects" class="input-group input-daterange">
+                    {{bootstrap-datepicker  changeMonth="changeStartMonth" value='2018-01' autoclose=true minViewMode=1 format="mm/yyyy" keyboardNavigation=true language="zh-CN"}}
+                    <span local-class="middle-text">to</span>
+                    {{bootstrap-datepicker name='endDate' changeMonth="changeEndMonth" value='endDate' autoclose=true minViewMode=1 format="mm/yyyy" language="zh-CN"}}
+                </div>
+                {{base-button type="default" content="查询" onClick=(action 'search')}}
+                {{base-button type="default" content="导出" onClick=(action 'outputData')}}
+            {{/layout-push}}
+            {{#layout-push direction='row' classNames="data-center-choosebar-right"}}
+                <div local-class="btn-add-data" {{action 'addData'}}>
+                    <div local-class="add-data-content left-section">
+                        +
+                    </div>
+                    <div local-class="add-data-content right-section">
+                        添加数据
+                    </div>
+                </div>
+            {{/layout-push}}
+        {{/layout-push}}
+        {{outlet}}
+    </div>
+
+{{!-- 
+    <div local-class="wrapper-content">
+        <p local-class="content-title">
+            <p><span class="glyphicon glyphicon-th"></span>&nbsp;数据工具</p>
         </p>
         <div local-class="content-detail">
             <div local-class="detail-choosebar">
@@ -42,7 +78,7 @@
 
             </div>
 
-            <div local-class="detail-list">
+            <div local-class="detail-list"> --}}
                 {{!-- {{#models-table-server-paginated
                     data=model
                     columns=columns
@@ -73,10 +109,10 @@
                     {{/mt.footer}}
                 {{/models-table-server-paginated}} --}}
 
-            </div>
+            {{!-- </div>
             {{outlet}}
         </div>
-    </div>
+    </div> --}}
 </div>
 {{#if loading}}
     <div local-class="loading">

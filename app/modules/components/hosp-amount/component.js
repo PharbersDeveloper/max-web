@@ -28,7 +28,7 @@ export default Component.extend({
         let dataset = this.get('dataset');
         if(dataset != undefined) {
         //Xname,barValue,lineValue
-        let barColor = '#60B3AD';
+        let barColor = '#5E81CF';
         let width = 820;
         let height = 200;
         let margin = { top:20, right: 20, bottom: 30, left: 90 };
@@ -117,7 +117,7 @@ export default Component.extend({
         g.append("path")
             .datum(dataset)
             .attr("fill", "none")
-            .attr("stroke", "#FA6161")
+            .attr("stroke", "#FF7D7E")
             .attr("stroke-linejoin", "round")
             .attr("stroke-linecap", "round")
             .attr("transform", "translate(" + xScale.bandwidth() / 2 + ",0)")

@@ -27,11 +27,11 @@
     }
 }
 :global(.bar--positive) {
-  fill: #2DD2C2;
+  fill: $ph-color-assist-main;
 }
 
 :global(.bar--negative) {
-  fill: #2DD2C2;
+  fill: $ph-color-assist-main;
 }
 
 :global(.axis text) {

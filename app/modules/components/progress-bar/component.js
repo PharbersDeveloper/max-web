@@ -27,7 +27,7 @@ export default Component.extend({
             .attr("d", arcGenerator);
         var upperGround = picture.append('path')
           .datum({endAngle:newAngle/100 *Pi*2})
-          .style('fill','#60B3AD')
+          .style('fill','#5E81CF')
           .attr('d',arcGenerator)
         var dataText = d3.select('g')
             .append('text')

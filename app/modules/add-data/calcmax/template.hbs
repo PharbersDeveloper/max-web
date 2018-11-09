@@ -1,3 +1,7 @@
 {{step-flow stepOne=true stepTwo=true stepThree=true stepFour=false}}
-{{calc-max startCalcMAX=(action 'startCalcMAX') viewresults=(action 'viewresults') newAngle=maxPercentage}}
+{{#layout-push direction='row' classNames="layout-flex-outer"}}
+    {{#layout-push direction='row' classNames="layout-flex-inner"}}
+        {{calc-max startCalcMAX=(action 'startCalcMAX') viewresults=(action 'viewresults') newAngle=maxPercentage}}
+    {{/layout-push}}
+{{/layout-push}}
 {{outlet}}

@@ -107,6 +107,7 @@
                     }
 
                     .click-upload {
+                        font-weight: normal;
                         flex-grow: 1;
                         position: relative;
                         padding-left: 8px;
@@ -141,7 +142,7 @@
 
     :global(.upload-file-next-btn) {
         justify-content: flex-end;
-        margin-right: 16px;
+        margin: 8px 24px 24px 0;
     }
 }
 

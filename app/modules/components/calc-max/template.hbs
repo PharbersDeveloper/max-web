@@ -1,17 +1,47 @@
-<div local-class="step-content-wrapper">
-    <div local-class="calc-max-content">
+{{#layout-push direction='col' classNames="calc-max-outer"}}
+        <p local-class="explain-text">MAX计算中，请确保您的装置电量充足，保持联网，在计算完成前，请勿关闭本界面</p>
+    {{#unless MaxCalculateObject.isShowCalcProgress}}
+        <div local-class="btn-start" {{action "startCalcMAX"}}>
+            <div local-class="btn-start-content">
+                开始计算
+            </div>
+        </div>
+    {{else}}
+        {{progress-bar newAngle=newAngle}}
+    {{/unless}}
+    {{#unless MaxCalculateObject.isShowCalcProgress}}
+        <p local-class="calc-progress-text">准备计算</p>
+    {{else}}
+        {{#unless MaxCalculateObject.calcHasDone}}
+            <p local-class="calc-progress-text-ing">正在进行MAX计算...</p>
+        {{else}}
+            <p local-class="calc-progress-text-ing">
+                {{base-button type="" content="查看结果" onClick=(action "viewresults") icon="glyphicon glyphicon-play"}}
+            </p>
+        {{/unless}}
+    {{/unless}}
+{{/layout-push}}
+
+
+
+
+
+
+
+{{!-- <div local-class="step-content-wrapper">
+    <div local-class="calc-max-content"> --}}
         {{!-- <p local-class="explain-text">本次计算预估耗时
             <span>10</span> 分钟，请确保您的装置电量充足， 保持联网，在计算完成前，请勿关闭本界面
         </p> --}}
-        {{#unless MaxCalculateObject.isShowCalcProgress}}
+        {{!-- {{#unless MaxCalculateObject.isShowCalcProgress}}
             <div local-class="btn-start" {{action "startCalcMAX"}}>
                 <div local-class="btn-start-content">
                     开始计算
                 </div>
             </div>
-        {{else}}
+        {{else}} --}}
             {{!-- {{circle-progress option=circleProgressOption eid="circle-progress"}} --}}
-            {{progress-bar newAngle=newAngle}}
+            {{!-- {{progress-bar newAngle=newAngle}}
         {{/unless}}
         {{#unless MaxCalculateObject.isShowCalcProgress}}
             <p local-class="calc-progress-text">准备计算</p>
@@ -25,7 +55,10 @@
             {{/unless}}
         {{/unless}}
     </div>
-</div>
+</div> --}}
+
+
+
 {{!-- 计算时出现错误 --}}
 {{#bs-modal
         fade=false
@@ -42,7 +75,8 @@
         <p>出现异常!</p>
     {{/modal.body}}
     {{#modal.footer}}
-        {{#bs-button onClick=(action modal.close)}}关闭{{/bs-button}}
+        {{!-- {{#bs-button onClick=(action modal.close)}}关闭{{/bs-button}} --}}
+        {{base-button type="" content="关闭" onClick=(action modal.close)}}
     {{/modal.footer}}
 {{/bs-modal}}
 

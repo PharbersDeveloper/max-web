@@ -14,7 +14,7 @@ export default Component.extend({
     drawChart() {
         d3.select('.market-trend-bar-line').select("svg").remove();
         let dataset = this.get("dataset");
-        let barColor = "#2DD2C2";
+        let barColor = "#5E81CF";
         let width = 900;
         let height = 200;
         let margin = { top: 20, right: 20, bottom: 30, left: 30 };
@@ -36,7 +36,7 @@ export default Component.extend({
         let tooltip = svgContainer.append('div').attr("class", "_tooltip_1mas67").style("opacity", 0.0);
         let svg = svgContainer.append("svg")
             .attr('preserveAspectRatio', 'xMidYMid meet')
-            .attr('viewBox', '0 0 960 250')
+            .attr('viewBox', '0 0 970 250')
 
         let g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -97,7 +97,7 @@ export default Component.extend({
         g.append("path")
             .datum(dataset)
             .attr("fill", "none")
-            .attr("stroke", "#77CAE4")
+            .attr("stroke", "#899ED6")
             .attr("stroke-linejoin", "round")
             .attr("stroke-linecap", "round")
             .attr("transform", "translate(" + xScale.bandwidth() / 2 + ",0)")

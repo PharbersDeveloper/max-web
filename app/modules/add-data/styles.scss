@@ -1,0 +1,25 @@
+:global(.layout-flex-outer) {
+    min-width: 1200px;
+    background-color: $ph-color-assist-bg;
+    justify-content: center;
+    align-items: flex-start;
+    height: calc(100% - 104px);
+    min-height: 768px;
+
+    :global(.layout-flex-inner) {
+        width: 1200px;
+        padding: 24px;
+    }
+}
+:global(.layout-flex-outer-auto-height) {
+    min-width: 1200px;
+    background-color: $ph-color-assist-bg;
+    justify-content: center;
+    align-items: flex-start;
+    height: auto;
+
+    :global(.layout-flex-inner) {
+        width: 1200px;
+        padding: 24px;
+    }
+}

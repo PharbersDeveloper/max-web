@@ -4,17 +4,29 @@
 $navbar-bgcolor: #737373;
 $content-bgcolor: #fafafa;
 $btn-bgcolor: $ph-color-assist-main;
-$btn-error-bgcolor: red;
+$btn-error-bgcolor: $ph-color-func-error;
 $border-color: #7e7e7e;
 $max-font-size-title: 2.2rem;
 $max-font-size-content: 1.4rem;
-$font-family: "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+// $font-family: "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+$font-family: $ph-font-family;
 
 html {
     height: 100%;
     background-color: $content-bgcolor;
     font-size: 10px;
 }
+
+body {
+    height: 100%;
+    font-family: $font-family!important;
+    letter-spacing: $ph-letter-spacing-normal;
+
+    & > :global(.ember-view) {
+    height: 100%;
+    }
+}
+
 /**
 *
 * btn 只有字的样式

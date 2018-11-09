@@ -1,3 +1,126 @@
+    {{#layout-push direction='row' classNames="layout-flex-outer-auto-height"}}
+        {{#layout-push direction='row' classNames="layout-flex-inner"}}
+            {{#layout-push direction='col' classNames="view-result-outer"}}
+                {{#layout-push direction='row' classNames="view-result-choosebar"}}
+                    {{#layout-push direction='row' classNames="view-result-choosebar-left"}}
+                        <p local-class="select-title">市场</p>
+                        <select local-class="choose-select choose-market" name="markets" {{action 'queryAll' on='change'}}>
+                            {{#each markets as |item|}}
+                                <option value={{item}}>{{item}}</option>
+                            {{/each}}
+                        </select>
+                        <p local-class="select-title">月份</p>
+                        <select local-class="choose-select choose-month" name="years" {{action 'queryAll' on='change'}}>
+                            {{#each years as |item|}}
+                                <option value={{item}}>{{item}}</option>
+                            {{/each}}
+                        </select>
+                    {{/layout-push}}
+                    {{#layout-push direction='row' classNames="view-result-choosebar-right"}}
+                        {{base-button content="保存" type="" onClick=(action 'saveData')}}
+                        {{base-button content="导出" type="" onClick=(action 'exportFiles')}}
+                    {{/layout-push}}
+                {{/layout-push}}
+                {{#layout-push direction='col' classNames="view-result-target"}}
+                    {{#layout-push direction='row' classNames="view-result-target-title"}}
+                        <p local-class="result-title"><span>{{selectedMarket}}</span> 市场指标</p>
+                    {{/layout-push}}
+                    {{#layout-push direction='row' classNames="view-result-target-content"}}
+                        <div local-class="target-item">
+                            <div local-class="item-current">
+                                <p>市场总销售额</p>
+                                <p><span>￥{{marketSumSales}}</span>&nbsp;&nbsp;&nbsp;<span>Mil</span></p>
+                            </div>
+                            <div local-class="item-old">
+                                <p>同比</p>
+                                {{#if (gte marketSumSalesPercentage 0)}}
+                                <p local-class="success">+{{marketSumSalesPercentage}}%</p>
+                                {{else}}
+                                <p local-class="error">-{{marketSumSalesPercentage}}%</p>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div local-class="target-item">
+                            <div local-class="item-current">
+                                <p>产品销售额</p>
+                                <p><span>￥{{productSumSales}}</span>&nbsp;&nbsp;&nbsp;<span>Mil</span></p>
+                            </div>
+                            <div local-class="item-old">
+                                <p>同比</p>
+                                {{#if (gte productSumSalesPercentage 0)}}
+                                <p local-class="success">+{{productSumSalesPercentage}}%</p>
+                                {{else}}
+                                <p local-class="error">-{{productSumSalesPercentage}}%</p>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div local-class="target-item">
+                            <div local-class="item-current">
+                                <p>份额</p>
+                                <p><span>{{computeShare}}%</span><span></span></p>
+                            </div>
+                        </div>
+                    {{/layout-push}}
+                {{/layout-push}}
+                {{#layout-push direction='col' classNames="view-result-trend"}}
+                    <div local-class="market-trend">
+                        <p local-class="result-title">
+                            <span>{{selectedMarket}}</span> 市场趋势 <span local-class="trend-legend"> <span></span><span local-class="text">市场销售额</span> <span>—</span><span local-class="text">份额变化趋势</span></span>
+                        </p>
+                        {{market-trend-bar-line dataset=trend}}
+                    </div>
+                {{/layout-push}}
+                {{#layout-push direction='col' classNames="view-result-area-group"}}
+                    {{#layout-push direction='row' classNames="view-result-area-group-title"}}
+                        <p local-class="result-title"><span>{{selectedMarket}}</span> 地区层面结果</p>
+                    {{/layout-push}}
+                    {{#layout-push direction='row' classNames="view-result-area-inner"}}
+                        {{#layout-push direction='col' classNames="view-result-area-map"}}
+                            <div local-class="china-map">
+                                {{area-map valueName=valueNameList}}
+                            </div>
+                        {{/layout-push}}
+                        {{#layout-push direction='col' classNames="view-result-area-data"}}
+                                <div local-class="mirror-legend">
+                                    {{#bs-button-group
+                                    value=selectedArea
+                                    type="radio"
+                                    onChange=(action (mut selectedArea)) as |bg|}}
+                                    {{#bg.button value=0}}省{{/bg.button}}
+                                    {{#bg.button value=1}}城市{{/bg.button}}
+                                    {{/bs-button-group}}
+                                </div>
+                                <div local-class="text-legend">
+                                    <p>去年同期</p><p>本期</p>
+                                </div>
+                                <div local-class="{{if (eq selectedArea 0) 'show' 'hide'}}" >
+                                    {{result-mirror-bar currentData=currentData lastData=lastData}}
+                                </div>
+                                <div local-class="{{if (eq selectedArea 1) 'show' 'hide'}}">
+                                    {{result-mirror-bar-city currentDataCity=currentDataCity lastDataCity=lastDataCity}}
+                                </div>
+                            {{!-- {{#layout-push direction='row' classNames="view-result-area-data-top"}}
+                            {{/layout-push}}
+                            {{#layout-push direction='row' classNames="view-result-area-data-middle"}}
+
+                            {{/layout-push}}
+                            {{#layout-push direction='row' classNames="view-result-area-data-botttom"}}
+
+                            {{/layout-push}} --}}
+                        {{/layout-push}}
+                    {{/layout-push}}
+                {{/layout-push}}
+            {{/layout-push}}
+        {{/layout-push}}
+    {{/layout-push}}
+
+
+
+
+
+{{!-- 
+
+
 <div local-class="step-content-wrapper-noshadow">
     <div local-class="view-results-content">
         <div local-class="result-choosebar">
@@ -98,7 +221,10 @@
                 </div>
         </div>
     </div>
-</div>
+</div> --}}
+
+
+
 {{#bs-modal fade=false open=isSave onHidden=(action (mut isSave) false) as |modal|}}
     {{#modal.header}}
         <h4 class="modal-title">
@@ -118,8 +244,10 @@
         {{/each}}
     {{/modal.body}}
     {{#modal.footer}}
-        {{#bs-button class="btn-only-text" onClick=(action modal.close)}}取消{{/bs-button}}
-        {{#bs-button onClick=(action 'confirmSave')}}确认保存{{/bs-button}}
+        {{!-- {{#bs-button class="btn-only-text" onClick=(action modal.close)}}取消{{/bs-button}}
+        {{#bs-button onClick=(action 'confirmSave')}}确认保存{{/bs-button}} --}}
+        {{base-button type="second" content="取消" onClick=(action modal.close)}}
+        {{base-button type="" content="确认保存" onClick=(action 'confirmSave')}}
     {{/modal.footer}}
 {{/bs-modal}}
 {{#if saveState}}
