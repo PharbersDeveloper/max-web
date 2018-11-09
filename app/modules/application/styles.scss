@@ -70,36 +70,74 @@ a:hover {
     background-color: $btn-bgcolor !important;
     color: #fff !important;
 }
+
 /**
 *
 *弹窗样式
 */
 :global(.modal.in .modal-dialog) {
-    top: 50%;
-    transform: translateY(-50%);
+    top: 30%;
+    // transform: translateY(-50%);
 }
-
-:global(.modal-header) {
-    border-radius: 5px 5px 0 0;
-    color: #fff;
-    background-color: $btn-bgcolor;
-}
-
 :global(.modal-content) {
     left: 50%;
     transform: translateX(-50%);
+}
+:global(.modal.in) {
+    
+    :global(.modal-dialog) {
+        
+        :global(.modal-content) {
+            border: none;
+            border-radius: 0;
+            box-shadow: 0 3px 10px 0 rgba(85,85,85,0.50);
+            margin: 0;
+            padding: 0;
 
-    :global(.btn) {
-        padding: 0;
-        width: 100px;
-        height: 35px;
-        line-height: 35px;
-        border: 0;
-        font-size: 18px;
-        color: #fff;
-        background-color: $btn-bgcolor;
+            :global(.modal-header) {
+                border: none;
+                border-bottom: none;
+                padding: 16px;
+                margin: 0;
+                height: 54px;
+                
+                :global(.modal-title) {
+                    color: $ph-fc-title;
+                    font-size: $ph-fs-title;
+                    line-height: 25px;
+                    margin: 0;
+                }
+                :global(.close) {
+                    display: none;
+                }
+            }
+            
+            :global(.modal-body) {
+                border: none;
+                color: $ph-fc-title;
+                font-size: $ph-fs-content;
+                margin: 0;
+                padding: 0 16px;
+                min-height: 100px;
+                
+                p {
+                    margin: 0;
+                }
+            }
+            
+            :global(.modal-footer) {
+                border: none;
+                border-top: none;
+                color: $ph-fc-title;
+                font-size: $ph-fs-content;
+                padding: 16px;
+                margin: 0;
+                height: 72px;
+            }
+        }
     }
 }
+
 /**
 *
 *多选样式

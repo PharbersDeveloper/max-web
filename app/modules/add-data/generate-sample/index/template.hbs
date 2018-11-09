@@ -4,7 +4,8 @@
             {{#layout-push direction='col' classNames="generate-sample-flex-outer"}}
                 {{#layout-push direction='row' classNames="generate-sample-hint"}}
                     <p local-class="explain-text">将对你本次上传的原文件，进行清洗、过滤后，生成本次计算的样本。數據格式規範模板 </p>
-                    <p local-class="explain-text">点此下载</p>
+                    {{!-- <p local-class="explain-text">点此下载</p> --}}
+                    {{base-button type="link" content="点此下载" onClick=""}}
                 {{/layout-push}}
                 {{#layout-push direction='row' classNames="generate-sample-file-cap"}}
                     <p local-class="file-name">
@@ -34,7 +35,8 @@
                     {{/if}}
                 {{/layout-push}}
                 {{#layout-push direction='row' classNames="generate-sample-reupload-btn"}}
-                        {{base-button type="second" content="上传错误？重新上传" onClick=(action (mut uploadAgain) true)}}
+                        {{!-- {{base-button type="second" content="上传错误？重新上传" onClick=(action (mut uploadAgain) true)}} --}}
+                        {{base-button type="link" content="上传错误？重新上传" onClick=(action (mut uploadAgain) true)}}
                 {{/layout-push}}
             {{/layout-push}}
         {{/layout-push}}
@@ -113,7 +115,7 @@
         </h4>
     {{/modal.header}}
     {{#modal.body}}
-        <p>是否重新上传源文件</p>
+        <p>是否重新上传原文件</p>
     {{/modal.body}}
     {{#modal.footer}}
         {{!-- {{#bs-button onClick=(action modal.close)}}取消{{/bs-button}} --}}
@@ -149,7 +151,7 @@
     {{#modal.footer}}
         {{!-- {{#bs-button class="btn-only-text" onClick=(action 'cantFindMonth')}}未显示需要的月份{{/bs-button}}
         {{#bs-button onClick=(action 'startGenerateSample')}}确认{{/bs-button}} --}}
-        {{base-button type="second" content="未显示需要的月份" onClick=(action 'cantFindMonth')}}
+        {{base-button type="link" content="未显示需要的月份?" onClick=(action 'cantFindMonth')}}
         {{base-button type="" content="确认" onClick=(action 'startGenerateSample')}}
     {{/modal.footer}}
 {{/bs-modal}}
@@ -163,19 +165,21 @@
         onHidden=(action (mut SampleObject.fileParsingError) false) as |modal|}}
     {{#modal.header closeButton=false}}
         <h4 class="modal-title">
-            提示
+            无法解析出原文件
         </h4>
     {{/modal.header}}
     {{#modal.body}}
-        <p local-class="download-model">下载文件格式范本</p>
+        {{!-- <p local-class="download-model">下载文件格式范本</p> --}}
         <p>原因可能为：</p>
         <p>1.原文件格式可能有误。</p>
         <p>2.原文件不含有月份的数值。</p>
         <p>3.原文件上传错误。</p>
         <p>请检查原文件，并重新上传正确的原文件。</p>
+        <p>&nbsp;</p>
     {{/modal.body}}
     {{#modal.footer}}
         {{!-- {{#bs-button onClick=(action 'uploadFileAgain' modal)}}重新上传{{/bs-button}} --}}
+        {{base-button type="link" content="下载文件格式范本" onClick=""}}
         {{base-button type="" content="重新上传" onClick=(action 'uploadFileAgain' modal)}}
     {{/modal.footer}}
 {{/bs-modal}}
@@ -223,7 +227,7 @@
         </h4>
     {{/modal.header}}
     {{#modal.body}}
-        <div >未选择时间</div>
+        <div>未选择时间</div>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
