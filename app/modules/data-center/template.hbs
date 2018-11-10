@@ -8,12 +8,13 @@
         {{#layout-push direction='row' classNames="data-center-choosebar"}}
             {{#layout-push direction='row' classNames="data-center-choosebar-left"}}
                 <span local-class="select-title">市场</span>
-                <select local-class="choose-market" name="markets">
+                {{!-- <select local-class="choose-market" name="markets">
                     <option value="All">全部</option>
                     {{#each markets as |item|}}
                         <option value={{item}}>{{item}}</option>
                     {{/each}}
-                </select>
+                </select> --}}
+                {{base-select title="" selected=market onChange=(action (mut market)) options=markets}}
                 <span local-class="select-title">时间选择</span>
                 <div local-class="time-selects" class="input-group input-daterange">
                     {{bootstrap-datepicker  changeMonth="changeStartMonth" value='2018-01' autoclose=true minViewMode=1 format="mm/yyyy" keyboardNavigation=true language="zh-CN"}}
@@ -154,15 +155,13 @@
         </p>--}}
         <p local-class="modal-content-line">
             <span>内容格式</span>
-            <select local-class="choose-market" name="" onchange={{action 'getType' value="target.value"}}>
-                {{!-- <option  value="none" disabled selected>请选择格式</option> --}}
+            {{!-- <select local-class="choose-market" name="" onchange={{action 'getType' value="target.value"}}>
                 {{#each outputType as |type|}}
                   <option value={{type}}>{{type}}</option>
                 {{/each}}
-                {{!-- <option value="all">全部</option>
-                <option value="a">a market</option>
-                <option value="b">b market</option> --}}
-            </select> </p>
+            </select>  --}}
+            {{base-select title="" selected=outputTypeValue onChange=(action (mut outputTypeValue)) options=outputType}}
+        </p>
         <p local-class="modal-content-line">
             <span>文件格式</span>
                 {{!-- {{input type="radio" checked="true" id="filecsv" name="fileformat" }} --}}

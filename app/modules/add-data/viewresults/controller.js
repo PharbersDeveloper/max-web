@@ -13,6 +13,10 @@ import $ from 'jquery';
 export default Controller.extend({
     ajax: inject(),
 	cookies: inject(),
+	markets: "",
+	market: "",
+	years: "",
+	year: "",
 	isSave: false,
 	saveState: false,
 	allMonths: false,
@@ -48,6 +52,9 @@ export default Controller.extend({
 			if(res !== "") {
 				this.set("markets",res.mkt_list);
 				this.set("years",res.ym_list); // 下拉窗数据
+				this.set('market',res.mkt_list[0]);
+				this.set('year',res.ym_list[0]);
+				console.log(this.get("year"));
 				this.queryContentData(res.mkt_list[0],res.ym_list[0]);
 			} else {
 				this.set('sampleCheckError', true);
@@ -204,11 +211,15 @@ export default Controller.extend({
 		exportFiles() {
 			let company_id = localStorage.getItem('company_id');
 			let job_id = localStorage.getItem('job_id');
-			let market = $('select[name="markets"]').val() || localStorage.getItem('market');
+			// let market = $('select[name="markets"]').val() || localStorage.getItem('market');
+			let market = this.get("market") || localStorage.getItem('market');
 			console.log("this is export");
-			console.log(market);
-			let ym = $('select[name="years"]').val() || localStorage.getItem('year');
-			console.log(ym);
+			// console.log(market);
+			// let ym = $('select[name="years"]').val() || localStorage.getItem('year');
+			let ym = this.get("year") || localStorage.getItem('year');
+			// console.log(ym);
+			console.log(this.get("market"));
+			console.log(this.get("year"));
 			// let market = localStorage.getItem('market');
 			// let ym = localStorage.getItem('year');
 			// let company = this.store.peekAll('phmaxjob').lastObject.company_id;

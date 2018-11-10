@@ -17,6 +17,10 @@ export default Controller.extend({
 	ajax: inject(),
 	cookies: inject(),
 	styles,
+	markets: "",
+	market: "",
+	years: "",
+	year: "",
 	sampleCheckError: false,
 	hospitalNumber: 0,
 	lastYearHospitalNumber: 0,
@@ -83,6 +87,8 @@ export default Controller.extend({
 			if(res !== "") {
 				this.set("markets",res.mkt_list);
 				this.set("years",res.ym_list);
+				this.set('market',res.mkt_list[0]);
+				this.set('year',res.ym_list[0]);
 				localStorage.setItem('market',res.mkt_list[0]);
 				localStorage.setItem('year',res.ym_list[0]);
 				this.queryContentData();
@@ -96,10 +102,12 @@ export default Controller.extend({
 		// let company = this.store.peekAll('phmaxjob').lastObject.company_id;
 		// let job = this.store.peekAll('phmaxjob').lastObject.job_id;
 		// let user = this.store.peekAll('phmaxjob').lastObject.user_id;
-		let market = $('select[name="markets"]').val() || localStorage.getItem('market');
+		// let market = $('select[name="markets"]').val() || localStorage.getItem('market');
+		let market = this.get("market") || localStorage.getItem('market');
 		console.log(market);
-		let years = $('select[name="years"]').val() || localStorage.getItem('year');
-		console.log(years);
+		// let year = $('select[name="years"]').val() || localStorage.getItem('year');
+		let year = this.get("year") || localStorage.getItem('year');
+		console.log(year);
 		let job_id = localStorage.getItem('job_id');
 		let company_id = localStorage.getItem('company_id');
 		let user = localStorage.getItem('username');;
@@ -108,7 +116,7 @@ export default Controller.extend({
 			res: "samplecheckbody",
 			company_id: company_id,
 			job_id: job_id,
-			ym:years,
+			ym:year,
 			market:market,
 			user_id:user
 		})

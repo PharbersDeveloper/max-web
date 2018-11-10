@@ -17,7 +17,7 @@ export default Component.extend({
             var height = 900 - margin.top - margin.bottom;
             // var color = d3.scaleOrdinal(d3.schemeCategory20c);
             //scaleOrdinal获取或指定当前比例尺的输入域
-            let colorArray = ["#30d3c1","#5cd3c6","#89d4cc","#b0dad6","#d1e4e1","#e8e8e8"];
+            let colorArray = ["#2568B1","#3589D4","#58A1DB","#9ECDEA","#E5F1F7","#EFEFEF"];
             var color = d3.scaleOrdinal(colorArray);
             var projection = d3.geoMercator() //地图的投影方法
                                .center([110, 25]) //中心设置在经度110,维度38

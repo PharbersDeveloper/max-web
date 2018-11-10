@@ -22,6 +22,8 @@ export default Controller.extend({
 	fullName: '', // 这应该后端返回firstName与lastName 有前端计算出来
 	account: '',
 	outputTypeValue: '',
+	market: 'INF',
+	markets:["麻醉市场","INF"],
 
 	formatDateyyyymm(date) {
 		return date.getFullYear() + "" + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
@@ -54,7 +56,8 @@ export default Controller.extend({
 
 	actions: {
 		search() {
-			let market = $('select[name="markets"] :selected').val() || "All"
+			// let market = $('select[name="markets"] :selected').val() || "All"
+			let market = this.get("market");
 			let startTime = this.formatDateyyyymm(this.get('startDate'))
 			let endTime = this.formatDateyyyymm(this.get('endDate'))
 			this.queryData({
@@ -78,7 +81,8 @@ export default Controller.extend({
 			typeof this.get('modalTablePageObj') === 'undefined' ?
 				'' : this.get('modalTablePageObj').gotoCustomPage(currentPage)
 
-			let market = $('select[name="markets"] :selected').val() || "All"
+			// let market = $('select[name="markets"] :selected').val() || "All"
+			let market = this.get("market");
 			let startTime = this.formatDateyyyymm(this.get('startDate'))
 			let endTime = this.formatDateyyyymm(this.get('endDate'))
 			this.queryData({
@@ -94,10 +98,10 @@ export default Controller.extend({
 			})
 		},
 
-		getType(value) {
-			// console.log(`value is ${value}`);
-			this.set('outputTypeValue', value);
-		},
+		// getType(value) {
+		// 	// console.log(`value is ${value}`);
+		// 	this.set('outputTypeValue', value);
+		// },
 		outputFile() {
 			this.set('output', false);
 			// console.log("output file is running");
@@ -114,7 +118,7 @@ export default Controller.extend({
 		},
 
 		outputData() {
-			this.queryOutputType();
+			// this.queryOutputType();
 		},
 
 		changeStartMonth(date) {

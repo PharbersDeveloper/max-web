@@ -196,6 +196,7 @@ export default Controller.extend(XMPPMixin,{
 
 		// 未显示要计算的月份
 		cantFindMonth: function() {
+			SampleObject.set('fileParsingSuccess', false);
 			SampleObject.set('cantFindMonth', true);
 		},
 		uploadFileAgain(modal) {

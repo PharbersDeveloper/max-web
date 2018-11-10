@@ -83,6 +83,40 @@ a:hover {
     left: 50%;
     transform: translateX(-50%);
 }
+
+/**
+*
+*多选样式
+*/
+.data-checkbox {
+    width: 130px;
+    font-weight: normal;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-span {
+    display: inline-block;
+    margin: 10px;
+    width: 16px;
+    height: 16px;
+    line-height: 1;
+    vertical-align: middle;
+    border: 1px solid rgba(0, 0, 0, .15);
+    background-color: #fff;
+}
+
+input[type="checkbox"]:checked + .checkbox-span:after {
+    content: "";
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+    background-color: $btn-bgcolor;
+}
+
+// 标准化modal弹窗样式
 :global(.modal.in) {
     
     :global(.modal-dialog) {
@@ -138,34 +172,10 @@ a:hover {
     }
 }
 
-/**
-*
-*多选样式
-*/
-.data-checkbox {
-    width: 130px;
-    font-weight: normal;
-}
+// 进度条颜色
+:global(.progress){
 
-input[type="checkbox"] {
-    display: none;
-}
-
-.checkbox-span {
-    display: inline-block;
-    margin: 10px;
-    width: 16px;
-    height: 16px;
-    line-height: 1;
-    vertical-align: middle;
-    border: 1px solid rgba(0, 0, 0, .15);
-    background-color: #fff;
-}
-
-input[type="checkbox"]:checked + .checkbox-span:after {
-    content: "";
-    display: inline-block;
-    height: 14px;
-    width: 14px;
-    background-color: $btn-bgcolor;
+    :global(.progress-bar-success){
+        background-color: $ph-color-assist-main;
+    }
 }
