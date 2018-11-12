@@ -83,35 +83,47 @@
                             </div>
                         {{/layout-push}}
                         {{#layout-push direction='col' classNames="view-result-area-data"}}
-                                <div local-class="mirror-legend">
-                                    {{#bs-button-group
-                                    value=selectedArea
-                                    type="radio"
-                                    onChange=(action (mut selectedArea)) as |bg|}}
-                                    {{#bg.button value=0}}省{{/bg.button}}
-                                    {{#bg.button value=1}}城市{{/bg.button}}
-                                    {{/bs-button-group}}
-                                </div>
-                                <div local-class="text-legend">
-                                    <p>去年同期</p><p>本期</p>
-                                </div>
-                                <div local-class="{{if (eq selectedArea 0) 'show' 'hide'}}" >
-                                    {{result-mirror-bar currentData=currentData lastData=lastData}}
-                                </div>
-                                <div local-class="{{if (eq selectedArea 1) 'show' 'hide'}}">
-                                    {{result-mirror-bar-city currentDataCity=currentDataCity lastDataCity=lastDataCity}}
-                                </div>
-                            {{!-- {{#layout-push direction='row' classNames="view-result-area-data-top"}}
-                            {{/layout-push}}
-                            {{#layout-push direction='row' classNames="view-result-area-data-middle"}}
-
-                            {{/layout-push}}
-                            {{#layout-push direction='row' classNames="view-result-area-data-botttom"}}
-
-                            {{/layout-push}} --}}
+                            <div local-class="mirror-legend">
+                                {{#bs-button-group
+                                value=selectedArea
+                                type="radio"
+                                onChange=(action (mut selectedArea)) as |bg|}}
+                                {{#bg.button value=0}}省{{/bg.button}}
+                                {{#bg.button value=1}}城市{{/bg.button}}
+                                {{/bs-button-group}}
+                            </div>
+                            <div local-class="text-legend">
+                                <p>去年同期</p><p>本期</p>
+                            </div>
+                            <div local-class="{{if (eq selectedArea 0) 'show' 'hide'}}" >
+                                {{result-mirror-bar currentData=currentData lastData=lastData}}
+                            </div>
+                            <div local-class="{{if (eq selectedArea 1) 'show' 'hide'}}">
+                                {{result-mirror-bar-city currentDataCity=currentDataCity lastDataCity=lastDataCity}}
+                            </div>
                         {{/layout-push}}
                     {{/layout-push}}
                 {{/layout-push}}
+                {{!-- {{#layout-push direction='col' classNames="view-result-area-data"}}
+                    <div local-class="mirror-legend">
+                        {{#bs-button-group
+                        value=selectedArea
+                        type="radio"
+                        onChange=(action (mut selectedArea)) as |bg|}}
+                        {{#bg.button value=0}}省{{/bg.button}}
+                        {{#bg.button value=1}}城市{{/bg.button}}
+                        {{/bs-button-group}}
+                    </div>
+                    <div local-class="text-legend">
+                        <p>去年同期</p><p>本期</p>
+                    </div>
+                    <div local-class="{{if (eq selectedArea 0) 'show' 'hide'}}" >
+                        {{result-mirror-bar currentData=currentData lastData=lastData}}
+                    </div>
+                    <div local-class="{{if (eq selectedArea 1) 'show' 'hide'}}">
+                        {{result-mirror-bar-city currentDataCity=currentDataCity lastDataCity=lastDataCity}}
+                    </div>
+                {{/layout-push}} --}}
             {{/layout-push}}
         {{/layout-push}}
     {{/layout-push}}
