@@ -1,19 +1,32 @@
 @import 'bootstrap';
 @import 'ember-power-select';
+@import "standard-base";
 $navbar-bgcolor: #737373;
 $content-bgcolor: #fafafa;
-$btn-bgcolor: #60b3ad;
-$btn-error-bgcolor: red;
+$btn-bgcolor: $ph-color-assist-main;
+$btn-error-bgcolor: $ph-color-func-error;
 $border-color: #7e7e7e;
 $max-font-size-title: 2.2rem;
 $max-font-size-content: 1.4rem;
-$font-family: "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+// $font-family: "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+$font-family: $ph-font-family;
 
 html {
     height: 100%;
     background-color: $content-bgcolor;
     font-size: 10px;
 }
+
+body {
+    height: 100%;
+    font-family: $font-family!important;
+    letter-spacing: $ph-letter-spacing-normal;
+
+    & > :global(.ember-view) {
+    height: 100%;
+    }
+}
+
 /**
 *
 * btn 只有字的样式
@@ -57,36 +70,20 @@ a:hover {
     background-color: $btn-bgcolor !important;
     color: #fff !important;
 }
+
 /**
 *
-*弹窗样式
+*弹窗位置
 */
 :global(.modal.in .modal-dialog) {
-    top: 50%;
-    transform: translateY(-50%);
+    top: 30%;
+    // transform: translateY(-50%);
 }
-
-:global(.modal-header) {
-    border-radius: 5px 5px 0 0;
-    color: #fff;
-    background-color: $btn-bgcolor;
-}
-
 :global(.modal-content) {
     left: 50%;
     transform: translateX(-50%);
-
-    :global(.btn) {
-        padding: 0;
-        width: 100px;
-        height: 35px;
-        line-height: 35px;
-        border: 0;
-        font-size: 18px;
-        color: #fff;
-        background-color: $btn-bgcolor;
-    }
 }
+
 /**
 *
 *多选样式
@@ -118,3 +115,67 @@ input[type="checkbox"]:checked + .checkbox-span:after {
     width: 14px;
     background-color: $btn-bgcolor;
 }
+
+// // 标准化modal弹窗样式
+// :global(.modal.in) {
+    
+//     :global(.modal-dialog) {
+        
+//         :global(.modal-content) {
+//             border: none;
+//             border-radius: 0;
+//             box-shadow: 0 3px 10px 0 rgba(85,85,85,0.50);
+//             margin: 0;
+//             padding: 0;
+
+//             :global(.modal-header) {
+//                 border: none;
+//                 border-bottom: none;
+//                 padding: 16px;
+//                 margin: 0;
+//                 height: 54px;
+                
+//                 :global(.modal-title) {
+//                     color: $ph-fc-title;
+//                     font-size: $ph-fs-title;
+//                     line-height: 25px;
+//                     margin: 0;
+//                 }
+//                 :global(.close) {
+//                     display: none;
+//                 }
+//             }
+            
+//             :global(.modal-body) {
+//                 border: none;
+//                 color: $ph-fc-title;
+//                 font-size: $ph-fs-content;
+//                 margin: 0;
+//                 padding: 0 16px;
+//                 min-height: 100px;
+                
+//                 p {
+//                     margin: 0;
+//                 }
+//             }
+            
+//             :global(.modal-footer) {
+//                 border: none;
+//                 border-top: none;
+//                 color: $ph-fc-title;
+//                 font-size: $ph-fs-content;
+//                 padding: 16px;
+//                 margin: 0;
+//                 height: 72px;
+//             }
+//         }
+//     }
+// }
+
+// // 进度条颜色
+// :global(.progress){
+
+//     :global(.progress-bar-success){
+//         background-color: $ph-color-assist-main;
+//     }
+// }

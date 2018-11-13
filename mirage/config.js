@@ -35,6 +35,50 @@ export default function() {
 			type: type.split('/')[0]
 		};
 	}));
+	this.post('/api/v1/maxlogin/0',(schema, request) => {
+		return {
+    "data": {
+        "attributes": {
+            "token": "5c138ef2ffc97ba8e165b5a8b256df71"
+        },
+        "id": "5b8d00b38fb8077b94c39a83",
+        "relationships": {
+            "profile": {
+                "data": {
+                    "id": "5b8d00b38fb8077b94c39a84",
+                    "type": "PHProfile"
+                }
+            }
+        },
+        "type": "PHAuth"
+    },
+    "included": [
+        {
+            "attributes": {
+                "companyname": "pharbers"
+            },
+            "id": "5b8d00b38fb8077b94c39a85",
+            "type": "PHCompany"
+        },
+        {
+            "attributes": {
+                "password": "",
+                "username": "jeorch"
+            },
+            "id": "5b8d00b38fb8077b94c39a84",
+            "relationships": {
+                "company": {
+                    "data": {
+                        "id": "5b8d00b38fb8077b94c39a85",
+                        "type": "PHCompany"
+                    }
+                }
+            },
+            "type": "PHProfile"
+        }
+    ]
+}
+	});
 
 	this.post('/query/sample/hospital-numbers', (schema, request) => {
 		window.console.info(request.requestBody);

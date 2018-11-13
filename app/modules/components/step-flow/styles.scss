@@ -1,3 +1,42 @@
+:global(.sub-nav-flex-outer) {
+    height: 48px;
+    min-width: 1200px;
+    background-color: $ph-color-assist-card;
+    justify-content: center;
+    align-items: center;
+
+    .item-one {
+        img {
+            width: 276px;
+            height: 32px;
+            // margin: 0 5px;
+        }
+    }
+    .item-two {
+        img {
+            width: 300px;
+            height: 32px;
+            // margin: 0 5px;
+        }
+    }
+    .item-three {
+        img {
+            width: 300px;
+            height: 32px;
+            // margin: 0 5px;
+        }
+    }
+    .item-four {
+        img {
+            width: 276px;
+            height: 32px;
+            // margin: 0 5px;
+        }
+    }
+}
+
+
+
 // @media (min-width: 1200px) {
 
     .step-flow-wrapper {

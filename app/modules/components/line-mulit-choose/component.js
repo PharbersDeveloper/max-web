@@ -7,6 +7,7 @@ import {
 } from '@ember/object';
 import d3 from 'd3';
 export default Component.extend({
+
     tagName: 'div',
     classNames: ['multi-lines-choose', 'col-md-12', 'col-sm-12', 'col-xs-12'],
     init() {
@@ -18,12 +19,40 @@ export default Component.extend({
         run.schedule('render', this, this.drawMultiLineChoose);
     },
     drawMultiLineChoose() {
+        if(this.get('chooseData').length == 0){
+            return;
+        }
         d3.select('svg.much-lines').remove();
         d3.select('.multi-lines-choose .legendContainer').remove();
         let svgContainer = d3.select(this.element);
         let svg = svgContainer.append("svg").attr('class', 'much-lines');
         // let data = this.get('chooseData');
         let chooseData = this.get('chooseData');
+
+        let handledData = [];
+        chooseData.map(function(d,index){
+            let tempData = [];
+            d.ProdValue.map(function(t,index){
+                let temp = {
+                    ym:"",
+                    value:"",
+                    unit:"",
+                }
+                temp.ym = t.ym;
+                temp.value = +t.value;
+                temp.unit = t.unit;
+                tempData.push(temp);
+            });
+            let temp = {
+                name:"",
+                values:[],
+            }
+            temp.name = d.name;
+            temp.values = tempData;
+            handledData.push(temp);
+        });
+        chooseData = handledData;
+
         var width = 900;
         var height = 340;
         var margin = 20;
@@ -42,6 +71,7 @@ export default Component.extend({
 
         /* Format Data */
         var parseDate = d3.timeParse("%Y%m");
+        var parseAnotherDate = d3.timeParse("%Y-%m");
         let formatDateIntoYearMonth = d3.timeFormat('%Y-%m');
 
         let data = chooseData.map(function(item) {
@@ -49,7 +79,11 @@ export default Component.extend({
             proditem.name = item.name;
             let inValues = item.values.map(function(iitem, iindex) {
                 var valueItem = {};
-                valueItem.ym = parseDate(iitem.ym);
+                if (iitem.ym.search("-") != -1) {
+                    valueItem.ym = parseAnotherDate(iitem.ym);
+                } else {
+                    valueItem.ym = parseDate(iitem.ym);
+                }
                 valueItem.unit = iitem.unit;
                 valueItem.value = iitem.value;
 
@@ -81,7 +115,7 @@ export default Component.extend({
                 yMin = min
             }
         };
-
+        
         var yScale = d3.scaleLinear()
             .domain([yMin, yMax + yMax / 3])
             .range([height - margin, 0]);
@@ -89,7 +123,7 @@ export default Component.extend({
         var color = d3.scaleOrdinal(d3.schemeCategory10);
         /* Add SVG */
         svg.attr("width", "90%")
-            .attr("height", 380)
+            .attr("height", 300)
             .attr('preserveAspectRatio', 'none')
             .attr('viewBox', '-40 -10 950 380')
             .append('g');
@@ -216,7 +250,7 @@ export default Component.extend({
         //绘制图例区域
         let legendContainer = svgContainer.append('div').attr('class', 'legendContainer');
         var legendArea = legendContainer.append("svg")
-            .attr('width', 90)
+            .attr('width', 400)
             .attr('height', 30 * data.length);
         // .attr("transform", "translate(80,15)");
 

@@ -1,0 +1,292 @@
+{{outlet}}
+    {{#layout-push direction='row' classNames="layout-flex-outer-auto-height"}}
+        {{#layout-push direction='row' classNames="layout-flex-inner"}}
+            {{#layout-push direction='col' classNames="sample-finish-outer"}}
+                {{#layout-push direction='row' classNames="sample-finish-choosebar"}}
+                    {{#layout-push direction='row' classNames="sample-finish-choosebar-left"}}
+                        <p local-class="select-title">市场</p>
+                        {{!-- <select local-class="choose-select choose-market" name="markets" {{action 'queryAll' on='change'}}>
+                            {{#each markets as |item|}}
+                                <option value={{item}}>{{item}}</option>
+                            {{/each}}
+                        </select> --}}
+                        {{base-select title="" selected=market onChange=(action (mut market)) options=markets}}
+                        <p local-class="select-title">月份</p>
+                        {{!-- <select local-class="choose-select choose-month" name="years" {{action 'queryAll' on='change'}}>
+                            {{#each years as |item|}}
+                                <option value={{item}}>{{item}}</option>
+                            {{/each}}
+                        </select> --}}
+                        {{base-select title="" selected=year onChange=(action (mut year)) options=years}}
+                        {{base-button content="导出" type="" onClick=""}}
+                    {{/layout-push}}
+                    {{#layout-push direction='row' classNames="sample-finish-choosebar-right"}}
+                        {{base-button content="重新上传" type="" onClick=(action (mut uploadAgain) true)}}
+                        {{base-button content="下一步" type="" onClick=(action 'next')}}
+                    {{/layout-push}}
+                {{/layout-push}}
+                {{#layout-push direction='col' classNames="sample-finish-graph"}}
+                    {{#layout-push direction='row' classNames="sample-finish-graph-title"}}
+                        <p local-class="item-title">{{selectedMarket}} 市场 医院样本数量</p>
+                    {{/layout-push}}
+                    {{#layout-push direction='row' classNames="sample-finish-graph-info"}}
+                        {{#layout-push direction='row' classNames="sample-finish-graph-left"}}
+                            <div local-class="legend-left">
+                                <span></span><span local-class="text">本月样本数</span><span>---</span><span local-class="text">去年各月样本数趋势</span>
+                            </div>
+                        {{/layout-push}}
+                        {{#layout-push direction='row' classNames="sample-finish-graph-right"}}
+                            {{#layout-push direction='col' classNames="sample-finish-graph-right-left"}}
+                                <p local-class={{if (or (gt computeHospitalNumber 5) (lt computeHospitalNumber -5)) "error" "success"}}>{{computeHospitalNumber}}%</p>
+                                <p>样本误差率</p>
+                            {{/layout-push}}
+                            {{#layout-push direction='col' classNames="sample-finish-graph-right-mid"}}
+                                <p>{{hospitalNumber}}<span>家</span></p>
+                                <p>本月样本数</p>
+                            {{/layout-push}}
+                            {{#layout-push direction='col' classNames="sample-finish-graph-right-right"}}
+                                <p>{{lastYearHospitalNumber}}<span>家</span></p>
+                                <p>去年同月样本数</p>
+                            {{/layout-push}}
+                        {{/layout-push}}
+                    {{/layout-push}}
+                    {{#layout-push direction='row' classNames="sample-finish-graph-content"}}
+                        {{hosp-amount dataset=hosp_datas}}
+                    {{/layout-push}}
+                {{/layout-push}}
+                {{#layout-push direction='col' classNames="sample-finish-graph"}}
+                    {{#layout-push direction='row' classNames="sample-finish-graph-title"}}
+                        <p local-class="item-title">{{selectedMarket}} 市场 产品样本数量</p>
+                    {{/layout-push}}
+                    {{#layout-push direction='row' classNames="sample-finish-graph-info"}}
+                        {{#layout-push direction='row' classNames="sample-finish-graph-left"}}
+                            <div local-class="legend-left">
+                                <span></span><span local-class="text">本月样本数</span><span>---</span><span local-class="text">去年各月样本数趋势</span>
+                            </div>
+                        {{/layout-push}}
+                        {{#layout-push direction='row' classNames="sample-finish-graph-right"}}
+                            {{#layout-push direction='col' classNames="sample-finish-graph-right-left"}}
+                                <p local-class={{if (or (gt computeProductNumber 5) (lt computeProductNumber -5)) "error" "success"}}>{{computeProductNumber}}%</p>
+                                <p>样本误差率</p>
+                            {{/layout-push}}
+                            {{#layout-push direction='col' classNames="sample-finish-graph-right-mid"}}
+                                <p>{{productNumber}}<span>个</span></p>
+                                <p>本月样本数</p>
+                            {{/layout-push}}
+                            {{#layout-push direction='col' classNames="sample-finish-graph-right-right"}}
+                                <p>{{lastYearProductNumber}}<span>个</span></p>
+                                <p>去年同月样本数</p>
+                            {{/layout-push}}
+                        {{/layout-push}}
+                    {{/layout-push}}
+                    {{#layout-push direction='row' classNames="sample-finish-graph-content"}}
+                        {{product-amount dataset=pro_datas}}
+                    {{/layout-push}}
+                {{/layout-push}}
+                {{#layout-push direction='col' classNames="sample-finish-graph"}}
+                    {{#layout-push direction='row' classNames="sample-finish-graph-title"}}
+                        <p local-class="item-title">{{selectedMarket}} 市场 样本销售额</p>
+                    {{/layout-push}}
+                    {{#layout-push direction='row' classNames="sample-finish-graph-info"}}
+                        {{#layout-push direction='row' classNames="sample-finish-graph-left"}}
+                            <div local-class="legend-left">
+                                <span></span><span local-class="text">本月样本数</span><span>---</span><span local-class="text">去年各月样本数趋势</span>
+                            </div>
+                        {{/layout-push}}
+                        {{#layout-push direction='row' classNames="sample-finish-graph-right"}}
+                            {{#layout-push direction='col' classNames="sample-finish-graph-right-left"}}
+                                <p local-class={{if (or (gt computeSalesNumber 5) (lt computeSalesNumber -5)) "error" "success"}}>{{computeSalesNumber}}%</p>
+                                <p>样本误差率</p>
+                            {{/layout-push}}
+                            {{#layout-push direction='col' classNames="sample-finish-graph-right-mid"}}
+                                <p>{{salesNumber}}<span>(Mil)</span></p>
+                                <p>本月样本数</p>
+                            {{/layout-push}}
+                            {{#layout-push direction='col' classNames="sample-finish-graph-right-right"}}
+                                <p>{{lastYearSalesNumber}}<span>(Mil)</span></p>
+                                <p>去年同月样本数</p>
+                            {{/layout-push}}
+                        {{/layout-push}}
+                    {{/layout-push}}
+                    {{#layout-push direction='row' classNames="sample-finish-graph-content"}}
+                        {{sample-sales dataset=sale_datas}}
+                    {{/layout-push}}
+                {{/layout-push}}
+                {{#layout-push direction='col' classNames="sample-finish-table"}}
+                    {{#layout-push direction='row' classNames="sample-finish-table-title"}}
+                        <p local-class="item-title">样本医院列表</p>
+                    {{/layout-push}}
+                    {{sample-table model=prodSalesValue columns=prodSales selfheight='300px'}}
+                {{/layout-push}}
+            {{/layout-push}}
+        {{/layout-push}}
+    {{/layout-push}}
+
+
+
+
+
+
+{{!-- <div local-class="step-content-wrapper-noshadow">
+    <div local-class="generate-sample-result">
+        <div local-class="result-choosebar">
+            <div local-class="choosebar-content choosebar-left">
+                <span local-class="select-title">市场</span>
+                <select local-class="choose-select choose-market" name="markets" {{action 'queryAll' on='change'}}>
+                    {{#each markets as |item|}}
+                        <option value={{item}}>{{item}}</option>
+                    {{/each}}
+                </select>
+                <span local-class="select-title">月份</span>
+                <select local-class="choose-select choose-month" name="years" {{action 'queryAll' on='change'}}>
+                    {{#each years as |item|}}
+                        <option value={{item}}>{{item}}</option>
+                    {{/each}}
+                </select>
+                <button local-class="btn-default-max" type="button" name="button">导出</button>
+            </div>
+            <div local-class="choosebar-content choosebar-right">
+                {{#bs-button local-class="btn-default-max" onClick=(action (mut uploadAgain) true)}}重新上传{{/bs-button}}
+
+                {{#bs-button local-class="btn-default-max" onClick=(action 'next')}}下一步{{/bs-button}}
+
+            </div>
+        </div>
+        <div local-class="result-item hospital-sample">
+            <p local-class="item-title">{{selectedMarket}} 市场 医院样本数量</p>
+            <div local-class="item-legend">
+                <div local-class="legend-left">
+                    <span></span><span local-class="text">本月样本数</span><span>---</span><span local-class="text">去年各月样本数趋势</span>
+                </div>
+                <div local-class="legend-right">
+                    <div local-class="legend-right-left">
+                        <p local-class={{if (or (gt computeHospitalNumber 5) (lt computeHospitalNumber -5)) "error" "success"}}>{{computeHospitalNumber}}%</p>
+                        <p>样本误差率</p>
+                    </div>
+                    <div local-class="legend-right-center">
+                        <p>{{hospitalNumber}}家</p>
+                        <p>本月样本数</p>
+                    </div>
+                    <div local-class="legend-right-right">
+                        <p>{{lastYearHospitalNumber}}家</p>
+                        <p>去年同月样本数</p>
+                    </div>
+                </div>
+            </div>
+            <div local-class="item-chart">
+                {{hosp-amount dataset=hosp_datas}}
+            </div>
+        </div>
+        <div local-class="result-item prod-sample">
+            <p local-class="item-title">{{selectedMarket}} 市场 产品样本数量</p>
+            <div local-class="item-legend">
+                <div local-class="legend-left">
+                    <span></span><span local-class="text">本月样本数</span><span>---</span><span local-class="text">去年各月样本数趋势</span>
+                </div>
+                <div local-class="legend-right">
+                    <div local-class="legend-right-left">
+                        <p local-class={{if (or (gt computeProductNumber 5) (lt computeProductNumber -5)) "error" "success"}}>{{computeProductNumber}}%</p>
+                        <p>样本误差率</p>
+                    </div>
+                    <div local-class="legend-right-center">
+                        <p>{{productNumber}}个</p>
+                        <p>本月样本数</p>
+                    </div>
+                    <div local-class="legend-right-right">
+                        <p>{{lastYearProductNumber}}个</p>
+                        <p>去年同月样本数</p>
+                    </div>
+                </div>
+            </div>
+            <div local-class="item-chart">
+                {{product-amount dataset=pro_datas}} --}}
+             {{!-- {{sample-line-and-bar eid="sample-product-number-line-and-bar" option=productOption}} --}}
+            {{!-- </div>
+        </div>
+        <div local-class="result-item sample-sales">
+            <p local-class="item-title">{{selectedMarket}} 市场 样本销售额</p>
+            <div local-class="item-legend">
+                <div local-class="legend-left">
+                    <span></span><span local-class="text">本月样本数</span><span>---</span><span local-class="text">去年各月样本数趋势</span>
+                </div>
+                <div local-class="legend-right">
+                    <div local-class="legend-right-left">
+                        <p local-class={{if (or (gt computeSalesNumber 5) (lt computeSalesNumber -5)) "error" "success"}}>{{computeSalesNumber}}%</p>
+                        <p>样本误差率</p>
+                    </div>
+                    <div local-class="legend-right-center">
+                        <p>{{salesNumber}}(Mil)</p>
+                        <p>本月样本数</p>
+                    </div>
+                    <div local-class="legend-right-right">
+                        <p>{{lastYearSalesNumber}}(Mil)</p>
+                        <p>去年同月样本数</p>
+                    </div>
+                </div>
+            </div>
+            <div local-class="item-chart">
+                {{sample-sales dataset=sale_datas}} --}}
+             {{!-- {{sample-line-and-bar eid="sample-sales-number-line-and-bar" option=salesOption}} --}}
+            {{!-- </div>
+        </div>
+        <div local-class="result-item hospital-list">
+            <p local-class="item-title">样本医院列表</p>
+            <div local-class="detail-list"> --}}
+                {{!-- {{#models-table data=model columns=columns useFilteringByColumns=false showGlobalFilter=false filterQueryParameters=false
+                showComponentFooter=true showColumnsDropdown=false useFilteringByColumns=false showGlobalFilter=false useNumericPagination=true
+                showPageSize=false as |mt| }}
+                    {{mt.table}}
+                    {{#mt.footer as |footer|}}
+                        {{footer.summary local-class='footer-summary' }}
+                        {{footer.pagination-numeric local-class='footer-num'}}
+                    {{/mt.footer}}
+                {{/models-table}} --}}
+                {{!-- {{sample-table model=prodSalesValue columns=prodSales selfheight='300px'}}
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+{{!-- 重新上传文件 --}}
+{{#bs-modal
+        fade=false
+        backdropClose=false
+        keyboard=false
+        open=uploadAgain
+        onHidden=(action (mut uploadAgain) false) as |modal|}}
+    {{#modal.header closeButton=false}}
+        <h4 class="modal-title">
+            提示
+        </h4>
+    {{/modal.header}}
+    {{#modal.body}}
+        <p>是否重新上传源文件</p>
+    {{/modal.body}}
+    {{#modal.footer}}
+        {{!-- {{#bs-button onClick=(action modal.close)}}取消{{/bs-button}}
+        {{#bs-button onClick=(action 'uploadFileAgain' modal)}}重新上传{{/bs-button}} --}}
+        {{base-button type="second" content="取消" onClick=(action modal.close)}}
+        {{base-button type="" content="重新上传" onClick=(action 'uploadFileAgain' modal)}}
+    {{/modal.footer}}
+{{/bs-modal}}
+
+{{!-- 查询时出现错误 --}}
+{{#bs-modal
+        fade=false
+        backdropClose=false
+        keyboard=false
+        open=sampleCheckError
+        onHidden=(action (mut sampleCheckError) false) as |modal|}}
+    {{#modal.header closeButton=false}}
+        <h4 class="modal-title">
+            提示
+        </h4>
+    {{/modal.header}}
+    {{#modal.body}}
+        <p>{{errorMessage}}</p>
+    {{/modal.body}}
+    {{#modal.footer}}
+        {{!-- {{#bs-button onClick=(action modal.close)}}关闭{{/bs-button}} --}}
+        {{base-button type="" content="关闭" onClick=(action modal.close)}}
+    {{/modal.footer}}
+{{/bs-modal}}

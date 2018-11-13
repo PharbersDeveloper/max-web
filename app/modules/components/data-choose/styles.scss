@@ -2,7 +2,7 @@
 	margin: 0 5px;
 	padding: 5px 0;
 	height: 50px;
-	line-height: 50px;
+	line-height: 40px;
 	background-color: #FFF;
 	box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
 	border-radius: 3px;
@@ -20,7 +20,7 @@
 			padding: 0 15px;
 			height: 40px;
 			line-height: 40px;
-			border-right: 1px solid #D2D2D2;
+			// border-right: 1px solid #D2D2D2;
 			text-align: center;
 			letter-spacing: 1.17px;
 			font-size: 14px;
@@ -35,7 +35,7 @@
 
 	.right {
 		float: right;
-		margin-right: 25px;
+		margin-right: 12px;
 
 		button {
 			padding: 0;

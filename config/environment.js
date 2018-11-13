@@ -7,6 +7,9 @@ module.exports = function(environment) {
 		environment,
 		rootURL: '/',
 		locationType: 'auto',
+		xmppHost: 'http://192.168.100.172',
+	    xmppPort: 7070,
+		xmppBosh: '/http-bind',
 		EmberENV: {
 			FEATURES: {
 				// Here you can enable experimental features on an ember canary build
@@ -23,6 +26,9 @@ module.exports = function(environment) {
 			// when it is created
 		}
 	};
+	ENV.i18n = {
+		defaultLocale: 'zh'
+	  };
 
 	if (environment === 'development') {
 		ENV['ember-cli-mirage'] = {

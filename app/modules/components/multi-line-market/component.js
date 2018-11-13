@@ -5,8 +5,12 @@ import {
 import {
     get
 } from '@ember/object';
+import {
+    inject
+} from '@ember/service';
 import d3 from 'd3';
 export default Component.extend({
+    i18n: inject(),
     tagName: 'div',
     classNames: ['col-md-12', 'col-sm-12', 'col-xs-12', 'third-line'],
     init() {
@@ -18,7 +22,15 @@ export default Component.extend({
     drawThreeLines() {
         d3.select('svg.third-line-svg').remove();
         let data = this.get('threeLinesData');
-        let lineNames = ['市场销售额', '产品销售额', '产品份额'];
+        let handledData = [];
+        let lineNames = [
+            // '市场销售额',
+            this.i18n.t('biDashboard.common.marketSales') + "",
+            // '产品销售额',
+            this.i18n.t('biDashboard.common.prodSales') + "",
+            // '产品份额'
+            this.i18n.t('biDashboard.common.prodShare') + "",
+        ];
         let lineColor = ["#FA6F80", "#7CFFE2", "#868CE9"];
         var svgContainer = d3.select(this.element);
         let svg = svgContainer.append('svg').attr('class', 'third-line-svg')
@@ -74,7 +86,7 @@ export default Component.extend({
         // moves the 'group' element to the top left margin
         svg.attr('padding', '0 20px')
             .attr('width', '100%')
-            .attr("height", 368)
+            .attr("height", 300)
             // .attr('preserveAspectRatio', 'xMidYMid','meet')
             .attr('preserveAspectRatio', 'none')
             .attr('viewBox', '-40 0 950 348')
@@ -88,33 +100,40 @@ export default Component.extend({
 
         // format the data
         data.forEach(function(d) {
-            if (typeof d.ym === "string") {
-                d.ym = parseTime(d.ym);
-            } else {
-                d.ym = d.ym;
+            let temp = {
+                ym:"",
+                marketSales:"",
+                prodSales:"",
+                share:"",
             }
-            d.marketSales = +d.marketSales;
-            d.prodSales = +d.prodSales;
-            d.share = +d.share;
+            if (typeof d.ym === "string") {
+                temp.ym = parseTime(d.ym);
+            } else {
+                temp.ym = d.ym;
+            }
+            temp.marketSales = +d.marketSales;
+            temp.prodSales = +d.prodSales;
+            temp.share = +d.share;
+            handledData.push(temp);
         });
 
         // Scale the range of the data\
-        x.domain(d3.extent(data, function(d) {
+        x.domain(d3.extent(handledData, function(d) {
             // console.log(d.ym)
             return d.ym;
         }));
-        let y0Max = d3.max(data, function(d) {
+        let y0Max = d3.max(handledData, function(d) {
             return Math.max(d.marketSales);
         });
         // y0.domain([0, d3.max(data, function(d) {
         //     return Math.max(d.marketSales);
         // })]);
         y0.domain([0, (y0Max / 3 + y0Max)]);
-        let y1Max = d3.max(data, function(d) {
+        let y1Max = d3.max(handledData, function(d) {
             return Math.max(d.marketSales);
         });
         y1.domain([0, (y1Max / 3 + y1Max)]);
-        let y2Max = d3.max(data, function(d) {
+        let y2Max = d3.max(handledData, function(d) {
             // return Math.max(Math.log(d.share));
             return Math.max(d.share)
         });
@@ -152,7 +171,7 @@ export default Component.extend({
         // Add the valueline path.
         lines.append("path")
             // svg.append("path")
-            .data([data])
+            .data([handledData])
             .attr("class", "line")
             .style("stroke", "#FA6F80")
             .style("filter", "url(#drop-shadow)")
@@ -161,7 +180,7 @@ export default Component.extend({
         // Add the valueline2 path.
         lines.append("path")
             // svg.append("path")
-            .data([data])
+            .data([handledData])
             .attr("class", "line")
             .style("stroke", "#7CFFE2")
             .style("filter", "url(#drop-shadow)")
@@ -170,13 +189,13 @@ export default Component.extend({
         // Add the valueline3 path.
         lines.append("path")
             // svg.append("path")
-            .data([data])
+            .data([handledData])
             .attr("class", "line")
             .style("stroke", "#868CE9")
             .style("filter", "url(#drop-shadow)")
             .attr("d", valueline3);
         lines.selectAll(".dot1")
-            .data(data)
+            .data(handledData)
             .enter().append("circle")
             .attr("class", "dot1")
             .attr("r", 3)
@@ -197,7 +216,7 @@ export default Component.extend({
                     .attr("r", 3);
             });
         lines.selectAll(".dot2")
-            .data(data)
+            .data(handledData)
             .enter().append("circle")
             .attr("class", "dot2")
             .attr("r", 3)
@@ -218,7 +237,7 @@ export default Component.extend({
                     .attr("r", 3);
             });
         lines.selectAll(".dot3")
-            .data(data)
+            .data(handledData)
             .enter().append("circle")
             .attr("class", "dot3")
             .attr("r", 3)

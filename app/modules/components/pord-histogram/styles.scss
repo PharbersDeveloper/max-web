@@ -3,6 +3,11 @@
     padding: 0;
 }
 
+.div-line{
+    width:100%;
+    border-bottom:  1px solid #E2E2E2;
+}
+
 .left {
     padding: 0;
     font-family: $font-family;
@@ -10,32 +15,38 @@
     p {
         margin: 0;
     }
-
-    .title {
-        height: 20px;
-        line-height: 20px;
-        font-size: 14px;
-        letter-spacing: 1px;
-        color: #485465;
-
-        span:last-child {
-            float: right;
+    .first{
+        .title {
+            height: 34px;
+            line-height: 34px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: #485465;
+    
+            // span:last-child {
+            //     float: right;
+            // }
         }
     }
 
-    .manu {
-        height: 14px;
-        line-height: 14px;
-        font-size: 10px;
-        color: #9B9B9B;
-        letter-spacing: 1px;
+    .second{
         text-align: right;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        .manu {
+            height: 14px;
+            line-height: 14px;
+            font-size: 10px;
+            color: #9B9B9B;
+            letter-spacing: 1px;
+            // text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 
+
     .triangle {
+        text-align: center;
         height: 34px;
         line-height: 34px;
         padding-left: 0;

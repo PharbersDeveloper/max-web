@@ -1,0 +1,65 @@
+// #chart {
+//     margin:0px;
+//     color:red;
+//   }
+//   .label {
+//     font-size: 10px;
+//     font-family: 'sans-serif';
+//     alignment-baseline: middle;
+//     fill: red;
+//     color:red;
+//   }
+//   .number, .subtitle {
+//     font-size: 20pt;
+//     font-family: 'sans-serif';
+//     alignment-baseline: middle;
+//     fill: #300089;
+//   }
+//   .bar {
+//     fill: #300089;
+//   }
+.mirror-bar {
+    svg {
+        overflow: inherit;
+    }
+    :global(.currentYearSvg) {
+
+    }
+}
+:global(.bar--positive) {
+  fill: #2DD2C2;
+}
+
+:global(.bar--negative) {
+  fill: #2DD2C2;
+}
+
+:global(.axis text) {
+  // font: 10px sans-serif;
+    font-family: PingFangTC-Semibold;
+    font-size: 12px;
+    color: #4A4A4A;
+    letter-spacing: 5px;
+    text-align: left;
+}
+:global(.axisRight text) {
+  // font: 10px sans-serif;
+    font-family: PingFangTC-Semibold;
+    font-size: 12px;
+    color: #4A4A4A;
+    letter-spacing: 5px;
+    text-align: center;
+    padding-left: 5px;
+}
+:global(.axis path) {
+    opacity: 0;
+}
+:global(.axisRight path) {
+    opacity: 0;
+}
+.axis line {
+  fill: none;
+  opacity: 0;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}

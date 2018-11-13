@@ -1,0 +1,213 @@
+{{!-- {{outlet}} --}}
+{{data-choose activePr=true}}
+	{{!-- {{date-market-choose showMarkerChoose=true market=markets}} --}}
+	<div class="container-fluid" local-class="data-market">
+		<div local-class='market-show'>
+			<span local-class="show-title">{{t 'biDashboard.common.marketChoose' }}:</span>
+			<p>{{market}}</p>
+		</div>
+
+		<div local-class="time-show">
+			<span local-class="show-title">{{t 'biDashboard.common.timeChoose' }}:</span>
+			<p>{{time}}</p>
+		</div>
+		<div local-class="change-item">
+			{{#bs-modal open=markTimeProv onSubmit=(action "submit") onHidden=(action (mut markTimeProv) false) as |modal|}}
+				{{#modal.header}}
+					<h4 class="modal-title">{{t 'biDashboard.common.changeFilterCondition' }}</h4>
+				{{/modal.header}}
+				{{#modal.body}}
+					<div local-class='market-choose-area'>
+						<span local-class="title">{{t 'biDashboard.common.marketChoose' }}:</span>
+						<select local-class="choose-market" id = "select-market" name="markets" onchange= {{ action 'getMarket' value="target.value"}}>
+							{{#each markets as |item|}}
+								<option value={{item}}>{{item}}</option>
+							{{/each}}
+						</select>
+					</div>
+					<div local-class="time-selects">
+						<span>{{t 'biDashboard.common.timeChoose' }}:</span>
+						<select local-class="choose-market" id = "select-year" name="markets" onchange= {{ action 'getYear' value="target.value"}}>
+							{{#each years as |item|}}
+								<option value={{item}}>{{item}}</option>
+							{{/each}}
+						</select>
+						<select local-class="choose-market" id = "select-month" name="markets" onchange= {{ action 'getMonth' value="target.value"}}>
+							{{#each months as |item|}}
+								<option value={{item}}>{{item}}</option>
+							{{/each}}
+						</select>
+					</div>
+				{{/modal.body}}
+				{{#modal.footer}}
+					{{#bs-button onClick=(action modal.close)}}{{t 'biDashboard.common.cancel' }}{{/bs-button}}
+					{{#bs-button type="success" onClick=(action modal.submit ) }}{{t 'biDashboard.common.save' }}{{/bs-button}}
+				{{/modal.footer}}
+			{{/bs-modal}}
+			{{#bs-button local-class="change" onClick=(action (mut markTimeProv) true)}} {{t 'biDashboard.common.changeFilterCondition' }}{{/bs-button}}
+		</div>
+	</div>
+	<div class="container-fluid" local-class="nopadding">
+		{{#each cards as |item|}}
+			{{key-words card=item}}
+		{{/each}}
+	</div>
+	<div class="container-fluid" local-class="mixed-graph">
+		<p local-class="inside-title"><span>{{mixedGraphTitle.title}}</span><span></span></p>
+		{{mixed-graph mixedGraphData=mixedGraphData}}
+	</div>
+	<div local-class="table-sales">
+		<p local-class="con-title"><span>{{provSalesTitle.title}}</span><span>{{time}}</span></p>
+		{{self-table model=marketSalesValue columns=MarketSales selfheight='300px'}}
+	</div>
+
+	<div class="container-fluid" local-class="pie-histogram">
+		<div class="col-md-6 col-sm-12" local-class="nopadding legend-pie-container">
+			<div local-class="inside">
+				<p local-class="pie-title">
+					<span>{{marketTitle.title}}</span>
+					<span>{{marketTitle.subtitle}}</span>
+				</p>
+				{{legend-pie-sales-prov pieData=marketSalesPie}}
+			</div>
+		</div>
+		<div class="col-md-6 col-sm-12" local-class="nopadding horizontal-histogram">
+			<div local-class="inside">
+				<p local-class="his-title"><span>{{t 'biDashboard.province.provinceLevelRank' }}</span><span>{{time}}</span></p>
+				<p local-class="choose-type"><span>{{t 'biDashboard.common.dataType' }}:</span>
+					<select class="" name="" onchange= {{ action 'queryProvRank' value="target.value"}}>
+						{{#each provRank as |item|}}
+							<option value={{item}}>{{item}}</option>
+						{{/each}}
+					</select>
+				</p>
+				<div local-class="share" class="container-fluid">
+					<div class="col-md-6 col-sm-6 col-xs-6">
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="row">
+							{{#each provRankRange as |item|}}
+								<span class="col-md-2 col-sm-2 col-xs-2">{{item}}{{marketRankingUnit}}</span>
+							{{/each}}
+						</div>
+					</div>
+				</div>
+				<div local-class="histogram">
+					{{#each provRankValue as |item|}}
+						{{pord-histogram-prov data=item theMax=provRankMax}}
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</div>
+	{{!-- {{province-choose showMarkerChoose=true market=markets as |prov|}} --}}
+	<div local-class="provs-choose" class="container-fluid">
+		<span local-class="title">{{t 'biDashboard.province.provinceChoose' }}:</span>
+		<span local-class="show-area">{{prov}}</span>
+		<span local-class="hint">{{t 'biDashboard.province.provinceChooseHint' }}</span>
+		{{#bs-button local-class="changeBtn" onClick=(action (mut modalprov) true)}} {{t 'biDashboard.common.changeFilterCondition' }}{{/bs-button}}
+
+		<div local-class="prov-change-item">
+			{{#bs-modal open=modalprov onSubmit=(action "submitProv") onHidden=(action (mut modalprov) false) as |modal|}}
+				{{#modal.header}}
+					<h4 class="modal-title">{{t 'biDashboard.common.changeFilterCondition' }}</h4>
+				{{/modal.header}}
+				{{#modal.body}}
+					<div local-class='market-choose-area'>
+						<span local-class="title">{{t 'biDashboard.province.provinceChoose' }}:</span>
+						<select local-class="choose-market" id = "select-prov" name="provs" onchange= {{ action 'getProv' value="target.value"}}>
+							{{#each provs as |item|}}
+								<option value={{item}}>{{item}}</option>
+							{{/each}}
+						</select>
+					</div>
+
+				{{/modal.body}}
+				{{#modal.footer}}
+					{{#bs-button onClick=(action modal.close)}}{{t 'biDashboard.common.cancel' }}{{/bs-button}}
+					{{#bs-button type="success" onClick=(action modal.submit ) }}{{t 'biDashboard.common.save' }}{{/bs-button}}
+				{{/modal.footer}}
+			{{/bs-modal}}
+
+		</div>
+
+	</div>
+	<div class="container-fluid" local-class="nopadding">
+		{{#each sales as |item|}}
+			{{sales-word card=item}}
+		{{/each}}
+	</div>
+	<div class="container-fluid" local-class='nopadding multi-line'>
+		<p local-class="market-title">
+			<span>{{trendTitle.title}}</span>
+			<span>{{trendTitle.timeStart}}&nbsp;{{t 'biDashboard.common.dateTo' }}&nbsp;{{trendTitle.timeOver}}&nbsp;{{trendTitle.area}}</span>
+		</p>
+
+		{{multi-line-market threeLinesData=prodTrend}}
+	</div>
+	{{!-- {{line-prod-sales line=prodSalesOverview tableData=prodSalesTable}} --}}
+	<div class="container-fluid" local-class="nopadding">
+		{{#each words as |item|}}
+			{{most-word card=item}}
+		{{/each}}
+	</div>
+
+	<div class="container-fluid" local-class="pie-histogram pie-prov">
+		<div class="col-md-6 col-sm-12" local-class="nopadding legend-pie-container">
+			<div local-class="inside">
+				<p local-class="pie-title">
+					<span>{{prodMarketTitle.title}}</span>
+					<span>{{prodMarketTitle.subtitle}}</span>
+					<span>{{prodMarketTitle.area}}</span>
+				</p>
+				{{legend-pie-sales pieData=marketShare}}
+			</div>
+		</div>
+		<div class="col-md-6 col-sm-12" local-class="nopadding horizontal-histogram">
+			<div local-class="inside">
+				<p local-class="his-title"><span>{{t 'biDashboard.common.prodRankChange' }}</span><span>{{time}}</span></p>
+				<p local-class="choose-type"><span>{{t 'biDashboard.common.dataType' }}</span>
+					<select class="" name="" onchange= {{ action 'queryProdRank' value="target.value"}}>
+						{{#each prodRank as |item|}}
+							<option value={{item}}>{{item}}</option>
+						{{/each}}
+					</select>
+				</p>
+				<div local-class="share" class="container-fluid">
+					<div class="col-md-6 col-sm-6 col-xs-6">
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="row">
+							{{#each prodRankRange as |item|}}
+								<span class="col-md-2 col-sm-2 col-xs-2">{{item}}{{prodRankingUnit}}</span>
+							{{/each}}
+						</div>
+					</div>
+				</div>
+				<div local-class="histogram">
+					{{#each prodRankValue as |item|}}
+						{{pord-histogram data=item theMax=prodRankMax}}
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div local-class="table-sales">
+		<p local-class="con-title"><span>{{competingTitle.title}}</span><span>{{competingTitle.subtitle}}&nbsp;{{competingTitle.city}}</span></p>
+		{{self-table model=competingProdValue columns=competingProd selfheight='300px'}}
+	</div>
+	<div class="container-fluid" local-class='nopadding choose-line'>
+		<p local-class="trend-title">
+			<span>{{AllTrendTitle.title}}</span>{{!-- <span>{{trendTitle.title}}</span> --}}
+			<span>{{AllTrendTitle.timeStart}}&nbsp;{{t 'biDashboard.common.dateTo' }}&nbsp;{{AllTrendTitle.timeOver}}&nbsp;{{AllTrendTitle.area}}</span>
+		</p>
+		<p local-class="choose-type">
+			<span>{{t 'biDashboard.common.dataType' }}</span>
+			<select class="" name="" onchange= {{ action 'queryTrend' value="target.value"}}>
+				{{#each trendData as |item|}}
+					<option value={{item}}>{{item}}</option>
+				{{/each}}
+			</select>
+		</p>
+		{{line-mulit-choose chooseData=AllTrendValue}}
+	</div>

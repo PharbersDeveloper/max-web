@@ -1,112 +1,163 @@
 <div local-class="step-content-wrapper">
-    <div local-class="step-left">
-        <p>
-            {{#unless filecpa }}
-                <span>请上传CPA文件</span>
-                <span>(仅支持：excel)</span>
-            {{else}}
-                <span>CPA文件</span>
-                <span>(仅支持：excel)</span>
-            {{/unless}}
-        </p>
-        <div local-class="upload-area">
-            <div local-class="dropzone-upload-area" class= {{concat 'upload ' (if dropzone.active 'active')}}>
-                {{#unless filecpa }}
-                    <img src="../assets/images/cpa.png" alt="">
-                {{else}}
-                    <img src="../assets/images/cpadone.png" alt="">
-                {{/unless}}
-            </div>
-
-            {{#file-upload name="file-cpa" multiple=false onfileadd=(action "uploadCpaFile") accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" as |queue|}}
-                {{#if queue.files.length}}
-                    <div local-class="upload-progress-container">
-                        <div local-class="upload-progress">
-                            {{#bs-progress as |p|}}
-                                {{p.bar value=queue.progress minValue=0 maxValue=100 showLabel=true type='success' striped=true animate=true}}
-                            {{/bs-progress}}
-                        </div>
-                    </div>
-                {{else}}
+    {{#layout-push direction='col' classNames="step-flex-outer"}}
+        {{#layout-push direction='row' split=false mid=true classNames="upload-hint"}}
+            <p>請上傳本次需要添加的數據源文件，並確保文件格式、數據格式正確。 數據格式規範模板</p>
+            {{base-button type="link" content="点击下载" onClick="" }}
+        {{/layout-push}}
+        {{#layout-push direction='row' split=true mid=true classNames="file-upload-group"}}
+            {{#layout-push direction='col' split=true mid=true classNames="file-upload-view"}}
+                {{#layout-push direction='row' split=true mid=true classNames="file-upload-view-title"}}
+                <p>
                     {{#unless filecpa }}
-                        <span local-class="click-upload"><a>选择文件</a></span>
+                        <span>请上传CPA文件</span>
                     {{else}}
-                        <span local-class="click-upload">
-                            {{#if filecpa}} {{filecpa}} {{/if}}
-                            <a local-class="delete" {{action "deleteCpaFile"}}>删除文件</a>
-                        </span>
+                        <span>CPA文件</span>
                     {{/unless}}
-                {{/if}}
-            {{/file-upload}}
-        </div>
-    </div>
-
-    <div local-class="step-right">
-        <p>
-            {{#unless filegycx }}
-                <span>请上传国药诚信文件</span>
-                <span>(仅支持：excel)</span>
-            {{else}}
-                <span>国药诚信文件</span>
-                <span>(仅支持：excel)</span>
-            {{/unless}}
-        </p>
-
-        <div local-class="upload-area">
-            <div local-class="dropzone-upload-area" class= {{concat 'upload ' (if dropzone.active 'active')}}>
-                {{#unless filegycx }}
-                        <img src="../assets/images/gycx.png" alt="">
-                    {{else}}
-                        <img src="../assets/images/gycxdone.png" alt="">
-                {{/unless}}
-            </div>
-            {{#file-upload name="file-gycx" multiple=false onfileadd=(action "uploadGycxFile") accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" as |queue|}}
-                {{#if queue.files.length}}
-                    <div local-class="upload-progress-container">
-                        <div local-class="upload-progress">
-                            {{#bs-progress as |p|}}
-                                {{p.bar value=queue.progress minValue=0 maxValue=100 showLabel=true type='success' striped=true animate=true}}
-                            {{/bs-progress}}
-                        </div>
+                </p>
+                <p>
+                    <span>(仅支持：excel)</span>
+                </p>
+                {{/layout-push}}
+                {{#layout-push direction='row' split=true mid=true classNames="file-upload-view-pic"}}
+                <div local-class="upload-area">
+                    <div local-class="dropzone-upload-area" class= {{concat 'upload ' (if dropzone.active 'active')}}>
+                        {{#unless filecpa }}
+                            <img src="../assets/images/cpa.png" alt="">
+                        {{else}}
+                            <img src="../assets/images/cpadone.png" alt="">
+                        {{/unless}}
                     </div>
-                {{else}}
+                </div>
+                {{/layout-push}}
+                {{#layout-push direction='row' split=true mid=true classNames="file-upload-view-btn"}}
+                    {{#file-upload name="file-cpa" multiple=false onfileadd=(action "uploadCpaFile" ) accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" as |queue|}}
+                        {{#if queue.files.length}}
+                            <div local-class="upload-progress-container">
+                                <div local-class="upload-progress">
+                                    {{#bs-progress as |p|}}
+                                        {{p.bar value=queue.progress minValue=0 maxValue=100 showLabel=true type='success' striped=true animate=true}}
+                                    {{/bs-progress}}
+                                </div>
+                            </div>
+                        {{else}}
+                            {{#unless filecpa }}
+                                <span local-class="click-upload"><a>选择文件</a></span>
+                            {{else}}
+                                <span local-class="click-upload">
+                                    {{#if filecpa}} {{filecpa}} {{/if}}
+                                    <a local-class="delete" {{action "deleteCpaFile"}}>删除文件</a>
+                                </span>
+                            {{/unless}}
+                        {{/if}}
+                    {{/file-upload}}
+                {{/layout-push}}
+            {{/layout-push}}
+
+            {{#layout-push direction='col' split=true mid=true classNames="file-upload-view"}}
+                {{#layout-push direction='row' split=true mid=true classNames="file-upload-view-title"}}
+                <p>
                     {{#unless filegycx }}
-                        <span local-class="click-upload"><a>选择文件</a></span>
+                        <span>请上传国药诚信文件</span>
                     {{else}}
-                        <span local-class="click-upload">
-                            {{#if filegycx}} {{filegycx}} {{/if}}
-                            <a local-class="delete" {{action "deleteGycxFile"}}>删除文件</a>
-                        </span>
+                        <span>国药诚信文件</span>
                     {{/unless}}
-                {{/if}}
-
-                {{!-- {{#if filegycx}} {{filegycx}} {{/if}}
-                {{#unless filegycx }}
-                    <a>选择文件</a>
-                {{else}}
-                    <a local-class="delete" {{action "deleteGycxFile"}}>删除文件</a>
-                {{/unless}}
-                {{#if queue.files.length}}
-                    <div local-class="upload-progress">
-                        {{#bs-progress as |p|}}
-                            {{p.bar value=queue.progress minValue=0 maxValue=100 showLabel=true type='success' striped=true animate=true}}
-                        {{/bs-progress}}
+                </p>
+                <p>
+                    <span>(仅支持：excel)</span>
+                </p>
+                {{/layout-push}}
+                {{#layout-push direction='row' split=true mid=true classNames="file-upload-view-pic"}}
+                <div local-class="upload-area">
+                    <div local-class="dropzone-upload-area" class= {{concat 'upload ' (if dropzone.active 'active')}}>
+                        {{#unless filegycx }}
+                            <img src="../assets/images/gycx.png" alt="">
+                        {{else}}
+                            <img src="../assets/images/gycxdone.png" alt="">
+                        {{/unless}}
                     </div>
-                {{/if}} --}}
-            {{/file-upload}}
-        </div>
-    </div>
-    {{#if isDisabled}}
-        <button {{action 'pleaseUploadFile'}} class="btn-default-max" local-class="to-generate-sample" type="button" name="btn-second-step">下一步</button>
-    {{else}}
-        {{!-- {{#link-to "adddata.generate-sample"}}
-            <button local-class={{unless isDisabled "useable" }} class="btn-default-max" local-class="to-generate-sample" type="button" name="btn-second-step">下一步</button>
-        {{/link-to}} --}}
-        <button {{action 'next'}} local-class={{unless isDisabled "useable" }} class="btn-default-max" local-class="to-generate-sample" type="button" name="btn-second-step">下一步</button>
+                </div>
+                {{/layout-push}}
+                {{#layout-push direction='row' split=true mid=true classNames="file-upload-view-btn"}}
+                    {{#file-upload name="file-gycx" multiple=false onfileadd=(action "uploadGycxFile") accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" as |queue|}}
+                        {{#if queue.files.length}}
+                            <div local-class="upload-progress-container">
+                                <div local-class="upload-progress">
+                                    {{#bs-progress as |p|}}
+                                        {{p.bar value=queue.progress minValue=0 maxValue=100 showLabel=true type='success' striped=true animate=true}}
+                                    {{/bs-progress}}
+                                </div>
+                            </div>
+                        {{else}}
+                            {{#unless filegycx }}
+                                <span local-class="click-upload"><a>选择文件</a></span>
+                            {{else}}
+                                <span local-class="click-upload">
+                                    {{#if filegycx}} {{filegycx}} {{/if}}
+                                    <a local-class="delete" {{action "deleteGycxFile"}}>删除文件</a>
+                                </span>
+                            {{/unless}}
+                        {{/if}}
+                    {{/file-upload}}
+                {{/layout-push}}
+            {{/layout-push}}
+            
 
-    {{/if}}
+                {{!-- 旧代码 --}}
+                {{!-- <p>
+                    {{#unless filegycx }}
+                        <span>请上传国药诚信文件</span>
+                        <span>(仅支持：excel)</span>
+                    {{else}}
+                        <span>国药诚信文件</span>
+                        <span>(仅支持：excel)</span>
+                    {{/unless}}
+                </p>
 
+                <div local-class="upload-area">
+                    <div local-class="dropzone-upload-area" class= {{concat 'upload ' (if dropzone.active 'active')}}>
+                        {{#unless filegycx }}
+                                <img src="../assets/images/gycx.png" alt="">
+                            {{else}}
+                                <img src="../assets/images/gycxdone.png" alt="">
+                        {{/unless}}
+                    </div>
+                    {{#file-upload name="file-gycx" multiple=false onfileadd=(action "uploadGycxFile") accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" as |queue|}}
+                        {{#if queue.files.length}}
+                            <div local-class="upload-progress-container">
+                                <div local-class="upload-progress">
+                                    {{#bs-progress as |p|}}
+                                        {{p.bar value=queue.progress minValue=0 maxValue=100 showLabel=true type='success' striped=true animate=true}}
+                                    {{/bs-progress}}
+                                </div>
+                            </div>
+                        {{else}}
+                            {{#unless filegycx }}
+                                <span local-class="click-upload"><a>选择文件</a></span>
+                            {{else}}
+                                <span local-class="click-upload">
+                                    {{#if filegycx}} {{filegycx}} {{/if}}
+                                    <a local-class="delete" {{action "deleteGycxFile"}}>删除文件</a>
+                                </span>
+                            {{/unless}}
+                        {{/if}}
+                    {{/file-upload}}
+                </div> --}}
+        {{/layout-push}}
+        {{#layout-push direction='row' classNames="upload-file-next-btn"}}
+            {{#if isDisabled}}
+                {{!-- <button {{action 'pleaseUploadFile'}} class="btn-default-max" local-class="to-generate-sample" type="button" name="btn-second-step">下一步</button> --}}
+                {{base-button type="disabled" content="下一步" onClick="pleaseUploadFile" }}
+            {{else}}
+                {{!-- {{#link-to "adddata.generate-sample"}}
+                    <button local-class={{unless isDisabled "useable" }} class="btn-default-max" local-class="to-generate-sample" type="button" name="btn-second-step">下一步</button>
+                {{/link-to}} --}}
+                {{!-- <button {{action 'next'}} local-class={{unless isDisabled "useable" }} class="btn-default-max" local-class="to-generate-sample" type="button" name="btn-second-step">下一步</button> --}}
+                {{base-button content="下一步" onClick="next" }}
+            {{/if}}
+        {{/layout-push}}
+    {{/layout-push}}
 </div>
+
 {{#bs-modal-simple
         fade=false
         closeButton=false
