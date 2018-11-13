@@ -1,0 +1,7 @@
+{{step-flow stepOne=true stepTwo=false stepThree=false stepFour=false}}
+{{#layout-push direction='row' classNames="layout-flex-outer"}}
+    {{#layout-push direction='row' classNames="layout-flex-inner"}}
+        {{upload-file-panel next=(action 'next')}}
+    {{/layout-push}}
+{{/layout-push}}
+{{outlet}}

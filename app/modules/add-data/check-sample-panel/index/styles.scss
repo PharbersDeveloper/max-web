@@ -1,0 +1,453 @@
+@import "app/modules/application/styles";
+
+// 新样式
+:global(.layout-flex-outer) {
+    min-width: 1200px;
+    background-color: $ph-color-assist-bg;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    :global(.layout-flex-inner) {
+        width: 1200px;
+        padding: 24px;
+        
+        :global(.generate-sample-flex-outer) {
+            font-family: $ph-font-family;
+            width: 100%;
+            min-height: 616px;
+            background-color: $ph-color-assist-card;
+        
+            :global(.generate-sample-hint) {
+                margin: 24px 0 64px 152px;
+        
+                .explain-text{
+                    margin: 0;
+                    padding-right: 10px;
+                    font-size: $ph-fs-content;
+                    color: $ph-fc-title;
+                }
+            }
+            :global(.generate-sample-file-cap) ,:global(.generate-sample-file-gycx){
+                justify-content: center;
+                margin-bottom: 16px;
+                
+                .file-name {
+                    height: 40px;
+                    line-height: 20px;
+                    letter-spacing: 1.5px;
+                    margin: 0;
+                    
+                    .tip-text {
+                        font-size: $ph-fs-title;
+                        color: $ph-fc-title;
+                        display: inline-block;
+                        width: 80px;
+                        text-align: right;
+                    }
+                    .txt {
+                        font-size: $ph-fs-content;
+                        color: $ph-fc-title;
+                        display: inline-block;
+                        width: 700px;
+                        line-height: 40px;
+                        margin-left: 15px;
+                        background-color: $ph-color-assist-bg;
+                        border-radius: 5px;
+                    }
+                }
+            }
+           
+            :global(.generate-sample-big-btn) {
+                justify-content: center;
+                margin-top: 56px;
+
+                .btn-start {
+                    position: relative;
+                    width: 200px;
+                    height: 200px;
+                    line-height: 200px;
+                    border: 1px solid $btn-bgcolor;
+                    border-radius: 50%;
+                    font-size: 32px;
+                    color: $ph-color-assist-card;
+                    cursor: pointer;
+            
+                    .btn-start-content {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 180px;
+                        height: 180px;
+                        line-height: 180px;
+                        border-radius: 50%;
+                        text-align: center;
+                        background-color: $btn-bgcolor;
+                    }
+                }
+            }
+            :global(.generate-sample-reupload-btn) {
+                justify-content: center;
+                margin-top: 64px;
+            }
+        }
+
+    }
+}
+
+
+
+
+// 旧样式
+
+// @import "../../application/styles";
+@import "app/modules/application/styles";
+/**
+*
+*btn 样式
+*/
+
+.btn-default-max {
+    padding: 0;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    border: 0 !important;
+    border-radius: 4px;
+    vertical-align: inherit !important;
+    font-size: 16px !important;
+    color: #fff !important;
+    background-color: $btn-bgcolor !important;
+}
+
+
+/**
+*
+*为generate-sample结果页面设置wrapper样式
+*/
+
+.step-content-wrapper-noshadow {
+    position: relative;
+    margin: 40px auto 0;
+    width: 1200px;
+    border-radius: 5px;
+}
+/**
+*
+*基本wrapper样式
+*/
+
+.step-content-wrapper {
+    position: relative;
+    margin: 40px auto 0;
+    width: 1200px;
+    height: 600px;
+    background-color: #fff;
+    box-shadow: 2px 2px 4px 4px #eee;
+    border-radius: 5px;
+}
+
+/**
+*
+*generate-sample样式
+*/
+
+.generate-sample-content {
+    margin: 0 auto;
+    width: 50%;
+
+    p.explain-text {
+        margin-left: -40%;
+        margin-bottom: 30px;
+        padding-top: 30px;
+        padding-left: 35px;
+        font-size: 1.4rem;
+    }
+
+    p.file-name {
+        margin: 15px -20% 0;
+        height: 40px;
+        line-height: 20px;
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+        .tip-text {
+            display: inline-block;
+            width: 80px;
+            text-align: right;
+        }
+        .txt {
+            display: inline-block;
+            width: 700px;
+            line-height: 40px;
+            margin-left: 15px;
+            // height: 40px;
+            background-color: #DEDEDE;
+            border-radius: 5px;
+        }
+
+    }
+    .btn-start {
+        position: relative;
+        margin: 70px auto 0;
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        border: 1px solid $btn-bgcolor;
+        border-radius: 50%;
+        font-size: 32px;
+        color: #fff;
+        cursor: pointer;
+
+        .btn-start-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            line-height: 180px;
+            border-radius: 50%;
+            text-align: center;
+            background-color: $btn-bgcolor;
+        }
+    }
+
+    .calc-progress {
+        position: relative;
+        margin: 100px auto 0;
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        border: 5px solid #eee;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 32px;
+        color: $btn-bgcolor;
+    }
+    p.reupload {
+        margin-top: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 18px;
+        cursor: pointer;
+    }
+    p.calc-progress-text {
+        margin-top: 0;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 18px;
+    }
+}
+
+.generate-sample-result {
+
+    .result-choosebar {
+        height: 80px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 4px 4px #eee;
+        background-color: #fff;
+
+    .choosebar-content {
+        display: inline-block;
+        height: 80px;
+        line-height: 80px;
+
+        .select-title {
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            padding: 0 10px;
+        }
+
+        .choose-select {
+            width: 160px;
+            height: 40px;
+            text-align: center;
+            text-align-last: center;
+            border: 1px solid $border-color;
+            border-radius: 5px;
+            background-color: #fff;
+            option {
+                height: 20px;
+                text-align: center;
+            }
+        }
+    }
+
+        .choosebar-left {
+            float: left;
+            margin-left: 20px;
+        }
+
+        .choosebar-right {
+            float: right;
+            margin-right: 40px;
+            padding-top: 1px;
+        }
+    }
+}
+
+// 结果条目样式，未来可能会封装成组件
+.result-item {
+    margin-bottom: 25px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 4px #eee;
+    background-color: #fff;
+
+    .item-title {
+        margin-top: 20px;
+        padding: 20px 20px;
+        height: 40px;
+        line-height: 20px;
+        font-size: 1.8rem;
+    }
+
+    .item-chart {
+        height: 360px;
+    }
+}
+
+.item-legend {
+    height: 50px;
+
+    .legend-left {
+        float: left;
+        margin-left: 100px;
+        height: 50px;
+        line-height: 35px;
+        font-size: 0;
+        span {
+            display: inline-block;
+            margin: 0 5px;
+
+            height: 18px;
+            line-height: 18px;
+            vertical-align: bottom;
+        }
+        span:first-child {
+            width: 8px;
+            background: linear-gradient(-180deg, #5E81CF 0%, #BAD0FF 100%);;
+        }
+        span.text {
+            font-size: 12px;
+            color: $ph-fc-content;
+        }
+        span:nth-child(3) {
+            font-size: $ph-fs-content;
+            color: $ph-fc-emphasize;
+        }
+
+    }
+
+    .legend-right {
+        float: right;
+        width: 400px;
+
+        .legend-right-left {
+            display: inline-block;
+            padding: 0 10px;
+            width: 100px;
+            height: 50px;
+            line-height: 25px;
+            text-align: center;
+
+
+            & .success {
+                margin: 0;
+                height: 25px;
+                border-radius: 4px;
+                font-size: 14px;
+                color: #fff;
+                background-color: $btn-bgcolor;
+            }
+            & .error {
+                margin: 0;
+                height: 25px;
+                border-radius: 4px;
+                font-size: 14px;
+                color: #fff;
+                background-color: $btn-error-bgcolor;
+            }
+
+            p:last-child {
+                margin: 0;
+                height: 25px;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+        }
+
+        .legend-right-center {
+            display: inline-block;
+            padding: 0 10px;
+            width: 100px;
+            height: 50px;
+            text-align: center;
+
+            p:first-child {
+                margin: 0;
+                height: 25px;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+
+            p:last-child {
+                margin: 0;
+                height: 25px;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+        }
+
+        .legend-right-right {
+            display: inline-block;
+            padding: 0 10px;
+            width: 100x;
+            height: 50px;
+            text-align: center;
+
+            .echarts-chart {
+                width: 100%;
+                height: 300px;
+            }
+
+            p:first-child {
+                margin: 0;
+                height: 25px;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+
+            p:last-child {
+                margin: 0;
+                height: 25px;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+        }
+    }
+}
+/**
+*
+*end generate-sample样式
+*/
+/**
+*
+*表格样式
+*/
+.detail-list {
+    background-color: #fff;
+
+    .footer-summary {
+        margin-top: 5px;
+        padding-left: 50px;
+    }
+
+    .footer-num {
+        float: right;
+        padding-right: 50px;
+        margin-bottom: 10px;
+    }
+}
