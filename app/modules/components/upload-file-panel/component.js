@@ -17,7 +17,7 @@ export default Component.extend({
             this.set('remindUploadFile', true);
         },
         // 上传cpa文件
-        uploadCpaFile(file) {
+        uploadPanelFile(file) {
             return file.upload('/upload').then(({
                 body: {
                     result,
@@ -26,16 +26,25 @@ export default Component.extend({
                 }
             }) => {
                 if (status === 'ok') {
-                    this.set('filecpa', file.get('name'));
+                    // this.set('filecpa', file.get('name'));
+                    this.set('filepanel', file.get('name'));
+
                     this.set('isDisabled', false);
                     let success = {
-                        cpa: result,
+                        // cpa: result,
+                        panel: result,
                         status
                     }
-                    this.get('cookies').write('cpahash', success.cpa, {
+                    // this.get('cookies').write('cpahash', success.cpa, {
+                    //     path: '/'
+                    // });
+                    this.get('cookies').write('panelhash', success.panel, {
                         path: '/'
                     });
-                    this.get('cookies').write('filecpa', this.get('filecpa'), {
+                    // this.get('cookies').write('filecpa', this.get('filecpa'), {
+                    //     path: '/'
+                    // });
+                    this.get('cookies').write('filepanel', this.get('filepanel'), {
                         path: '/'
                     });
                 } else {
@@ -45,21 +54,30 @@ export default Component.extend({
             }, () => { });
         },
         //  删除cpa文件 （伪）只是将名字置为“”空。
-        deleteCpaFile() {
-            this.set('filecpa', "");
+        deletePanelFile() {
+            // this.set('filecpa', "");
+            this.set('filepanel', "");
+
             this.set('isDisabled', true);
-            this.get('cookies').write('cpahash', "", {
+            // this.get('cookies').write('cpahash', "", {
+            //     path: '/'
+            // });
+            // this.get('cookies').write('filecpa', "", {
+            //     path: '/'
+            // });
+            this.get('cookies').write('panelhash', "", {
                 path: '/'
             });
-            this.get('cookies').write('filecpa', "", {
+            this.get('cookies').write('filepanel', "", {
                 path: '/'
             });
         },
 
 
         next() {
-            let cpa = this.get('filecpa');
-            this.sendAction('next', cpa);
+            // let cpa = this.get('filecpa');
+            let panel = this.get('filepanel');
+            this.sendAction('next', panel);
         }
     }
 });

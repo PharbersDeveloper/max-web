@@ -1,4 +1,5 @@
 import Controller from '@ember/controller';
+import { isEmpty } from '@ember/utils';
 
 export default Controller.extend({
     init() {
@@ -20,30 +21,41 @@ export default Controller.extend({
         });
     },
     actions: {
-        next(cpa) {
+        next(panel) {
             /**
              * 临时跳转
              */
-            this.transitionToRoute('/add-data/check-sample-panel');
+            // this.transitionToRoute('/add-data/check-sample-panel');
             /**
              * 原逻辑
              */
-            // this.store.peekAll('phmaxjob').lastObject.set('cpa', cpa);
-            // this.store.peekAll('phmaxjob').lastObject.set('call', 'ymCalc');
-            // let req = this.store.peekAll('phmaxjob').lastObject;
-            // let result = this.store.object2JsonApi('phmaxjob', req, false);
-            // // TODO：Alex这块儿可能有问题
-            // this.store.peekAll('phmaxjob').lastObject.set('cpa', '');
+            this.store.peekAll('phmaxjob').lastObject.set('panel', panel);
+            this.store.peekAll('phmaxjob').lastObject.set('panelfime', panel);
 
-            // this.store.queryObject('/api/v1/maxjobpush/0', 'phmaxjob', result).then((resp) => {
-            //     if (!isEmpty(resp.not_arrival_hosp_file)) {
-            //         localStorage.setItem('not_arrival_hosp_file', resp.not_arrival_hosp_file);
-            //         localStorage.setItem('cpa', resp.cpa);
-            //         this.transitionToRoute('/add-data/generate-sample');
-            //     } else {
-            //         console.log("error route!!!!!");
-            //     }
-            // })
+            this.store.peekAll('phmaxjob').lastObject.set('call', 'ymCalc');
+            let req = this.store.peekAll('phmaxjob').lastObject;
+            let result = this.store.object2JsonApi('phmaxjob', req, false);
+            // let result = this.store.object2JsonApi('phmaxjob', req, false);
+
+            // TODO：Alex这块儿可能有问题
+            this.store.peekAll('phmaxjob').lastObject.set('panel', '');
+            this.store.peekAll('phmaxjob').lastObject.set('panelfime', '');
+
+            console.log(result);
+            this.store.queryObject('/api/v1/maxjobpush/0', 'phmaxjob', result).then((resp) => {
+                debugger
+                // if (!isEmpty(resp.data.attrubutes.panel)) {
+                // localStorage.setItem('not_arrival_hosp_file', resp.not_arrival_hosp_file);
+                console.log(resp);
+                console.log(resp.panel);
+                console.log(resp.panelfime);
+
+                localStorage.setItem('panel', resp.panel);
+                this.transitionToRoute('/add-data/check-sample-panel');
+                // } else {
+                //     console.log("error route!!!!!");
+                // }
+            })
 
         }
     },

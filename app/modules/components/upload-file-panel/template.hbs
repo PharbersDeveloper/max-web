@@ -8,7 +8,7 @@
             {{#layout-push direction='col' split=true mid=true classNames="file-upload-view"}}
                 {{#layout-push direction='row' split=true mid=true classNames="file-upload-view-title"}}
                     <p>
-                        {{#unless filecpa }}
+                        {{#unless filepanel }}
                             <span>请上传Panel文件</span>
                         {{else}}
                             <span>Panel文件</span>
@@ -21,7 +21,7 @@
                 {{#layout-push direction='row' split=true mid=true classNames="file-upload-view-pic"}}
                     <div local-class="upload-area">
                         <div local-class="dropzone-upload-area" class={{concat 'upload ' (if dropzone.active 'active')}}>
-                            {{#unless filecpa }}
+                            {{#unless filepanel }}
                                 <img src="../assets/images/panel.png" alt="">
                             {{else}}
                                 <img src="../assets/images/paneldone.png" alt="">
@@ -30,7 +30,7 @@
                     </div>
                 {{/layout-push}}
                 {{#layout-push direction='row' split=true mid=true classNames="file-upload-view-btn"}}
-                    {{#file-upload name="file-cpa" multiple=false onfileadd=(action "uploadCpaFile" ) accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" as |queue|}}
+                    {{#file-upload name="file-cpa" multiple=false onfileadd=(action "uploadPanelFile" ) accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" as |queue|}}
                         {{#if queue.files.length}}
                             <div local-class="upload-progress-container">
                                 <div local-class="upload-progress">
@@ -40,12 +40,12 @@
                                 </div>
                             </div>
                         {{else}}
-                            {{#unless filecpa }}
+                            {{#unless filepanel }}
                                 <span local-class="click-upload"><a>选择文件</a></span>
                             {{else}}
                                 <span local-class="click-upload">
-                                    {{#if filecpa}} {{filecpa}} {{/if}}
-                                    <a local-class="delete" {{action "deleteCpaFile"}}>删除文件</a>
+                                    {{#if filepanel}} {{filepanel}} {{/if}}
+                                    <a local-class="delete" {{action "deletePanelFile"}}>删除文件</a>
                                 </span>
                             {{/unless}}
                         {{/if}}

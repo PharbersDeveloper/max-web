@@ -9,6 +9,8 @@ export default DS.Model.extend({
     date: DS.attr('string'),
     cpa: DS.attr('string'),
     gycx: DS.attr('string'),
+    panel: DS.attr('string'),
+    panelfime: DS.attr("string"),
     not_arrival_hosp_file: DS.attr('string'),
     yms: DS.attr('string'),
     message: DS.attr('string')
