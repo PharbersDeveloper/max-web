@@ -7,7 +7,7 @@ export default Route.extend({
 	actions: {
 		login(username, pwd) {
 			let req = this.store.createRecord('request', {
-				res: 'PHProfile',
+				res: 'PhProfile',
 			});
 			//要发送的数据格式
 			let eqValues = [
@@ -23,12 +23,13 @@ export default Route.extend({
 				}))
 			})
 			//遍历数组
-			console.log(req);
 			let result = this.store.object2JsonApi('request', req);
+			console.log(result);
 			//转成jsonAPI格式
 			// result是request
 			this.store.queryObject('/api/v1/maxlogin/0', 'phauth', result)
 				.then((result) => {
+					console.log(result);
 					if (result.token !== '') {
 						this.get('cookies').write('token', result.token, { path: '/' });
 						this.transitionTo('data-center');
