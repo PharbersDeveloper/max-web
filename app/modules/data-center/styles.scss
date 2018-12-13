@@ -9,10 +9,11 @@
     width: auto;
     background-color: $ph-color-assist-bg;
     padding: 0 24px;
-    
+
     p {
         margin: 0;
     }
+
     .content-title {
         padding-left: 40px;
         height: 50px;
@@ -22,7 +23,6 @@
         letter-spacing: 2.4px;
         color: $ph-fc-title;
         background-color: $ph-color-assist-card;
-        // border-bottom: 2px solid #eee;
     }
 
     .content-detail {
@@ -38,11 +38,12 @@
         align-items: center;
         background-color: $ph-color-assist-card;
         margin-bottom: 16px;
-    
-        button{
+
+        button {
             margin: 0 8px;
         }
-        :global(.data-center-choosebar-left){
+
+        :global(.data-center-choosebar-left) {
             align-items: center;
 
             .choose-market {
@@ -53,12 +54,13 @@
                 border: 1px solid $border-color;
                 border-radius: 4px;
                 background-color: #fff;
-    
+
                 option {
                     font-size: 20px;
                     text-align: center;
                 }
             }
+
             .time-selects {
                 display: inline-block;
                 height: 40px;
@@ -68,7 +70,7 @@
                 border-radius: 4px;
                 font-size: 0;
                 margin-right: 8px;
-    
+
                 & input {
                     width: 100px;
                     height: 34px;
@@ -77,7 +79,7 @@
                     font-size: 1.4rem;
                     letter-spacing: 1.2px;
                 }
-    
+
                 & .middle-text {
                     display: inline-block;
                     padding: 0 5px;
@@ -97,7 +99,7 @@
                 margin-left: 8px;
                 margin-bottom: 0;
             }
-    
+
             .choose-select {
                 width: 200px;
                 height: 40px;
@@ -107,16 +109,17 @@
                 border-radius: 4px;
                 background-color: $ph-color-assist-card;
                 margin-right: 8px;
-    
+
                 option {
                     height: 20px;
                     text-align: center;
                 }
             }
         }
-        :global(.data-center-choosebar-right){
+
+        :global(.data-center-choosebar-right) {
             margin-right: 24px;
-    
+
             .btn-add-data {
                 height: 42px;
                 border: 1px solid #eee;
@@ -124,7 +127,7 @@
                 cursor: pointer;
                 background-color: gray;
             }
-    
+
             .add-data-content {
                 display: inline-block;
                 height: 40px;
@@ -133,7 +136,7 @@
                 font-size: $ph-fs-title;
                 color: $ph-color-assist-card;
             }
-    
+
             .left-section {
                 padding-left: 8px;
                 width: 30px;
@@ -143,10 +146,12 @@
         }
     }
 }
+
 // 添加数据弹框的按钮
 .btn-choose-add-data {
     margin: 20px 0;
     text-align: center;
+
     button {
         width: 145px;
     }
