@@ -1,7 +1,27 @@
 {{step-flow stepOne=true stepTwo=false stepThree=false stepFour=false}}
 {{#layout-push direction='row' classNames="layout-flex-outer"}}
-    {{#layout-push direction='row' classNames="layout-flex-inner"}}
-        {{upload-file-panel next=(action 'next')}}
-    {{/layout-push}}
+	{{#layout-push direction='row' classNames="layout-flex-inner"}}
+		{{upload-file-panel next=(action 'next')}}
+	{{/layout-push}}
 {{/layout-push}}
-{{outlet}}
+{{#bs-modal
+	fade=false 
+	backdropClose=false 
+	open=marketAndTime 
+	onHidden=(action (mut marketAndTime) false) as |modal|}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			输入市场以及时间
+		</h4>
+	{{/modal.header}}
+	{{#modal.body}}
+		<p>请输入市场 <span>(例如:麻醉市场)</span> </p>
+		<p>{{input type="text"}}</p>
+		<p>请输入时间 <span>(例如：201801)</span> </p>
+		<p>{{input type="text"}}</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bs-button class="btn-only-text" onClick=(action modal.close)}}取消{{/bs-button}}
+		{{#bs-button onClick=(action 'nextStep')}}确定{{/bs-button}}
+	{{/modal.footer}}
+{{/bs-modal}}

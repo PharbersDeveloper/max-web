@@ -5,6 +5,7 @@ export default Controller.extend({
 	init() {
 		this._super(...arguments);
 		this.getData();
+		this.set('marketAndTime', false);
 	},
 	getData() {
 		let company_id = localStorage.getItem('company_id');
@@ -22,10 +23,12 @@ export default Controller.extend({
 	},
 	actions: {
 		next(panel) {
-            /**
-             * 临时跳转
-             */
-			// this.transitionToRoute('/add-data/check-sample-panel');
+			this.set('panel', panel);
+			this.set('marketAndTime', true);
+			console.log('marketAndTime');
+		},
+		nextStep() {
+			let panel = this.get('panel');
             /**
              * 原逻辑
              */
@@ -41,20 +44,14 @@ export default Controller.extend({
 			this.store.peekAll('phmaxjob').lastObject.set('panel', '');
 			this.store.peekAll('phmaxjob').lastObject.set('panelfime', '');
 
-			console.log(result);
 			this.store.queryObject('/api/v1/maxjobpushpanel/0', 'phmaxjob', result).then((resp) => {
-				
 				// if (!isEmpty(resp.data.attrubutes.panel)) {
 				// localStorage.setItem('not_arrival_hosp_file', resp.not_arrival_hosp_file);
 				console.log(resp);
 				console.log(resp.panel);
 				console.log(resp.panelfime);
-
 				localStorage.setItem('panel', resp.panel);
 				this.transitionToRoute('/add-data/check-sample-panel');
-				// } else {
-				//     console.log("error route!!!!!");
-				// }
 			})
 
 		}

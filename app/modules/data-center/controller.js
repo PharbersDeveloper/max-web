@@ -75,7 +75,6 @@ export default Controller.extend({
 		},
 		panelFile() {
 			this.transitionToRoute('add-data.uploadfiles-panel');
-
 		},
 		doPageSearch(currentPage, pn) {
 			this.set('currentPage', currentPage)
