@@ -25,16 +25,17 @@ export default Controller.extend({
 		next(panel) {
 			this.set('panel', panel);
 			this.set('marketAndTime', true);
-			console.log('marketAndTime');
 		},
 		nextStep() {
 			let panel = this.get('panel');
+			let market = this.get('panelMarket');
+			let month = this.get('panelMonth');
             /**
              * 原逻辑
              */
 			this.store.peekAll('phmaxjob').lastObject.set('panel', panel);
-			this.store.peekAll('phmaxjob').lastObject.set('panelfime', panel);
-
+			this.store.peekAll('phmaxjob').lastObject.set('panelMkt', market);
+			this.store.peekAll('phmaxjob').lastObject.set('yms', month);
 			this.store.peekAll('phmaxjob').lastObject.set('call', 'ymCalc');
 			let req = this.store.peekAll('phmaxjob').lastObject;
 			let result = this.store.object2JsonApi('phmaxjob', req, false);
@@ -42,8 +43,9 @@ export default Controller.extend({
 
 			// TODO：Alex这块儿可能有问题
 			this.store.peekAll('phmaxjob').lastObject.set('panel', '');
-			this.store.peekAll('phmaxjob').lastObject.set('panelfime', '');
-
+			// this.store.peekAll('phmaxjob').lastObject.set('panelfime', '');
+			this.store.peekAll('phmaxjob').lastObject.set('panelMkt', '');
+			this.store.peekAll('phmaxjob').lastObject.set('yms', '');
 			this.store.queryObject('/api/v1/maxjobpushpanel/0', 'phmaxjob', result).then((resp) => {
 				// if (!isEmpty(resp.data.attrubutes.panel)) {
 				// localStorage.setItem('not_arrival_hosp_file', resp.not_arrival_hosp_file);
