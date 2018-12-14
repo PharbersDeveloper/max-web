@@ -1,41 +1,46 @@
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
-// import {request} from '../request/model';
+import { inject as service } from '@ember/service';
+import { A } from '@ember/array';
 
 export default Route.extend({
-	cookies: inject(),
+	landing_route: service(),
+	landing_controller: service(),
+	setupController(controller, model) {
+		this._super(controller, model);
+		// this.controllerFor('application')
+	},
+	model() {
+		// 你的逻辑
+	},
 	actions: {
+		// 你的动作
 		login(username, pwd) {
-			let req = this.store.createRecord('request', {
+			let req = this.get('landing_controller').createModel('request', {
+				id: 'phpid',
 				res: 'PhProfile',
-			});
-			//要发送的数据格式
-			let eqValues = [
-				{ type: 'eqcond', key: 'username', val: username },
-				{ type: 'eqcond', key: 'password', val: pwd }
-			]
-			//组建的一对多的关系
-			eqValues.forEach((elem, index) => {
-				req.get(elem.type).pushObject(this.store.createRecord(elem.type, {
-					key: elem.key,
-					val: elem.val,
-					category: elem.category || null
-				}))
-			})
-			//遍历数组
-			let result = this.store.object2JsonApi('request', req);
-			console.log(result);
-			//转成jsonAPI格式
-			// result是request
-			this.store.queryObject('/api/v1/maxlogin/0', 'phauth', result)
-				.then((result) => {
-					console.log(result);
-					if (result.token !== '') {
-						this.get('cookies').write('token', result.token, { path: '/' });
-						this.transitionTo('data-center');
-					}
-				})
+				eqcond: A([
+					this.get('landing_controller').createModel('eqcond', {
+						id: 'equsername',
+						key: 'username',
+						val: username
+					}),
+					this.get('landing_controller').createModel('eqcond', {
+						id: 'eqpassword',
+						key: 'password',
+						val: pwd
+					})
+				]),
 
+			});
+			let result = this.get('landing_route').object2JsonApi(req);
+
+			this.get('landing_route').queryObject('api/v1/maxlogin/0', 'phauth', result)
+			// .then((result) => {
+			// 	if (result.token !== '') {
+			// 		this.get('cookies').write('token', result.token, { path: '/' });
+			// 		this.transitionTo('data-center');
+			// 	}
+			// })
 		}
 	}
 });

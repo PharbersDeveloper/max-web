@@ -1,28 +1,15 @@
-import DS from 'ember-data';
-import { inject } from '@ember/service';
+import PharbersAdapter from 'pharbers-emberbasis-library/adapters/phadapter';
+import cookie from 'pharbers-ember-util-package/cookies';
 
-export default DS.JSONAPIAdapter.extend({
-    cookies: inject(),
-    condition(query) {
-        return {
-            data: query
-        }
-    },
-    headers: {
-        "dataType": 'json',
-        "contentType": 'application/json',
-        "Content-Type": 'application/json'
-    },
-    queryObject(url, store, type, jsonObject) {
-        this.set('headers.Authorization', "bearer " + this.get('cookies').read('token'))
-		return this.ajax(url, 'POST', this.get('condition')(jsonObject));
-	},
-    queryMultipleObject(url, store, type, jsonObject) {
-        this.set('headers.Authorization', "bearer " + this.get('cookies').read('token'))
-		return this.ajax(url, 'POST', this.get('condition')(jsonObject));
-	},
-    transaction(url, store, type, jsonObject) {
-        this.set('headers.Authorization', "bearer " + this.get('cookies').read('token'))
-		return this.ajax(url, 'POST', this.get('condition')(jsonObject));
-	},
+export default PharbersAdapter.extend({
+	namespace: '/',
+	init() {
+		//cookie.create().read('token')
+		this.set('headers', {
+			'dataType': 'json',
+			'contentType': 'application/json',
+			'Content-Type': 'application/json',
+			'Authorization': `bearer 5c138ef2ffc97ba8e165b5a8b256df71`
+		});
+	}
 });
