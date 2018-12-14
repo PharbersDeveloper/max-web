@@ -21,14 +21,14 @@
 				{{base-button type="default" content="导出" onClick=(action 'outputData')}}
 			{{/layout-push}}
 			{{#layout-push direction='row' classNames="data-center-choosebar-right"}}
-				<div local-class="btn-add-data" {{action 'addData'}}>
-					<div local-class="add-data-content left-section">
+				<button local-class="btn-add-data" {{action 'addData'}}>
+					<span local-class="add-data-content left-section">
 						+
-					</div>
-					<div local-class="add-data-content right-section">
+					</span>
+					<span local-class="add-data-content right-section">
 						添加数据
-					</div>
-				</div>
+					</span>
+				</button>
 			{{/layout-push}}
 		{{/layout-push}}
 		{{outlet}}
@@ -71,10 +71,9 @@
 {{#bs-modal-simple fade=false open=error title="提示" closeTitle="确定" onHidden=(action (mut error) false)}}
 	<p>{{errorMessage}}</p>
 {{/bs-modal-simple}}
-{{#bs-modal open=chooseAddData  onHidden=(action (mut modal3) false) as |modal|}}
+{{#bs-modal open=chooseAddData  onHidden=(action (mut chooseAddData) false) as |modal|}}
 	{{#modal.header}}
 		<h4 class="modal-title">
-			{{!-- {{t 'biDashboard.common.changeFilterCondition' }} --}}
 			选择添加方式
 		</h4>
 	{{/modal.header}}
@@ -84,8 +83,4 @@
 			{{base-button local-class="btn-choose-add-data" type="default" content="panel文件上传" onClick=(action 'panelFile')}}
 		{{/layout-push}}
 	{{/modal.body}}
-	{{!-- {{#modal.footer}}
-        {{#bs-button onClick=(action modal.close)}}{{t 'biDashboard.common.cancel' }}{{/bs-button}}
-        {{#bs-button type="success" onClick=(action modal.submit ) }}{{t 'biDashboard.common.save' }}{{/bs-button}}
-    {{/modal.footer}} --}}
 {{/bs-modal}}
