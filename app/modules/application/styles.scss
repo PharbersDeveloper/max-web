@@ -19,11 +19,11 @@ html {
 
 body {
     height: 100%;
-    font-family: $font-family!important;
+    font-family: $font-family !important;
     letter-spacing: $ph-letter-spacing-normal;
 
-    & > :global(.ember-view) {
-    height: 100%;
+    &> :global(.ember-view) {
+        height: 100%;
     }
 }
 
@@ -38,6 +38,7 @@ body {
     color: #676767 !important;
     background-color: transparent !important;
 }
+
 /**
 *
 * btn max 基本样式
@@ -57,9 +58,10 @@ body {
 a:hover {
     text-decoration: none;
 }
+
 /**
 *
-*btn.active style
+* btn.active style
 */
 :global(.btn-default.active) {
     background-color: $btn-bgcolor !important;
@@ -79,6 +81,7 @@ a:hover {
     top: 30%;
     // transform: translateY(-50%);
 }
+
 :global(.modal-content) {
     left: 50%;
     transform: translateX(-50%);
@@ -86,7 +89,7 @@ a:hover {
 
 /**
 *
-*多选样式
+* 多选样式
 */
 .data-checkbox {
     width: 130px;
@@ -108,7 +111,7 @@ input[type="checkbox"] {
     background-color: #fff;
 }
 
-input[type="checkbox"]:checked + .checkbox-span:after {
+input[type="checkbox"]:checked+.checkbox-span:after {
     content: "";
     display: inline-block;
     height: 14px;
@@ -118,9 +121,9 @@ input[type="checkbox"]:checked + .checkbox-span:after {
 
 // // 标准化modal弹窗样式
 // :global(.modal.in) {
-    
+
 //     :global(.modal-dialog) {
-        
+
 //         :global(.modal-content) {
 //             border: none;
 //             border-radius: 0;
@@ -134,7 +137,7 @@ input[type="checkbox"]:checked + .checkbox-span:after {
 //                 padding: 16px;
 //                 margin: 0;
 //                 height: 54px;
-                
+
 //                 :global(.modal-title) {
 //                     color: $ph-fc-title;
 //                     font-size: $ph-fs-title;
@@ -145,7 +148,7 @@ input[type="checkbox"]:checked + .checkbox-span:after {
 //                     display: none;
 //                 }
 //             }
-            
+
 //             :global(.modal-body) {
 //                 border: none;
 //                 color: $ph-fc-title;
@@ -153,12 +156,12 @@ input[type="checkbox"]:checked + .checkbox-span:after {
 //                 margin: 0;
 //                 padding: 0 16px;
 //                 min-height: 100px;
-                
+
 //                 p {
 //                     margin: 0;
 //                 }
 //             }
-            
+
 //             :global(.modal-footer) {
 //                 border: none;
 //                 border-top: none;
