@@ -73,8 +73,8 @@
         "ember-css-modules-sass": "^1.0.1",
         "express": "^4.16.3",
         "pharbers-ember-xmpp-addon": "1.0.0",
-        "pharbers-standard-base-addon": "*",
-        "pharbers-route-addon": "*"
+        "pharbers-emberbasis-library": "^2.0.0",
+        "pharbers-standard-base-addon": "*"
     },
     "bugs": {
         "url": "https://github.com/Faiz2/max-web/issues"
