@@ -1,90 +1,90 @@
 {{nav-bar data=model isShow=false }}
 <div local-class="wrapper-container">
-    {{left-nav data=model}}
-    <div local-class="wrapper-content">
-        <p local-class="content-title">
-            <p><span class="glyphicon glyphicon-th"></span>&nbsp;数据工具</p>
-        </p>
-        {{#layout-push direction='row' classNames="data-center-choosebar"}}
-            {{#layout-push direction='row' classNames="data-center-choosebar-left"}}
-                <span local-class="select-title">市场</span>
-                {{base-select title="" selected=market onChange=(action (mut market)) options=markets}}
-                <span local-class="select-title">时间选择</span>
-                <div local-class="time-selects" class="input-group input-daterange">
-                    {{bootstrap-datepicker changeMonth="changeStartMonth" value='2018-01' autoclose=true minViewMode=1
+	{{left-nav data=model}}
+	<div local-class="wrapper-content">
+		<p local-class="content-title">
+			<p><span class="glyphicon glyphicon-th"></span>&nbsp;数据工具</p>
+		</p>
+		{{#layout-push direction='row' classNames="data-center-choosebar"}}
+			{{#layout-push direction='row' classNames="data-center-choosebar-left"}}
+				<span local-class="select-title">市场</span>
+				{{base-select title="" selected=market onChange=(action (mut market)) options=markets}}
+				<span local-class="select-title">时间选择</span>
+				<div local-class="time-selects" class="input-group input-daterange">
+					{{bootstrap-datepicker changeMonth="changeStartMonth" value='2018-01' autoclose=true minViewMode=1
             format="mm/yyyy" keyboardNavigation=true language="zh-CN"}}
-                    <span local-class="middle-text">to</span>
-                    {{bootstrap-datepicker name='endDate' changeMonth="changeEndMonth" value='endDate' autoclose=true
+					<span local-class="middle-text">to</span>
+					{{bootstrap-datepicker name='endDate' changeMonth="changeEndMonth" value='endDate' autoclose=true
             minViewMode=1 format="mm/yyyy" language="zh-CN"}}
-                </div>
-                {{base-button type="default" content="查询" onClick=(action 'search')}}
-                {{base-button type="default" content="导出" onClick=(action 'outputData')}}
-            {{/layout-push}}
-            {{#layout-push direction='row' classNames="data-center-choosebar-right"}}
-                <div local-class="btn-add-data" {{action 'addData'}}>
-                    <div local-class="add-data-content left-section">
-                        +
-                    </div>
-                    <div local-class="add-data-content right-section">
-                        添加数据
-                    </div>
-                </div>
-            {{/layout-push}}
-        {{/layout-push}}
-        {{outlet}}
-    </div>
+				</div>
+				{{base-button type="default" content="查询" onClick=(action 'search')}}
+				{{base-button type="default" content="导出" onClick=(action 'outputData')}}
+			{{/layout-push}}
+			{{#layout-push direction='row' classNames="data-center-choosebar-right"}}
+				<div local-class="btn-add-data" {{action 'addData'}}>
+					<div local-class="add-data-content left-section">
+						+
+					</div>
+					<div local-class="add-data-content right-section">
+						添加数据
+					</div>
+				</div>
+			{{/layout-push}}
+		{{/layout-push}}
+		{{outlet}}
+	</div>
 </div>
 {{#if loading}}
-    <div local-class="loading">
-        <div local-class="loading-mask">&nbsp;</div>
-        <div local-class="spinner">
-            <div local-class="rect1"></div>
-            <div local-class="rect2"></div>
-            <div local-class="rect3"></div>
-            <div local-class="rect4"></div>
-            <div local-class="rect5"></div>
-        </div>
-    </div>
+	<div local-class="loading">
+		<div local-class="loading-mask">&nbsp;</div>
+		<div local-class="spinner">
+			<div local-class="rect1"></div>
+			<div local-class="rect2"></div>
+			<div local-class="rect3"></div>
+			<div local-class="rect4"></div>
+			<div local-class="rect5"></div>
+		</div>
+	</div>
 {{/if}}
 {{#bs-modal fade=false backdropClose=false open=output onHidden=(action (mut output) false) as |modal|}}
-    {{#modal.header}}
-        <h4 class="modal-title">
-            导出
-        </h4>
-    {{/modal.header}}
-    {{#modal.body}}
-        <p local-class="modal-content-line">
-            <span>内容格式</span>
-            {{base-select title="" selected=outputTypeValue onChange=(action (mut outputTypeValue)) options=outputType}}
-        </p>
-        <p local-class="modal-content-line">
-            <span>文件格式</span>
-            <input type="radio" checked="true" id="filecsv" name="fileformat">
-            <label for="filecsv"> <span></span> CSV</label>
-        </p>
-    {{/modal.body}}
-    {{#modal.footer}}
-        {{#bs-button class="btn-only-text" onClick=(action modal.close)}}取消{{/bs-button}}
-        {{#bs-button onClick=(action 'outputFile')}}导出{{/bs-button}}
-    {{/modal.footer}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			导出
+		</h4>
+	{{/modal.header}}
+	{{#modal.body}}
+		<p local-class="modal-content-line">
+			<span>内容格式</span>
+			{{base-select title="" selected=outputTypeValue onChange=(action (mut outputTypeValue)) options=outputType}}
+		</p>
+		<p local-class="modal-content-line">
+			<span>文件格式</span>
+			<input type="radio" checked="true" id="filecsv" name="fileformat">
+			<label for="filecsv"> <span></span> CSV</label>
+		</p>
+	{{/modal.body}}
+	{{#modal.footer}}
+		{{#bs-button class="btn-only-text" onClick=(action modal.close)}}取消{{/bs-button}}
+		{{#bs-button onClick=(action 'outputFile')}}导出{{/bs-button}}
+	{{/modal.footer}}
 {{/bs-modal}}
 {{#bs-modal-simple fade=false open=error title="提示" closeTitle="确定" onHidden=(action (mut error) false)}}
-    <p>{{errorMessage}}</p>
+	<p>{{errorMessage}}</p>
 {{/bs-modal-simple}}
 {{#bs-modal open=chooseAddData  onHidden=(action (mut modal3) false) as |modal|}}
-    {{#modal.header}}
-        <h4 class="modal-title">
-            {{!-- {{t 'biDashboard.common.changeFilterCondition' }} --}}
-            选择添加方式
-        </h4>
-    {{/modal.header}}
-    {{#modal.body}}
-        {{#layout-push direction="col" split=true mid=true}}
-            {{base-button local-class="btn-choose-add-data" type="default" content="源文件上传" onClick=(action 'originalFile')}}
-            {{base-button local-class="btn-choose-add-data" type="default" content="panel文件上传" onClick=(action 'panelFile')}}
-        {{/layout-push}}
-    {{/modal.body}}
-    {{!-- {{#modal.footer}}
+	{{#modal.header}}
+		<h4 class="modal-title">
+			{{!-- {{t 'biDashboard.common.changeFilterCondition' }} --}}
+			选择添加方式
+		</h4>
+	{{/modal.header}}
+	{{#modal.body}}
+		{{#layout-push direction="col" split=true mid=true}}
+			{{base-button local-class="btn-choose-add-data" type="default" content="源文件上传" onClick=(action 'originalFile')}}
+			{{base-button local-class="btn-choose-add-data" type="default" content="panel文件上传" onClick=(action 'panelFile')}}
+		{{/layout-push}}
+	{{/modal.body}}
+	{{!-- {{#modal.footer}}
         {{#bs-button onClick=(action modal.close)}}{{t 'biDashboard.common.cancel' }}{{/bs-button}}
         {{#bs-button type="success" onClick=(action modal.submit ) }}{{t 'biDashboard.common.save' }}{{/bs-button}}
     {{/modal.footer}} --}}

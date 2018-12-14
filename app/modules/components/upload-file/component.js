@@ -18,7 +18,7 @@ export default Component.extend({
 	errorMessage: '',
 	filecpa: "",
 	filegycx: "",
-	GetAjaxOpt(data){
+	GetAjaxOpt(data) {
 		return {
 			method: 'POST',
 			dataType: "json",
@@ -35,7 +35,7 @@ export default Component.extend({
 		},
 		// 上传cpa文件
 		uploadCpaFile(file) {
-			return file.upload('/upload').then(({
+			return file.upload('/maxupload').then(({
 				body: {
 					result,
 					error,
@@ -59,7 +59,7 @@ export default Component.extend({
 					this.set('uploadError', true);
 					this.set('errorMessage', error.message);
 				}
-			}, () => {});
+			}, () => { });
 		},
 		//  删除cpa文件 （伪）只是将名字置为“”空。
 		deleteCpaFile() {
@@ -75,7 +75,7 @@ export default Component.extend({
 		//  上传gycx文件
 		uploadGycxFile(file) {
 
-			return file.upload('/upload').then(({
+			return file.upload('/maxupload').then(({
 				body: {
 					result,
 					error,
@@ -103,7 +103,7 @@ export default Component.extend({
 					this.set('uploadError', true);
 					this.set('errorMessage', error.message);
 				}
-			}, () => {});
+			}, () => { });
 		},
 		//  删除gycx 文件 （伪）只是将名字置为“”空。
 		deleteGycxFile() {
@@ -124,7 +124,7 @@ export default Component.extend({
 		next() {
 			let cpa = this.get('filecpa');
 			let gycx = this.get('filegycx');
-			this.sendAction('next',cpa,gycx);
+			this.sendAction('next', cpa, gycx);
 		}
 	}
 });
