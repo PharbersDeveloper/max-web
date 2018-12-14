@@ -10043,10 +10043,10 @@ pharbers-ember-xmpp-addon@1.0.0:
     ember-cli-htmlbars "^2.0.1"
     strophe.js "^1.2.15"
 
-pharbers-emberbasis-library@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/pharbers-emberbasis-library/-/pharbers-emberbasis-library-2.0.0.tgz#df89d997005f728fd149750ba13ab106c3719226"
-  integrity sha512-GTdqq4qgN0v4kN8cqn+V0YBl3fHDqZ38takl654tgAj4KNDpsG/rrWg/MM4z8yBiBz/bEMdjAumcObXdTeckPw==
+pharbers-emberbasis-library@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/pharbers-emberbasis-library/-/pharbers-emberbasis-library-2.0.1.tgz#7e18aa22c1a04f31eb01554df9aa4d1a606e1df4"
+  integrity sha512-b3qrSugnuHqpGGTVx7lcEykk/wwHf2qpxJH77UGgs//l03YqR9OmtwEoJpPAII1rrxR2MmN9hle1wb+O1wMfgQ==
   dependencies:
     ember-auto-import "^1.2.13"
     ember-cli-babel "^7.1.2"

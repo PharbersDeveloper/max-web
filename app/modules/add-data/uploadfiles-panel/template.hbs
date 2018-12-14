@@ -16,12 +16,12 @@
 	{{/modal.header}}
 	{{#modal.body}}
 		<p>请输入市场 <span>(例如:麻醉市场)</span> </p>
-		<p>{{input type="text"}}</p>
+		<p>{{input type="text" value=panelMarket}}</p>
 		<p>请输入时间 <span>(例如：201801)</span> </p>
-		<p>{{input type="text"}}</p>
+		<p>{{input type="text" value=panelMonth}}</p>
 	{{/modal.body}}
 	{{#modal.footer}}
 		{{#bs-button class="btn-only-text" onClick=(action modal.close)}}取消{{/bs-button}}
-		{{#bs-button onClick=(action 'nextStep')}}确定{{/bs-button}}
+		{{#bs-button onClick=(action 'nextStep' )}}确定{{/bs-button}}
 	{{/modal.footer}}
 {{/bs-modal}}
