@@ -4,12 +4,12 @@ import cookie from 'pharbers-ember-util-package/cookies';
 export default PharbersAdapter.extend({
 	namespace: '/',
 	init() {
-		console.info("0000");
+		//cookie.create().read('token')
 		this.set('headers', {
 			'dataType': 'json',
 			'contentType': 'application/json',
 			'Content-Type': 'application/json',
-			'Authorization': `bearer ${cookie.create().read('token')}`
+			'Authorization': `bearer 5c138ef2ffc97ba8e165b5a8b256df71`
 		});
 	}
 });

@@ -33,17 +33,14 @@ export default Route.extend({
 
 			});
 			let result = this.get('landing_route').object2JsonApi(req);
-			// eslint-disable-next-line no-debugger
-			debugger
-			console.info(this.store.adapterFor('phauth'))
-			this.get('landing_route').queryObject('/api/v1/maxlogin/0', 'phauth', result)
-			// 	.then((result) => {
-			// 		console.log(result);
-			// 		if (result.token !== '') {
-			// 			this.get('cookies').write('token', result.token, { path: '/' });
-			// 			this.transitionTo('data-center');
-			// 		}
-			// 	})
+
+			this.get('landing_route').queryObject('api/v1/maxlogin/0', 'phauth', result)
+			// .then((result) => {
+			// 	if (result.token !== '') {
+			// 		this.get('cookies').write('token', result.token, { path: '/' });
+			// 		this.transitionTo('data-center');
+			// 	}
+			// })
 		}
 	}
 });
