@@ -1,11 +1,11 @@
 import Controller from '@ember/controller';
-import {
-    inject
-} from '@ember/service';
+import { inject as service} from '@ember/service';
 import { computed } from '@ember/object';
+
 export default Controller.extend({
-    ajax: inject(),
-    cookies: inject(),
+    data_center_route: service(),
+    data_center_controller: service(),
+    ajax: service(),
     activeCi: true,
     market: '麻醉市场',
     cityRankTag: 'citySales',
@@ -70,7 +70,7 @@ export default Controller.extend({
     queryMarketProdCards() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market')
             }
@@ -95,7 +95,7 @@ export default Controller.extend({
     queryMixedGraph() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
             }
@@ -120,7 +120,7 @@ export default Controller.extend({
     queryMarketSalesTable() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
             }
@@ -146,7 +146,7 @@ export default Controller.extend({
     queryPerMarketShare() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market')
             }
@@ -173,7 +173,7 @@ export default Controller.extend({
     queryMarketRank() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
                 "tag": this.get('cityRankTag')
@@ -201,7 +201,7 @@ export default Controller.extend({
     queryProdCards() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
                 "city": this.get('city')
@@ -229,7 +229,7 @@ export default Controller.extend({
     queryProdTrend() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
                 "city": this.get('city')
@@ -255,7 +255,7 @@ export default Controller.extend({
     queryProdMostCards() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
                 "city": this.get('city')
@@ -280,7 +280,7 @@ export default Controller.extend({
     queryPerProductShare() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
                 "city": this.get('city')
@@ -307,7 +307,7 @@ export default Controller.extend({
     queryProductRank() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
                 "city": this.get('city'),
@@ -339,7 +339,7 @@ export default Controller.extend({
     queryProductSalesTable() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
                 "city": this.get('city')
@@ -361,7 +361,7 @@ export default Controller.extend({
     queryAllProdTrend() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market'),
                 "tag": this.get('trendTag')
@@ -383,7 +383,7 @@ export default Controller.extend({
     queryMarket() {
         // let condition = {
         //     "condition": {
-        //         "user_id": this.get('cookies').read('uid')
+        //         "user_id": this.get('cookie').read('uid')
         //     }
         // }
         // this.get('ajax').request('api/search/market/all', this.getAjaxOpt(condition))
@@ -402,7 +402,7 @@ export default Controller.extend({
         //     .then(this.queryMarketCity());
 
 
-            
+
         // .then(this.queryProdCards())
         // .then(this.queryProdTrend())
         // .then(this.queryProdMostCards())
@@ -418,7 +418,7 @@ export default Controller.extend({
     queryMarketCity() {
         let condition = {
             "condition": {
-                "user_id": this.get('cookies').read('uid'),
+                "user_id": this.get('cookie').read('uid'),
                 "time": this.get('time'),
                 "market": this.get('market')
             }
@@ -654,8 +654,8 @@ export default Controller.extend({
                     value: 546872,
                     unit: 'mil'
                 },
-                { 
-                    key: '产品份额', 
+                {
+                    key: '产品份额',
                     value: '26',
                     unit: '%'
                 }
@@ -670,8 +670,8 @@ export default Controller.extend({
                     value: 546872,
                     unit: 'mil'
                 },
-                { 
-                    key: '产品份额', 
+                {
+                    key: '产品份额',
                     value: '26',
                     unit: '%'
                 }
@@ -686,8 +686,8 @@ export default Controller.extend({
                     value: 546872,
                     unit: 'mil'
                 },
-                { 
-                    key: '产品份额', 
+                {
+                    key: '产品份额',
                     value: '26',
                     unit: '%'
                 }
