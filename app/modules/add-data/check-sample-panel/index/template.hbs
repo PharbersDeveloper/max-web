@@ -14,16 +14,13 @@
             {{/layout-push}}
             {{#layout-push direction='row' classNames="generate-sample-big-btn"}}
                 {{#unless SampleObject.isShowProgress}}
-                    {{!-- <div local-class="btn-start" {{action "startParsingFile"}}> --}}
                     <div local-class="btn-start" {{action "startPanel"}}>
                         <div local-class="btn-start-content">
                             开始
                         </div>
                     </div>
                 {{/unless}}
-                {{!-- {{#if SampleObject.calcYearsProgress}}
-                    {{progress-bar newAngle=ymPercentage}}
-                {{/if}} --}}
+
                 {{#if SampleObject.calcPanelProgress}}
                     {{progress-bar newAngle=panelPercentage}}
                 {{/if}}
@@ -31,11 +28,9 @@
             {{#layout-push direction='row' classNames="generate-sample-reupload-btn"}}
                 {{#if (gt panelPercentage 0 )}}
                     <p>正在解析您的源文件...</p>
-                    {{!-- {{base-button type="text" content="正在解析您的源文件..." }} --}}
                 {{else}}
                     {{base-button type="link" content="上传错误？重新上传" onClick=(action (mut uploadAgain) true)}}
                 {{/if}}
-                {{!-- {{base-button type="link" content="上传错误？重新上传" onClick=(action (mut uploadAgain) true)}} --}}
             {{/layout-push}}
         {{/layout-push}}
     {{/layout-push}}
@@ -60,33 +55,6 @@
         {{base-button type="" content="重新上传" onClick=(action 'uploadFileAgain' modal)}}
     {{/modal.footer}}
 {{/bs-modal}}
-{{!-- 选择月份弹框 --}}
-{{!-- {{#bs-modal
-        fade=false
-        open=SampleObject.fileParsingSuccess
-        keyboard=false
-        backdropClose=false
-        onHidden=(action (mut SampleObject.fileParsingSuccess) false) as |modal|}}
-    {{#modal.header closeButton=false}}
-        <h4 class="modal-title">
-            选择月份
-        </h4>
-    {{/modal.header}}
-    {{#modal.body}}
-        <p>本次上传件中含以下几个月份，</p>
-        <p>请选择要进行计算的月份：（可多选）</p>
-        {{#each ymList as |item|}}
-            <label class="data-checkbox">
-                {{input type="checkbox" id=item.id name="year" checked=item.isChecked}}
-                <span class="checkbox-span"></span>{{item.value}}
-            </label>
-        {{/each}}
-    {{/modal.body}}
-    {{#modal.footer}}
-        {{base-button type="link" content="未显示需要的月份?" onClick=(action 'cantFindMonth')}}
-        {{base-button type="" content="确认" onClick=(action 'startGenerateSample')}}
-    {{/modal.footer}}
-{{/bs-modal}} --}}
 {{!-- 文件解析错误弹框 --}}
 {{#bs-modal
         fade=false
@@ -100,7 +68,6 @@
         </h4>
     {{/modal.header}}
     {{#modal.body}}
-        {{!-- <p local-class="download-model">下载文件格式范本</p> --}}
         <p>原因可能为：</p>
         <p>1.原文件格式可能有误。</p>
         <p>2.原文件不含有月份的数值。</p>
@@ -109,7 +76,6 @@
         <p>&nbsp;</p>
     {{/modal.body}}
     {{#modal.footer}}
-        {{!-- {{#bs-button onClick=(action 'uploadFileAgain' modal)}}重新上传{{/bs-button}} --}}
         {{base-button type="link" content="下载文件格式范本" onClick=""}}
         {{base-button type="" content="重新上传" onClick=(action 'uploadFileAgain' modal)}}
     {{/modal.footer}}
