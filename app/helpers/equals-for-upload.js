@@ -5,7 +5,7 @@ import { helper } from '@ember/component/helper';
  * @return {[type]}      [description]
  */
 export function equalsForUpload([arg1, arg2]) {
-  return arg1 === arg2;
+	return arg1 === arg2;
 }
 
 export default helper(equalsForUpload);

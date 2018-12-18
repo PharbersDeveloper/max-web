@@ -9,9 +9,9 @@ import Route from '@ember/routing/route';
 const MessageFactory = EmberObject.create({
     stack: [],
     register(instance) {
-        console.info('push fuck pick up instance ====> ' + instance)
+        this.get('logger').info('push fuck pick up instance ====> ' + instance)
         this.stack.pushObject(instance);
-        console.info('register instances ====>' + this.stack)
+        this.get('logger').info('register instances ====>' + this.stack)
     },
     unregisterLast() {
         this.stack.popObject();
@@ -20,14 +20,14 @@ const MessageFactory = EmberObject.create({
         let that = this;
         let msg2Json = JSON.parse(msg); //json
         // instance.set('message', msg2Json);
-        console.info('instances ====>' + this.stack)
-        console.info('instance ====>' + this.stack.lastObject)
+        this.get('logger').info('instances ====>' + this.stack)
+        this.get('logger').info('instance ====>' + this.stack.lastObject)
 
         this.stack.lastObject.set('message', msg2Json);
 
-        // console.info('instance ====> ' + this.stack.lastObject)
-        // console.info('instance ====> ' + this.stack.firstObject)
-        // console.info('instance ====> ' + this.stack.length)
+        // this.get('logger').info('instance ====> ' + this.stack.lastObject)
+        // this.get('logger').info('instance ====> ' + this.stack.firstObject)
+        // this.get('logger').info('instance ====> ' + this.stack.length)
     }
 });
 
@@ -37,7 +37,7 @@ export default Mixin.create({
         return this.xmpp.getConnection === undefined;
     }),
     xmppCallBack(instance) {
-        console.info('xmppCallBack instance ====> ' + instance)
+        this.get('logger').info('xmppCallBack instance ====> ' + instance)
         let that = this;
         MessageFactory.register(instance);
 
@@ -51,7 +51,7 @@ export default Mixin.create({
 			if (type == "chat" && elems.length > 0) {
 				var body = elems[0];
 
-				console.info('ECHOBOT: I got a message from ' + from + ': ' +
+				this.get('logger').info('ECHOBOT: I got a message from ' + from + ': ' +
 					that.get('xmpp').getText(body));
                 MessageFactory.doCall(that.get('xmpp').getText(body));
 			}

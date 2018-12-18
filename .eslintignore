@@ -2,4 +2,6 @@ tests/*
 config/*
 mirage/*
 app/app.js
-app/route.js
+app/router.js
+ember-cli-build.js
+package.json

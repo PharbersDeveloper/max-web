@@ -192,10 +192,10 @@ export default Controller.extend({
 
         let result = this.get('data_center_route').object2JsonApi(req);
 
-        // console.log(result);
+        // this.get('logger').log(result);
         this.get('data_center_route').queryObject('/api/v1/dashboard/saleData', 'tablesale', result)
             .then((result) => {
-                // console.log(result);
+                // this.get('logger').log(result);
                 this.set('prodSalesTitle', result.ProdSalesOverview);
                 if (result.ProdSalesTable.length !== 0) {
                     this.set('prodSalesLine', result.ProdSalesTable);

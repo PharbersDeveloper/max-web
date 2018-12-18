@@ -53,7 +53,7 @@ export default Component.extend({
 	}),
 	actions: {
 		onColumnClick(column) {
-			// console.log(column);
+			// this.get('logger').log(column);
 			if (column.sorted) {
 				this.setProperties({
 					dir: column.ascending ? 'asc' : 'desc',

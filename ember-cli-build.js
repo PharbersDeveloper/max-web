@@ -2,10 +2,9 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
 	// 判断是否需要sourceMaps
 	let sourceMap = process.env.EMBER_ENV === 'production' ? 'false' : 'inline';
-	console.info(sourceMap);
 	let app = new EmberApp(defaults, {
 		// Add options here
 		// minifyCSS: {
@@ -54,28 +53,28 @@ module.exports = function(defaults) {
 			sourceMaps: sourceMap
 		}
 	});
-	app.import("vendor/echarts/echarts.js")
-	app.import("vendor/echarts/china.js")
-	app.import("vendor/webim/config.js")
-	app.import("vendor/webim/strophe-1.2.8.min.js")
-	app.import("vendor/webim/websdk-1.4.13.js")
-	app.import("vendor/datepicker/datepicker.zh-CN.min.js")
+	app.import("vendor/echarts/echarts.js");
+	app.import("vendor/echarts/china.js");
+	app.import("vendor/webim/config.js");
+	app.import("vendor/webim/strophe-1.2.8.min.js");
+	app.import("vendor/webim/websdk-1.4.13.js");
+	app.import("vendor/datepicker/datepicker.zh-CN.min.js");
 
 	//layui-laydate
 	app.import("vendor/laydate/theme/default/font/iconfont.eot", {
 		destDir: '/assets/laydate/fonts'
-	})
+	});
 	app.import("vendor/laydate/theme/default/font/iconfont.svg", {
 		destDir: '/assets/laydate/fonts'
-	})
+	});
 	app.import("vendor/laydate/theme/default/font/iconfont.ttf", {
 		destDir: '/assets/laydate/fonts'
-	})
+	});
 	app.import("vendor/laydate/theme/default/font/iconfont.woff", {
 		destDir: '/assets/laydate/fonts'
-	})
-	app.import("vendor/laydate/theme/default/laydate.css")
-	app.import("vendor/laydate/laydate.js")
+	});
+	app.import("vendor/laydate/theme/default/laydate.css");
+	app.import("vendor/laydate/laydate.js");
 
 
 	return app.toTree();
