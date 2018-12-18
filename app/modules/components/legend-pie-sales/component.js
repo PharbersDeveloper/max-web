@@ -140,8 +140,8 @@ export default Component.extend({
 					html = htmlText(d, i),
 					titleDot = null;
 
-				d3.select(this).select('path').transition().attr('d', function (d) {
-					return arc2(d);
+				d3.select(this).select('path').transition().attr('d', function (dd) {
+					return arc2(dd);
 				});
 				// tooltip
 				d3.select('.sales-tooltips')

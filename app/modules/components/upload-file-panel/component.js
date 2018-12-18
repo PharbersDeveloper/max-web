@@ -10,7 +10,7 @@ export default Component.extend({
 	isDisabled: true, // 下一步按钮点击状态。
 	uploadError: false, // 上传Error后弹出modal
 	errorMessage: '',
-	filecpa: "",
+	filecpa: '',
 	actions: {
 		// 提示用户上传文件的弹窗
 		pleaseUploadFile() {
@@ -34,10 +34,11 @@ export default Component.extend({
 						// cpa: result,
 						panel: result,
 						status
-					}
+					};
 					// this.get('cookies').write('cpahash', success.cpa, {
 					//     path: '/'
 					// });
+
 					this.get('cookies').write('panelhash', success.panel, {
 						path: '/'
 					});
@@ -56,7 +57,7 @@ export default Component.extend({
 		//  删除cpa文件 （伪）只是将名字置为“”空。
 		deletePanelFile() {
 			// this.set('filecpa', "");
-			this.set('filepanel', "");
+			this.set('filepanel', '');
 
 			this.set('isDisabled', true);
 			// this.get('cookies').write('cpahash', "", {
@@ -65,10 +66,10 @@ export default Component.extend({
 			// this.get('cookies').write('filecpa', "", {
 			//     path: '/'
 			// });
-			this.get('cookies').write('panelhash', "", {
+			this.get('cookies').write('panelhash', '', {
 				path: '/'
 			});
-			this.get('cookies').write('filepanel', "", {
+			this.get('cookies').write('filepanel', '', {
 				path: '/'
 			});
 		},
@@ -77,6 +78,7 @@ export default Component.extend({
 		next() {
 			// let cpa = this.get('filecpa');
 			let panel = this.get('filepanel');
+
 			this.sendAction('next', panel);
 		}
 	}

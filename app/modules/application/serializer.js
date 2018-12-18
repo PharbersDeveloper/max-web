@@ -9,15 +9,15 @@ import { dasherize, classify } from '@ember/string';
 
 export default PharbersSerializer.extend({
 	keyForAttribute(key) {
-		return key
+		return key;
 	},
 	keyForRelationship(key) {
-		return classify(key)
+		return classify(key);
 	},
 	payloadKeyFromModelName(modelName) {
-		return classify(modelName)
+		return classify(modelName);
 	},
 	modelNameFromPayloadKey(modelName) {
 		return dasherize(modelName);
-	},
+	}
 });
