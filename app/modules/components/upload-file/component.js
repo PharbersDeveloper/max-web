@@ -16,17 +16,17 @@ export default Component.extend({
 	isDisabled: true, // 下一步按钮点击状态。
 	uploadError: false, // 上传Error后弹出modal
 	errorMessage: '',
-	filecpa: "",
-	filegycx: "",
+	filecpa: '',
+	filegycx: '',
 	GetAjaxOpt(data) {
 		return {
 			method: 'POST',
-			dataType: "json",
+			dataType: 'json',
 			cache: false,
 			data: JSON.stringify(data),
-			contentType: "application/json,charset=utf-8",
-			Accpt: "application/json,charset=utf-8",
-		}
+			contentType: 'application/json,charset=utf-8',
+			Accpt: 'application/json,charset=utf-8'
+		};
 	},
 	actions: {
 		// 提示用户上传文件的弹窗
@@ -48,7 +48,8 @@ export default Component.extend({
 					let success = {
 						cpa: result,
 						status
-					}
+					};
+
 					this.get('cookies').write('cpahash', success.cpa, {
 						path: '/'
 					});
@@ -63,12 +64,12 @@ export default Component.extend({
 		},
 		//  删除cpa文件 （伪）只是将名字置为“”空。
 		deleteCpaFile() {
-			this.set('filecpa', "");
+			this.set('filecpa', '');
 			this.set('isDisabled', true);
-			this.get('cookies').write('cpahash', "", {
+			this.get('cookies').write('cpahash', '', {
 				path: '/'
 			});
-			this.get('cookies').write('filecpa', "", {
+			this.get('cookies').write('filecpa', '', {
 				path: '/'
 			});
 		},
@@ -85,14 +86,15 @@ export default Component.extend({
 				if (status === 'ok') {
 					this.set('filegycx', file.get('name'));
 					if (this.get('filecpa') !== '') {
-						this.set('isDisabled', false)
+						this.set('isDisabled', false);
 					} else {
-						this.set('isDisabled', true)
+						this.set('isDisabled', true);
 					}
 					let success = {
 						gycx: result,
 						status
-					}
+					};
+
 					this.get('cookies').write('gycxhash', success.gycx, {
 						path: '/'
 					});
@@ -107,23 +109,24 @@ export default Component.extend({
 		},
 		//  删除gycx 文件 （伪）只是将名字置为“”空。
 		deleteGycxFile() {
-			this.set('filegycx', "");
-			this.get('cookies').write('gycxhash', "", {
+			this.set('filegycx', '');
+			this.get('cookies').write('gycxhash', '', {
 				path: '/'
 			});
-			this.get('cookies').write('filegycx', "", {
+			this.get('cookies').write('filegycx', '', {
 				path: '/'
 			});
 			if (this.get('filecpa') !== '') {
-				this.set('isDisabled', false)
+				this.set('isDisabled', false);
 			} else {
-				this.set('isDisabled', true)
+				this.set('isDisabled', true);
 			}
 		},
 
 		next() {
 			let cpa = this.get('filecpa');
 			let gycx = this.get('filegycx');
+
 			this.sendAction('next', cpa, gycx);
 		}
 	}

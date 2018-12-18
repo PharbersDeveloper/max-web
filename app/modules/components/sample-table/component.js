@@ -10,35 +10,38 @@ export default Component.extend({
 	sort: '',
 	dir: 'asc',
 	sortedModel: computed.sort('model', 'sortBy').readOnly(),
-	sortBy: computed('dir', 'sort', function() {
+	sortBy: computed('dir', 'sort', function () {
 		return [`${this.get('sort')}:${this.get('dir')}`];
 	}).readOnly(),
-	setRows: function(rows, that) {
+	setRows: function (rows, that) {
 		that.get('table').setRows([]);
 		that.get('table').setRows(rows);
 	},
-	filterAndSortModel: function(that) {
+	filterAndSortModel: function (that) {
 		let model = that.get('sortedModel');
 		// let result = model;
+
 		that.get('setRows')(model, that);
 	},
-	columns: computed('columns', function() {
+	columns: computed('columns', function () {
 
 	}),
 
-	table: computed('model', function() {
+	table: computed('model', function () {
 		let handledData = [];
-		this.get('model').forEach(function(d){
+
+		this.get('model').forEach(function (d) {
 			let temp = {
-				province:"",
-				market_size:"",
-				market_growth:"",
-				sales_amount:"",
-				sales_growth:"",
-				ev_value:"",
-				share:"",
-				share_growth:"",
-			}
+				province: '',
+				market_size: '',
+				market_growth: '',
+				sales_amount: '',
+				sales_growth: '',
+				ev_value: '',
+				share: '',
+				share_growth: ''
+			};
+
 			temp.province = d.province;
 			temp.market_size = d.market_size;
 			temp.market_growth = d.market_growth;
@@ -57,12 +60,12 @@ export default Component.extend({
 			if (column.sorted) {
 				this.setProperties({
 					dir: column.ascending ? 'asc' : 'desc',
-					sort: column.get('valuePath'),
+					sort: column.get('valuePath')
 					// canLoadMore: true,
 					// page: 0
 				});
 				// this.get('model').clear();
-				this.set('sort', column.get('valuePath'))
+				this.set('sort', column.get('valuePath'));
 
 				this.get('filterAndSortModel')(this);
 			}
@@ -77,7 +80,7 @@ export default Component.extend({
 				this.incrementProperty('page');
 				this.get('fetchRecords').perform();
 			}
-		},
+		}
 	}
 
 });
