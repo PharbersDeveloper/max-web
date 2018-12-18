@@ -12,8 +12,8 @@ export default Component.extend({
         d3.select('text').remove();
         const Pi = Math.PI;
         let newAngle = parseInt(this.get('newAngle')) || 0;
-        console.log("this is progress component")
-        console.log(newAngle);
+        this.get('logger').log("this is progress component")
+        this.get('logger').log(newAngle);
         var arcGenerator = d3.arc()
         .innerRadius(80)
         .outerRadius(100)

@@ -2,189 +2,154 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { observer } from '@ember/object';
 import SampleObject from '../../../common/xmpp-message-object/SampleObjectMessage';
-import XMPPMixin from '../../../common/xmpp-message-object/XMPPMixin'
+import XMPPMixin from '../../../common/xmpp-message-object/XMPPMixin';
 import styles from '../styles';
 
 export default Controller.extend(XMPPMixin, {
-    generate_sample_route: service('add_data.generate_sample_route'),
-    generate_sample_controller: service('add_data.generate_sample_controller'),
-    styles,
-    message: '',
-    SampleObject,
-    fluResult: observer('message', function () {
-        let msg2Json = this.get('message');
-        console.log("this is in generate controller")
-        if (msg2Json.data.attributes.call === 'ymCalc') {
-            let job_current = localStorage.getItem('job_id');
-            let job_xmpp = msg2Json.data.attributes.job_id;
-            let ymPercentage = msg2Json.data.attributes.percentage;
-            if (ymPercentage > localStorage.getItem('ympercentage')) {
-                this.set('ymPercentage', ymPercentage);
-                localStorage.setItem('ympercentage', ymPercentage);
-                if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
-                    let ymArray = msg2Json.data.attributes.message.split('#');
-                    let checkArray = ymArray.map((item) => {
-                        return {
-                            isChecked: false,
-                            value: item,
-                            id: item,
-                        }
-                    });
-                    this.set('ymList', checkArray)
-                    setTimeout(function () {
-                        SampleObject.set('fileParsingSuccess', true);
-                        SampleObject.set('isShowProgress', false);
-                        SampleObject.set('calcYearsProgress', false);
-                    }, 1000)
+	generateSampleRoute: service('add_data.generate_sample_route'),
+	generateSampleController: service('add_data.generate_sample_controller'),
+	styles,
+	message: '',
+	SampleObject,
+	fluResult: observer('message', function () {
+		this.get('logger').log('this is in generate controller');
 
-                }
-            }
-        } else if (msg2Json.data.attributes.call === 'panel') {
-            let job_current = localStorage.getItem('job_id');
-            let job_xmpp = msg2Json.data.attributes.job_id;
-            let panelPercentage = msg2Json.data.attributes.percentage;
-            // this.set('panelPercentage',panelPercentage);
-            if (panelPercentage > localStorage.getItem('panelpercentage')) {
-                this.set('panelPercentage', panelPercentage);
-                localStorage.setItem('panelpercentage', panelPercentage);
-            }
-            let that = this;
-            if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
-                setTimeout(function () {
-                    that.transitionToRoute('add-data.generate-sample.sample-finish');
-                }, 1000)
-            }
-        }
-    }),
+		let msg2Json = this.get('message');
 
-    init() {
-        this._super(...arguments);
-        this.set('cpafilename', this.get('cookie').read('filecpa'))
-        this.set('gycxfilename', this.get('cookie').read('filegycx'))
-        this.xmppCallBack(this);
-    },
+		if (msg2Json.data.attributes.call === 'ymCalc') {
+			let jobCurrent = localStorage.getItem('job_id'),
+				jobXmpp = msg2Json.data.attributes.job_id,
+				ymPercentage = msg2Json.data.attributes.percentage;
 
-    actions: {
-        startParsingFile() {
-            SampleObject.set('isShowProgress', true);
-            SampleObject.set('calcYearsProgress', true);
-            localStorage.setItem('ympercentage', 0);
-            // let req = this.store.peekAll('phmaxjob').lastObject;
-            let cpa = localStorage.getItem('cpa');
-            let gycx = localStorage.getItem('gycx');
-            let not_arrival_hosp_file = localStorage.getItem('not_arrival_hosp_file');
-            let job_id = localStorage.getItem('job_id');
-            let company_id = localStorage.getItem('company_id');
-            let user_id = localStorage.getItem('username');
-            let req = this.get('generate_sample_controller').createModel('Phmaxjob', {
-                id: this.get('hash').uuid(),
-                call: "ymCalc",
-                percentage: 0,
-                job_id: job_id,
-                user_id: user_id,
-                cpa: cpa,
-                gycx: gycx,
-                not_arrival_hosp_file: not_arrival_hosp_file,
-                company_id: company_id
-            })
-            console.log("this is ymCalc");
-            let result = this.get('generate_sample_route').object2JsonApi(req, false);
-            this.get('generate_sample_route').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', result)
-                .then((resp) => {
-                    // SampleObject.set('isShowProgress',true);
-                    // SampleObject.set('calcYearsProgress',true);
-                })
-        },
-        startGenerateSample() {
-            console.log("this is panelCalc")
-            SampleObject.set('calcYearsProgress', false);
-            SampleObject.set('isShowProgress', true);
-            SampleObject.set('calcPanelProgress', true);
-            localStorage.setItem('panelpercentage', 0);
-            let ymList = this.get('ymList');
-            // let message = this.get('message');
-            // let years = ymList.filterBy('isChecked',true).join('#');
-            let years = ymList.filterBy('isChecked', true);
-            let year = [];
-            years.forEach((k) => {
-                year.push(k.value)
-            });
-            if (year.length === 0) {
-                this.set('yearsNullError', true);
-            } else {
-                let yearsString = year.join('#');
+			if (ymPercentage > localStorage.getItem('ympercentage')) {
+				this.set('ymPercentage', ymPercentage);
 
-                this.get('generate_sample_controller').queryModelByAll('Phmaxjob').lastObject.set('yms', yearsString);
-                this.get('generate_sample_controller').queryModelByAll('Phmaxjob').lastObject.set('call', 'panel');
-                let req = this.get('generate_sample_controller').queryModelByAll('Phmaxjob').lastObject;
-                let result = this.get('generate_sample_route').object2JsonApi(req, false);
-                this.get('generate_sample_route').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', result)
-                    .then((resp) => {
-                        if (resp.call === 'panel') {
-                            SampleObject.set('fileParsingSuccess', false);
-                            SampleObject.set('calcYearsProgress', false);
-                            SampleObject.set('calcPanelProgress', true);
-                        } else {
-                            console.log("解析文件失败");
-                            SampleObject.set('fileParsingError', false);
-                        }
-                    })
-            }
-        },
-        // TODO : 未添加异常处理
-        // let years = this.get('SampleObject').ymArray.filterBy('isChecked')
-        // 	// .map((elt, i, array) => {
-        // 	.map((elt) => {
-        // 		console.log(elt);
-        // 		return elt.year
-        // 	});
-        // if (years.length === 0) {
-        // 	// alert('未选择时间');
-        // 	this.set('yearsNullError', true);
-        // } else {
-        //
-        // 	// let condition = {
-        // 	// 	"condition": {
-        // 	// 		"job_id": this.get('cookies').read('job_id'),
-        // 	// 		"args": {
-        // 	// 			"cpa": this.get('cookies').read('cpahash'),
-        // 	// 			"gycx": this.get('cookies').read('gycxhash') || '',
-        // 	// 			"yms": years.join('#')
-        // 	// 		}
-        // 	// 	}
-        // 	// };
-        // 	// //
-        // 	// new rsvp.Promise((resolve, reject) => {
-        // 	// 	return this.get('ajax').request('api/max/panel',
-        // 	// 		this.getAjaxOpt(condition)).then((response) => {
-        // 	// 			window.console.info(response);
-        // 	// 			SampleObject.set('fileParsingSuccess', false);
-        // 	// 			SampleObject.set('calcYearsProgress', false);
-        // 	// 			SampleObject.set('calcPanelProgress', true);
-        // 	// 			return resolve({
-        // 	// 				resule: response
-        // 	// 			});
-        // 	// 		},
-        // 	// 		() => {
-        // 	// 			return reject("Access Error");
-        // 	// 		}
-        // 	// 	);
-        // 	// });
-        // }
+				localStorage.setItem('ympercentage', ymPercentage);
 
-        // 未显示要计算的月份
-        cantFindMonth: function () {
-            SampleObject.set('fileParsingSuccess', false);
-            SampleObject.set('cantFindMonth', true);
-        },
-        uploadFileAgain(modal) {
-            modal.close()
-            SampleObject.set('isShowProgress', false);
-            SampleObject.set('fileParsingSuccess', false);
-            SampleObject.set('calcYearsProgress', false);
-            SampleObject.set('calcPanelProgress', false);
-            this.transitionToRoute('add-data.uploadfiles')
-            // window.location = 'uploadfiles'
-        }
-    }
+				if (jobCurrent === jobXmpp && Number(msg2Json.data.attributes.percentage) === 100) {
+					let ymArray = msg2Json.data.attributes.message.split('#'),
+						checkArray = ymArray.map((item) => {
+							return {
+								isChecked: false,
+								value: item,
+								id: item
+							};
+						});
+
+					this.set('ymList', checkArray);
+
+					setTimeout(function () {
+						SampleObject.set('fileParsingSuccess', true);
+						SampleObject.set('isShowProgress', false);
+						SampleObject.set('calcYearsProgress', false);
+					}, 1000);
+
+				}
+			}
+		} else if (msg2Json.data.attributes.call === 'panel') {
+			let jobCurrent = localStorage.getItem('job_id'),
+				jobXmpp = msg2Json.data.attributes.job_id,
+				panelPercentage = msg2Json.data.attributes.percentage,
+				that = this;
+
+			if (panelPercentage > localStorage.getItem('panelpercentage')) {
+				this.set('panelPercentage', panelPercentage);
+				localStorage.setItem('panelpercentage', panelPercentage);
+			}
+
+			if (jobCurrent === jobXmpp && Number(msg2Json.data.attributes.percentage) === 100) {
+				setTimeout(function () {
+					that.transitionToRoute('add-data.generate-sample.sample-finish');
+				}, 1000);
+			}
+		}
+	}),
+
+	init() {
+		this._super(...arguments);
+		this.set('cpafilename', this.get('cookie').read('filecpa'));
+		this.set('gycxfilename', this.get('cookie').read('filegycx'));
+		this.xmppCallBack(this);
+	},
+
+	actions: {
+		startParsingFile() {
+			let cpa = localStorage.getItem('cpa'),
+				gycx = localStorage.getItem('gycx'),
+				notArrivalHospFile = localStorage.getItem('not_arrival_hosp_file'),
+				jobId = localStorage.getItem('job_id'),
+				companyId = localStorage.getItem('company_id'),
+				userId = localStorage.getItem('username'),
+				req = this.get('generate_sample_controller').createModel('Phmaxjob', {
+					id: this.get('hash').uuid(),
+					call: 'ymCalc',
+					percentage: 0,
+					'job_id': jobId,
+					'user_id': userId,
+					cpa: cpa,
+					gycx: gycx,
+					'not_arrival_hosp_file': notArrivalHospFile,
+					'company_id': companyId
+				});
+
+			SampleObject.set('isShowProgress', true);
+			SampleObject.set('calcYearsProgress', true);
+			localStorage.setItem('ympercentage', 0);
+
+
+			this.get('logger').log('this is ymCalc');
+			this.get('generateSampleRoute').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', this.get('generateSampleRoute').object2JsonApi(req, false));
+		},
+		startGenerateSample() {
+			this.get('logger').log('this is panelCalc');
+
+			SampleObject.set('calcYearsProgress', false);
+			SampleObject.set('isShowProgress', true);
+			SampleObject.set('calcPanelProgress', true);
+			localStorage.setItem('panelpercentage', 0);
+			let ymList = this.get('ymList'),
+				years = ymList.filterBy('isChecked', true),
+				year = [];
+
+			years.forEach((k) => {
+				year.push(k.value);
+			});
+			if (year.length === 0) {
+				this.set('yearsNullError', true);
+			} else {
+				let yearsString = year.join('#'),
+					req = this.get('generateSampleController').queryModelByAll('Phmaxjob').lastObject,
+					result = this.get('generate_sample_route').object2JsonApi(req, false);
+
+				this.get('generateSampleController').queryModelByAll('Phmaxjob').lastObject.set('yms', yearsString);
+				this.get('generateSampleController').queryModelByAll('Phmaxjob').lastObject.set('call', 'panel');
+
+				this.get('generate_sample_route').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', result)
+					.then((resp) => {
+						if (resp.call === 'panel') {
+							SampleObject.set('fileParsingSuccess', false);
+							SampleObject.set('calcYearsProgress', false);
+							SampleObject.set('calcPanelProgress', true);
+						} else {
+							this.get('logger').log('解析文件失败');
+							SampleObject.set('fileParsingError', false);
+						}
+					});
+			}
+		},
+
+		// 未显示要计算的月份
+		cantFindMonth: function () {
+			SampleObject.set('fileParsingSuccess', false);
+			SampleObject.set('cantFindMonth', true);
+		},
+		uploadFileAgain(modal) {
+			modal.close();
+			SampleObject.set('isShowProgress', false);
+			SampleObject.set('fileParsingSuccess', false);
+			SampleObject.set('calcYearsProgress', false);
+			SampleObject.set('calcPanelProgress', false);
+			this.transitionToRoute('add-data.uploadfiles');
+		}
+	}
 });

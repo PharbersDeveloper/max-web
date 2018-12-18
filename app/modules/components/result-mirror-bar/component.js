@@ -23,7 +23,7 @@ export default Component.extend({
         //     {key: 9, marketSales: "30.74", area: ""},
         //     {key: 10, marketSales: "30.74", area: ""},
         // ]
-        console.log(currentData)
+        this.get('logger').log(currentData)
         let lastData = this.get('lastData');
     //     let lastData = [
     //         {key: 1, marketSales: -1, areaLast: "江苏", area: "江苏", keyLast: 1},
@@ -38,7 +38,7 @@ export default Component.extend({
     //         {key: 10, marketSales: -1, areaLast: "河南", area: "河南", keyLast: 10},
     //
     // ]
-        console.log(lastData)
+        this.get('logger').log(lastData)
         if(currentData != undefined && lastData != undefined) {
 
         var margin = {top: 100, right: 50, bottom: 40, left: -30},

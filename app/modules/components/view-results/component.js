@@ -61,7 +61,7 @@ export default Component.extend({
 			market: market,
 			year: year
 		}
-		// console.log(years);
+		// this.get('logger').log(years);
 	},
 	actions: {
 		saveData() {
@@ -119,7 +119,7 @@ export default Component.extend({
 			// map((ele) => {
 			// 	return ele.year
 			// })
-			// console.log(checkedMonth);
+			// this.get('logger').log(checkedMonth);
 		},
 	},
 });

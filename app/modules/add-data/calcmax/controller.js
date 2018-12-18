@@ -5,49 +5,57 @@ import MaxCalculateObject from '../../common/xmpp-message-object/MaxCalculateMes
 import XMPPMixin from '../../common/xmpp-message-object/XMPPMixin';
 
 export default Controller.extend(XMPPMixin, {
-    calcmax_route: service('add_data.calcmax_route'),
-    calcmax_controller: service('add_data.calcmax_controller'),
+	calcmaxRoute: service('add_data.calcmax_route'),
+	calcmaxController: service('add_data.calcmax_controller'),
+	message: '',
 
-    message: '',
-    MaxCalculateObject,
 	init() {
 		this._super(...arguments);
-        this.set('cpafilename', this.get('cookie').read('filecpa'))
-        this.set('gycxfilename', this.get('cookie').read('filegycx'))
-        this.xmppCallBack(this);
-    },
-    fluResult: observer('message', function () {
-        let msg2Json = this.get('message');
-        if (msg2Json.data.attributes.call === 'calc') {
-            let job_current = localStorage.getItem('job_id');
-            let job_xmpp = msg2Json.data.attributes.job_id;
-            let maxPercentage = msg2Json.data.attributes.percentage;
-            if (maxPercentage > localStorage.getItem('maxpercentage')) {
-                this.set('maxPercentage', maxPercentage);
-                localStorage.setItem('maxpercentage', maxPercentage);
-            }
-            console.log("this is in max controller")
-            console.log(maxPercentage)
-            if (job_current === job_xmpp && msg2Json.data.attributes.percentage == 100) {
-                setTimeout(function () {
-                    MaxCalculateObject.set('calcHasDone', true);
-                }, 1000)
-            }
-        }
+		this.set('cpafilename', this.get('cookie').read('filecpa'));
+		this.set('gycxfilename', this.get('cookie').read('filegycx'));
+		this.xmppCallBack(this);
+	},
+	'fluResult': observer('message', function () {
+		let msg2Json = this.get('message');
 
-    }),
+		if (msg2Json.data.attributes.call === 'calc') {
+
+			let jobCurrent = localStorage.getItem('job_id'),
+				jobXmpp = msg2Json.data.attributes.job_id,
+				maxPercentage = msg2Json.data.attributes.percentage;
+
+			if (maxPercentage > localStorage.getItem('maxpercentage')) {
+				this.set('maxPercentage', maxPercentage);
+				localStorage.setItem('maxpercentage', maxPercentage);
+			}
+			this.get('logger').log('this is in max controller');
+			this.get('logger').log(maxPercentage);
+
+			// TODO: msg2Json.data.attributes.percentage 读取出来的是Number吗？如果不是请变成
+
+			if (jobCurrent === jobXmpp && msg2Json.data.attributes.percentage === 100) {
+				setTimeout(function () {
+					MaxCalculateObject.set('calcHasDone', true);
+				}, 1000);
+			}
+		}
+
+	}),
 	actions: {
-        startCalcMAX() {
-            MaxCalculateObject.set('isShowCalcProgress', true);
-            console.log("this is calcmax");
-            localStorage.setItem('maxpercentage', 0);
-            this.get('calcmax_controller').queryModelByAll('Phmaxjob').lastObject.set('call', 'max');
-            let req = this.get('calcmax_controller').queryModelByAll('Phmaxjob').lastObject;
-            let result = this.get('calcmax_route').object2JsonApi(req, false);
-            this.get('calcmax_route').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', result)
-        },
-        viewresults() {
-            this.transitionToRoute('add-data.viewresults');
-        }
+		startCalcMAX() {
+			this.get('logger').log('this is calcmax');
+
+			MaxCalculateObject.set('isShowCalcProgress', true);
+			localStorage.setItem('maxpercentage', 0);
+
+			this.get('calcmaxController').queryModelByAll('Phmaxjob').lastObject.set('call', 'max');
+
+			let req = this.get('calcmaxController').queryModelByAll('Phmaxjob').lastObject;
+
+			this.get('calcmaxRoute').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', this.get('calcmaxRoute').object2JsonApi(req, false));
+		},
+		viewresults() {
+			this.transitionToRoute('add-data.viewresults');
+		}
 	}
 });
