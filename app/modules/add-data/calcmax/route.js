@@ -3,8 +3,8 @@ import { inject as service } from '@ember/service';
 
 
 export default Route.extend({
-	calcmax_route: service('add_data.calcmax_route'),
-	calcmax_controller: service('add_data.calcmax_controller'),
+	calcmaxRoute: service('add_data.calcmax_route'),
+	calcmaxController: service('add_data.calcmax_controller'),
 	setupController(controller, model) {
 		this._super(controller, model);
 		// this.controllerFor('application')

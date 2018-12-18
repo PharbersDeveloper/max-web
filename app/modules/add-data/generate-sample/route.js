@@ -3,8 +3,8 @@ import { inject as service } from '@ember/service';
 
 
 export default Route.extend({
-	generate_sample_route: service('add_data.generate_sample_route'),
-	generate_sample_controller: service('add_data.generate_sample_controller'),
+	generateSampleRoute: service('add_data.generate_sample_route'),
+	generateSampleController: service('add_data.generate_sample_controller'),
 	setupController(controller, model) {
 		this._super(controller, model);
 		// this.controllerFor('application')

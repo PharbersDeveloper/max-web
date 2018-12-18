@@ -3,8 +3,8 @@ import { inject as service } from '@ember/service';
 
 
 export default Route.extend({
-	uploadfiles_route: service('add_data.uploadfiles_route'),
-    uploadfiles_controller: service('add_data.uploadfiles_controller'),
+	uploadfilesRoute: service('add_data.uploadfiles_route'),
+	uploadfilesController: service('add_data.uploadfiles_controller'),
 	setupController(controller, model) {
 		this._super(controller, model);
 		// this.controllerFor('application')

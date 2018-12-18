@@ -81,65 +81,61 @@ export default Controller.extend({
 		this.get('viewresultsRoute').queryObject('api/v1/resultcheck/0', 'ResultCheck', this.get('viewresultsRoute').object2JsonApi(req))
 			.then((res) => {
 				if (res !== '') {
-					let marketCurrent = res.indicators.marketSumSales.currentNumber,
-						marketPercentage = res.indicators.marketSumSales.lastYearPercentage,
-						productCurrent = res.indicators.productSales.currentNumber,
-						productPercentage = res.indicators.productSales.lastYearPercentage,
-						trend = '',
-						regionList = '',
-						noValueList = [],
+					let noValueList = [],
 						valueList = [],
 						current = [],
 						lastYear = [],
-						mirrorProvincesCurrent = '',
-						mirrorProvincesLast = '',
-						mirrorProvinces = null;
+						// mirrorProvincesCurrent = '',
+						// mirrorProvincesLast = '',
+						mirrorProvinces = null,
+						mirrorCity = {
+							mirrorCityCurrent: res.mirror.city.current,
+							mirrorCityLast: res.mirror.city.lastyear
+						},
+						currentCity = [],
+						lastYearCity = [];
 
-					this.set('marketSumSales', marketCurrent);
-					this.set('marketSumSalesPercentage', marketPercentage.toFixed(2));
-					this.set('productSumSales', productCurrent);
-					this.set('productSumSalesPercentage', productPercentage.toFixed(2));
+					this.set('marketSumSales', res.indicators.marketSumSales.currentNumber);
+					this.set('marketSumSalesPercentage', res.indicators.marketSumSales.lastYearPercentag.toFixed(2));
+					this.set('productSumSales', res.indicators.productSales.currentNumber);
+					this.set('productSumSalesPercentage', res.indicators.productSales.lastYearPercentage.toFixed(2));
 
 					// console.log(res.trend);
-					trend = res.trend;
-					this.set('trend', trend);
+					// trend = res.trend;
+					this.set('trend', res.trend);
 					//折线图数据
 
-					regionList = res.region;
-
-					regionList.forEach(function (i) {
+					res.region.forEach(function (i) {
 						if (i.value === 0) {
 							noValueList.push(i.name);
 						} else {
 							valueList.push(i.name);
 						}
-					})
+					});
+
 					this.set('noValueList', noValueList);
 					this.set('valueList', valueList);
 					// 地图数据
-
-					mirrorProvincesCurrent = res.mirror.provinces.current;
-					mirrorProvincesLast = res.mirror.provinces.lastyear;
 					mirrorProvinces = {
-						mirrorProvincesCurrent,
-						mirrorProvincesLast
+						mirrorProvincesCurrent: res.mirror.provinces.current,
+						mirrorProvincesLast: res.mirror.provinces.lastyear
 					};
 
-					mirrorProvinces.mirrorProvincesCurrent.forEach((mirrorProvincesCurrentElem, index) => {
+					mirrorProvinces.mirrorProvincesCurrent.forEach((ele, index) => {
 						current.push({
 							key: index + 1,
-							marketSales: mirrorProvincesCurrentElem.marketSales,
+							marketSales: ele.marketSales,
 							area: ''
 						});
-					})
+					});
 					this.set('current', current);
 					this.get('logger').log(current);
 
-					mirrorProvinces.mirrorProvincesLast.forEach((mirrorProvincesLastElem, index) => {
+					mirrorProvinces.mirrorProvincesLast.forEach((ele, index) => {
 						lastYear.push({
 							key: index + 1,
-							marketSales: -mirrorProvincesLastElem.marketSales,
-							areaLast: mirrorProvincesLastElem.area,
+							marketSales: -ele.marketSales,
+							areaLast: ele.area,
 							area: mirrorProvinces.mirrorProvincesCurrent[index].area
 						});
 					});
@@ -155,45 +151,41 @@ export default Controller.extend({
 					this.set('lastYear', lastYear);
 					this.get('logger').log(lastYear);
 
-					let mirrorCityCurrent = res.mirror.city.current;
-					let mirrorCityLast = res.mirror.city.lastyear;
-					let mirrorCity = {
-						mirrorCityCurrent,
-						mirrorCityLast
-					}
+					// let mirrorCityCurrent = res.mirror.city.current;
+					// let mirrorCityLast = res.mirror.city.lastyear;
 
-					let currentCity = [];
-
-					mirrorCity.mirrorCityCurrent.forEach((mirrorCityCurrent, index) => {
+					mirrorCity.mirrorCityCurrent.forEach((ele, index) => {
 						let item = {
 							key: index + 1,
-							marketSales: mirrorCityCurrent.marketSales,
-							area: '',
-						}
+							marketSales: ele.marketSales,
+							area: ''
+						};
+
 						currentCity.push(item);
-					})
+					});
 					this.set('currentCity', currentCity);
-					this.get('logger').log(currentCity)
+					this.get('logger').log(currentCity);
 
-					let lastYearCity = [];
-					mirrorCity.mirrorCityLast.forEach((mirrorCityLast, index) => {
+
+					mirrorCity.mirrorCityLast.forEach((ele, index) => {
 						let item = {
 							key: index + 1,
-							marketSales: -mirrorCityLast.marketSales,
-							areaLast: mirrorCityLast.area,
-							area: mirrorCity.mirrorCityCurrent[index].area,
-						}
+							marketSales: -ele.marketSales,
+							areaLast: ele.area,
+							area: mirrorCity.mirrorCityCurrent[index].area
+						};
+
 						lastYearCity.push(item);
-					})
+					});
 					lastYearCity.forEach((a) => {
 						lastYearCity.forEach((b) => {
 							if (a.area === b.areaLast) {
 								a.keyLast = b.key;
 							}
-						})
-					})
+						});
+					});
 					this.set('lastYearCity', lastYearCity);
-					this.get('logger').log(lastYearCity)
+					this.get('logger').log(lastYearCity);
 				} else {
 					this.set('sampleCheckError', true);
 					this.set('errorMessage', 'error');
@@ -205,45 +197,41 @@ export default Controller.extend({
 			this.queryContentData(mAndY.market, mAndY.year);
 		},
 		exportFiles() {
-			let company_id = localStorage.getItem('company_id');
-			let job_id = localStorage.getItem('job_id');
-			let market = this.get('market') || localStorage.getItem('market');
-			this.get('logger').log('this is export');
-			let ym = this.get('year') || localStorage.getItem('year');
-			this.get('logger').log(this.get('market'));
-			this.get('logger').log(this.get('year'));
+			let market = this.get('market') || localStorage.getItem('market'),
+				ym = this.get('year') || localStorage.getItem('year'),
+				req = this.get('viewresults_controller').createModel('ExportMaxResult', {
+					id: this.get('hash').uuid(),
+					'company_id': localStorage.getItem('company_id'),
+					'job_id': localStorage.getItem('job_id'),
+					market: market,
+					ym: ym
+				}),
+				result = this.get('viewresultsRoute').object2JsonApi(req);
 
-			let req = this.get('viewresults_controller').createModel('ExportMaxResult', {
-				id: this.get('hash').uuid(),
-				company_id: company_id,
-				job_id: job_id,
-				market: market,
-				ym: ym
-			})
-			let result = this.get('viewresultsRoute').object2JsonApi(req);
 			this.get('viewresultsRoute').queryObject('api/v1/exportmaxresult/0', 'ExportMaxResult', result)
 				.then((res) => {
-					if (res.result_path != '') {
-						let resultPath = res.result_path;
-						var url = '/download/' + resultPath;
-						var xhr = new XMLHttpRequest();
-						xhr.open('GET', url, true);        // 也可以使用POST方式，根据接口
-						xhr.responseType = 'blob';    // 返回类型blob
+					if (res.result_path !== '') {
+						let resultPath = res.result_path,
+							url = '/download/' + resultPath,
+							xhr = new XMLHttpRequest();
+
+						xhr.open('GET', url, true); // 也可以使用POST方式，根据接口
+						xhr.responseType = 'blob'; // 返回类型blob
 						// 定义请求完成的处理函数，请求前也可以增加加载框/禁用下载按钮逻辑
-						xhr.onload = function (res) {
+						xhr.onload = function (response) {
 							// 请求完成
 							if (this.status === 200) {
 								// 返回200
-								var a = document.createElement('a');
+								let a = document.createElement('a');
+
 								a.download = resultPath;
-								a.href = res.currentTarget.responseURL;
-								$('body').append(a);    // 修复firefox中无法触发click
+								a.href = response.currentTarget.responseURL;
+								$('body').append(a); // 修复firefox中无法触发click
 								a.click();
 								$(a).remove();
-
 							}
 						};
-						xhr.send()
+						xhr.send();
 					}
 				});
 		}
