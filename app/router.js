@@ -30,7 +30,6 @@ Router.map(function() {
   this.route('data', function() {
     this.route('overview');
   });
-  this.route('adapter');
 });
 
 export default Router;
