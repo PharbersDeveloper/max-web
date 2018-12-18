@@ -21,7 +21,6 @@ Router.map(function() {
     });
     this.route('calcmax');
     this.route('viewresults');
-    this.route('text');
     this.route('uploadfiles-panel');
     this.route('check-sample-panel', function() {
       this.route('sample-finish');
@@ -30,7 +29,6 @@ Router.map(function() {
   this.route('data', function() {
     this.route('overview');
   });
-  this.route('adapter');
 });
 
 export default Router;

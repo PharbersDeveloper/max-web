@@ -1,0 +1,5 @@
+tests/*
+config/*
+mirage/*
+app/app.js
+app/route.js
