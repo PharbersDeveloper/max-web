@@ -1,47 +1,49 @@
 import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 
 export default Controller.extend({
+    uploadfiles_route: service('add_data.uploadfiles_route'),
+    uploadfiles_controller: service('add_data.uploadfiles_controller'),
     getData() {
         let company_id = localStorage.getItem('company_id');
         let user_id = localStorage.getItem('username');
-        let req = this.store.createRecord('phmaxjob', {
+        let req = this.get('uploadfiles_controller').createModel('Phmaxjob', {
+            id: this.get('hash').uuid(),
             user_id: user_id,
             company_id: company_id,
         })
-        let result = this.store.object2JsonApi('phmaxjob', req);
+        let result = this.get('uploadfiles_route').object2JsonApi(req);
 
-        this.store.queryObject('/api/v1/maxjobgenerate/0', 'phmaxjob', result).then((res) => {
-            localStorage.setItem('job_id', res.job_id)
-            localStorage.setItem('company_id', res.company_id)
-        });
-    },
-    actions: {
-        next(cpa, gycx) {
-            this.store.peekAll('phmaxjob').lastObject.set('cpa', cpa);
-            this.store.peekAll('phmaxjob').lastObject.set('gycx', gycx);
-            this.store.peekAll('phmaxjob').lastObject.set('call', 'ymCalc');
-            let req = this.store.peekAll('phmaxjob').lastObject;
-            let result = this.store.object2JsonApi('phmaxjob', req, false);
-            // TODO：Alex这块儿可能有问题
-            this.store.peekAll('phmaxjob').lastObject.set('cpa', '');
-            this.store.peekAll('phmaxjob').lastObject.set('gycx', '');
-
-            this.store.queryObject('/api/v1/maxjobpush/0', 'phmaxjob', result).then((resp) => {
-                if (!isEmpty(resp.not_arrival_hosp_file)) {
-                    localStorage.setItem('not_arrival_hosp_file', resp.not_arrival_hosp_file);
-                    localStorage.setItem('cpa', resp.cpa);
-                    localStorage.setItem('gycx', resp.gycx);
-                    this.transitionToRoute('/add-data/generate-sample');
-                } else {
-                    console.log("error route!!!!!");
-                }
-            })
-
-        }
+        this.get('uploadfiles_route').queryObject('api/v1/maxjobgenerate/0', 'Phmaxjob', result)
+            .then((res) => {
+                localStorage.setItem('job_id', res.job_id)
+                localStorage.setItem('company_id', res.company_id)
+            });
     },
     init() {
         this._super(...arguments);
         this.getData();
     },
+    actions: {
+        next(cpa, gycx) {
+            this.get('uploadfiles_controller').queryModelByAll('Phmaxjob').lastObject.set('cpa', cpa);
+            this.get('uploadfiles_controller').queryModelByAll('Phmaxjob').lastObject.set('gycx', gycx);
+            this.get('uploadfiles_controller').queryModelByAll('Phmaxjob').lastObject.set('call', 'ymCalc');
+            let req = this.get('uploadfiles_controller').queryModelByAll('Phmaxjob').lastObject;
+            let result = this.get('uploadfiles_route').object2JsonApi(req, false);
+
+            this.get('uploadfiles_route').queryObject('api/v1/maxjobpush/0', 'Phmaxjob', result)
+                .then((resp) => {
+                    if (!isEmpty(resp.not_arrival_hosp_file)) {
+                        localStorage.setItem('not_arrival_hosp_file', resp.not_arrival_hosp_file);
+                        localStorage.setItem('cpa', resp.cpa);
+                        localStorage.setItem('gycx', resp.gycx);
+                        this.transitionToRoute('add-data.generate-sample');
+                    } else {
+                        window.console.log("error route!!!!!");
+                    }
+                })
+        }
+    }
 });
