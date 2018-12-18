@@ -1,16 +1,7 @@
-import {
-	computed
-} from '@ember/object';
+import { computed } from '@ember/object';
 import Component from '@ember/component';
-import {
-	later
-} from '@ember/runloop';
-import {
-	inject
-} from '@ember/service';
-// import ResultTrendEchartsOption from '../result-trend-line-and-bar/getOption';
-// import ResultMapEchartsOption from '../result-map/getOption';
-// import ResultMirrorEchartsOption from '../result-mirror-bar/getOption';
+import { later } from '@ember/runloop';
+import { inject } from '@ember/service';
 import $ from 'jquery';
 
 export default Component.extend({
@@ -63,7 +54,6 @@ export default Component.extend({
 			market: market,
 			year: year
 		};
-		// this.get('logger').log(years);
 	},
 	actions: {
 		saveData() {
@@ -114,17 +104,11 @@ export default Component.extend({
 			}
 		},
 		confirmSave() {
-			// let checkedMonth = [];
 			this.set('isSave', false);
 			this.set('saveState', true);
 			later(() => {
 				this.set('saveState', false);
 			}, 1800);
-			// let checkedMonth = this.get('months').filterBy('isChecked', true).
-			// map((ele) => {
-			// 	return ele.year
-			// })
-			// this.get('logger').log(checkedMonth);
 		}
 	}
 });

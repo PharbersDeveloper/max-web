@@ -1,10 +1,8 @@
 import Mixin from '@ember/object/mixin';
 import EmberObject from '@ember/object';
 import { computed } from '@ember/object';
-import Service, { inject } from '@ember/service';
+import { inject } from '@ember/service';
 import conf from '../../../config/environment';
-// import SampleObject from '../../common/xmpp-message-object/SampleObjectMessage';
-import Route from '@ember/routing/route';
 
 const MessageFactory = EmberObject.create({
 	stack: [],
@@ -16,26 +14,20 @@ const MessageFactory = EmberObject.create({
 	unregisterLast() {
 		this.stack.popObject();
 	},
-	doCall(msg, instance) {
-		let that = this;
+	doCall(msg) {
 		let msg2Json = JSON.parse(msg); //json
-		// instance.set('message', msg2Json);
 
 		this.get('logger').info('instances ====>' + this.stack);
 		this.get('logger').info('instance ====>' + this.stack.lastObject);
 
 		this.stack.lastObject.set('message', msg2Json);
-
-		// this.get('logger').info('instance ====> ' + this.stack.lastObject)
-		// this.get('logger').info('instance ====> ' + this.stack.firstObject)
-		// this.get('logger').info('instance ====> ' + this.stack.length)
 	}
 });
 
 export default Mixin.create({
 	xmpp: inject(),
 	isConnected: computed(function () {
-		return this.xmpp.getConnection === undefined;
+		return typeof this.xmpp.getConnection === 'undefined';
 	}),
 	xmppCallBack(instance) {
 		this.get('logger').info('xmppCallBack instance ====> ' + instance);
@@ -43,16 +35,17 @@ export default Mixin.create({
 
 		MessageFactory.register(instance);
 
+		// eslint-disable-next-line no-undefined
 		that.get('xmpp').set('connection', undefined);
 		function onMessage(msg) {
-			var to = msg.getAttribute('to');
-			var from = msg.getAttribute('from');
-			var type = msg.getAttribute('type');
-			var elems = msg.getElementsByTagName('body');
+			let from = msg.getAttribute('from'),
+				type = msg.getAttribute('type'),
+				elems = msg.getElementsByTagName('body');
+
 			// debugger
 
-			if (type == 'chat' && elems.length > 0) {
-				var body = elems[0];
+			if (type === 'chat' && elems.length > 0) {
+				let body = elems[0];
 
 				this.get('logger').info('ECHOBOT: I got a message from ' + from + ': ' +
 					that.get('xmpp').getText(body));

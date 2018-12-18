@@ -70,50 +70,50 @@ export default Component.extend({
 				.attr('transform', 'translate(70,' + margin.top + ')');
 
 			x.domain(d3.extent(lastDataCity, function (d) {
- return d.marketSales; 
-})).nice();
+				return d.marketSales;
+			})).nice();
 			xRight.domain(d3.extent(currentDataCity, function (d) {
- return d.marketSales; 
-})).nice();
+				return d.marketSales;
+			})).nice();
 			// X定义域取数组中的最大值和最小值，并取整 => 柱状图长度
 			y.domain(lastDataCity.map(function (d) {
- return d.keyLast + d.area; 
-})); // Y轴定义域
+				return d.keyLast + d.area;
+			})); // Y轴定义域
 			yRight.domain(currentDataCity.map(function (d) {
- return d.key + d.area; 
-}));
+				return d.key + d.area;
+			}));
 			//柱状图排名和省份
 			svg.selectAll('.bar')
 				.data(lastDataCity)
 				.enter().append('rect')
 				.attr('class', function (d) {
- return 'bar bar--' + (d.marketSales < 0 ? 'negative' : 'positive'); 
-})
+					return 'bar bar--' + (d.marketSales < 0 ? 'negative' : 'positive');
+				})
 				.attr('x', function (d) {
- return x(Math.min(0, d.marketSales)); 
-}) //绘制矩形的x坐标的位置
+					return x(Math.min(0, d.marketSales));
+				}) //绘制矩形的x坐标的位置
 				.attr('y', function (d) {
 					return y(d.keyLast + d.area);
 				}) //绘制矩形的y坐标的位置
 				.attr('width', function (d) {
- return Math.abs(x(d.marketSales) - x(0)); 
-})
+					return Math.abs(x(d.marketSales) - x(0));
+				})
 				.attr('height', y.bandwidth());
 			svgRight.selectAll('.bar')
 				.data(currentDataCity)
 				.enter().append('rect')
 				.attr('class', function (d) {
- return 'bar bar--' + (d.marketSales < 0 ? 'negative' : 'positive'); 
-})
+					return 'bar bar--' + (d.marketSales < 0 ? 'negative' : 'positive');
+				})
 				.attr('x', function (d) {
- return x(Math.min(0, d.marketSales)); 
-})
+					return x(Math.min(0, d.marketSales));
+				})
 				.attr('y', function (d, i) {
 					return yRight(d.key + d.area);
 				})
 				.attr('width', function (d) {
- return Math.abs(x(d.marketSales) - x(0)); 
-})
+					return Math.abs(x(d.marketSales) - x(0));
+				})
 				.attr('height', y.bandwidth());
 
 			// svg.append("g")

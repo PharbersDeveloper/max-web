@@ -3,6 +3,8 @@ import { run } from '@ember/runloop';
 import { inject } from '@ember/service';
 import d3 from 'd3';
 
+// TODO 这TMD谁写的，这不是弹鸡鸡的问题了 copy都不懂脑子的啊
+
 export default Component.extend({
 	i18n: inject(),
 	tagName: 'div',
@@ -18,31 +20,25 @@ export default Component.extend({
 		run.scheduleOnce('render', this, this.drawSingleLine);
 	},
 	drawSingleLine() {
-		// const singleLineData = this.get('singleLineData');
-
 		d3.select('.prod-sales-container svg.single-line-svg').remove();
 
-		// let lineNames = [
-		// 	// '产品销售额'
-		// 	String(this.i18n.t('biDashboard.common.prodSales'))
-		// ];
-		let margin = {
-				main: { // year v. innings pitched
-					top: 10, right: 40, bottom: 80, left: 80
-				},
-				secondary: { // strikeouts, walks ...
-					top: 10, right: 20, bottom: 40, left: 80
-				}
-			},
-
+		let margin = null,
 			mainWidth = 625 - margin.main.left - margin.main.right,
 			mainHeight = 400 - margin.main.top - margin.main.bottom,
-
 			secondaryWidth = 250 - margin.secondary.left - margin.secondary.right,
 			secondaryHeight = 200 - margin.secondary.top - margin.secondary.bottom,
-
-			// set this when you brush on the main graph
 			filterDates = [];
+
+		margin = {
+			main: {
+				top: 10, right: 40, bottom: 80, left: 80
+			},
+			secondary: {
+				top: 10, right: 20, bottom: 40, left: 80
+			}
+		};
+
+		// TODO 这TMD又是啥？？？？？
 
 		/* load Verlander data */
 		d3.csv('http://dhoboy.github.io/baseball/Justin_Verlander.csv', function (err, raw) {
@@ -71,14 +67,10 @@ export default Component.extend({
 
 				secondaryCharts = Object.keys(metrics).map(function (metric) {
 					let x = d3.scaleLinear()
-							.domain(d3.extent(data, function (d) {
-								return Number(d.Year);
-							}))
+							.domain(d3.extent(data, function (d) { return Number(d.Year); }))
 							.range([0, secondaryWidth]),
 						y = d3.scaleLinear()
-							.domain(d3.extent(data, function (d) {
-								return Number(d[metric]);
-							}))
+							.domain(d3.extent(data, function (d) { return Number(d[metric]); }))
 							.range([secondaryHeight, 0]);
 
 					return (
@@ -128,7 +120,8 @@ export default Component.extend({
 
 				/* setup main axes */
 				mainXAxis = d3.axisBottom(mainX),
-				mainYAxis = d3.axisLeft(mainY);
+				mainYAxis = d3.axisLeft(mainY),
+				brush = null;
 
 			/* draw main graph */
 			(function drawMainGraph() {
@@ -152,10 +145,9 @@ export default Component.extend({
 
 				/* draw axes */
 				let mainXAxisG = mainChart.append('g')
-						.attr('class', 'x axis')
-						.attr('transform', 'translate(0,' + mainHeight + ')')
-						.call(mainXAxis),
-					brush = null;
+					.attr('class', 'x axis')
+					.attr('transform', 'translate(0,' + mainHeight + ')')
+					.call(mainXAxis);
 
 				mainXAxisG.append('text')
 					.attr('transform', 'translate(490,45)')
@@ -171,6 +163,96 @@ export default Component.extend({
 					.attr('class', 'axis_title')
 					.text('Innings Pitched');
 			})();
+
+			function redrawSecondaryCharts(dataContent, reset) {
+				secondaryCharts.forEach(function (chart) {
+					let metric = chart.metric,
+						svg = chart.svg,
+						x = chart.x,
+						y = chart.y,
+						xAxis = chart.xAxis,
+						yAxis = chart.yAxis,
+						points = null;
+
+					x.domain(d3.extent(dataContent, function (d) {
+						return Number(d.Year);
+					}));
+					y.domain(d3.extent(dataContent, function (d) {
+						return Number(d[metric]);
+					}));
+
+					svg.select('.x.axis')
+						.transition()
+						.duration(reset ? 0 : 750)
+						.call(xAxis);
+
+					svg.select('.y.axis')
+						.transition()
+						.duration(reset ? 0 : 750)
+						.call(yAxis);
+
+					points = svg.selectAll('.point')
+						.data(dataContent, function (d) {
+							return d.Year;
+						});
+
+					points
+						.exit()
+						.transition()
+						.duration(reset ? 0 : 400)
+						.remove();
+
+					points
+						.transition()
+						.delay(reset ? 0 : 400)
+						.duration(reset ? 0 : 500)
+						.attr('cx', function (d) {
+							return x(d.Year);
+						});
+
+					points
+						.transition()
+						.delay(reset ? 0 : 900)
+						.duration(reset ? 0 : 500)
+						.attr('cy', function (d) {
+							return y(Number(d[metric]));
+						});
+
+					points
+						.enter()
+						.append('circle')
+						.attr('class', 'point')
+						.attr('r', 5)
+						.attr('cx', function (d) {
+							return x(d.Year);
+						})
+						.attr('cy', function (d) {
+							return y(Number(d[metric]));
+						})
+						.attr('fill-opacity', reset ? 1 : 0);
+
+					points
+						.transition()
+						.delay(reset ? 0 : 1400)
+						.duration(reset ? 0 : 400)
+						.attr('fill-opacity', 1);
+
+					svg.selectAll('.point')
+						.on('mouseover', function (d) {
+							tooltip.html('');
+							tooltip.append('pre')
+								.text(d.Year + ': ' + d[metric] + ' ' + metrics[metric]);
+
+							return tooltip.style('visibility', 'visible');
+						})
+						.on('mousemove', function () {
+							return tooltip.style('top', d3.event.pageY - 20 + 'px').style('left', d3.event.pageX + 10 + 'px');
+						})
+						.on('mouseout', function () {
+							return tooltip.style('visibility', 'hidden');
+						});
+				});
+			}
 
 			/* setup brush on main graph */
 			brush = d3.brushX()
@@ -190,10 +272,7 @@ export default Component.extend({
 						});
 
 					redrawSecondaryCharts(data, true);
-				} else { // filter data for secondary graphs
-					let f = d3.timeFormat('%Y');
-
-					// set filterDates for secondary graphs
+				} else {
 					filterDates = [
 						Math.round(reverseMainX(brushSection[0])),
 						Math.round(reverseMainX(brushSection[1])) + 1
@@ -263,100 +342,6 @@ export default Component.extend({
 						.text('Year');
 				});
 			})();
-
-			function redrawSecondaryCharts(data, reset) {
-				secondaryCharts.forEach(function (chart) {
-					let metric = chart.metric,
-						svg = chart.svg,
-						x = chart.x,
-						y = chart.y,
-						xAxis = chart.xAxis,
-						yAxis = chart.yAxis,
-						points = null;
-
-					x.domain(d3.extent(data, function (d) {
-						return Number(d.Year);
-					}));
-					y.domain(d3.extent(data, function (d) {
-						return Number(d[metric]);
-					}));
-
-					svg.select('.x.axis')
-						.transition()
-						.duration(reset ? 0 : 750)
-						.call(xAxis);
-
-					svg.select('.y.axis')
-						.transition()
-						.duration(reset ? 0 : 750)
-						.call(yAxis);
-
-					points = svg.selectAll('.point')
-						.data(data, function (d) {
-							return d.Year;
-						});
-
-					points
-						.exit()
-						.transition()
-						.duration(reset ? 0 : 400)
-						.remove();
-
-					points
-						.transition()
-						.delay(reset ? 0 : 400)
-						.duration(reset ? 0 : 500)
-						.attr('cx', function (d) {
-							return x(d.Year);
-						});
-
-					points
-						.transition()
-						.delay(reset ? 0 : 900)
-						.duration(reset ? 0 : 500)
-						.attr('cy', function (d) {
-							return y(Number(d[metric]));
-						});
-
-					points
-						.enter()
-						.append('circle')
-						.attr('class', 'point')
-						.attr('r', 5)
-						.attr('cx', function (d) {
-							return x(d.Year);
-						})
-						.attr('cy', function (d) {
-							return y(Number(d[metric]));
-						})
-						.attr('fill-opacity', reset ? 1 : 0);
-
-					// issues with the enter selection executing the
-					// fill-opacity transition only when 'reseting' graph
-					// graph resets on brush end where brush selection is null
-
-					points
-						.transition()
-						.delay(reset ? 0 : 1400)
-						.duration(reset ? 0 : 400)
-						.attr('fill-opacity', 1);
-
-					svg.selectAll('.point')
-						.on('mouseover', function (d) {
-							tooltip.html('');
-							tooltip.append('pre')
-								.text(d.Year + ': ' + d[metric] + ' ' + metrics[metric]);
-
-							return tooltip.style('visibility', 'visible');
-						})
-						.on('mousemove', function (d) {
-							return tooltip.style('top', d3.event.pageY - 20 + 'px').style('left', d3.event.pageX + 10 + 'px');
-						})
-						.on('mouseout', function (d) {
-							return tooltip.style('visibility', 'hidden');
-						});
-				});
-			}
 
 		});
 

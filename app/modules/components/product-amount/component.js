@@ -9,26 +9,11 @@ export default Component.extend({
 		run.scheduleOnce('render', this, this.drawChart);
 	},
 	drawChart() {
-		// let objectiveChart = d3.select('svg.much-lines').remove();
-		// let dataset = [
-		//     { key: '2017 01', value: '', value2: 16 },
-		//     { key: '2017 02', value: '', value2: 20 },
-		//     { key: '2017 03', value: '', value2: 40 },
-		//     { key: '2017 04', value: '', value2: 24},
-		//     { key: '2017 05', value: 10, value2: 18 },
-		//     { key: '2017 06', value: '', value2: 12 },
-		//     { key: '2017 07', value: '', value2: 15 },
-		//     { key: '2017 08', value: '', value2: 23 },
-		//     { key: '2017 09', value: '', value2: 24 },
-		//     { key: '2017 10', value: '', value2: 12 },
-		//     { key: '2017 11', value: '', value2: 18 },
-		//     { key: '2017 12', value: '', value2: 26 },
-		// ];
+
 		d3.select('.product-bar-line').select('svg').remove();
 		let dataset = this.get('dataset');
 
 		if (dataset != undefined) {
-			//Xname,barValue,lineValue
 			let barColor = '#5E81CF';
 			let width = 820;
 			let height = 200;
@@ -56,12 +41,6 @@ export default Component.extend({
 
 			let g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-			// g.attr('class', '_container-g_1mas67')
-			//     .append('text')
-			//     .attr('transform', 'translate(' + (width / 2) + ',' + (-margin.top / 2) + ')')
-			//     .attr('text-anchor', 'middle')
-			//     .attr('font-weight', 600)
-			//     .text('Simple Bar Chart');
 			// 头部标题
 
 			//x轴
@@ -83,24 +62,17 @@ export default Component.extend({
 				.attr('class', '_bar_1mas67')
 				.attr('fill', barColor)
 				.attr('x', function (d) {
- return xScale(d.key); 
-})
+					return xScale(d.key);
+				})
 				.attr('height', function (d) {
- return height - yScale(d.value); 
-})
+					return height - yScale(d.value);
+				})
 				.attr('y', function (d) {
- return yScale(d.value); 
-})
+					return yScale(d.value);
+				})
 				.attr('width', xScale.bandwidth());
 
-			// chart.append('text')
-			//     .attr('class', '_barText_1mas67')
-			//     .attr('x', function (d) { return xScale(d.key); })
-			//     .attr('y', function (d) { return yScale(d.value); })
-			//     .attr('dx', xScale.bandwidth() / 2)
-			//     .attr('dy', 20)
-			//     .attr('text-anchor', 'middle')
-			//     .text(function (d) { return d.value; });
+
 
 			d3.selectAll('._container-g_1mas67')
 				.selectAll('g:nth-last-of-type(3)')
@@ -118,11 +90,11 @@ export default Component.extend({
 
 			let line = d3.line()
 				.x(function (d) {
- return xScale(d.key); 
-})
+					return xScale(d.key);
+				})
 				.y(function (d) {
- return yScale(d.value2); 
-});
+					return yScale(d.value2);
+				});
 
 			// Line
 			g.append('path')
@@ -136,17 +108,6 @@ export default Component.extend({
 				.attr('stroke-dasharray', 2.5)
 				.attr('d', line);
 
-			// chart.on('mouseover', function (d) {
-			//     tooltip.style("opacity", 1.0);
-			//     tooltip.html(d.key + "<br>" + "份额" + d.value2 + "%" + "<br>" + "销售额" + d.value)
-			//         .style("left", (d3.event.offsetX + 20) + "px")
-			//         .style("top", (d3.event.offsetY) + "px")
-			//
-			//     d3.select(this).attr('opacity', 0.7);
-			// }).on('mouseout', function (d) {
-			//     tooltip.style("opacity", 0.0);
-			//     d3.select(this).attr('opacity', 1)
-			// });
 		}
 	}
 });

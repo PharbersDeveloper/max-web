@@ -19,7 +19,6 @@ export default Component.extend({
 	},
 	filterAndSortModel: function (that) {
 		let model = that.get('sortedModel');
-		// let result = model;
 
 		that.get('setRows')(model, that);
 	},
@@ -68,15 +67,11 @@ export default Component.extend({
 	}),
 	actions: {
 		onColumnClick(column) {
-			// this.get('logger').log(column);
 			if (column.sorted) {
 				this.setProperties({
 					dir: column.ascending ? 'asc' : 'desc',
 					sort: column.get('valuePath')
-					// canLoadMore: true,
-					// page: 0
 				});
-				// this.get('model').clear();
 				this.set('sort', column.get('valuePath'));
 
 				this.get('filterAndSortModel')(this);

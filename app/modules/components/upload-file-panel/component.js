@@ -35,16 +35,11 @@ export default Component.extend({
 						panel: result,
 						status
 					};
-					// this.get('cookies').write('cpahash', success.cpa, {
-					//     path: '/'
-					// });
 
 					this.get('cookies').write('panelhash', success.panel, {
 						path: '/'
 					});
-					// this.get('cookies').write('filecpa', this.get('filecpa'), {
-					//     path: '/'
-					// });
+
 					this.get('cookies').write('filepanel', this.get('filepanel'), {
 						path: '/'
 					});
@@ -56,16 +51,10 @@ export default Component.extend({
 		},
 		//  删除cpa文件 （伪）只是将名字置为“”空。
 		deletePanelFile() {
-			// this.set('filecpa', "");
 			this.set('filepanel', '');
 
 			this.set('isDisabled', true);
-			// this.get('cookies').write('cpahash', "", {
-			//     path: '/'
-			// });
-			// this.get('cookies').write('filecpa', "", {
-			//     path: '/'
-			// });
+
 			this.get('cookies').write('panelhash', '', {
 				path: '/'
 			});
