@@ -3,8 +3,8 @@ import { inject as service } from '@ember/service';
 
 
 export default Route.extend({
-	viewresults_route: service('add_data.viewresults_route'),
-	viewresults_controller: service('add_data.viewresults_route'),
+	viewresultsRoute: service('add_data.viewresults_route'),
+	viewresultsController: service('add_data.viewresults_route'),
 	setupController(controller, model) {
 		this._super(controller, model);
 		// this.controllerFor('application')

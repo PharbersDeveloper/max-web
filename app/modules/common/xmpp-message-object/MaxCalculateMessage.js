@@ -9,36 +9,36 @@ export default EmberObject.create({
 	calculateState: false, // 计算状态
 	_calcMsg(controllInstance, message, services) {
 		switch (message.stage) {
-			case 'start':
-				{
-					// this.set('isShowCalcProgress', true);
-					// services.progress.setPercent(message.attributes.progress);
-					break;
-				}
-			case 'ing':
-				{
-					this.set('isShowCalcProgress', true);
-					services.progress.setPercent(message.attributes.progress);
-					break;
-				}
-			case 'done':
-				{
-					this.set('calcHasDone', true);
-					services.progress.setPercent(message.attributes.progress);
-					later(controllInstance, function() {
-						services.progress.setPercent(message.attributes.progress);
-					}, 500);
-					break;
-				}
-			case 'error':
-				{
-					this.set('calculateState', true);
-					break;
-				}
-			default:
-				{
-					window.console.info('default');
-				}
+		case 'start':
+		{
+			// this.set('isShowCalcProgress', true);
+			// services.progress.setPercent(message.attributes.progress);
+			break;
+		}
+		case 'ing':
+		{
+			this.set('isShowCalcProgress', true);
+			services.progress.setPercent(message.attributes.progress);
+			break;
+		}
+		case 'done':
+		{
+			this.set('calcHasDone', true);
+			services.progress.setPercent(message.attributes.progress);
+			later(controllInstance, function () {
+				services.progress.setPercent(message.attributes.progress);
+			}, 500);
+			break;
+		}
+		case 'error':
+		{
+			this.set('calculateState', true);
+			break;
+		}
+		default:
+		{
+			window.console.info('default');
+		}
 		}
 
 	}
