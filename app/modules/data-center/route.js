@@ -16,7 +16,7 @@ export default Route.extend({
 		this.store.peekAll('PhAuth').forEach(ele => {
 			company = ele.Profile.Company.companyname;
 			username = ele.Profile.username;
-			company_id = ele.Profile.Company.id;
+            company_id = ele.Profile.Company.id;
 			localStorage.setItem('company_id', company_id)
 			localStorage.setItem('username', username);
 			localStorage.setItem('company', company);
