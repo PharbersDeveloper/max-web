@@ -118,9 +118,12 @@ export default Component.extend({
 		},
 
 		next() {
-			let cpa = this.get('filecpa');
-			let gycx = this.get('filegycx');
+			let cpa = this.get('filecpa'),
+				gycx = this.get('filegycx');
 
+
+			// TODO 改成闭包形式
+			// eslint-disable-next-line ember/closure-actions
 			this.sendAction('next', cpa, gycx);
 		}
 	}
