@@ -68,6 +68,8 @@ export default Component.extend({
 			// let cpa = this.get('filecpa');
 			let panel = this.get('filepanel');
 
+			// TODO 改成闭包形式
+			// eslint-disable-next-line ember/closure-actions
 			this.sendAction('next', panel);
 		}
 	}

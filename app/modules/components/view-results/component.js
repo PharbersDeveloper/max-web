@@ -60,11 +60,15 @@ export default Component.extend({
 			this.set('isSave', true);
 		},
 		exportFiles() {
+			// TODO 改成闭包形式
+			// eslint-disable-next-line ember/closure-actions
 			this.sendAction('exportFiles');
 		},
 		queryAll() {
 			let mAndY = this.queryContentData();
 
+			// TODO 改成闭包形式
+			// eslint-disable-next-line ember/closure-actions
 			this.sendAction('queryAll', mAndY);
 		},
 		chooseAllMonth() {

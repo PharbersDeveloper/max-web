@@ -82,8 +82,9 @@ export default Controller.extend({
 		doPageSearch(currentPage, pn) {
 			this.set('currentPage', currentPage);
 			this.set('modalTablePageObj', pn);
-			typeof this.get('modalTablePageObj') === 'undefined' ?
-				'' : this.get('modalTablePageObj').gotoCustomPage(currentPage);
+			if (typeof this.get('modalTablePageObj') !== 'undefined') {
+				this.get('modalTablePageObj').gotoCustomPage(currentPage);
+			}
 
 			let market = this.get('market'),
 				startTime = this.formatDateyyyymm(this.get('startDate')),
