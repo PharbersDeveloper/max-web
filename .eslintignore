@@ -5,3 +5,4 @@ app/app.js
 app/router.js
 ember-cli-build.js
 package.json
+model.js

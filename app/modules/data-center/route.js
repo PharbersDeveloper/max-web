@@ -4,30 +4,27 @@ import { inject as service } from '@ember/service';
 
 
 export default Route.extend({
-	data_center_route: service(),
-	data_center_controller: service(),
+	dataCenterRoute: service('data_center_route'),
+	dataCenterController: service('data_center_controller'),
 	setupController(controller, model) {
 		this._super(controller, model);
 	},
 	model() {
-		let company = '';
-		let username = '';
-		let company_id = '';
+
+
 		this.store.peekAll('PhAuth').forEach(ele => {
-			company = ele.Profile.Company.companyname;
-			username = ele.Profile.username;
-            company_id = ele.Profile.Company.id;
-			localStorage.setItem('company_id', company_id)
-			localStorage.setItem('username', username);
-			localStorage.setItem('company', company);
+			localStorage.setItem('company_id', ele.Profile.Company.id);
+			localStorage.setItem('username', ele.Profile.username);
+			localStorage.setItem('company', ele.Profile.Company.companyname);
 		});
-		let user = localStorage.getItem('username');
-		let comp = localStorage.getItem('company')
+		let user = localStorage.getItem('username'),
+			comp = localStorage.getItem('company');
+
 		return RSVP.hash({
-			title: "Pharbers 数据平台",
+			title: 'Pharbers 数据平台',
 			company: comp,
-			username: user,
-        });
+			username: user
+		});
 	},
 	actions: {
 		// 你的动作

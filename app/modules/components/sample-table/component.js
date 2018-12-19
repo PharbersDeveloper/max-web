@@ -19,7 +19,6 @@ export default Component.extend({
 	},
 	filterAndSortModel: function (that) {
 		let model = that.get('sortedModel');
-		// let result = model;
 
 		that.get('setRows')(model, that);
 	},
@@ -33,38 +32,35 @@ export default Component.extend({
 		this.get('model').forEach(function (d) {
 			let temp = {
 				province: '',
-				market_size: '',
-				market_growth: '',
-				sales_amount: '',
-				sales_growth: '',
-				ev_value: '',
+				'market_size': '',
+				'market_growth': '',
+				'sales_amount': '',
+				'sales_growth': '',
+				'ev_value': '',
 				share: '',
-				share_growth: ''
+				'share_growth': ''
 			};
 
 			temp.province = d.province;
-			temp.market_size = d.market_size;
-			temp.market_growth = d.market_growth;
-			temp.sales_amount = d.sales_amount;
-			temp.sales_growth = d.sales_growth;
-			temp.ev_value = d.ev_value;
+			temp['market_size'] = d.market_size;
+			temp['market_growth'] = d.market_growth;
+			temp['sales_amount'] = d.sales_amount;
+			temp['sales_growth'] = d.sales_growth;
+			temp['ev_value'] = d.ev_value;
 			temp.share = d.share;
-			temp.share_growth = d.share_growth;
+			temp['share_growth'] = d.share_growth;
 			handledData.push(temp);
 		});
 		return new Table(this.get('columns'), handledData);
 	}),
 	actions: {
 		onColumnClick(column) {
-			// this.get('logger').log(column);
 			if (column.sorted) {
 				this.setProperties({
 					dir: column.ascending ? 'asc' : 'desc',
 					sort: column.get('valuePath')
-					// canLoadMore: true,
-					// page: 0
+
 				});
-				// this.get('model').clear();
 				this.set('sort', column.get('valuePath'));
 
 				this.get('filterAndSortModel')(this);

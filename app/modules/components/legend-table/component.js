@@ -1,7 +1,5 @@
 import Component from '@ember/component';
-import {
-	computed
-} from '@ember/object';
+import { computed } from '@ember/object';
 import Table from 'ember-light-table';
 
 export default Component.extend({
@@ -13,14 +11,14 @@ export default Component.extend({
 	sortBy: computed('dir', 'sort', function () {
 		return [`${this.get('sort')}:${this.get('dir')}`];
 	}).readOnly(),
-	setRows: function (rows, that) {
-		that.get('table').setRows([]);
-		that.get('table').setRows(rows);
+	setRows: function (rows, thisInstance) {
+		thisInstance.get('table').setRows([]);
+		thisInstance.get('table').setRows(rows);
 	},
-	filterAndSortModel: function (that) {
-		let model = that.get('sortedModel');
+	filterAndSortModel: function (thisInstance) {
+		let model = thisInstance.get('sortedModel');
 
-		that.get('setRows')(model, that);
+		thisInstance.get('setRows')(model, thisInstance);
 	},
 	columns: computed('columns', function () {
 
