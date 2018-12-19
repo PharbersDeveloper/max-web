@@ -8,7 +8,7 @@ export default Component.extend({
 	didReceiveAttrs() {
 		let data = this.get('dataset');
 
-		if (data !== undefined) {
+		if (typeof data !== 'undefined') {
 			run.scheduleOnce('render', this, this.drawChart);
 		}
 	},

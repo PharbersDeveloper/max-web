@@ -27,39 +27,47 @@ export default Component.extend({
 	drawLegendPie() {
 		d3.select('svg.market-pie').remove();
 		d3.select('.sales-tooltips').remove();
-		let svgContainer = d3.select(this.element);
-		let svg = svgContainer.append('svg').attr('class', 'market-pie');
-		let width = get(this, 'width');
-		let height = get(this, 'height');
+		let svgContainer = d3.select(this.element),
+			svg = svgContainer.append('svg').attr('class', 'market-pie'),
+			// width = get(this, 'width'),
+			height = get(this, 'height'),
+			// margin = this.get('margin'),
+			radius = 130,
+			pieData = this.get('pieData'),
+			dataTitle = [],
+			pieColor = [],
+			pieValue = [],
+			pieTips = [],
+			handledData = [],
+			outerRadius = 140,
+			innerRadius = 85,
+			// data = pieValue,
+			color = pieColor,
+			arc = null,
+			arc2 = null,
+			pie = null,
+			arcs = null,
+			titleDot = null;
 
-		let margin = this.get('margin');
-		let radius = 130;
-		var pieData = this.get('pieData');
-		var dataTitle = [];
-		var pieColor = [];
-		var pieValue = [];
-		let pieTips = [];
+		pieData.map(function (d) {
+			let tempData = [],
+				temp = {};
 
-		let handledData = [];
-
-		pieData.map(function (d, index) {
-			let tempData = [];
-
-			d.TipDetail.map(function (t, index) {
-				let temp = {
+			d.TipDetail.map(function (t) {
+				let tempinside = {
 					key: '',
 					value: '',
 					unit: ''
 				};
 
-				temp.key = t.key;
-				temp.value = t.value;
-				temp.unit = t.unit;
-				tempData.push(temp);
+				tempinside.key = t.key;
+				tempinside.value = t.value;
+				tempinside.unit = t.unit;
+				tempData.push(tempinside);
 			});
-			let temp = {
-				show_value: '',
-				show_unit: '',
+			temp = {
+				'show_value': '',
+				'show_unit': '',
 				title: '',
 				color: '',
 				prod: '',
@@ -68,8 +76,8 @@ export default Component.extend({
 				TipDetail: []
 			};
 
-			temp.show_value = d.show_value;
-			temp.show_unit = d.show_unit;
+			temp['show_value'] = d.show_value;
+			temp['show_unit'] = d.show_unit;
 			temp.title = d.title;
 			temp.color = d.color;
 			temp.prod = d.prod;
@@ -80,28 +88,27 @@ export default Component.extend({
 		});
 		pieData = handledData;
 
-		pieData.map(function (item, index) {
+		pieData.map(function (item) {
 			dataTitle.push(item.title);
 		});
-		pieData.map(function (item, index) {
+		pieData.map(function (item) {
 			pieColor.push(item.color);
 		});
-		pieData.map(function (item, index) {
+		pieData.map(function (item) {
 			pieValue.push(item.show_value);
 		});
-		pieData.map((item, index) => pieTips.push(item.TipDetail));
-		var outerRadius = 140;
-		var innerRadius = 85;
-		let data = pieValue;
-		let color = pieColor;
-		let arc = d3.arc()
+		pieData.map((item) => pieTips.push(item.TipDetail));
+		outerRadius = 140;
+		innerRadius = 85;
+		color = pieColor;
+		arc = d3.arc()
 			.innerRadius(innerRadius)
 			.outerRadius(outerRadius);
 
-		let arc2 = d3.arc()
+		arc2 = d3.arc()
 			.innerRadius(innerRadius)
 			.outerRadius(outerRadius + 10);
-		var pie = d3.pie()
+		pie = d3.pie()
 			.value(function (d) {
 				return d.show_value;
 			});
@@ -113,20 +120,20 @@ export default Component.extend({
 			.attr('preserveAspectRatio', 'xMidYMid', 'meet')
 			.append('g')
 			.attr('transform', 'translate(' + 130 + ',' + 150 + ')');
-		var tooltip = svgContainer
+		svgContainer
 			.append('div')
 			.attr('class', 'sales-tooltips');
 
-		function htmlText(d, i) {
-			let tips = d.data.TipDetail;
-			let tipsStr = '';
+		function htmlText(d) {
+			let tips = d.data.TipDetail,
+				tipsStr = '';
 
 			for (let m = 0, len = tips.length; m < len; m++) {
 				tipsStr += "<p class='tipsline'><span>" + tips[m].key + '</span><span>' + tips[m].value + tips[m].unit + '</span></p>';
 			}
 			return tipsStr;
 		}
-		var arcs = svg.selectAll('g.arc')
+		arcs = svg.selectAll('g.arc')
 			.data(pie)
 			.enter().append('g')
 			.attr('class', 'arc')
@@ -134,14 +141,14 @@ export default Component.extend({
 			.attr('transform', 'translate(150,150)')
 			//为每一块元素添加鼠标事件
 			.on('mouseover', function (d, i) {
-				let containerWidth = svgContainer.style('width');
-				let currentWidth = Number(containerWidth.slice(0, containerWidth.length - 2));
-				let left = arc.centroid(d)[0] + currentWidth / 3;
-				let top = arc.centroid(d)[1] + 100;
-				let html = htmlText(d, i);
+				let containerWidth = svgContainer.style('width'),
+					currentWidth = Number(containerWidth.slice(0, containerWidth.length - 2)),
+					left = arc.centroid(d)[0] + currentWidth / 3,
+					top = arc.centroid(d)[1] + 100,
+					html = htmlText(d, i);
 
-				d3.select(this).select('path').transition().attr('d', function (d) {
-					return arc2(d);
+				d3.select(this).select('path').transition().attr('d', function (dd) {
+					return arc2(dd);
 				});
 				// tooltip
 				d3.select('.sales-tooltips')
@@ -150,7 +157,7 @@ export default Component.extend({
 					.html("<p class='pie-title'><span>" + d.data.title + '</span></p>' +
 						html)
 					.style('opacity', 1);
-				let titleDot = d3.select('.pie-title').insert('svg', '.pie-title span:first-child').attr('class', 'pie-dots');
+				titleDot = d3.select('.pie-title').insert('svg', '.pie-title span:first-child').attr('class', 'pie-dots');
 
 				titleDot.append('g').selectAll('circle')
 					.data(['color'])
@@ -163,14 +170,35 @@ export default Component.extend({
 
 			})
 
-			.on('mouseout', function (d) {
+			.on('mouseout', function () {
 				d3.select(this).select('path').transition().attr('d', function (d) {
 					return arc(d);
 				});
 				d3.select('.sales-tooltips').style('opacity', 0);
 			});
 
-		//绘
+		function tweenPie(b) {
+			b.innerRadius = 0;
+			let i = d3.interpolate({
+				startAngle: 0,
+				endAngle: 0
+			}, b);
+
+			return function (t) {
+				return arc(i(t));
+			};
+		}
+
+		function tweenDonut(b) {
+			b.innerRadius = radius * 0.6;
+			let i = d3.interpolate({
+				innerRadius: 0
+			}, b);
+
+			return function (t) {
+				return arc(i(t));
+			};
+		}
 		arcs.append('path')
 			.attr('fill', function (d, i) {
 				return color[i];
@@ -197,27 +225,6 @@ export default Component.extend({
 				return d.value + '%';
 			});
 
-		function tweenPie(b) {
-			b.innerRadius = 0;
-			var i = d3.interpolate({
-				startAngle: 0,
-				endAngle: 0
-			}, b);
 
-			return function (t) {
-				return arc(i(t));
-			};
-		}
-
-		function tweenDonut(b) {
-			b.innerRadius = radius * 0.6;
-			var i = d3.interpolate({
-				innerRadius: 0
-			}, b);
-
-			return function (t) {
-				return arc(i(t));
-			};
-		}
 	}
 });

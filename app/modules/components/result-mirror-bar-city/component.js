@@ -10,65 +10,55 @@ export default Component.extend({
 	},
 	drawChart() {
 		d3.select('#chart-city').select('svg').remove();
-		let currentDataCity = this.get('currentDataCity');
-		let lastDataCity = this.get('lastDataCity');
+		let currentDataCity = this.get('currentDataCity'),
+			lastDataCity = this.get('lastDataCity');
 
-		if (currentDataCity != undefined && lastDataCity != undefined) {
+		if (typeof currentDataCity !== 'undefined' && typeof lastDataCity !== 'undefined') {
 
-			var margin = { top: 100, right: 50, bottom: 40, left: -30 },
+			let margin = { top: 100, right: 50, bottom: 40, left: -30 },
 				width = 150 - margin.left - margin.right,
-				height = 550 - margin.top - margin.bottom;
+				height = 550 - margin.top - margin.bottom,
+				currentXArray = currentDataCity.map(function (ele) {
+					return ele.marketSales;
+				}),
+				currentXArrayMax = Math.ceil(Math.max.apply(null, currentXArray)),
+				x = d3.scaleLinear() //返回一个线性比例尺
+					.range([0, currentXArrayMax]), //设定比例尺的值域
+				xRight = d3.scaleLinear() //返回一个线性比例尺
+					.range([0, currentXArrayMax]), //设定比例尺的值域
+				y = d3.scaleBand() //d3.scaleBand()并不是一个连续性的比例尺
+					.range([0, height])
+					.padding(0.4), // y轴之间的值的间隙
+				yRight = d3.scaleBand() //d3.scaleBand()并不是一个连续性的比例尺
+					.range([0, height])
+					.padding(0.4),
+				// xAxis = d3.axisBottom()
+				// 	.scale(x), // x坐标轴
+				// xAxisRight = d3.axisBottom()
+				// 	.scale(xRight), // x坐标轴
+				yAxis = d3.axisRight()
+					.scale(y)
+					.tickSize(0)
+					.tickPadding(6),
+				yAxisRight = d3.axisLeft()
+					.scale(yRight)
+					.tickSize(0)
+					.tickPadding(6),
+				svg = d3.select('#chart-city').append('svg')
+					.attr('width', width + margin.left + margin.right)
+					.attr('height', height + margin.top + margin.bottom)
+					.attr('class', 'lastYearSvg')
+					.append('g')
+					.attr('transform', 'translate(70,' + margin.top + ')'),
+				svgRight = d3.select('#chart-city').append('svg')
+					.attr('width', width + margin.left + margin.right)
+					.attr('height', height + margin.top + margin.bottom)
+					.attr('class', 'currentYearSvg')
+					.append('g')
+					.attr('transform', 'translate(70,' + margin.top + ')');
 
-			function getMaxOfArray(numArray) {
-				return Math.max.apply(null, numArray);
-			}
-			let currentXArray = currentDataCity.map(function (ele, idx, arr) {
-				return ele.marketSales;
-			});
-			let currentXArrayMax = Math.ceil(Math.max.apply(null, currentXArray));
-
-			var x = d3.scaleLinear() //返回一个线性比例尺
-				.range([0, currentXArrayMax]); //设定比例尺的值域
-
-			var xRight = d3.scaleLinear() //返回一个线性比例尺
-				.range([0, currentXArrayMax]); //设定比例尺的值域
-
-			var y = d3.scaleBand() //d3.scaleBand()并不是一个连续性的比例尺
-				.range([0, height])
-				.padding(0.4); // y轴之间的值的间隙
-
-			var yRight = d3.scaleBand() //d3.scaleBand()并不是一个连续性的比例尺
-				.range([0, height])
-				.padding(0.4);
-
-			var xAxis = d3.axisBottom()
-				.scale(x); // x坐标轴
-
-			var xAxisRight = d3.axisBottom()
-				.scale(xRight); // x坐标轴
-
-			var yAxis = d3.axisRight()
-				.scale(y)
-				.tickSize(0)
-				.tickPadding(6);
-			let yAxisRight = d3.axisLeft()
-				.scale(yRight)
-				.tickSize(0)
-				.tickPadding(6);
-
-			var svg = d3.select('#chart-city').append('svg')
-				.attr('width', width + margin.left + margin.right)
-				.attr('height', height + margin.top + margin.bottom)
-				.attr('class', 'lastYearSvg')
-				.append('g')
-				.attr('transform', 'translate(70,' + margin.top + ')');
-			var svgRight = d3.select('#chart-city').append('svg')
-				.attr('width', width + margin.left + margin.right)
-				.attr('height', height + margin.top + margin.bottom)
-				.attr('class', 'currentYearSvg')
-				.append('g')
-				.attr('transform', 'translate(70,' + margin.top + ')');
-
+			d3.axisBottom().scale(x);
+			d3.axisBottom().scale(xRight); // x坐标轴
 			x.domain(d3.extent(lastDataCity, function (d) {
 				return d.marketSales;
 			})).nice();
@@ -108,7 +98,7 @@ export default Component.extend({
 				.attr('x', function (d) {
 					return x(Math.min(0, d.marketSales));
 				})
-				.attr('y', function (d, i) {
+				.attr('y', function (d) {
 					return yRight(d.key + d.area);
 				})
 				.attr('width', function (d) {

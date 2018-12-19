@@ -33,34 +33,34 @@ export default Component.extend({
 			let temp = {
 				prod: '',
 				market: '',
-				market_scale: '',
+				'market_scale': '',
 				sales: '',
 				manufacturer: '',
-				market_sale: '',
+				'market_sale': '',
 				province: '',
-				market_size: '',
-				market_growth: '',
-				sales_amount: '',
-				sales_growth: '',
-				ev_value: '',
+				'market_size': '',
+				'market_growth': '',
+				'sales_amount': '',
+				'sales_growth': '',
+				'ev_value': '',
 				share: '',
-				share_growth: ''
+				'share_growth': ''
 			};
 
 			temp.prod = d.prod;
 			temp.market = d.market;
-			temp.market_scale = d.market_scale;
+			temp['market_scale'] = d.market_scale;
 			temp.sales = d.sales;
 			temp.manufacturer = d.manufacturer;
-			temp.market_sale = d.market_sale;
+			temp['market_sale'] = d.market_sale;
 			temp.province = d.province;
-			temp.market_size = d.market_size;
-			temp.market_growth = d.market_growth;
-			temp.sales_amount = d.sales_amount;
-			temp.sales_growth = d.sales_growth;
-			temp.ev_value = d.ev_value;
+			temp['market_size'] = d.market_size;
+			temp['market_growth'] = d.market_growth;
+			temp['sales_amount'] = d.sales_amount;
+			temp['sales_growth'] = d.sales_growth;
+			temp['ev_value'] = d.ev_value;
 			temp.share = d.share;
-			temp.share_growth = d.share_growth;
+			temp['share_growth'] = d.share_growth;
 			handledData.push(temp);
 		});
 		return new Table(this.get('columns'), handledData);

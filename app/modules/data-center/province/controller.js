@@ -5,8 +5,8 @@ import { A } from '@ember/array';
 import $ from 'jquery';
 
 export default Controller.extend({
-	data_center_route: service(),
-	data_center_controller: service(),
+	dataCenterRoute: service('data_center_route'),
+	dataCenterController: service('data_center_controller'),
 	i18n: service(),
 	cookies: service(),
 	market: '麻醉市场',
@@ -20,28 +20,25 @@ export default Controller.extend({
 	prov: '北京市',
 	userId: localStorage.getItem('userid'),
 	companyId: localStorage.getItem('company_id'),
-	// oldtime: computed('year', 'month', function() {
-	//     let year = this.get('year');
-	//     let month = this.get('month');
-	//     return year + '-' + month;
-	// }),
+
 	time: computed('year', 'month', function () {
-		// body
-		let year = this.get('year');
-		let month = this.get('month');
+		let year = this.get('year'),
+			month = this.get('month');
 
 		return year + '-' + month;
 	}),
 	computedRankingMax(whichValue, whickMax, whickRank) {
-		let ranking = this.get(whichValue);
-		let range = 0;
-		let valueArr = [];
+		let ranking = this.get(whichValue),
+			range = 0,
+			valueArr = [],
+			maxValue = 0,
+			rankingRangeArr = [];
 
 		ranking.map(function (item) {
 			valueArr.push(Math.round(item.value));
 		});
 
-		let maxValue = Math.max(...valueArr);
+		maxValue = Math.max(...valueArr);
 		// this.set('rankingMax', maxValue);
 
 		this.set(whickMax, maxValue);
@@ -49,13 +46,13 @@ export default Controller.extend({
 		if (maxValue < 10) {
 			range = 2;
 		} else {
-			let maxAsArr = String(Math.round(maxValue / 5)).split('');
-			let firstMax = Number(maxAsArr[0]);
-			let restMax = maxAsArr.length - 1;
+			let maxAsArr = String(Math.round(maxValue / 5)).split(''),
+				firstMax = Number(maxAsArr[0]),
+				restMax = maxAsArr.length - 1;
 
-			range = (firstMax + 1) * Math.pow(10, (restMax));
+			range = (firstMax + 1) * Math.pow(10, restMax);
 		}
-		let rankingRangeArr = [];
+		rankingRangeArr = [];
 
 		for (let i = 0; i <= 5; i++) {
 			rankingRangeArr.push(i * range);
@@ -67,34 +64,33 @@ export default Controller.extend({
      *	查询市场产品卡片
      */
 	queryMarketProdCards() {
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provincename01',
-			res: 'provincename',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.userId
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provincename01',
+				res: 'provincename',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.userId
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		let result = this.get('data_center_route').object2JsonApi(req);
-
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/provinceName', 'provincename', result)
-			.then((result) => {
-				if (result.ProvinceWord.length != 0) {
-					this.set('cards', result.ProvinceWord);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/provinceName', 'provincename', result)
+			.then((data) => {
+				if (data.ProvinceWord.length !== 0) {
+					this.set('cards', data.ProvinceWord);
 				}
 			});
 	},
@@ -103,40 +99,39 @@ export default Controller.extend({
      *
      */
 	queryMixedGraph() {
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provincelineoverview01',
-			res: 'provincelineoverview',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'user_id01',
-					key: 'user_id',
-					val: this.userId
-				})
-			])
-		});
-		//遍历数组
-		let result = this.get('data_center_route').object2JsonApi(req);
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provincelineoverview01',
+				res: 'provincelineoverview',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'user_id01',
+						key: 'user_id',
+						val: this.userId
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/lineOverview', 'provincelineoverview', result)
-			.then((result) => {
-				this.set('mixedGraphTitle', result.ProdSalesOverview);
-				if (result.MixedGraphLine.length != 0) {
-					this.set('mixedGraphData', result.MixedGraphLine);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/lineOverview', 'provincelineoverview', result)
+			.then((data) => {
+				this.set('mixedGraphTitle', data.ProdSalesOverview);
+				if (data.MixedGraphLine.length !== 0) {
+					this.set('mixedGraphData', data.MixedGraphLine);
 				}
 			});
 	},
@@ -144,40 +139,39 @@ export default Controller.extend({
      *	查询市场各省份销售概况-table
      */
 	queryMarketSalesTable() {
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provincetableoverview01',
-			res: 'provincetableoverview',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'user_id01',
-					key: 'user_id',
-					val: this.userId
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provincetableoverview01',
+				res: 'provincetableoverview',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'user_id01',
+						key: 'user_id',
+						val: this.userId
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		let result = this.get('data_center_route').object2JsonApi(req);
-
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/tableOverview', 'provincetableoverview', result)
-			.then((result) => {
-				this.set('provSalesTitle', result.ProdSalesOverview);
-				if (result.ProdSalesValue.length != 0) {
-					this.set('marketSalesValue', result.ProdSalesValue);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/tableOverview', 'provincetableoverview', result)
+			.then((data) => {
+				this.set('provSalesTitle', data.ProdSalesOverview);
+				if (data.ProdSalesValue.length !== 0) {
+					this.set('marketSalesValue', data.ProdSalesValue);
 				}
 			});
 	},
@@ -186,40 +180,39 @@ export default Controller.extend({
      *	市场销售组成-pie
      */
 	queryPerMarketShare() {
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provincemarketpart01',
-			res: 'provincemarketpart',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'user_id01',
-					key: 'user_id',
-					val: this.userId
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provincemarketpart01',
+				res: 'provincemarketpart',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'user_id01',
+						key: 'user_id',
+						val: this.userId
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		let result = this.get('data_center_route').object2JsonApi(req);
-
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/marketPart', 'provincemarketpart', result)
-			.then((result) => {
-				this.set('marketTitle', result.ProdSalesOverview);
-				if (result.Pie.length != 0) {
-					this.set('marketSalesPie', result.Pie);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/marketPart', 'provincemarketpart', result)
+			.then((data) => {
+				this.set('marketTitle', data.ProdSalesOverview);
+				if (data.Pie.length !== 0) {
+					this.set('marketSalesPie', data.Pie);
 				}
 			});
 	},
@@ -228,45 +221,44 @@ export default Controller.extend({
      *	查询市场层面排行
      */
 	queryMarketRank() {
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provincelevelrank01',
-			res: 'provincelevelrank',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'user_id01',
-					key: 'user_id',
-					val: this.userId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'tag01',
-					key: 'tag',
-					val: this.provRankTag
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provincelevelrank01',
+				res: 'provincelevelrank',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'user_id01',
+						key: 'user_id',
+						val: this.userId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'tag01',
+						key: 'tag',
+						val: this.provRankTag
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		let result = this.get('data_center_route').object2JsonApi(req);
-
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/provLevelRank', 'provincelevelrank', result)
-			.then((result) => {
-				this.set('marketRankingUnit', result.unit);
-				if (result.Ranking.length == 0) {
-					this.set('provRankValue', result.Ranking);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/provLevelRank', 'provincelevelrank', result)
+			.then((data) => {
+				this.set('marketRankingUnit', data.unit);
+				if (data.Ranking.length !== 0) {
+					this.set('provRankValue', data.Ranking);
 					this.computedRankingMax('provRankValue', 'provRankMax', 'provRankRange');
 				}
 			});
@@ -276,43 +268,43 @@ export default Controller.extend({
      *	市场销售总额 卡片数据
      */
 	queryProdCards() {
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provincemarketsale01',
-			res: 'provincemarketsale',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'user_id01',
-					key: 'user_id',
-					val: this.userId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'province01',
-					key: 'province',
-					val: this.prov
-				})
-			])
-		});
-		let result = this.get('data_center_route').object2JsonApi(req);
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provincemarketsale01',
+				res: 'provincemarketsale',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'user_id01',
+						key: 'user_id',
+						val: this.userId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'province01',
+						key: 'province',
+						val: this.prov
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/provMarketSale', 'provincemarketsale', result)
-			.then((result) => {
-				if (result.SaleShareCard.length != 0) {
-					this.set('sales', result.SaleShareCard);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/provMarketSale', 'provincemarketsale', result)
+			.then((data) => {
+				if (data.SaleShareCard.length !== 0) {
+					this.set('sales', data.SaleShareCard);
 				}
 			});
 	},
@@ -322,45 +314,44 @@ export default Controller.extend({
      */
 	queryProdTrend() {
 
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provinceproducttrend01',
-			res: 'provinceproducttrend',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'user_id01',
-					key: 'user_id',
-					val: this.userId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'province01',
-					key: 'province',
-					val: this.prov
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provinceproducttrend01',
+				res: 'provinceproducttrend',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'user_id01',
+						key: 'user_id',
+						val: this.userId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'province01',
+						key: 'province',
+						val: this.prov
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		let result = this.get('data_center_route').object2JsonApi(req);
-
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/productTrend', 'provinceproducttrend', result)
-			.then((result) => {
-				this.set('trendTitle', result.ProdSalesOverview);
-				if (result.MultipleLine.length != 0) {
-					this.set('prodTrend', result.MultipleLine);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/productTrend', 'provinceproducttrend', result)
+			.then((data) => {
+				this.set('trendTitle', data.ProdSalesOverview);
+				if (data.MultipleLine.length !== 0) {
+					this.set('prodTrend', data.MultipleLine);
 				}
 			});
 	},
@@ -369,45 +360,43 @@ export default Controller.extend({
      */
 	queryProdMostCards() {
 
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provinceproductcard01',
-			res: 'provinceproductcard',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'user_id01',
-					key: 'user_id',
-					val: this.userId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'province01',
-					key: 'province',
-					val: this.prov
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provinceproductcard01',
+				res: 'provinceproductcard',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'user_id01',
+						key: 'user_id',
+						val: this.userId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'province01',
+						key: 'province',
+						val: this.prov
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		//遍历数组
-		let result = this.get('data_center_route').object2JsonApi(req);
-
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/productCard', 'provinceproductcard', result)
-			.then((result) => {
-				if (result.ProProductCard.length != 0) {
-					this.set('words', result.ProProductCard);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/productCard', 'provinceproductcard', result)
+			.then((data) => {
+				if (data.ProProductCard.length !== 0) {
+					this.set('words', data.ProProductCard);
 				}
 			});
 	},
@@ -416,45 +405,44 @@ export default Controller.extend({
      */
 	queryPerProductShare() {
 
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provinceproductshare01',
-			res: 'provinceproductshare',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'user_id01',
-					key: 'user_id',
-					val: this.userId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'province01',
-					key: 'province',
-					val: this.prov
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provinceproductshare01',
+				res: 'provinceproductshare',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'user_id01',
+						key: 'user_id',
+						val: this.userId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'province01',
+						key: 'province',
+						val: this.prov
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		let result = this.get('data_center_route').object2JsonApi(req);
-
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/productShare', 'provinceproductshare', result)
-			.then((result) => {
-				this.set('prodMarketTitle', result.ProdSalesOverview);
-				if (result.Pie.length != 0) {
-					this.set('marketShare', result.Pie);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/productShare', 'provinceproductshare', result)
+			.then((data) => {
+				this.set('prodMarketTitle', data.ProdSalesOverview);
+				if (data.Pie.length !== 0) {
+					this.set('marketShare', data.Pie);
 				}
 			}); //response
 	},
@@ -463,50 +451,49 @@ export default Controller.extend({
      */
 	queryProductRank() {
 
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provinceproductrankchange01',
-			res: 'provinceproductrankchange',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'user_id01',
-					key: 'user_id',
-					val: this.userId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'province01',
-					key: 'province',
-					val: this.prov
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'tag01',
-					key: 'tag',
-					val: this.prodRankTag
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provinceproductrankchange01',
+				res: 'provinceproductrankchange',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'user_id01',
+						key: 'user_id',
+						val: this.userId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'province01',
+						key: 'province',
+						val: this.prov
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'tag01',
+						key: 'tag',
+						val: this.prodRankTag
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		let result = this.get('data_center_route').object2JsonApi(req);
-
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/prodRankChange', 'provinceproductrankchange', result)
-			.then((result) => {
-				this.set('prodRankingUnit', result.ProdSalesOverview.unit);
-				if (result.Ranking.length != 0) {
-					this.set('prodRankValue', result.Ranking);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/prodRankChange', 'provinceproductrankchange', result)
+			.then((data) => {
+				this.set('prodRankingUnit', data.ProdSalesOverview.unit);
+				if (data.Ranking.length !== 0) {
+					this.set('prodRankValue', data.Ranking);
 					this.computedRankingMax('prodRankValue', 'prodRankMax', 'prodRankRange');
 				}
 			}); //response
@@ -518,45 +505,44 @@ export default Controller.extend({
      */
 	queryProductSalesTable() {
 
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provinceproductsaleoverview01',
-			res: 'provinceproductsaleoverview',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'user_id01',
-					key: 'user_id',
-					val: this.userId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'province01',
-					key: 'province',
-					val: this.prov
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provinceproductsaleoverview01',
+				res: 'provinceproductsaleoverview',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'user_id01',
+						key: 'user_id',
+						val: this.userId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'province01',
+						key: 'province',
+						val: this.prov
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		let result = this.get('data_center_route').object2JsonApi(req);
-
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/prodSaleOverview', 'provinceproductsaleoverview', result)
-			.then((result) => {
-				this.set('competingTitle', result.ProdSalesOverview);
-				if (result.ProdSalesValue.length != 0) {
-					this.set('competingProdValue', result.ProdSalesValue);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/prodSaleOverview', 'provinceproductsaleoverview', result)
+			.then((data) => {
+				this.set('competingTitle', data.ProdSalesOverview);
+				if (data.ProdSalesValue.length !== 0) {
+					this.set('competingProdValue', data.ProdSalesValue);
 				}
 			}); //response
 	},
@@ -565,50 +551,49 @@ export default Controller.extend({
      */
 	queryAllProdTrend() {
 
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'provinceproducttrendanalysis01',
-			res: 'provinceproducttrendanalysis',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'user_id01',
-					key: 'user_id',
-					val: this.userId
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'province01',
-					key: 'province',
-					val: this.prov
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'tag01',
-					key: 'tag',
-					val: this.trendTag
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'provinceproducttrendanalysis01',
+				res: 'provinceproducttrendanalysis',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'user_id01',
+						key: 'user_id',
+						val: this.userId
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'province01',
+						key: 'province',
+						val: this.prov
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'tag01',
+						key: 'tag',
+						val: this.trendTag
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		let result = this.get('data_center_route').object2JsonApi(req);
-
-		this.get('data_center_route').queryObject('/api/v1/dashboard/province/prodTrendAnalysis', 'provinceproducttrendanalysis', result)
-			.then((result) => {
-				this.set('AllTrendTitle', result.ProdSalesOverview);
-				if (result.ProdTrendLine.length != 0) {
-					this.set('AllTrendValue', result.ProdTrendLine);
+		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/province/prodTrendAnalysis', 'provinceproducttrendanalysis', result)
+			.then((data) => {
+				this.set('AllTrendTitle', data.ProdSalesOverview);
+				if (data.ProdTrendLine.length !== 0) {
+					this.set('AllTrendValue', data.ProdTrendLine);
 				}
 			});
 	},
@@ -617,85 +602,85 @@ export default Controller.extend({
      */
 	queryMarket() {
 
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'allmarket01',
-			res: 'allmarket',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'allmarket01',
+				res: 'allmarket',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		let result = this.get('data_center_route').object2JsonApi(req);
+		this.get('dataCenterRoute').queryObject('/api/v1/search/market/all', 'allmarket', result)
+			.then((data) => {
+				if (data.status === 'ok') {
+					let tempMarkets = [];
 
-		this.get('data_center_route').queryObject('/api/v1/search/market/all', 'allmarket', result).then((result) => {
-			if (result.status === 'ok') {
-				let tempMarkets = [];
-
-				result.Market.forEach(function (d) {
-					tempMarkets.push(d.name);
-				});
-				this.set('markets', tempMarkets);
-				this.set('market', tempMarkets[0]);
-				this.queryMarketProdCards();
-				this.queryMixedGraph();
-				this.queryMarketSalesTable();
-				this.queryPerMarketShare();
-				this.queryMarketRank();
-				this.queryMarketProv();
-			}
-		}); //response
+					data.Market.forEach(function (d) {
+						tempMarkets.push(d.name);
+					});
+					this.set('markets', tempMarkets);
+					this.set('market', tempMarkets[0]);
+					this.queryMarketProdCards();
+					this.queryMixedGraph();
+					this.queryMarketSalesTable();
+					this.queryPerMarketShare();
+					this.queryMarketRank();
+					this.queryMarketProv();
+				}
+			}); //response
 
 	},
 	/**
      *	查询市场下的所有城市
      */
 	queryMarketProv() {
-		let req = this.get('data_center_controller').createModel('request', {
-			id: 'allprovince01',
-			res: 'allprovince',
-			eqcond: new A([
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'market01',
-					key: 'market',
-					val: this.market
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'time01',
-					key: 'time',
-					val: this.time
-				}),
-				this.get('data_center_controller').createModel('eqcond', {
-					id: 'company_id01',
-					key: 'company_id',
-					val: this.companyId
-				})
-			])
-		});
+		let req = this.get('dataCenterController').createModel('request', {
+				id: 'allprovince01',
+				res: 'allprovince',
+				eqcond: new A([
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'market01',
+						key: 'market',
+						val: this.market
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'time01',
+						key: 'time',
+						val: this.time
+					}),
+					this.get('dataCenterController').createModel('eqcond', {
+						id: 'company_id01',
+						key: 'company_id',
+						val: this.companyId
+					})
+				])
+			}),
+			result = this.get('dataCenterRoute').object2JsonApi(req);
 
-		let result = this.get('data_center_route').object2JsonApi(req);
+		this.get('dataCenterRoute').queryObject('/api/v1/search/province/all', 'allprovince', result)
+			.then((data) => {
+				if (data.status === 'ok') {
+					let tempProvs = [];
 
-		this.get('data_center_route').queryObject('/api/v1/search/province/all', 'allprovince', result).then((result) => {
-			if (result.status === 'ok') {
-				let tempProvs = [];
-
-				result.Province.forEach(function (d) {
-					tempProvs.push(d.name);
-				});
-				this.set('provs', tempProvs);
-				this.set('prov', tempProvs[0]);
-				this.queryProdCards();
-				this.queryProdTrend();
-				this.queryProdMostCards();
-				this.queryPerProductShare();
-				this.queryProductRank();
-				this.queryProductSalesTable();
-				this.queryAllProdTrend();
-			}
-		}); //response
+					data.Province.forEach(function (d) {
+						tempProvs.push(d.name);
+					});
+					this.set('provs', tempProvs);
+					this.set('prov', tempProvs[0]);
+					this.queryProdCards();
+					this.queryProdTrend();
+					this.queryProdMostCards();
+					this.queryPerProductShare();
+					this.queryProductRank();
+					this.queryProductSalesTable();
+					this.queryAllProdTrend();
+				}
+			}); //response
 
 	},
 	init() {
