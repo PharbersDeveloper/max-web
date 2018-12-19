@@ -1,11 +1,5 @@
 import Component from '@ember/component';
-// import { computed } from '@ember/object';
-// import conf from '../config/environment';
-
-import {
-	inject
-} from '@ember/service';
-// import rsvp from 'rsvp';
+import { inject } from '@ember/service';
 
 // TODO: 上传只有上传的与上传状态，其余的应该在扩展该component的时候在设置，譬如下一步按钮的状态
 // 现在先这么写，第一版出来后立即重构,重写Job获取，不在上传文件中进行
