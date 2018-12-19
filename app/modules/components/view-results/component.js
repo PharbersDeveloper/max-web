@@ -17,8 +17,8 @@ export default Component.extend({
 	productSumSales: 0,
 	productSumSalesPercentage: 0,
 	computeShare: computed('marketSumSales', 'productSumSales', function () {
-		let psales = parseFloat(this.get('productSumSales'));
-		let msales = parseFloat(this.get('marketSumSales'));
+		let psales = parseFloat(this.get('productSumSales')),
+			msales = parseFloat(this.get('marketSumSales'));
 
 		return (psales / msales * 100).toFixed(2);
 	}),
@@ -47,8 +47,8 @@ export default Component.extend({
 		];
 	},
 	queryContentData() {
-		let market = $('select[name="markets"]').val() || localStorage.getItem('market');
-		let year = $('select[name="years"]').val() || localStorage.getItem('year');
+		let market = $('select[name="markets"]').val() || localStorage.getItem('market'),
+			year = $('select[name="years"]').val() || localStorage.getItem('year');
 
 		return {
 			market: market,
