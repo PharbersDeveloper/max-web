@@ -22,24 +22,23 @@ export default Component.extend({
 	drawSingleLine() {
 		d3.select('.prod-sales-container svg.single-line-svg').remove();
 
-		let margin = null,
+		let margin = {
+				main: {
+					top: 10, right: 40, bottom: 80, left: 80
+				},
+				secondary: {
+					top: 10, right: 20, bottom: 40, left: 80
+				}
+			},
 			mainWidth = 625 - margin.main.left - margin.main.right,
 			mainHeight = 400 - margin.main.top - margin.main.bottom,
 			secondaryWidth = 250 - margin.secondary.left - margin.secondary.right,
 			secondaryHeight = 200 - margin.secondary.top - margin.secondary.bottom,
 			filterDates = [];
 
-		margin = {
-			main: {
-				top: 10, right: 40, bottom: 80, left: 80
-			},
-			secondary: {
-				top: 10, right: 20, bottom: 40, left: 80
-			}
-		};
 
 		// TODO 这TMD又是啥？？？？？
-
+		// 	TODO 这个我也不知道是啥。
 		/* load Verlander data */
 		d3.csv('http://dhoboy.github.io/baseball/Justin_Verlander.csv', function (err, raw) {
 			let data = raw.slice(0, raw.length - 1),
@@ -67,10 +66,14 @@ export default Component.extend({
 
 				secondaryCharts = Object.keys(metrics).map(function (metric) {
 					let x = d3.scaleLinear()
-							.domain(d3.extent(data, function (d) { return Number(d.Year); }))
+							.domain(d3.extent(data, function (d) {
+								return Number(d.Year);
+							}))
 							.range([0, secondaryWidth]),
 						y = d3.scaleLinear()
-							.domain(d3.extent(data, function (d) { return Number(d[metric]); }))
+							.domain(d3.extent(data, function (d) {
+								return Number(d[metric]);
+							}))
 							.range([secondaryHeight, 0]);
 
 					return (

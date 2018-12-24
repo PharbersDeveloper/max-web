@@ -72,10 +72,12 @@ export default Controller.extend({
 		},
 
 		originalFile() {
+			this.toggleProperty('chooseAddData');
 			this.transitionToRoute('add-data.uploadfiles');
 		},
 
 		panelFile() {
+			this.toggleProperty('chooseAddData');
 			this.transitionToRoute('add-data.uploadfiles-panel');
 		},
 

@@ -1104,7 +1104,7 @@ export default Controller.extend({
 				}
 				]
 			}];
-		this.queryMarket();
+		// this.queryMarket();
 	},
 	actions: {
 		getMarket(params) {

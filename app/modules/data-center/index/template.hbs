@@ -38,7 +38,10 @@
 	</div>
 </div>
 <div class="container-fluid" local-class="nopadding line-sales">
-	<p local-class='title'> <span>{{prodSalesTitle.title}}</span> <span>{{prodSalesTitle.timeStart}}&nbsp;{{t 'biDashboard.common.dateTo' }}&nbsp;{{prodSalesTitle.timeOver}}</span></p>
+	<p local-class='title'>
+		<span>{{prodSalesTitle.title}}</span>
+		<span>{{prodSalesTitle.timeStart}}&nbsp;{{t 'biDashboard.common.dateTo' }}&nbsp;{{prodSalesTitle.timeOver}}</span>
+	</p>
 	<div local-class="overview" class="row">
 		<div class="col-md-8 col-sm-8 col-xs-8" local-class="total-left">
 			<p local-class="current-mo">{{prodSalesTitle.currentMonth}}</p>
@@ -57,7 +60,6 @@
 			<p><span>{{t 'biDashboard.index.monthlyAverage' }}</span><span local-class="growth">￥{{prodSalesTitle.ave}}</span></p>
 		</div>
 	</div>
-	{{!-- {{log prodSalesLine}} --}}
 	{{line-prod-sales singleLineData=prodSalesLine}}
 </div>
 <div class="container-fluid" local-class="nopadding key-words">

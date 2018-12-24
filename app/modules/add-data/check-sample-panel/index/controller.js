@@ -47,7 +47,7 @@ export default Controller.extend(XMPPMixin, {
 	}),
 	init() {
 		this._super(...arguments);
-		this.set('cpafilename', this.get('cookie').read('filecpa'));
+		this.set('panelFileName', this.get('cookie').read('filepanel'));
 		this.xmppCallBack(this);
 	},
 

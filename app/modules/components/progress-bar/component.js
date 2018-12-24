@@ -19,10 +19,11 @@ export default Component.extend({
 			picture = d3.select('svg')
 				.append('g')
 				.attr('transform', 'translate(576,100)'),
-			upperGround = picture.append('path')
-				.datum({ endAngle: newAngle / 100 * Pi * 2 })
-				.style('fill', '#5E81CF')
-				.attr('d', arcGenerator),
+			// upperGround = picture.append('path')
+			// 	.datum({ endAngle: newAngle / 100 * Pi * 2 })
+			// 	.style('fill', '#5E81CF')
+			// 	.attr('d', arcGenerator),
+			upperGround = null,
 			dataText = d3.select('g')
 				.append('text')
 				.text('0%')
@@ -33,6 +34,10 @@ export default Component.extend({
 		picture.append('path')
 			.datum({ endAngle: 2 * Math.PI })
 			.style('fill', '#E1E1E1')
+			.attr('d', arcGenerator);
+		upperGround = picture.append('path')
+			.datum({ endAngle: newAngle / 100 * Pi * 2 })
+			.style('fill', '#5E81CF')
 			.attr('d', arcGenerator);
 		upperGround.transition().duration(1000) //设置了当前DOM属性过渡变化为指定DOM属性过程所需时间（毫秒）
 			.attrTween('d', function (d) { //插值功能API

@@ -43,15 +43,15 @@ export default Controller.extend({
 			/**
 			 * 原逻辑 这样写绝逼会出现问题，不过先不改，等第一波通过后重构逻辑
 			 */
-			this.get('uploadfiles_panel_controller').queryModelByAll('Phmaxjob').lastObject.set('panel', panel);
-			this.get('uploadfiles_panel_controller').queryModelByAll('Phmaxjob').lastObject.set('panelMkt', market);
-			this.get('uploadfiles_panel_controller').queryModelByAll('Phmaxjob').lastObject.set('yms', month);
-			this.get('uploadfiles_panel_controller').queryModelByAll('Phmaxjob').lastObject.set('call', 'ymCalc');
+			this.get('uploadfilesPanelController').queryModelByAll('Phmaxjob').lastObject.set('panel', panel);
+			this.get('uploadfilesPanelController').queryModelByAll('Phmaxjob').lastObject.set('panelMkt', market);
+			this.get('uploadfilesPanelController').queryModelByAll('Phmaxjob').lastObject.set('yms', month);
+			this.get('uploadfilesPanelController').queryModelByAll('Phmaxjob').lastObject.set('call', 'ymCalc');
 
-			req = this.get('uploadfiles_panel_controller').queryModelByAll('Phmaxjob').lastObject;
-			result = this.get('uploadfiles_panel_route').object2JsonApi(req, false);
+			req = this.get('uploadfilesPanelController').queryModelByAll('Phmaxjob').lastObject;
+			result = this.get('uploadfilesPanelRoute').object2JsonApi(req, false);
 
-			this.get('uploadfiles_panel_route').queryObject('api/v1/maxjobpushpanel/0', 'Phmaxjob', result)
+			this.get('uploadfilesPanelRoute').queryObject('api/v1/maxjobpushpanel/0', 'Phmaxjob', result)
 				.then((resp) => {
 					this.get('logger').log(resp);
 					this.get('logger').log(resp.panel);

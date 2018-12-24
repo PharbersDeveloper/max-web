@@ -7,9 +7,9 @@ import conf from '../../../config/environment';
 const MessageFactory = EmberObject.create({
 	stack: [],
 	register(instance) {
-		this.get('logger').info('push fuck pick up instance ====> ' + instance);
+		// this.get('logger').info('push fuck pick up instance ====> ' + instance);
 		this.stack.pushObject(instance);
-		this.get('logger').info('register instances ====>' + this.stack);
+		// this.get('logger').info('register instances ====>' + this.stack);
 	},
 	unregisterLast() {
 		this.stack.popObject();
@@ -17,8 +17,8 @@ const MessageFactory = EmberObject.create({
 	doCall(msg) {
 		let msg2Json = JSON.parse(msg); //json
 
-		this.get('logger').info('instances ====>' + this.stack);
-		this.get('logger').info('instance ====>' + this.stack.lastObject);
+		// this.get('logger').info('instances ====>' + this.stack);
+		// this.get('logger').info('instance ====>' + this.stack.lastObject);
 
 		this.stack.lastObject.set('message', msg2Json);
 	}
@@ -30,7 +30,7 @@ export default Mixin.create({
 		return typeof this.xmpp.getConnection === 'undefined';
 	}),
 	xmppCallBack(instance) {
-		this.get('logger').info('xmppCallBack instance ====> ' + instance);
+		// this.get('logger').info('xmppCallBack instance ====> ' + instance);
 		let that = this;
 
 		MessageFactory.register(instance);
@@ -38,8 +38,8 @@ export default Mixin.create({
 		// eslint-disable-next-line no-undefined
 		that.get('xmpp').set('connection', undefined);
 		function onMessage(msg) {
-			let from = msg.getAttribute('from'),
-				type = msg.getAttribute('type'),
+			// let from = msg.getAttribute('from'),
+			let type = msg.getAttribute('type'),
 				elems = msg.getElementsByTagName('body');
 
 			// debugger
@@ -47,8 +47,8 @@ export default Mixin.create({
 			if (type === 'chat' && elems.length > 0) {
 				let body = elems[0];
 
-				this.get('logger').info('ECHOBOT: I got a message from ' + from + ': ' +
-					that.get('xmpp').getText(body));
+				// this.get('logger').info('ECHOBOT: I got a message from ' + from + ': ' +
+				// 	that.get('xmpp').getText(body));
 				MessageFactory.doCall(that.get('xmpp').getText(body));
 			}
 			return true;
