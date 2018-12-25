@@ -6,6 +6,9 @@ export default Controller.extend({
 	uploadfilesRoute: service('add_data.uploadfiles_route'),
 	uploadfilesController: service('add_data.uploadfiles_controller'),
 	getData() {
+		/**
+		 * TODO userId === userName ? 
+		*/
 		let companyId = localStorage.getItem('company_id'),
 			userId = localStorage.getItem('username'),
 			req = this.get('uploadfilesController').createModel('Phmaxjob', {
@@ -20,6 +23,7 @@ export default Controller.extend({
 				localStorage.setItem('job_id', res.job_id);
 				localStorage.setItem('company_id', res.company_id);
 			});
+
 	},
 	init() {
 		this._super(...arguments);

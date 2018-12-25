@@ -2,12 +2,11 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { inject } from '@ember/service';
 import $ from 'jquery';
-
 import { inject as service } from '@ember/service';
 
 export default Controller.extend({
 	viewresultsRoute: service('add_data.viewresults_route'),
-	viewresultsController: service('add_data.viewresults_route'),
+	viewresultsController: service('add_data.viewresults_controller'),
 
 	ajax: inject(),
 	cookies: inject(),
@@ -38,7 +37,7 @@ export default Controller.extend({
 	querySelectArg() {
 		let companyId = localStorage.getItem('company_id'),
 			jobId = localStorage.getItem('job_id'),
-			req = this.get('viewresults_controller').createModel('SampleCheckSelecter', {
+			req = this.get('viewresultsController').createModel('SampleCheckSelecter', {
 				id: this.get('hash').uuid(),
 				res: 'phselecter',
 				'company_id': companyId,
@@ -68,7 +67,7 @@ export default Controller.extend({
 			jobId = localStorage.getItem('job_id'),
 			userId = localStorage.getItem('user_id'),
 
-			req = this.get('viewresults_controller').createModel('ResultCheck', {
+			req = this.get('viewresultsController').createModel('ResultCheck', {
 				id: this.get('hash').uuid(),
 				res: 'resultCheck',
 				'user_id': userId,
@@ -193,13 +192,16 @@ export default Controller.extend({
 			});
 	},
 	actions: {
+		saveData() {
+			this.toggleProperty('isSave');
+		},
 		queryAll(mAndY) {
 			this.queryContentData(mAndY.market, mAndY.year);
 		},
 		exportFiles() {
 			let market = this.get('market') || localStorage.getItem('market'),
 				ym = this.get('year') || localStorage.getItem('year'),
-				req = this.get('viewresults_controller').createModel('ExportMaxResult', {
+				req = this.get('viewresultsController').createModel('ExportMaxResult', {
 					id: this.get('hash').uuid(),
 					'company_id': localStorage.getItem('company_id'),
 					'job_id': localStorage.getItem('job_id'),
