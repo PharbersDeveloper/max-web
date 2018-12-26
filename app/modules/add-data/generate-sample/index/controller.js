@@ -69,6 +69,7 @@ export default Controller.extend(XMPPMixin, {
 		this._super(...arguments);
 		this.set('cpafilename', this.get('cookie').read('filecpa'));
 		this.set('gycxfilename', this.get('cookie').read('filegycx'));
+		this.set('SampleObject.isShowProgress', false);
 		this.xmppCallBack(this);
 	},
 
@@ -80,7 +81,7 @@ export default Controller.extend(XMPPMixin, {
 				jobId = localStorage.getItem('job_id'),
 				companyId = localStorage.getItem('company_id'),
 				userId = localStorage.getItem('username'),
-				req = this.get('generate_sample_controller').createModel('Phmaxjob', {
+				req = this.get('generateSampleController').createModel('Phmaxjob', {
 					id: this.get('hash').uuid(),
 					call: 'ymCalc',
 					percentage: 0,
@@ -102,7 +103,7 @@ export default Controller.extend(XMPPMixin, {
 		},
 		startGenerateSample() {
 			this.get('logger').log('this is panelCalc');
-
+			// SampleObject.fileParsingSuccess
 			SampleObject.set('calcYearsProgress', false);
 			SampleObject.set('isShowProgress', true);
 			SampleObject.set('calcPanelProgress', true);
@@ -119,12 +120,12 @@ export default Controller.extend(XMPPMixin, {
 			} else {
 				let yearsString = year.join('#'),
 					req = this.get('generateSampleController').queryModelByAll('Phmaxjob').lastObject,
-					result = this.get('generate_sample_route').object2JsonApi(req, false);
+					result = null;
 
 				this.get('generateSampleController').queryModelByAll('Phmaxjob').lastObject.set('yms', yearsString);
 				this.get('generateSampleController').queryModelByAll('Phmaxjob').lastObject.set('call', 'panel');
-
-				this.get('generate_sample_route').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', result)
+				result = this.get('generateSampleRoute').object2JsonApi(req, false);
+				this.get('generateSampleRoute').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', result)
 					.then((resp) => {
 						if (resp.call === 'panel') {
 							SampleObject.set('fileParsingSuccess', false);

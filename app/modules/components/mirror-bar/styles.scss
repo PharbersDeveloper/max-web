@@ -1,0 +1,27 @@
+:global(.mirror-bar) {
+	position: relative;
+
+	:global(.space-text) {
+		font-size: 14px;
+		fill: #555;
+		letter-spacing: 1.5px;
+	}
+
+	:global(.svg-tooltip) {
+		display: block;
+		position: absolute;
+		left: 130px;
+		top: 95px;
+		z-index: 10;
+		box-shadow: 0 0 5px #999999;
+		font-size: 14px;
+		padding: 10px;
+		// text-align: center;
+		opacity: 0;
+		border-radius: 3px;
+		box-shadow: 0px 0px 2px 0px #a6a6a6;
+		text-shadow: #f5f5f5 0 1px 0;
+		color: #FFFFFF;
+		background: #555;
+	}
+}

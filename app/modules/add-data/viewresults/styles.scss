@@ -163,86 +163,125 @@
 		}
 	}
 
-	:global(.view-result-area-group) {
+	// :global(.view-result-area-group) {
+	// background-color: $ph-color-assist-card;
+	// margin-bottom: 16px;
+	:global(.view-result-area-inner) {
+		justify-content: space-evenly;
 		background-color: $ph-color-assist-card;
 		margin-bottom: 16px;
 
-		:global(.view-result-area-group-title) {
-			font-size: $ph-fs-title;
-			color: $ph-fc-title;
-			margin: 16px 0 16px 16px;
-			height: 25px;
+		.svg-title {
+			justify-content: space-between;
 
-		}
-
-		:global(.view-result-area-inner) {
-			justify-content: space-evenly;
-
-			:global(.view-result-area-map) {
-				height: 600px;
-
-				.china-map {
-					width: 700px;
-				}
+			.title {
+				margin: 0;
+				height: 32px;
+				line-height: 32px;
+				font-size: 18px;
+				color: #555555;
+				letter-spacing: 1.5px;
 			}
 
-			:global(.view-result-area-data) {
-
-				position: relative;
-				width: 440px;
-
-				.mirror-legend {
-					margin: 0 auto;
-
-					button {
-						padding: 0;
-						width: 60px;
-						height: 26px;
-						line-height: 26px;
-						border: 0;
-						text-align: center;
-						font-size: 14px;
-						color: #676767;
-						background-color: #eee;
-
-					}
-				}
-
-				.text-legend {
-					width: 100%;
-					font-size: 16px;
+			.legend {
+				button {
+					padding: 0;
+					width: 79px;
+					height: 32px;
+					line-height: 32px;
+					border: 0;
+					text-align: center;
+					font-size: 14px;
 					color: #676767;
+					background-color: #eee;
 
-					p {
-						display: inline-block;
-						margin: 0;
-						width: 49%;
-						letter-spacing: 1.2px;
-					}
-
-					p:first-child {
-						text-align: right;
-						padding-right: 50px;
-					}
-
-					p:last-child {
-						text-align: left;
-						padding-left: 60px;
-					}
-				}
-
-				.show {
-					height: 600px;
-					overflow: auto;
-					display: block;
-				}
-
-				.hide {
-					height: 0;
-					overflow: hidden;
-					display: none;
 				}
 			}
 		}
+
+		.china-map {
+			.coming-soon {
+				margin: 32px 0;
+				font-size: 32px;
+				text-align: center;
+			}
+		}
+
+		.view-result-area-map {
+			padding: 16px;
+			height: 600px;
+
+			.china-map {
+				width: 700px;
+			}
+		}
+
+		.view-result-area {
+			padding: 16px;
+			width: 420px;
+
+
+
+			.time {
+				margin-top: 16px;
+
+				p {
+					margin: 0;
+					font-size: 14px;
+					color: #555555;
+					letter-spacing: 1.5px;
+				}
+
+				p:first-child {
+					flex: 0 0 122px;
+					text-align: right;
+				}
+
+				p:last-child {
+					flex: 1;
+					// 应该等于spacing
+					padding-left: 120px;
+				}
+			}
+
+			.text-legend {
+				width: 100%;
+				font-size: 16px;
+				color: #676767;
+
+				p {
+					display: inline-block;
+					margin: 0;
+					width: 49%;
+					letter-spacing: 1.2px;
+				}
+
+				p:first-child {
+					text-align: right;
+					padding-right: 50px;
+				}
+
+				p:last-child {
+					text-align: left;
+					padding-left: 60px;
+				}
+			}
+
+			// .show {
+			// 	height: 600px;
+			// 	overflow: auto;
+			// 	display: block;
+			// }
+
+			// .hide {
+			// 	height: 0;
+			// 	overflow: hidden;
+			// 	display: none;
+			// }
+		}
+
+
 	}
+
+	// }
 }

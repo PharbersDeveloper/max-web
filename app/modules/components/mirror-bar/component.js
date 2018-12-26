@@ -5,44 +5,20 @@ import d3 from 'd3';
 
 export default Component.extend({
 	classNames: ['mirror-bar'],
-	elementId: 'mirrorChart',
-	init() {
-		this._super(...arguments);
-		this.set('currentData', [
-			{ marketSales: 3357.27, area: '江苏省', lastRank: 33 },
-			{ marketSales: 2347.09, area: '山东省', lastRank: 13 },
-			{ marketSales: 1345.27, area: '广东省', lastRank: 3 },
-			{ marketSales: 1337.89, area: '浙江省', lastRank: 9 },
-			{ marketSales: 1334.65, area: '河南省', lastRank: 7 },
-			{ marketSales: 310.74, area: '河北省', lastRank: 5 },
-			{ marketSales: 1331.74, area: '黑龙江省', lastRank: 1 },
-			{ marketSales: 1310.74, area: '湖南省', lastRank: 2 },
-			{ marketSales: 1320.74, area: '陕西省', lastRank: 8 },
-			{ marketSales: 130.74, area: '新疆省', lastRank: 12 }
-		]);
-	},
+
 	didReceiveAttrs() {
 		run.scheduleOnce('render', this, this.drawChart);
 	},
 	removeExistsSvg(id) {
 		d3.select(`#${id}`).select('svg').remove();
 	},
-	initSvgContainer(id, direction) {
-		let height = this.get('height');
-
-		if (direction === 'left') {
-			return d3.select(`#${id}`).append('svg')
-				.attr('width', this.get('leftWidth'))
-				.attr('height', height)
-				.attr('class', 'svg-container');
-		}
+	initSvgContainer(id, width, height) {
 		return d3.select(`#${id}`).append('svg')
-			.attr('width', this.get('rightWidth'))
+			.attr('width', width)
 			.attr('height', height)
 			.attr('class', 'svg-container');
-
 	},
-	generateRightBar(svg, data, spacing, width, x) {
+	generateRightBar(svg, data, spacing, x, tooltip) {
 		let bar = null;
 
 		bar = svg.selectAll('g')
@@ -59,16 +35,15 @@ export default Component.extend({
 			.attr('fill', '#5E81CF')
 			.attr('width', d => x(d.marketSales))
 			.attr('height', 20 - 1);
+
 		bar.append('text')
-			// .attr('x', function (d) {
-			// 	return x(d.marketSales) - 3;
-			// })
-			.attr('x', -spacing)
+			.attr('class', 'space-text')
+			.attr('x', (spacing - 110) / 2 - spacing)
 			.attr('y', 20 / 2)
 			.attr('dy', '.35em')
 			.text(function (d, index) {
 				let area = d.area.slice(0, 3),
-					lastRank = d.lastRank,
+					lastRank = d.lastYearRank,
 					currentRank = index + 1;
 
 				if (lastRank < 10) {
@@ -79,18 +54,41 @@ export default Component.extend({
 				}
 				return `${lastRank}. ${area} ${currentRank}.`;
 			});
+		bar.on('mouseover', (d) => {
+			tooltip.html(() => {
+				return `<p class='title'>${d.area}</p>
+							<p class='content'>市场销售额： ${d.marketSales} Mil</p>
+							<p class='content'>产品销售额： ${d.productSales} Mil</p>
+							<p class='content'>份额： ${(d.percentage * 100).toFixed(2)} %</p>`;
+
+			});
+			tooltip.style('display', 'block');
+			tooltip.style('opacity', 2);
+
+		})
+			.on('mousemove', () => {
+				tooltip.style('top', d3.event.layerY + 10 + 'px')
+					.style('left', d3.event.layerX - 25 + 'px');
+			})
+			.on('mouseout', () => {
+				tooltip.style('display', 'none');
+				tooltip.style('opacity', 0);
+			});
 
 	},
-	generateLeftBar(svg, data, width, x) {
-		svg.selectAll('g')
+	generateLeftBar(svg, data, width, x, tooltip) {
+		let rect = null;
+
+		rect = svg.selectAll('g')
 			.data(data)
 			.enter()
 			.append('g')
 			.attr('transform', function (d, i) {
 				return `translate(${width}, ${i * 50 + 20})`;
 			})
-			.append('rect')
-			.transition()
+			.append('rect');
+
+		rect.transition()
 			.duration(1000)
 			.attr('class', 'bar bar-left')
 			.attr('fill', '#5E81CF')
@@ -102,23 +100,49 @@ export default Component.extend({
 			})
 			.attr('height', 20 - 1);
 
+		rect.on('mouseover', (d) => {
+			tooltip.html(() => {
+				return `<p class='title'>${d.area}</p>
+							<p class='content'>市场销售额： ${d.marketSales} Mil</p>
+							<p class='content'>产品销售额： ${d.productSales} Mil</p>
+							<p class='content'>份额： ${(d.percentage * 100).toFixed(2)} %</p>`;
+
+			});
+			tooltip.style('display', 'block');
+			tooltip.style('opacity', 0.9);
+
+		})
+			.on('mousemove', () => {
+				tooltip.style('top', d3.event.layerY + 10 + 'px')
+					.style('left', d3.event.layerX - 25 + 'px');
+			})
+			.on('mouseout', () => {
+				tooltip.style('display', 'none');
+				tooltip.style('opacity', 0);
+			});
 	},
 	drawChart() {
 		let id = this.get('elementId'),
-			currentData = this.get('currentData'),
+			currentData = this.get('data.current'),
+			lastData = this.get('data.last'),
 			currentXData = currentData.map(ele => ele.marketSales),
+			lastXData = lastData.map(ele => ele.marketSales),
 			maxXData = Math.ceil(Math.max.apply(null, currentXData)),
+			maxLastXData = Math.ceil(Math.max.apply(null, lastXData)),
 			leftWidth = this.get('leftWidth'),
 			rightWidth = this.get('rightWidth'),
-			spacing = 110,
+			height = this.get('height'),
+			spacing = 120,
 			svg = null,
 			svgRight = null,
-			// y = null,
 			xLeft = null,
-			xRight = null;
+			xRight = null,
+			tooltip = null;
+
+		this.removeExistsSvg(id);
 
 		xLeft = d3.scaleLinear()
-			.domain([0, maxXData])
+			.domain([0, maxLastXData])
 			.range([0, this.get('leftWidth')]);
 
 		xRight = d3.scaleLinear()
@@ -137,16 +161,18 @@ export default Component.extend({
 		// 	.tickPadding(6);
 		/* resort Data */
 
-		this.removeExistsSvg(id);
-		svg = this.initSvgContainer(id, 'left');
 
-		svgRight = this.initSvgContainer(id, 'right');
+		svg = this.initSvgContainer(id, leftWidth, height);
+
+		svgRight = this.initSvgContainer(id, rightWidth, height);
+		tooltip = d3.select(`#${id}`).append('div')
+			.attr('class', 'svg-tooltip');
 
 		/* 右半拉 */
-		this.generateRightBar(svgRight, currentData, spacing, rightWidth, xRight);
+		this.generateRightBar(svgRight, currentData, spacing, xRight, tooltip);
 
 		/* 左半拉 */
-		this.generateLeftBar(svg, currentData, leftWidth, xLeft);
+		this.generateLeftBar(svg, lastData, leftWidth, xLeft, tooltip);
 
 	}
 

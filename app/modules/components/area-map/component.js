@@ -3,14 +3,14 @@ import { run } from '@ember/runloop';
 import d3 from 'd3';
 
 export default Component.extend({
-	tagName: 'div',
-	classNames: ['col-md-12', 'col-sm-12', 'col-xs-12'],
+	classNames: ['china-map'],
 	didReceiveAttrs() {
 		run.scheduleOnce('render', this, this.drawChart);
 	},
 	drawChart() {
 		d3.select('.map-area').select('svg').remove();
-		let valueName = this.get('valueName');
+		// let valueName = this.get('valueName'),
+		let that = this;
 
 		if (typeof valueName === 'undefined') {
 			let margin = { top: 0, right: 10, bottom: 10, left: 10 },
@@ -42,42 +42,66 @@ export default Component.extend({
 				if (error) {
 					throw error;
 				}
+				let hasValueChina = china,
+					valueName = that.get('valueName');
+
+				/**
+				 * 先遍历数据，将 valueName 中的数据存入 hasValueChina
+				 */
+
+				hasValueChina.features.forEach(element => {
+					valueName.forEach(ele => {
+						if (element.properties.name === ele.name) {
+							ele.id = element.properties.id;
+							element.properties = ele;
+						}
+					});
+				});
+
 				svg.selectAll('path')
-					.data(china.features)
+					.data(hasValueChina.features)
 					.enter()
 					.append('path')
 					.attr('stroke', '#fff') //map border color
 					.attr('stroke-width', 1) // border width
 					.attr('fill', function (d) {
-						if (d.properties.name === valueName[0]) {
+
+						if (d.properties.name === valueName[0].name) {
 							return colorArray[0];
-						} else if (d.properties.name === valueName[1]) {
+						} else if (d.properties.name === valueName[1].name) {
 							return colorArray[1];
-						} else if (d.properties.name === valueName[2] || d.properties.name === valueName[3] || d.properties.name === valueName[4]) {
+						} else if (d.properties.name === valueName[2].name || d.properties.name === valueName[3].name || d.properties.name === valueName[4].name) {
 							return colorArray[2];
-						} else if (d.properties.name === valueName[5] || d.properties.name === valueName[6] || d.properties.name === valueName[7] || d.properties.name === valueName[8] || d.properties.name === valueName[9] || d.properties.name === valueName[10]) {
+						} else if (d.properties.name === valueName[5].name || d.properties.name === valueName[6].name || d.properties.name === valueName[7].name || d.properties.name === valueName[8].name || d.properties.name === valueName[9].name || d.properties.name === valueName[10].name) {
 							return colorArray[3];
 						}
 						return colorArray[4];
 
 					})
 					.attr('d', path)
-					.on('mouseover', function () {
+					.on('mouseover', () => {
 						d3.select(this).attr('fill', 'gray').attr('stroke-width', 2);
-						return tooltip.style('hidden', false).html('this');
+						tooltip.style('hidden', false).html('this');
+						tooltip.style('display', 'block');
+
 					})
-					.on('mousemove', function (d) {
+					.on('mousemove', d => {
 						tooltip.classed('hidden', false)
 							.style('top', d3.event.offsetY + 'px')
 							.style('left', d3.event.offsetX + 30 + 'px')
 							.html(function () {
-								return d.properties.name + `<br>` +
-									'市场销售额：' + '10000' + `<br>` +
-									'产品销售额：' + '150000' + `<br>` +
-									'份额：' + '15%';
+								// return d.properties.name + `<br>` +
+								// 	'市场销售额：' + d.properties.marketSales + `<br>` +
+								// 	'产品销售额：' + d.properties.productSales + `<br>` +
+								// 	'份额：' + d.properties.percentage;
+								return `<p class='title'>${d.properties.name}</p>
+								<p class='content'>市场销售额： ${d.properties.marketSales} Mil</p>
+								<p class='content'>产品销售额： ${d.properties.productSales} Mil</p>
+								<p class='content'>份额： ${(d.properties.percentage * 100).toFixed(2)} %</p>`;
 							});
 					}) //鼠标当前区域现实文字
-					.on('mouseout', function () {
+					.on('mouseout', () => {
+
 						d3.select(this).attr('fill', function (d) {
 							switch (d.properties.name) {
 							case valueName[0]:
@@ -99,17 +123,6 @@ export default Component.extend({
 							default:
 								return colorArray[4];
 							}
-
-							// if (d.properties.name == valueName[0]) {
-							// 	return colorArray[0];
-							// } else if (d.properties.name == valueName[1]) {
-							// 	return colorArray[1];
-							// } else if (d.properties.name == valueName[2] || d.properties.name == valueName[3] || d.properties.name == valueName[4] || d.properties.name == valueName[5]) {
-							// 	return colorArray[2];
-							// } else if (d.properties.name == valueName[6] || d.properties.name == valueName[7] || d.properties.name == valueName[8] || d.properties.name == valueName[9] || d.properties.name == valueName[10]) {
-							// 	return colorArray[3];
-							// }
-							// return colorArray[4];
 
 						}).attr('stroke-width', 1);
 						tooltip.classed('hidden', true);

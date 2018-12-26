@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 import { inject } from '@ember/service';
 import $ from 'jquery';
 import { inject as service } from '@ember/service';
+import EmberObject from '@ember/object';
 
 export default Controller.extend({
 	viewresultsRoute: service('add_data.viewresults_route'),
@@ -19,6 +20,7 @@ export default Controller.extend({
 	allMonths: false,
 	chooseTrueNums: 0,
 	selectedArea: 0,
+	selectedMapArea: 'a',
 	marketSumSales: 0,
 	marketSumSalesPercentage: 0,
 	productSumSales: 0,
@@ -44,14 +46,13 @@ export default Controller.extend({
 				'job_id': jobId
 			});
 
-		this.get('viewresultsRoute').queryObject('/api/v1/samplecheckselecter/0', 'SampleCheckSelecter', this.get('viewresultsRoute').object2JsonApi(req))
+		this.get('viewresultsRoute').queryObject('api/v1/samplecheckselecter/0', 'SampleCheckSelecter', this.get('viewresultsRoute').object2JsonApi(req))
 			.then((res) => {
 				if (res !== '') {
 					this.set('markets', res.mkt_list);
 					this.set('years', res.ym_list); // 下拉窗数据
 					this.set('market', res.mkt_list[0]);
 					this.set('year', res.ym_list[0]);
-					this.get('logger').log(this.get('year'));
 					this.queryContentData(res.mkt_list[0], res.ym_list[0]);
 				} else {
 					this.set('sampleCheckError', true);
@@ -82,25 +83,16 @@ export default Controller.extend({
 				if (res !== '') {
 					let noValueList = [],
 						valueList = [],
-						current = [],
-						lastYear = [],
-						// mirrorProvincesCurrent = '',
-						// mirrorProvincesLast = '',
-						mirrorProvinces = null,
-						mirrorCity = {
-							mirrorCityCurrent: res.mirror.city.current,
-							mirrorCityLast: res.mirror.city.lastyear
-						},
-						currentCity = [],
-						lastYearCity = [];
+						provCurrentData = [],
+						provLastData = [],
+						cityCurrentData = [],
+						cityLastData = [];
 
 					this.set('marketSumSales', res.indicators.marketSumSales.currentNumber);
-					this.set('marketSumSalesPercentage', res.indicators.marketSumSales.lastYearPercentag.toFixed(2));
+					this.set('marketSumSalesPercentage', res.indicators.marketSumSales.lastYearPercentage.toFixed(2));
 					this.set('productSumSales', res.indicators.productSales.currentNumber);
 					this.set('productSumSalesPercentage', res.indicators.productSales.lastYearPercentage.toFixed(2));
 
-					// console.log(res.trend);
-					// trend = res.trend;
 					this.set('trend', res.trend);
 					//折线图数据
 
@@ -108,83 +100,36 @@ export default Controller.extend({
 						if (i.value === 0) {
 							noValueList.push(i.name);
 						} else {
-							valueList.push(i.name);
+							valueList.push(EmberObject.create(
+								{
+									name: i.name,
+									marketSales: i.value,
+									productSales: i.productSales,
+									percentage: i.percentage
+								}));
 						}
 					});
 
 					this.set('noValueList', noValueList);
 					this.set('valueList', valueList);
 					// 地图数据
-					mirrorProvinces = {
-						mirrorProvincesCurrent: res.mirror.provinces.current,
-						mirrorProvincesLast: res.mirror.provinces.lastyear
-					};
+					provCurrentData = res.mirror.provinces.current;
+					provLastData = res.mirror.provinces.lastyear;
+					this.set('provData', { current: provCurrentData, last: provLastData });
+					cityCurrentData = res.mirror.city.current;
+					cityLastData = res.mirror.city.lastyear;
+					this.set('cityData', { current: cityCurrentData, last: cityLastData });
 
-					mirrorProvinces.mirrorProvincesCurrent.forEach((ele, index) => {
-						current.push({
-							key: index + 1,
-							marketSales: ele.marketSales,
-							area: ''
-						});
-					});
-					this.set('current', current);
-					this.get('logger').log(current);
+					// lastYear.forEach((a) => {
+					// 	lastYear.forEach((b) => {
+					// 		if (a.area === b.areaLast) {
+					// 			a.keyLast = b.key;
+					// 		}
+					// 	});
+					// });
 
-					mirrorProvinces.mirrorProvincesLast.forEach((ele, index) => {
-						lastYear.push({
-							key: index + 1,
-							marketSales: -ele.marketSales,
-							areaLast: ele.area,
-							area: mirrorProvinces.mirrorProvincesCurrent[index].area
-						});
-					});
-					// TODO 这他妈是啥
-					lastYear.forEach((a) => {
-						lastYear.forEach((b) => {
-							if (a.area === b.areaLast) {
-								a.keyLast = b.key;
-							}
-						});
-					});
+					// this.set('lastYear', lastYear);
 
-					this.set('lastYear', lastYear);
-					this.get('logger').log(lastYear);
-
-					// let mirrorCityCurrent = res.mirror.city.current;
-					// let mirrorCityLast = res.mirror.city.lastyear;
-
-					mirrorCity.mirrorCityCurrent.forEach((ele, index) => {
-						let item = {
-							key: index + 1,
-							marketSales: ele.marketSales,
-							area: ''
-						};
-
-						currentCity.push(item);
-					});
-					this.set('currentCity', currentCity);
-					this.get('logger').log(currentCity);
-
-
-					mirrorCity.mirrorCityLast.forEach((ele, index) => {
-						let item = {
-							key: index + 1,
-							marketSales: -ele.marketSales,
-							areaLast: ele.area,
-							area: mirrorCity.mirrorCityCurrent[index].area
-						};
-
-						lastYearCity.push(item);
-					});
-					lastYearCity.forEach((a) => {
-						lastYearCity.forEach((b) => {
-							if (a.area === b.areaLast) {
-								a.keyLast = b.key;
-							}
-						});
-					});
-					this.set('lastYearCity', lastYearCity);
-					this.get('logger').log(lastYearCity);
 				} else {
 					this.set('sampleCheckError', true);
 					this.set('errorMessage', 'error');

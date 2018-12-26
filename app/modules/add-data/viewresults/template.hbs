@@ -91,65 +91,64 @@
 					{{market-trend-bar-line dataset=trend}}
 				</div>
 			{{/layout-push}}
-			{{#layout-push direction='col' classNames="view-result-area-group"}}
-				{{#layout-push direction='row' classNames="view-result-area-group-title"}}
-					<p local-class="result-title"><span>{{selectedMarket}}</span> 地区层面结果</p>
-				{{/layout-push}}
-				{{#layout-push direction='row' classNames="view-result-area-inner"}}
-					{{#layout-push direction='col' classNames="view-result-area-map"}}
-						<div local-class="china-map">
-							{{!-- {{area-map valueName=valueNameList}} --}}
+			{{#layout-push direction='row' classNames="view-result-area-inner"}}
+				{{#layout-push direction='col' local-class="view-result-area-map"}}
+					{{#layout-push direction="row" local-class="svg-title"}}
+						<p local-class="title">{{selectedMarket}}地区层面结果</p>
+						<div local-class="legend">
+							{{#bs-button-group
+                                value=selectedMapArea
+                                type="radio"
+                                onChange=(action (mut selectedMapArea)) as |bg|}}
+								{{#bg.button value='a'}}省份{{/bg.button}}
+								{{#bg.button value='b'}}城市{{/bg.button}}
+							{{/bs-button-group}}
 						</div>
 					{{/layout-push}}
-					{{#layout-push direction='col' classNames="view-result-area-data"}}
-						<div local-class="mirror-legend">
+					<div local-class="china-map">
+						{{#if (eq selectedMapArea 'a')}}
+							{{area-map valueName=valueList}}
+						{{else}}
+							<p local-class="coming-soon">即将推出</p>
+						{{/if}}
+					</div>
+				{{/layout-push}}
+				{{#layout-push direction='col' local-class="view-result-area"}}
+					{{#layout-push direction="row" local-class="svg-title"}}
+						<p local-class="title">{{selectedMarket}}规模排名</p>
+						<div local-class="legend">
 							{{#bs-button-group
                                 value=selectedArea
                                 type="radio"
                                 onChange=(action (mut selectedArea)) as |bg|}}
-								{{#bg.button value=0}}省{{/bg.button}}
+								{{#bg.button value=0}}省份{{/bg.button}}
 								{{#bg.button value=1}}城市{{/bg.button}}
 							{{/bs-button-group}}
 						</div>
-						<div local-class="text-legend">
-							<p>去年同期</p>
-							<p>本期</p>
-						</div>
-						<div local-class="{{if (eq selectedArea 0) 'show' 'hide'}}">
-							{{mirror-bar
-								eleId="mirror-bar" 
-								leftWidth=170
-								rightWidth=270
-								height=550
-								 }}
-							{{!-- {{result-mirror-bar currentData=currentData lastData=lastData}} --}}
-						</div>
-						<div local-class="{{if (eq selectedArea 1) 'show' 'hide'}}">
-							{{!-- {{result-mirror-bar-city currentDataCity=currentDataCity lastDataCity=lastDataCity}} --}}
-						</div>
 					{{/layout-push}}
+					{{#layout-push direction="row" local-class="time"}}
+						<p>去年同期</p>
+						<p>本期</p>
+					{{/layout-push}}
+					{{#if (eq selectedArea 0)}}
+						{{mirror-bar
+								elementId="mirrorProv"
+								leftWidth=122
+								rightWidth=266
+								height=550
+								data=provData
+								 }}
+					{{else}}
+						{{mirror-bar
+								elementId="mirrorCity"
+								leftWidth=122
+								rightWidth=266
+								height=550
+								data=cityData
+								 }}
+					{{/if}}
 				{{/layout-push}}
 			{{/layout-push}}
-			{{!-- {{#layout-push direction='col' classNames="view-result-area-data"}}
-                    <div local-class="mirror-legend">
-                        {{#bs-button-group
-                        value=selectedArea
-                        type="radio"
-                        onChange=(action (mut selectedArea)) as |bg|}}
-                        {{#bg.button value=0}}省{{/bg.button}}
-                        {{#bg.button value=1}}城市{{/bg.button}}
-                        {{/bs-button-group}}
-                    </div>
-                    <div local-class="text-legend">
-                        <p>去年同期</p><p>本期</p>
-                    </div>
-                    <div local-class="{{if (eq selectedArea 0) 'show' 'hide'}}" >
-                        {{result-mirror-bar currentData=currentData lastData=lastData}}
-                    </div>
-                    <div local-class="{{if (eq selectedArea 1) 'show' 'hide'}}">
-                        {{result-mirror-bar-city currentDataCity=currentDataCity lastDataCity=lastDataCity}}
-                    </div>
-                {{/layout-push}} --}}
 		{{/layout-push}}
 	{{/layout-push}}
 {{/layout-push}}

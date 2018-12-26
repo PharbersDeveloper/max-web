@@ -50,9 +50,10 @@ export default Controller.extend(XMPPMixin, {
 
 			this.get('calcmaxController').queryModelByAll('Phmaxjob').lastObject.set('call', 'max');
 
-			let req = this.get('calcmaxController').queryModelByAll('Phmaxjob').lastObject;
+			let req = this.get('calcmaxController').queryModelByAll('Phmaxjob').lastObject,
+				result = this.get('calcmaxRoute').object2JsonApi(req, false);
 
-			this.get('calcmaxRoute').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', this.get('calcmaxRoute').object2JsonApi(req, false));
+			this.get('calcmaxRoute').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', result);
 		},
 		viewresults() {
 			this.transitionToRoute('add-data.viewresults');

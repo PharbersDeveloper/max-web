@@ -7,7 +7,7 @@ export default Controller.extend({
 	uploadfilesController: service('add_data.uploadfiles_controller'),
 	getData() {
 		/**
-		 * TODO userId === userName ? 
+		 * TODO userId === userName ?
 		*/
 		let companyId = localStorage.getItem('company_id'),
 			userId = localStorage.getItem('username'),
@@ -31,11 +31,13 @@ export default Controller.extend({
 	},
 	actions: {
 		next(cpa, gycx) {
-			this.get('uploadfilesController').queryModelByAll('Phmaxjob').lastObject.set('cpa', cpa);
-			this.get('uploadfilesController').queryModelByAll('Phmaxjob').lastObject.set('gycx', gycx);
-			this.get('uploadfilesController').queryModelByAll('Phmaxjob').lastObject.set('call', 'ymCalc');
 			let req = this.get('uploadfilesController').queryModelByAll('Phmaxjob').lastObject,
-				result = this.get('uploadfilesRoute').object2JsonApi(req, false);
+				result = null;
+
+			req.set('cpa', cpa);
+			req.set('gycx', cpa);
+			req.set('call', 'ymCalc');
+			result = this.get('uploadfilesRoute').object2JsonApi(req, false);
 
 			this.get('uploadfilesRoute').queryObject('api/v1/maxjobpush/0', 'Phmaxjob', result)
 				.then((resp) => {
