@@ -36,7 +36,6 @@ export default Controller.extend({
 	}),
 	init() {
 		this._super(...arguments);
-		this.prodSalesLine = [];
 		this.querySelectArg();
 		this.prodSales = [{
 			label: '序号',
@@ -54,13 +53,7 @@ export default Controller.extend({
 			sortable: false,
 			minResizeWidth: '70px'
 		}];
-		this.prodSalesValue = [{
-			index: '1',
-			hospitalName: '临河区中心医院'
-		}, {
-			index: '2',
-			hospitalName: '临河区中心医院2'
-		}];
+		this.set('prodSalesValue', []);
 
 	},
 	querySelectArg() {
@@ -171,6 +164,8 @@ export default Controller.extend({
 						saleDatas.push(item);
 					});
 					this.set('sale_datas', saleDatas);
+					this.get('logger').log(res.notfindhospital);
+
 					this.set('prodSalesValue', res.notfindhospital);
 				} else {
 					this.set('error', true);

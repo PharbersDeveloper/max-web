@@ -1,6 +1,33 @@
 {{nav-bar data=model isShow=false }}
 <div local-class="wrapper-container">
-	{{left-nav data=model}}
+	<div local-class="wrapper-menu">
+		<div local-class="menu-user">
+			<div local-class="user-name">
+				<span local-class="name-span">{{model.company}}</span>&nbsp;
+				{{#bs-dropdown tagName="span" as |dd|}}
+					{{#dd.toggle}}
+						<span local-class="chevron-down" class="glyphicon glyphicon-chevron-down"></span>
+					{{/dd.toggle}}
+					{{#dd.menu as |menu|}}
+						{{#menu.item local-class="sign-out"}}
+							<p {{action 'signOut'}}>
+								登出
+							</p>
+							{{!-- 登出 --}}
+						{{/menu.item}}
+					{{/dd.menu}}
+				{{/bs-dropdown}}
+			</div>
+			<div local-class="user-status">
+				<span local-class="status-span"></span>
+				<span>{{model.username}}</span>
+			</div>
+		</div>
+		<ul local-class="menu-tabs">
+			<li local-class="item-tab active">
+				<span class="glyphicon glyphicon-th"></span>&nbsp;数据工具</li>
+		</ul>
+	</div>
 	<div local-class="wrapper-content">
 		<p local-class="content-title">
 			<p><span class="glyphicon glyphicon-th"></span>&nbsp;数据工具</p>
@@ -21,7 +48,7 @@
 				{{base-button type="default" content="导出" onClick=(action 'outputData')}}
 			{{/layout-push}}
 			{{#layout-push direction='row' classNames="data-center-choosebar-right"}}
-				<button local-class="btn-add-data" {{action 'addData'}}>
+				<button local-class="btn-add-data" {{action (mut chooseAddData) true}}>
 					<span local-class="add-data-content left-section">
 						+
 					</span>

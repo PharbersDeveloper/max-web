@@ -2,16 +2,15 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import styles from './styles';
-import { later } from '@ember/runloop';
 import $ from 'jquery';
-
+import rsvp from 'rsvp';
 const { keys } = Object;
 
 export default Controller.extend({
 	dataCenterRoute: service('data_center_route'),
 	dataCenterController: service('data_center_controller'),
 	i18n: service(),
-	ajax: service(),
+	cookies: service(),
 	styles,
 	output: false,
 	currentPage: 1,
@@ -65,10 +64,6 @@ export default Controller.extend({
 					mode: 'search'
 				}
 			});
-		},
-
-		addData() {
-			this.set('chooseAddData', true);
 		},
 
 		originalFile() {
@@ -173,14 +168,20 @@ export default Controller.extend({
 				this.set('outputStartData', date);
 			}
 		},
+		signOut() {
+			this.get('logger').log(keys(this.get('cookies').read()));
+			let cookies = this.get('cookies');
 
-		logut() {
-			keys(this.get('cookie').read()).forEach(item => {
-				this.get('cookie').clear(item)({ path: '/' });
-			});
-			later(this, () => {
+
+			new rsvp.Promise((resolve) => {
+				keys(cookies.read()).forEach(item => {
+					cookies.clear(item, { path: '/' });
+				});
+				localStorage.clear();
+				return resolve(true);
+			}).then(() => {
 				window.location = '/';
-			}, 1000);
+			});
 		}
 	}
 });

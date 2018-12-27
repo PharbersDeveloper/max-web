@@ -15,7 +15,7 @@ export default Controller.extend(XMPPMixin, {
 		this.set('gycxfilename', this.get('cookie').read('filegycx'));
 		this.xmppCallBack(this);
 	},
-	'fluResult': observer('message', function () {
+	fluResult: observer('message', function () {
 		let msg2Json = this.get('message');
 
 		if (msg2Json.data.attributes.call === 'calc') {
@@ -28,9 +28,6 @@ export default Controller.extend(XMPPMixin, {
 				this.set('maxPercentage', maxPercentage);
 				localStorage.setItem('maxpercentage', maxPercentage);
 			}
-			this.get('logger').log('this is in max controller');
-			this.get('logger').log(maxPercentage);
-
 			// TODO: msg2Json.data.attributes.percentage 读取出来的是Number吗？如果不是请变成
 
 			if (jobCurrent === jobXmpp && msg2Json.data.attributes.percentage === 100) {
@@ -43,8 +40,6 @@ export default Controller.extend(XMPPMixin, {
 	}),
 	actions: {
 		startCalcMAX() {
-			this.get('logger').log('this is calcmax');
-
 			MaxCalculateObject.set('isShowCalcProgress', true);
 			localStorage.setItem('maxpercentage', 0);
 
@@ -57,6 +52,11 @@ export default Controller.extend(XMPPMixin, {
 		},
 		viewresults() {
 			this.transitionToRoute('add-data.viewresults');
+			MaxCalculateObject.set('calcHasDone', false);
+
+			MaxCalculateObject.set('isShowCalcProgress', false);
+			localStorage.setItem('maxpercentage', 0);
+
 		}
 	}
 });

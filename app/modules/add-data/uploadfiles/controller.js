@@ -27,7 +27,7 @@ export default Controller.extend({
 	},
 	init() {
 		this._super(...arguments);
-		this.getData();
+		// this.getData();
 	},
 	actions: {
 		next(cpa, gycx) {
@@ -35,7 +35,7 @@ export default Controller.extend({
 				result = null;
 
 			req.set('cpa', cpa);
-			req.set('gycx', cpa);
+			req.set('gycx', gycx);
 			req.set('call', 'ymCalc');
 			result = this.get('uploadfilesRoute').object2JsonApi(req, false);
 

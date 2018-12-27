@@ -3,25 +3,7 @@ import { run } from '@ember/runloop';
 import d3 from 'd3';
 
 export default Component.extend({
-	tagName: 'div',
 	classNames: ['col-md-12', 'col-sm-12', 'col-xs-12'],
-	init() {
-		this._super(...arguments);
-		this.set('dataset', [
-			{ key: '2017 01', value: '', value2: 16 },
-			{ key: '2017 02', value: '', value2: 20 },
-			{ key: '2017 03', value: '', value2: 40 },
-			{ key: '2017 04', value: '', value2: 24 },
-			{ key: '2017 05', value: 10, value2: 18 },
-			{ key: '2017 06', value: '', value2: 12 },
-			{ key: '2017 07', value: '', value2: 15 },
-			{ key: '2017 08', value: '', value2: 23 },
-			{ key: '2017 09', value: '', value2: 24 },
-			{ key: '2017 10', value: '', value2: 12 },
-			{ key: '2017 11', value: '', value2: 18 },
-			{ key: '2017 12', value: '', value2: 26 }
-		]);
-	},
 	didReceiveAttrs() {
 		run.scheduleOnce('render', this, this.drawChart);
 	},

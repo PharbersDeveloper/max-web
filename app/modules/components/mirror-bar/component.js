@@ -7,7 +7,11 @@ export default Component.extend({
 	classNames: ['mirror-bar'],
 
 	didReceiveAttrs() {
-		run.scheduleOnce('render', this, this.drawChart);
+		let data = this.get('data');
+
+		if (typeof data !== 'undefined') {
+			run.scheduleOnce('render', this, this.drawChart);
+		}
 	},
 	removeExistsSvg(id) {
 		d3.select(`#${id}`).select('svg').remove();
@@ -42,10 +46,13 @@ export default Component.extend({
 			.attr('y', 20 / 2)
 			.attr('dy', '.35em')
 			.text(function (d, index) {
-				let area = d.area.slice(0, 3),
-					lastRank = d.lastYearRank,
+				let area = d.area,
+					lastRank = Number(d.lastYearRank) + 1,
 					currentRank = index + 1;
 
+				if (area.slice(-1) !== '市') {
+					area = (area + '省').slice(0, 3);
+				}
 				if (lastRank < 10) {
 					lastRank = '0' + lastRank;
 				}
@@ -63,7 +70,7 @@ export default Component.extend({
 
 			});
 			tooltip.style('display', 'block');
-			tooltip.style('opacity', 2);
+			tooltip.style('opacity', 0.9);
 
 		})
 			.on('mousemove', () => {
@@ -138,6 +145,7 @@ export default Component.extend({
 			xLeft = null,
 			xRight = null,
 			tooltip = null;
+
 
 		this.removeExistsSvg(id);
 

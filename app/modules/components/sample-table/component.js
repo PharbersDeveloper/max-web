@@ -1,7 +1,5 @@
 import Component from '@ember/component';
-import {
-	computed
-} from '@ember/object';
+import { computed } from '@ember/object';
 import Table from 'ember-light-table';
 
 export default Component.extend({
@@ -27,30 +25,23 @@ export default Component.extend({
 	}),
 
 	table: computed('model', function () {
-		let handledData = [];
+		let handledData = [],
+			model = this.get('model');
 
-		this.get('model').forEach(function (d) {
-			let temp = {
-				province: '',
-				'market_size': '',
-				'market_growth': '',
-				'sales_amount': '',
-				'sales_growth': '',
-				'ev_value': '',
-				share: '',
-				'share_growth': ''
-			};
+		if (typeof model !== 'undefined') {
+			model.forEach(function (d) {
 
-			temp.province = d.province;
-			temp['market_size'] = d.market_size;
-			temp['market_growth'] = d.market_growth;
-			temp['sales_amount'] = d.sales_amount;
-			temp['sales_growth'] = d.sales_growth;
-			temp['ev_value'] = d.ev_value;
-			temp.share = d.share;
-			temp['share_growth'] = d.share_growth;
-			handledData.push(temp);
-		});
+				let temp = {
+					index: '',
+					hospitalName: ''
+				};
+
+				temp.index = d.index;
+				temp.hospitalName = d.hospitalName;
+
+				handledData.push(temp);
+			});
+		}
 		return new Table(this.get('columns'), handledData);
 	}),
 	actions: {

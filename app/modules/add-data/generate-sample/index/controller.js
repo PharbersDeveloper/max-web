@@ -11,6 +11,8 @@ export default Controller.extend(XMPPMixin, {
 	styles,
 	message: '',
 	SampleObject,
+	panelPercentage: 0,
+	ymPercentage: 0,
 	fluResult: observer('message', function () {
 		this.get('logger').log('this is in generate controller');
 
@@ -59,6 +61,13 @@ export default Controller.extend(XMPPMixin, {
 
 			if (jobCurrent === jobXmpp && Number(msg2Json.data.attributes.percentage) === 100) {
 				setTimeout(function () {
+					SampleObject.set('isShowProgress', false);
+					SampleObject.set('fileParsingSuccess', false);
+					SampleObject.set('calcYearsProgress', false);
+					SampleObject.set('calcPanelProgress', false);
+					localStorage.removeItem('panelpercentage');
+					localStorage.removeItem('ympercentage');
+					that.set('panelPercentage', 0);
 					that.transitionToRoute('add-data.generate-sample.sample-finish');
 				}, 1000);
 			}
@@ -97,13 +106,15 @@ export default Controller.extend(XMPPMixin, {
 			SampleObject.set('calcYearsProgress', true);
 			localStorage.setItem('ympercentage', 0);
 
-
-			this.get('logger').log('this is ymCalc');
+			// this.get('logger').log('this is ymCalc');
 			this.get('generateSampleRoute').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', this.get('generateSampleRoute').object2JsonApi(req, false));
 		},
 		startGenerateSample() {
-			this.get('logger').log('this is panelCalc');
+			// this.get('logger').log('this is panelCalc');
 			// SampleObject.fileParsingSuccess
+			this.set('ymPercentage', 0);
+			localStorage.setItem('ympercentage', 0);
+
 			SampleObject.set('calcYearsProgress', false);
 			SampleObject.set('isShowProgress', true);
 			SampleObject.set('calcPanelProgress', true);
@@ -150,6 +161,8 @@ export default Controller.extend(XMPPMixin, {
 			SampleObject.set('fileParsingSuccess', false);
 			SampleObject.set('calcYearsProgress', false);
 			SampleObject.set('calcPanelProgress', false);
+			localStorage.removeItem('panelpercentage');
+			localStorage.removeItem('ympercentage');
 			this.transitionToRoute('add-data.uploadfiles');
 		}
 	}

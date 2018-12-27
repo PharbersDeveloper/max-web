@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { inject } from '@ember/service';
 import $ from 'jquery';
+import { isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import EmberObject from '@ember/object';
 
@@ -66,7 +67,7 @@ export default Controller.extend({
 
 		let companyId = localStorage.getItem('company_id'),
 			jobId = localStorage.getItem('job_id'),
-			userId = localStorage.getItem('user_id'),
+			userId = localStorage.getItem('username'),
 
 			req = this.get('viewresultsController').createModel('ResultCheck', {
 				id: this.get('hash').uuid(),
@@ -88,37 +89,53 @@ export default Controller.extend({
 						cityCurrentData = [],
 						cityLastData = [];
 
-					this.set('marketSumSales', res.indicators.marketSumSales.currentNumber);
-					this.set('marketSumSalesPercentage', res.indicators.marketSumSales.lastYearPercentage.toFixed(2));
-					this.set('productSumSales', res.indicators.productSales.currentNumber);
-					this.set('productSumSalesPercentage', res.indicators.productSales.lastYearPercentage.toFixed(2));
+					this.set('marketSumSales', typeof res.indicators.marketSumSales === 'undefined' ? 0 : res.indicators.marketSumSales.currentNumber);
+					this.set('marketSumSalesPercentage', typeof res.indicators.marketSumSales === 'undefined' ? 0 : res.indicators.marketSumSales.lastYearPercentage.toFixed(2));
+					this.set('productSumSales', typeof res.indicators.productSales === 'undefined' ? 0 : res.indicators.productSales.currentNumber);
+					this.set('productSumSalesPercentage', typeof res.indicators.productSales === 'undefined' ? 0 : res.indicators.productSales.lastYearPercentage.toFixed(2));
 
-					this.set('trend', res.trend);
+					this.set('trend', res.trend === null ? false : res.trend);
 					//折线图数据
+					if (!isEmpty(res.region)) {
+						res.region.forEach(function (i) {
+							if (i.value === 0) {
+								noValueList.push(i.name);
+							} else {
+								valueList.push(EmberObject.create(
+									{
+										name: i.name,
+										marketSales: i.value,
+										productSales: i.productSales,
+										percentage: i.percentage
+									}));
+							}
+						});
+					}
 
-					res.region.forEach(function (i) {
-						if (i.value === 0) {
-							noValueList.push(i.name);
-						} else {
-							valueList.push(EmberObject.create(
-								{
-									name: i.name,
-									marketSales: i.value,
-									productSales: i.productSales,
-									percentage: i.percentage
-								}));
-						}
-					});
 
 					this.set('noValueList', noValueList);
 					this.set('valueList', valueList);
 					// 地图数据
-					provCurrentData = res.mirror.provinces.current;
-					provLastData = res.mirror.provinces.lastyear;
-					this.set('provData', { current: provCurrentData, last: provLastData });
-					cityCurrentData = res.mirror.city.current;
-					cityLastData = res.mirror.city.lastyear;
-					this.set('cityData', { current: cityCurrentData, last: cityLastData });
+					if (typeof res.mirror.provinces !== 'undefined') {
+						provCurrentData = typeof res.mirror.provinces === 'undefined' ? 0 : res.mirror.provinces.current;
+						provLastData = typeof res.mirror.provinces === 'undefined' ? 0 : res.mirror.provinces.lastyear;
+						this.set('provData', { current: provCurrentData, last: provLastData });
+						this.set('hasProvData', true);
+						cityCurrentData = typeof res.mirror.city === 'undefined' ? 0 : res.mirror.city.current;
+						cityLastData = typeof res.mirror.city === 'undefined' ? 0 : res.mirror.city.lastyear;
+						this.set('cityData', { current: cityCurrentData, last: cityLastData });
+						this.set('hasCityData', true);
+					} else {
+						this.set('hasProvData', false);
+						this.set('hasCityData', false);
+
+					}
+					// provCurrentData = typeof res.mirror.provinces === 'undefined' ? 0 : res.mirror.provinces.current;
+					// provLastData = typeof res.mirror.provinces === 'undefined' ? 0 : res.mirror.provinces.lastyear;
+					// this.set('provData', { current: provCurrentData, last: provLastData });
+					// cityCurrentData = typeof res.mirror.city === 'undefined' ? 0 : res.mirror.city.current;
+					// cityLastData = typeof res.mirror.city === 'undefined' ? 0 : res.mirror.city.lastyear;
+					// this.set('cityData', { current: cityCurrentData, last: cityLastData });
 
 					// lastYear.forEach((a) => {
 					// 	lastYear.forEach((b) => {
@@ -137,6 +154,13 @@ export default Controller.extend({
 			});
 	},
 	actions: {
+		changeMarket(value) {
+			this.set('market', value);
+			let year = this.get('year');
+
+			this.queryContentData(value, year);
+
+		},
 		saveData() {
 			this.toggleProperty('isSave');
 		},

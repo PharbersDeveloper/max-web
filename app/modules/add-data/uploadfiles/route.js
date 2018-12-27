@@ -9,6 +9,28 @@ export default Route.extend({
 		this._super(controller, model);
 		// this.controllerFor('application')
 	},
+	beforeModel() {
+
+		let companyId = localStorage.getItem('company_id'),
+			userId = localStorage.getItem('username'),
+			req = null,
+			result = null;
+
+		this.get('logger').log('==========');
+
+		req = this.get('uploadfilesController').createModel('Phmaxjob', {
+			id: this.get('hash').uuid(),
+			'user_id': userId,
+			'company_id': companyId
+		});
+		result = this.get('uploadfilesRoute').object2JsonApi(req);
+
+		this.get('uploadfilesRoute').queryObject('api/v1/maxjobgenerate/0', 'Phmaxjob', result)
+			.then((res) => {
+				localStorage.setItem('job_id', res.job_id);
+				localStorage.setItem('company_id', res.company_id);
+			});
+	},
 	model() {
 		// 你的逻辑
 	},

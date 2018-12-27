@@ -3,7 +3,6 @@ import { run } from '@ember/runloop';
 import d3 from 'd3';
 
 export default Component.extend({
-	tagName: 'div',
 	classNames: [],
 	didReceiveAttrs() {
 		run.scheduleOnce('render', this, this.drawChart);

@@ -9,9 +9,17 @@ export default Route.extend({
 	setupController(controller, model) {
 		this._super(controller, model);
 	},
+	beforeModel() {
+
+		let previousRoute = this.controllerFor('data-center').get('previousRoute');
+
+		if (previousRoute === 'add-data') {
+			this.get('dataCenterController').removeModelByAll('Phmaxjob');
+			// window.location.reload();
+		}
+
+	},
 	model() {
-
-
 		this.store.peekAll('PhAuth').forEach(ele => {
 			localStorage.setItem('company_id', ele.Profile.Company.id);
 			localStorage.setItem('username', ele.Profile.username);
