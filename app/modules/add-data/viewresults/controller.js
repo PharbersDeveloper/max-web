@@ -11,7 +11,6 @@ export default Controller.extend({
 	viewresultsController: service('add_data.viewresults_controller'),
 
 	ajax: inject(),
-	cookies: inject(),
 	markets: '',
 	market: '',
 	years: '',
@@ -34,7 +33,7 @@ export default Controller.extend({
 	}),
 	init() {
 		this._super(...arguments);
-		this.querySelectArg();
+		// this.querySelectArg();
 	},
 
 	querySelectArg() {
@@ -159,7 +158,12 @@ export default Controller.extend({
 			let year = this.get('year');
 
 			this.queryContentData(value, year);
+		},
+		changeMonth(value) {
+			this.set('year', value);
+			let market = this.get('market');
 
+			this.queryContentData(market, value);
 		},
 		saveData() {
 			this.toggleProperty('isSave');

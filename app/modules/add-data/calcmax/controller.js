@@ -8,11 +8,11 @@ export default Controller.extend(XMPPMixin, {
 	calcmaxRoute: service('add_data.calcmax_route'),
 	calcmaxController: service('add_data.calcmax_controller'),
 	message: '',
-
 	init() {
 		this._super(...arguments);
 		this.set('cpafilename', this.get('cookie').read('filecpa'));
 		this.set('gycxfilename', this.get('cookie').read('filegycx'));
+		this.set('isShowCalcProgress', false);
 		this.xmppCallBack(this);
 	},
 	fluResult: observer('message', function () {
@@ -51,11 +51,11 @@ export default Controller.extend(XMPPMixin, {
 			this.get('calcmaxRoute').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', result);
 		},
 		viewresults() {
-			this.transitionToRoute('add-data.viewresults');
 			MaxCalculateObject.set('calcHasDone', false);
-
 			MaxCalculateObject.set('isShowCalcProgress', false);
 			localStorage.setItem('maxpercentage', 0);
+			// this.set('maxPercentage', 0);
+			this.transitionToRoute('add-data.viewresults');
 
 		}
 	}

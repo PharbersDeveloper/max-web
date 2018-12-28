@@ -120,7 +120,7 @@ export default Controller.extend({
 		//	end
 
 		// 查询市场
-		this.queryMarket();
+		// this.queryMarket();
 	},
 
 	time: computed('year', 'month', function () {

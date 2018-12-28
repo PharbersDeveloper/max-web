@@ -55,7 +55,9 @@ export default Mixin.create({
 		}
 
 		if (this.isConnected) {
-			this.get('xmpp').connect('lu', '123456', conf, onMessage);
+			let user = localStorage.getItem('username');
+
+			this.get('xmpp').connect(user, '123123', conf, onMessage);
 		}
 	},
 	xmppSendMessage(msg, to) {

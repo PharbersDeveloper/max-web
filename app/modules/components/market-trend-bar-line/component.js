@@ -18,7 +18,7 @@ export default Component.extend({
 			barColor = '#5E81CF',
 			width = 900,
 			height = 200,
-			margin = { top: 20, right: 20, bottom: 30, left: 30 },
+			margin = { top: 20, right: 20, bottom: 30, left: 50 },
 			xDatas = dataset.map(elem => elem.date),
 			values = dataset.map(elem => elem.marketSales * (4 / 3)),
 			values2 = dataset.map(elem => elem.percentage * (4 / 3)),
@@ -39,7 +39,7 @@ export default Component.extend({
 		svgContainer.append('div').attr('class', '_tooltip_1mas67').style('opacity', 0.0);
 		svg = svgContainer.append('svg')
 			.attr('preserveAspectRatio', 'xMidYMid meet')
-			.attr('viewBox', '0 0 970 250');
+			.attr('viewBox', '0 0 1000 250');
 
 		g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 

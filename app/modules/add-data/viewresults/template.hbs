@@ -18,11 +18,12 @@
                                 <option value={{item}}>{{item}}</option>
                             {{/each}}
                         </select> --}}
-					{{base-select title="" selected=year onChange=(action (mut year)) options=years}}
+					{{!-- {{base-select title="" selected=year onChange=(action (mut year)) options=years}} --}}
+					{{base-select title="" selected=year onChange=(action 'changeMonth' value=target.value) options=years}}
 				{{/layout-push}}
 				{{#layout-push direction='row' classNames="view-result-choosebar-right"}}
 					{{base-button content="保存" type="" onClick=(action 'saveData')}}
-					{{base-button content="导出" type="" onClick=(action 'exportFiles')}}
+					{{base-button content="导出" type="" class="hidden" onClick=(action 'exportFiles')}}
 				{{/layout-push}}
 			{{/layout-push}}
 			{{#layout-push direction='col' classNames="view-result-target"}}

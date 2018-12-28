@@ -63,7 +63,7 @@
 		}
 
 		:global(.view-result-target-content) {
-			justify-content: space-evenly;
+			justify-content: space-around;
 
 			:global(.view-result-target-content-top) {
 				margin-bottom: 16px;
@@ -149,8 +149,6 @@
 				span:first-child {
 					width: 8px;
 					height: 20px;
-					// height: 25px;
-
 					background-color: $btn-bgcolor;
 				}
 
@@ -168,7 +166,7 @@
 	// margin-bottom: 16px;
 	:global(.view-result-area-inner) {
 		justify-content: space-evenly;
-		background-color: $ph-color-assist-card;
+		// background-color: $ph-color-assist-card;
 		margin-bottom: 16px;
 
 		.svg-title {
@@ -209,18 +207,19 @@
 
 		.view-result-area-map {
 			padding: 16px;
-			height: 600px;
+			height: 655px;
+			margin-right: 20px;
+			background-color: #fff;
 
 			.china-map {
-				width: 700px;
+				width: 680px;
 			}
 		}
 
 		.view-result-area {
 			padding: 16px;
 			width: 420px;
-
-
+			background-color: #fff;
 
 			.time {
 				margin-top: 16px;
@@ -266,22 +265,6 @@
 					padding-left: 60px;
 				}
 			}
-
-			// .show {
-			// 	height: 600px;
-			// 	overflow: auto;
-			// 	display: block;
-			// }
-
-			// .hide {
-			// 	height: 0;
-			// 	overflow: hidden;
-			// 	display: none;
-			// }
 		}
-
-
 	}
-
-	// }
 }

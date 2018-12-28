@@ -10,6 +10,7 @@ export default Controller.extend(XMPPMixin, {
 	styles,
 	message: '',
 	SampleObject,
+
 	fluResult: observer('message', function () {
 		let msg2Json = this.get('message'),
 			jobCurrent = localStorage.getItem('job_id'),

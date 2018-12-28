@@ -15,7 +15,8 @@ export default Controller.extend(XMPPMixin, {
 	ymPercentage: 0,
 	fluResult: observer('message', function () {
 		this.get('logger').log('this is in generate controller');
-
+		// eslint-disable-next-line no-debugger
+		// debugger;
 		let msg2Json = this.get('message');
 
 		if (msg2Json.data.attributes.call === 'ymCalc') {
@@ -114,7 +115,7 @@ export default Controller.extend(XMPPMixin, {
 			// SampleObject.fileParsingSuccess
 			this.set('ymPercentage', 0);
 			localStorage.setItem('ympercentage', 0);
-
+			// SampleObject.fileParsingSuccess
 			SampleObject.set('calcYearsProgress', false);
 			SampleObject.set('isShowProgress', true);
 			SampleObject.set('calcPanelProgress', true);

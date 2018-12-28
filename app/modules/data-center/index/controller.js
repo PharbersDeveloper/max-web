@@ -8,7 +8,6 @@ export default Controller.extend({
 	dataCenterRoute: service('data_center_route'),
 	dataCenterController: service('data_center_controller'),
 	i18n: service(),
-	cookies: service(),
 	fullName: '', // 这应该后端返回firstName与lastName 有前端计算出来
 	year: '2017',
 	month: '01',
@@ -170,26 +169,26 @@ export default Controller.extend({
      */
 	queryProdOV() {
 		let req = this.get('dataCenterController').createModel('request', {
-				id: 'tableSale01',
-				res: 'tableSale',
-				eqcond: new A([
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'company_id01',
-						key: 'company_id',
-						val: this.companyId
-					}),
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'time02',
-						key: 'time',
-						val: this.time
-					}),
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'user_id03',
-						key: 'user_id',
-						val: this.userId
-					})
-				])
-			}),
+			id: 'tableSale01',
+			res: 'tableSale',
+			eqcond: new A([
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'company_id01',
+					key: 'company_id',
+					val: this.companyId
+				}),
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'time02',
+					key: 'time',
+					val: this.time
+				}),
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'user_id03',
+					key: 'user_id',
+					val: this.userId
+				})
+			])
+		}),
 
 			result = this.get('dataCenterRoute').object2JsonApi(req);
 
@@ -210,26 +209,26 @@ export default Controller.extend({
 	queryCards() {
 		// 要发送的数据格式
 		let req = this.get('dataCenterController').createModel('request', {
-				id: 'cards01',
-				res: 'cards',
-				eqcond: new A([
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'company_id01',
-						key: 'company_id',
-						val: this.companyId
-					}),
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'time02',
-						key: 'time',
-						val: this.time
-					}),
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'user_id03',
-						key: 'user_id',
-						val: this.userId
-					})
-				])
-			}),
+			id: 'cards01',
+			res: 'cards',
+			eqcond: new A([
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'company_id01',
+					key: 'company_id',
+					val: this.companyId
+				}),
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'time02',
+					key: 'time',
+					val: this.time
+				}),
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'user_id03',
+					key: 'user_id',
+					val: this.userId
+				})
+			])
+		}),
 			result = this.get('dataCenterRoute').object2JsonApi(req);
 
 		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/keyWord', 'cards', result)
@@ -244,26 +243,26 @@ export default Controller.extend({
 	queryProdSales() {
 		// 要发送的数据格式
 		let req = this.get('dataCenterController').createModel('request', {
-				id: 'overview01',
-				res: 'overview',
-				eqcond: new A([
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'company_id01',
-						key: 'company_id',
-						val: this.companyId
-					}),
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'time02',
-						key: 'time',
-						val: this.time
-					}),
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'user_id03',
-						key: 'user_id',
-						val: this.userId
-					})
-				])
-			}),
+			id: 'overview01',
+			res: 'overview',
+			eqcond: new A([
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'company_id01',
+					key: 'company_id',
+					val: this.companyId
+				}),
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'time02',
+					key: 'time',
+					val: this.time
+				}),
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'user_id03',
+					key: 'user_id',
+					val: this.userId
+				})
+			])
+		}),
 			result = this.get('dataCenterRoute').object2JsonApi(req);
 
 		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/overView', 'overview', result)
@@ -282,26 +281,26 @@ export default Controller.extend({
 
 		// 要发送的数据格式
 		let req = this.get('dataCenterController').createModel('request', {
-				id: 'contribution01',
-				res: 'contribution',
-				eqcond: new A([
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'company_id01',
-						key: 'company_id',
-						val: this.companyId
-					}),
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'time02',
-						key: 'time',
-						val: this.time
-					}),
-					this.get('dataCenterController').createModel('eqcond', {
-						id: 'user_id03',
-						key: 'user_id',
-						val: this.userId
-					})
-				])
-			}),
+			id: 'contribution01',
+			res: 'contribution',
+			eqcond: new A([
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'company_id01',
+					key: 'company_id',
+					val: this.companyId
+				}),
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'time02',
+					key: 'time',
+					val: this.time
+				}),
+				this.get('dataCenterController').createModel('eqcond', {
+					id: 'user_id03',
+					key: 'user_id',
+					val: this.userId
+				})
+			])
+		}),
 			result = this.get('dataCenterRoute').object2JsonApi(req);
 
 		this.get('dataCenterRoute').queryObject('/api/v1/dashboard/contribution', 'contribution', result)

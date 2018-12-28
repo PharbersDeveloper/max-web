@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
-
 export default Route.extend({
 	uploadfilesRoute: service('add_data.uploadfiles_route'),
 	uploadfilesController: service('add_data.uploadfiles_controller'),
@@ -9,30 +8,27 @@ export default Route.extend({
 		this._super(controller, model);
 		// this.controllerFor('application')
 	},
-	beforeModel() {
+	model() {
+		// 你的逻辑
+		this.get('logger').log('in upload model');
 
 		let companyId = localStorage.getItem('company_id'),
 			userId = localStorage.getItem('username'),
-			req = null,
-			result = null;
+			req = this.get('uploadfilesController').createModel('Phmaxjob', {
+				id: this.get('hash').uuid(),
+				'user_id': userId,
+				'company_id': companyId
+			}),
+			result = this.get('uploadfilesRoute').object2JsonApi(req);
 
-		this.get('logger').log('==========');
-
-		req = this.get('uploadfilesController').createModel('Phmaxjob', {
-			id: this.get('hash').uuid(),
-			'user_id': userId,
-			'company_id': companyId
-		});
-		result = this.get('uploadfilesRoute').object2JsonApi(req);
+		this.get('logger').log(req);
+		this.get('logger').log(result);
 
 		this.get('uploadfilesRoute').queryObject('api/v1/maxjobgenerate/0', 'Phmaxjob', result)
 			.then((res) => {
 				localStorage.setItem('job_id', res.job_id);
 				localStorage.setItem('company_id', res.company_id);
 			});
-	},
-	model() {
-		// 你的逻辑
 	},
 	actions: {
 		// 你的动作

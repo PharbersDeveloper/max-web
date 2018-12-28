@@ -10,14 +10,16 @@
                                 <option value={{item}}>{{item}}</option>
                             {{/each}}
                         </select> --}}
-					{{base-select title="" selected=market onChange=(action (mut market)) options=markets}}
+					{{!-- {{base-select title="" selected=market onChange=(action (mut market)) options=markets}} --}}
+					{{base-select title="" selected=market onChange=(action 'changeMarket' value=target.value) options=markets}}
 					<p local-class="select-title">月份</p>
 					{{!-- <select local-class="choose-select choose-month" name="years" {{action 'queryAll' on='change'}}>
                             {{#each years as |item|}}
                                 <option value={{item}}>{{item}}</option>
                             {{/each}}
                         </select> --}}
-					{{base-select title="" selected=year onChange=(action (mut year)) options=years}}
+					{{!-- {{base-select title="" selected=year onChange=(action (mut year)) options=years}} --}}
+					{{base-select title="" selected=year onChange=(action 'changeMonth' value=target.value) options=years}}
 					{{base-button content="导出" type="" onClick=""}}
 				{{/layout-push}}
 				{{#layout-push direction='row' classNames="sample-finish-choosebar-right"}}
@@ -27,7 +29,7 @@
 			{{/layout-push}}
 			{{#layout-push direction='col' classNames="sample-finish-graph"}}
 				{{#layout-push direction='row' classNames="sample-finish-graph-title"}}
-					<p local-class="item-title">{{selectedMarket}} 市场 医院样本数量</p>
+					<p local-class="item-title">{{market}} 市场 医院样本数量</p>
 				{{/layout-push}}
 				{{#layout-push direction='row' classNames="sample-finish-graph-info"}}
 					{{#layout-push direction='row' classNames="sample-finish-graph-left"}}
@@ -56,7 +58,7 @@
 			{{/layout-push}}
 			{{#layout-push direction='col' classNames="sample-finish-graph"}}
 				{{#layout-push direction='row' classNames="sample-finish-graph-title"}}
-					<p local-class="item-title">{{selectedMarket}} 市场 产品样本数量</p>
+					<p local-class="item-title">{{market}} 市场 产品样本数量</p>
 				{{/layout-push}}
 				{{#layout-push direction='row' classNames="sample-finish-graph-info"}}
 					{{#layout-push direction='row' classNames="sample-finish-graph-left"}}
@@ -85,7 +87,7 @@
 			{{/layout-push}}
 			{{#layout-push direction='col' classNames="sample-finish-graph"}}
 				{{#layout-push direction='row' classNames="sample-finish-graph-title"}}
-					<p local-class="item-title">{{selectedMarket}} 市场 样本销售额</p>
+					<p local-class="item-title">{{market}} 市场 样本销售额</p>
 				{{/layout-push}}
 				{{#layout-push direction='row' classNames="sample-finish-graph-info"}}
 					{{#layout-push direction='row' classNames="sample-finish-graph-left"}}
@@ -147,7 +149,7 @@
             </div>
         </div>
         <div local-class="result-item hospital-sample">
-            <p local-class="item-title">{{selectedMarket}} 市场 医院样本数量</p>
+            <p local-class="item-title">{{market}} 市场 医院样本数量</p>
             <div local-class="item-legend">
                 <div local-class="legend-left">
                     <span></span><span local-class="text">本月样本数</span><span>---</span><span local-class="text">去年各月样本数趋势</span>
@@ -172,7 +174,7 @@
             </div>
         </div>
         <div local-class="result-item prod-sample">
-            <p local-class="item-title">{{selectedMarket}} 市场 产品样本数量</p>
+            <p local-class="item-title">{{market}} 市场 产品样本数量</p>
             <div local-class="item-legend">
                 <div local-class="legend-left">
                     <span></span><span local-class="text">本月样本数</span><span>---</span><span local-class="text">去年各月样本数趋势</span>
@@ -198,7 +200,7 @@
 {{!-- </div>
         </div>
         <div local-class="result-item sample-sales">
-            <p local-class="item-title">{{selectedMarket}} 市场 样本销售额</p>
+            <p local-class="item-title">{{market}} 市场 样本销售额</p>
             <div local-class="item-legend">
                 <div local-class="legend-left">
                     <span></span><span local-class="text">本月样本数</span><span>---</span><span local-class="text">去年各月样本数趋势</span>

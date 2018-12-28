@@ -54,7 +54,6 @@ export default Controller.extend({
 			minResizeWidth: '70px'
 		}];
 		this.set('prodSalesValue', []);
-
 	},
 	querySelectArg() {
 		let jobId = localStorage.getItem('job_id'),
@@ -176,9 +175,9 @@ export default Controller.extend({
 	},
 
 	actions: {
-		queryAll() {
-			this.queryContentData();
-		},
+		// queryAll() {
+		// 	this.queryContentData();
+		// },
 		uploadFileAgain(modal) {
 			modal.close();
 			SampleObject.set('isShowProgress', false);
@@ -189,6 +188,25 @@ export default Controller.extend({
 		},
 		next() {
 			this.transitionToRoute('add-data.calcmax');
+		},
+		changeMarket(value) {
+			let market = this.get('market');
+
+			if (value !== market) {
+				this.set('market', value);
+				this.queryContentData();
+			}
+
+		},
+		changeMonth(value) {
+			let year = this.get('year');
+
+			if (value !== year) {
+				this.set('year', value);
+				this.queryContentData();
+			}
+
+
 		}
 	}
 });

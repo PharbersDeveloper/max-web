@@ -36,6 +36,7 @@ export default Route.extend({
 				.then((data) => {
 					if (data.token !== '') {
 						this.get('cookie').write('token', data.token, { path: '/' });
+						this.store.adapterFor('application').headers.Authorization = `bearer ${data.get('token')}`;
 						this.transitionTo('data-center');
 					}
 				});

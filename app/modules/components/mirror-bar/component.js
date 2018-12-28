@@ -14,7 +14,9 @@ export default Component.extend({
 		}
 	},
 	removeExistsSvg(id) {
-		d3.select(`#${id}`).select('svg').remove();
+		d3.select(`#${id}`).selectAll('svg').remove();
+		d3.select(`#${id}`).selectAll('.svg-tooltop').remove();
+
 	},
 	initSvgContainer(id, width, height) {
 		return d3.select(`#${id}`).append('svg')
@@ -47,19 +49,24 @@ export default Component.extend({
 			.attr('dy', '.35em')
 			.text(function (d, index) {
 				let area = d.area,
-					lastRank = Number(d.lastYearRank) + 1,
+					lastRank = Number(d.lastYearRank) >= 0 ? d.lastYearRank + 1 : '',
 					currentRank = index + 1;
 
 				if (area.slice(-1) !== '市') {
 					area = (area + '省').slice(0, 3);
 				}
-				if (lastRank < 10) {
+				if (lastRank < 10 && lastRank > 0) {
+
 					lastRank = '0' + lastRank;
 				}
-				if (currentRank < 10) {
+				if (currentRank < 10 && lastRank >= 0) {
 					currentRank = '0' + currentRank;
 				}
+				if (lastRank === '') {
+					return ` ${area} ${currentRank}.`;
+				}
 				return `${lastRank}. ${area} ${currentRank}.`;
+
 			});
 		bar.on('mouseover', (d) => {
 			tooltip.html(() => {

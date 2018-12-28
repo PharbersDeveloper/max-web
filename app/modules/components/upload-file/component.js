@@ -1,17 +1,16 @@
 import Component from '@ember/component';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 
 // TODO: 上传只有上传的与上传状态，其余的应该在扩展该component的时候在设置，譬如下一步按钮的状态
 // 现在先这么写，第一版出来后立即重构,重写Job获取，不在上传文件中进行
 export default Component.extend({
-	cookies: inject(),
-	ajax: inject(),
 	remindUploadFile: false, // 用于检测提醒用户上传文件的状态
 	isDisabled: true, // 下一步按钮点击状态。
 	uploadError: false, // 上传Error后弹出modal
 	errorMessage: '',
 	filecpa: '',
 	filegycx: '',
+	cookie: service('cookies'),
 	GetAjaxOpt(data) {
 		return {
 			method: 'POST',
@@ -44,10 +43,10 @@ export default Component.extend({
 						status
 					};
 
-					this.get('cookies').write('cpahash', success.cpa, {
+					this.get('cookie').write('cpahash', success.cpa, {
 						path: '/'
 					});
-					this.get('cookies').write('filecpa', this.get('filecpa'), {
+					this.get('cookie').write('filecpa', this.get('filecpa'), {
 						path: '/'
 					});
 				} else {
@@ -60,10 +59,10 @@ export default Component.extend({
 		deleteCpaFile() {
 			this.set('filecpa', '');
 			this.set('isDisabled', true);
-			this.get('cookies').write('cpahash', '', {
+			this.get('cookie').write('cpahash', '', {
 				path: '/'
 			});
-			this.get('cookies').write('filecpa', '', {
+			this.get('cookie').write('filecpa', '', {
 				path: '/'
 			});
 		},
@@ -89,10 +88,10 @@ export default Component.extend({
 						status
 					};
 
-					this.get('cookies').write('gycxhash', success.gycx, {
+					this.get('cookie').write('gycxhash', success.gycx, {
 						path: '/'
 					});
-					this.get('cookies').write('filegycx', this.get('filegycx'), {
+					this.get('cookie').write('filegycx', this.get('filegycx'), {
 						path: '/'
 					});
 				} else {
@@ -104,10 +103,10 @@ export default Component.extend({
 		//  删除gycx 文件 （伪）只是将名字置为“”空。
 		deleteGycxFile() {
 			this.set('filegycx', '');
-			this.get('cookies').write('gycxhash', '', {
+			this.get('cookie').write('gycxhash', '', {
 				path: '/'
 			});
-			this.get('cookies').write('filegycx', '', {
+			this.get('cookie').write('filegycx', '', {
 				path: '/'
 			});
 			if (this.get('filecpa') !== '') {

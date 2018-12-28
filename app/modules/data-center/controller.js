@@ -10,7 +10,6 @@ export default Controller.extend({
 	dataCenterRoute: service('data_center_route'),
 	dataCenterController: service('data_center_controller'),
 	i18n: service(),
-	cookies: service(),
 	styles,
 	output: false,
 	currentPage: 1,
@@ -89,7 +88,7 @@ export default Controller.extend({
 
 			this.queryData({
 				condition: {
-					'user_id': this.get('cookies').read('uid'),
+					'user_id': this.get('cookie').read('uid'),
 					market: market,
 					startTime: startTime,
 					endTime: endTime,
@@ -169,13 +168,11 @@ export default Controller.extend({
 			}
 		},
 		signOut() {
-			this.get('logger').log(keys(this.get('cookies').read()));
-			let cookies = this.get('cookies');
-
+			let cookie = this.get('cookie');
 
 			new rsvp.Promise((resolve) => {
-				keys(cookies.read()).forEach(item => {
-					cookies.clear(item, { path: '/' });
+				keys(cookie.read()).forEach(item => {
+					cookie.cleans(item)({ path: '/' });
 				});
 				localStorage.clear();
 				return resolve(true);

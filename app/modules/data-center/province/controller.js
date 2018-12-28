@@ -8,7 +8,6 @@ export default Controller.extend({
 	dataCenterRoute: service('data_center_route'),
 	dataCenterController: service('data_center_controller'),
 	i18n: service(),
-	cookies: service(),
 	market: '麻醉市场',
 	provRankTag: 'provinceSales',
 	prodRankTag: 'sales',
@@ -1624,7 +1623,7 @@ export default Controller.extend({
 			//     ]
 			// }
 		];
-		this.queryMarket();
+		// this.queryMarket();
 	},
 	actions: {
 		getMarket(params) {

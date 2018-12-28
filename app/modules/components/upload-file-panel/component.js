@@ -1,16 +1,13 @@
 import Component from '@ember/component';
-import {
-	inject
-} from '@ember/service';
+import { inject as service } from '@ember/service';
 
 export default Component.extend({
-	cookies: inject(),
-	ajax: inject(),
 	remindUploadFile: false, // 用于检测提醒用户上传文件的状态
 	isDisabled: true, // 下一步按钮点击状态。
 	uploadError: false, // 上传Error后弹出modal
 	errorMessage: '',
 	filecpa: '',
+	cookie: service('cookies'),
 	actions: {
 		// 提示用户上传文件的弹窗
 		pleaseUploadFile() {
@@ -36,11 +33,11 @@ export default Component.extend({
 						status
 					};
 
-					this.get('cookies').write('panelhash', success.panel, {
+					this.get('cookie').write('panelhash', success.panel, {
 						path: '/'
 					});
 
-					this.get('cookies').write('filepanel', this.get('filepanel'), {
+					this.get('cookie').write('filepanel', this.get('filepanel'), {
 						path: '/'
 					});
 				} else {
@@ -55,10 +52,10 @@ export default Component.extend({
 
 			this.set('isDisabled', true);
 
-			this.get('cookies').write('panelhash', '', {
+			this.get('cookie').write('panelhash', '', {
 				path: '/'
 			});
-			this.get('cookies').write('filepanel', '', {
+			this.get('cookie').write('filepanel', '', {
 				path: '/'
 			});
 		},
