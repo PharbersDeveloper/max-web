@@ -13,7 +13,7 @@ export default Controller.extend(XMPPMixin, {
 		this.set('cpafilename', this.get('cookie').read('filecpa'));
 		this.set('gycxfilename', this.get('cookie').read('filegycx'));
 		this.set('isShowCalcProgress', false);
-		this.xmppCallBack(this);
+		// this.xmppCallBack(this);
 	},
 	fluResult: observer('message', function () {
 		let msg2Json = this.get('message');
@@ -55,6 +55,7 @@ export default Controller.extend(XMPPMixin, {
 			MaxCalculateObject.set('isShowCalcProgress', false);
 			localStorage.setItem('maxpercentage', 0);
 			// this.set('maxPercentage', 0);
+			this.unregisterLast();
 			this.transitionToRoute('add-data.viewresults');
 
 		}

@@ -205,8 +205,6 @@ export default Controller.extend({
 		this.get('ajax').request('api/dashboard/city/productTrend', this.getAjaxOpt(condition))
 			.then(({ status, result }) => {
 				if (status === 'ok') {
-					// this.get('logger').log('查询aaaaaaaaaaaaaaaaa')
-					// this.get('logger').log(result);
 					this.set('trendTitle', result.tableSale.prodSalesOverview);
 					this.set('prodTrend', result.tableSale.multiData);
 				}
@@ -295,8 +293,6 @@ export default Controller.extend({
 		this.get('ajax').request('api/dashboard/city/prodSaleOverview', this.getAjaxOpt(condition))
 			.then(({ status, result }) => {
 				if (status === 'ok') {
-					// this.get('logger').log('查询查询市场竞品销售情况(in city)：')
-					// this.get('logger').log(result);
 					this.set('competingTitle', result.prodSalesOverview);
 					this.set('competingProdValue', result.competeSaleTable);
 				}
@@ -318,8 +314,6 @@ export default Controller.extend({
 		this.get('ajax').request('api/dashboard/nation/prodTrendAnalysis', this.getAjaxOpt(condition))
 			.then(({ status, result }) => {
 				if (status === 'ok') {
-					// this.get('logger').log('查询查询市场销售趋势(in country)：')
-					// this.get('logger').log(result);
 					this.set('AllTrendTitle', result.prodSalesOverview);
 					this.set('AllTrendValue', result.multiData);
 				}
@@ -340,7 +334,6 @@ export default Controller.extend({
 		this.get('ajax').request('/api/dashboard/city/all', this.getAjaxOpt(condition))
 			.then(({ status, result }) => {
 				if (status === 'ok') {
-					// this.get('logger').log(result);
 					this.set('citys', result.citys);
 					this.set('city', result.citys[0]);
 					this.queryProdCards();
@@ -1149,7 +1142,6 @@ export default Controller.extend({
 
 		},
 		queryTrend(params) {
-			// this.get('logger').log(params);
 			if (params === '销售额(mil)') {
 				this.set('trendTag', 'sales');
 			} else if (params === '销售增长(%)') {

@@ -163,7 +163,6 @@ export default Controller.extend({
 						saleDatas.push(item);
 					});
 					this.set('sale_datas', saleDatas);
-					this.get('logger').log(res.notfindhospital);
 
 					this.set('prodSalesValue', res.notfindhospital);
 				} else {

@@ -14,9 +14,7 @@ export default Controller.extend(XMPPMixin, {
 	panelPercentage: 0,
 	ymPercentage: 0,
 	fluResult: observer('message', function () {
-		this.get('logger').log('this is in generate controller');
-		// eslint-disable-next-line no-debugger
-		// debugger;
+		// this.get('logger').log('this is in generate controller');
 		let msg2Json = this.get('message');
 
 		if (msg2Json.data.attributes.call === 'ymCalc') {
@@ -69,6 +67,8 @@ export default Controller.extend(XMPPMixin, {
 					localStorage.removeItem('panelpercentage');
 					localStorage.removeItem('ympercentage');
 					that.set('panelPercentage', 0);
+
+					that.unregisterLast();
 					that.transitionToRoute('add-data.generate-sample.sample-finish');
 				}, 1000);
 			}
@@ -107,15 +107,11 @@ export default Controller.extend(XMPPMixin, {
 			SampleObject.set('calcYearsProgress', true);
 			localStorage.setItem('ympercentage', 0);
 
-			// this.get('logger').log('this is ymCalc');
 			this.get('generateSampleRoute').queryObject('api/v1/maxjobsend/0', 'Phmaxjob', this.get('generateSampleRoute').object2JsonApi(req, false));
 		},
 		startGenerateSample() {
-			// this.get('logger').log('this is panelCalc');
-			// SampleObject.fileParsingSuccess
 			this.set('ymPercentage', 0);
 			localStorage.setItem('ympercentage', 0);
-			// SampleObject.fileParsingSuccess
 			SampleObject.set('calcYearsProgress', false);
 			SampleObject.set('isShowProgress', true);
 			SampleObject.set('calcPanelProgress', true);
@@ -144,7 +140,7 @@ export default Controller.extend(XMPPMixin, {
 							SampleObject.set('calcYearsProgress', false);
 							SampleObject.set('calcPanelProgress', true);
 						} else {
-							this.get('logger').log('解析文件失败');
+							// this.get('logger').log('解析文件失败');
 							SampleObject.set('fileParsingError', false);
 						}
 					});

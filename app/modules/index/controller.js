@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 
 export default Controller.extend({
-	index_controller: service(),
+	indexController: service('index_controller'),
 	init() {
 		this._super(...arguments);
 	},

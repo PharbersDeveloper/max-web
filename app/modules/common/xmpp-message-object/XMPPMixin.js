@@ -1,6 +1,5 @@
 import Mixin from '@ember/object/mixin';
 import EmberObject from '@ember/object';
-import { computed } from '@ember/object';
 import { inject } from '@ember/service';
 import conf from '../../../config/environment';
 
@@ -26,9 +25,10 @@ const MessageFactory = EmberObject.create({
 
 export default Mixin.create({
 	xmpp: inject(),
-	isConnected: computed(function () {
-		return typeof this.xmpp.getConnection === 'undefined';
-	}),
+	// isConnected: computed(function () {
+	// 	window.console.info(this.xmpp.getConnection);
+	// 	return typeof this.xmpp.getConnection === 'undefined';
+	// }),
 	xmppCallBack(instance) {
 		// this.get('logger').info('xmppCallBack instance ====> ' + instance);
 		let that = this;
@@ -54,7 +54,7 @@ export default Mixin.create({
 			return true;
 		}
 
-		if (this.isConnected) {
+		if (typeof this.get('xmpp').getConnection === 'undefined') {
 			let user = localStorage.getItem('username');
 
 			this.get('xmpp').connect(user, '123123', conf, onMessage);
@@ -62,5 +62,8 @@ export default Mixin.create({
 	},
 	xmppSendMessage(msg, to) {
 		this.get('xmpp').send(to + '@localhost', msg);
+	},
+	unregisterLast() {
+		MessageFactory.unregisterLast();
 	}
 });

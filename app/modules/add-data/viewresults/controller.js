@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import { inject } from '@ember/service';
 import $ from 'jquery';
 import { isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
@@ -9,8 +8,6 @@ import EmberObject from '@ember/object';
 export default Controller.extend({
 	viewresultsRoute: service('add_data.viewresults_route'),
 	viewresultsController: service('add_data.viewresults_controller'),
-
-	ajax: inject(),
 	markets: '',
 	market: '',
 	years: '',

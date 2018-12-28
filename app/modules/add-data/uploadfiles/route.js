@@ -10,7 +10,6 @@ export default Route.extend({
 	},
 	model() {
 		// 你的逻辑
-		this.get('logger').log('in upload model');
 
 		let companyId = localStorage.getItem('company_id'),
 			userId = localStorage.getItem('username'),
@@ -20,9 +19,6 @@ export default Route.extend({
 				'company_id': companyId
 			}),
 			result = this.get('uploadfilesRoute').object2JsonApi(req);
-
-		this.get('logger').log(req);
-		this.get('logger').log(result);
 
 		this.get('uploadfilesRoute').queryObject('api/v1/maxjobgenerate/0', 'Phmaxjob', result)
 			.then((res) => {

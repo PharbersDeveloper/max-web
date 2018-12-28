@@ -119,7 +119,6 @@ export default Component.extend({
 
 		// Scale the range of the data\
 		x.domain(d3.extent(handledData, function (d) {
-			// this.get('logger').log(d.ym)
 			return d.ym;
 		}));
 		y0Max = d3.max(handledData, function (d) {

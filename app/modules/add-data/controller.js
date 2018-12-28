@@ -9,6 +9,7 @@ export default Controller.extend({
 			let company = localStorage.getItem('company'),
 				companyId = localStorage.getItem('company_id'),
 				userName = localStorage.getItem('username'),
+				xpmmjid = localStorage.getItem('xmppjid'),
 				token = this.get('cookie').read('token'),
 				cookie = this.get('cookie');
 
@@ -21,6 +22,7 @@ export default Controller.extend({
 				localStorage.setItem('company', company);
 				localStorage.setItem('company_id', companyId);
 				localStorage.setItem('username', userName);
+				localStorage.setItem('xmppjid', xpmmjid);
 				cookie.write('token', token, { path: '/' });
 				return resolve(true);
 			}).then(() => {

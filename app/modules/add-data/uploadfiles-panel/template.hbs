@@ -15,10 +15,16 @@
 		</h4>
 	{{/modal.header}}
 	{{#modal.body}}
-		<p>请输入市场 <span>(例如:麻醉市场)</span> </p>
-		<p>{{input type="text" value=panelMarket}}</p>
+		<p>请选择市场 <span></span> </p>
+		{{!-- <p>{{input type="text" value=panelMarket}}</p> --}}
+		{{!-- {{base-select title="" selected=market onChange=(action 'chooseMarket' value=target.value) options=markets}} --}}
+		<select name="markets" local-class="choose-market" onchange={{action 'chooseMarket' value="target.value"}}>
+			{{#each markets as |item|}}
+				<option value={{item}}>{{item}}</option>
+			{{/each}}
+		</select>
 		<p>请输入时间 <span>(例如：201801)</span> </p>
-		<p>{{input type="text" value=panelMonth}}</p>
+		<p>{{input local-class="input-time" type="text" value=panelMonth}}</p>
 	{{/modal.body}}
 	{{#modal.footer}}
 		{{#bs-button class="btn-only-text" onClick=(action modal.close)}}取消{{/bs-button}}

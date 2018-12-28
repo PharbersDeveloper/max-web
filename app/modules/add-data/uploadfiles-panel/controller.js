@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-
+import { isEmpty } from '@ember/utils';
 export default Controller.extend({
 	uploadfilesPanelRoute: service('add_data.uploadfiles_panel_route'),
 	uploadfilesPanelController: service('add_data.uploadfiles_panel_controller'),
@@ -16,7 +16,6 @@ export default Controller.extend({
 	// 		req = null,
 	// 		result = null;
 
-	// 	this.get('logger').log('==========');
 
 	// 	req = this.get('uploadfilesPanelController').createModel('Phmaxjob', {
 	// 		id: this.get('hash').uuid(),
@@ -34,13 +33,37 @@ export default Controller.extend({
 	actions: {
 		next(panel) {
 			this.set('panel', panel);
-			this.set('marketAndTime', true);
+			let companyId = localStorage.getItem('company_id'),
+				jobId = localStorage.getItem('job_id'),
+				req = this.get('uploadfilesPanelController').createModel('SampleCheckSelecter', {
+					id: this.get('hash').uuid(),
+					'company_id': companyId,
+					'job_id': jobId
+				});
+
+			this.get('uploadfilesPanelRoute').queryObject('api/v1/marketselecter/0', 'SampleCheckSelecter', this.get('uploadfilesPanelRoute').object2JsonApi(req))
+				.then((res) => {
+					if (res !== '') {
+
+						this.set('markets', res.mkt_list);
+						this.set('market', isEmpty(res.mkt_list) ? '' : res.mkt_list[0]);
+
+						this.set('marketAndTime', true);
+					} else {
+						this.set('sampleCheckError', true);
+						this.set('errorMessage', 'error');
+					}
+				});
+		},
+		chooseMarket(value) {
+			this.set('market', value);
+
 		},
 		nextStep() {
 			this.set('marketAndTime', false);
 
 			let panel = this.get('panel'),
-				market = this.get('panelMarket'),
+				market = this.get('market'),
 				month = this.get('panelMonth'),
 				req = null,
 				result = null;
