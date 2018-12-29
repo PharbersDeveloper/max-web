@@ -14,12 +14,13 @@ const MessageFactory = EmberObject.create({
 		this.stack.popObject();
 	},
 	doCall(msg) {
-		let msg2Json = JSON.parse(msg); //json
+		try {
+			let msg2Json = JSON.parse(msg); //json
 
-		// this.get('logger').info('instances ====>' + this.stack);
-		// this.get('logger').info('instance ====>' + this.stack.lastObject);
-
-		this.stack.lastObject.set('message', msg2Json);
+			this.stack.lastObject.set('message', msg2Json);
+		} catch (error) {
+			window.console.log(error);
+		}
 	}
 });
 
@@ -35,14 +36,10 @@ export default Mixin.create({
 
 		MessageFactory.register(instance);
 
-		// eslint-disable-next-line no-undefined
-		that.get('xmpp').set('connection', undefined);
 		function onMessage(msg) {
 			// let from = msg.getAttribute('from'),
 			let type = msg.getAttribute('type'),
 				elems = msg.getElementsByTagName('body');
-
-			// debugger
 
 			if (type === 'chat' && elems.length > 0) {
 				let body = elems[0];

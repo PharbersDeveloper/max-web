@@ -17,7 +17,20 @@ export default Controller.extend(XMPPMixin, {
 		// this.get('logger').log('this is in generate controller');
 		let msg2Json = this.get('message');
 
-		if (msg2Json.data.attributes.call === 'ymCalc') {
+		this.get('logger').log(msg2Json);
+		if (typeof msg2Json.errors !== 'undefined') {
+
+			hint = {
+				hintModal: true,
+				hintImg: true,
+				title: '发生未知错误',
+				content: '请重新计算',
+				showCancel: false,
+				hintBtn: true,
+				backdropClose: false
+			};
+			this.set('hint', hint);
+		} else if (msg2Json.data.attributes.call === 'ymCalc') {
 			let jobCurrent = localStorage.getItem('job_id'),
 				jobXmpp = msg2Json.data.attributes.job_id,
 				ymPercentage = msg2Json.data.attributes.percentage;
@@ -80,7 +93,6 @@ export default Controller.extend(XMPPMixin, {
 		this.set('cpafilename', this.get('cookie').read('filecpa'));
 		this.set('gycxfilename', this.get('cookie').read('filegycx'));
 		this.set('SampleObject.isShowProgress', false);
-		this.xmppCallBack(this);
 	},
 
 	actions: {
@@ -152,6 +164,11 @@ export default Controller.extend(XMPPMixin, {
 			SampleObject.set('fileParsingSuccess', false);
 			SampleObject.set('cantFindMonth', true);
 		},
+		backChooseMonth() {
+			SampleObject.set('cantFindMonth', false);
+			SampleObject.set('fileParsingSuccess', true);
+
+		},
 		uploadFileAgain(modal) {
 			modal.close();
 			SampleObject.set('isShowProgress', false);
@@ -161,6 +178,16 @@ export default Controller.extend(XMPPMixin, {
 			localStorage.removeItem('panelpercentage');
 			localStorage.removeItem('ympercentage');
 			this.transitionToRoute('add-data.uploadfiles');
+		},
+		reStart() {
+			SampleObject.set('isShowCalcProgress', false);
+
+			this.set('hint', {
+				hintModal: false,
+				title: '',
+				content: ''
+			});
+			this.transitionToRoute('data-center');
 		}
 	}
 });

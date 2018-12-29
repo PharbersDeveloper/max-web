@@ -135,7 +135,7 @@
 		<p>&nbsp;</p>
 	{{/modal.body}}
 	{{#modal.footer}}
-		{{base-button type="second" content="返回选择" onClick=(action modal.close)}}
+		{{base-button type="second" content="返回选择" onClick=(action 'backChooseMonth')}}
 		{{base-button type="" content="重新上传" onClick=(action 'uploadFileAgain' modal)}}
 	{{/modal.footer}}
 {{/bs-modal}}
@@ -164,3 +164,4 @@
 		{{base-button type="" content="关闭" onClick=(action modal.close)}}
 	{{/modal.footer}}
 {{/bs-modal}}
+{{hint-modal hint=hint confirm=(action 'reStart')}}

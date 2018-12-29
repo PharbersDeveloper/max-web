@@ -1,7 +1,5 @@
 import EmberObject from '@ember/object';
-import {
-	later
-} from '@ember/runloop';
+import { later } from '@ember/runloop';
 
 
 // export default EmberObject.create({

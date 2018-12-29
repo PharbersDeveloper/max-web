@@ -13,10 +13,27 @@ export default Controller.extend(XMPPMixin, {
 		this.set('cpafilename', this.get('cookie').read('filecpa'));
 		this.set('gycxfilename', this.get('cookie').read('filegycx'));
 		this.set('isShowCalcProgress', false);
-		// this.xmppCallBack(this);
+		MaxCalculateObject.set('isShowCalcProgress', false);
+
 	},
 	fluResult: observer('message', function () {
-		let msg2Json = this.get('message');
+		let msg2Json = this.get('message'),
+			hint = {};
+
+		this.get('logger').log(this.get('message'));
+		if (typeof msg2Json.errors !== 'undefined') {
+
+			hint = {
+				hintModal: true,
+				hintImg: true,
+				title: '发生未知错误',
+				content: '请重新计算',
+				showCancel: false,
+				hintBtn: true,
+				backdropClose: false
+			};
+			this.set('hint', hint);
+		}
 
 		if (msg2Json.data.attributes.call === 'calc') {
 
@@ -57,7 +74,16 @@ export default Controller.extend(XMPPMixin, {
 			// this.set('maxPercentage', 0);
 			this.unregisterLast();
 			this.transitionToRoute('add-data.viewresults');
+		},
+		reStart() {
+			MaxCalculateObject.set('isShowCalcProgress', false);
 
+			this.set('hint', {
+				hintModal: false,
+				title: '',
+				content: ''
+			});
+			this.transitionToRoute('data-center');
 		}
 	}
 });

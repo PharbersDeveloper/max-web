@@ -5,32 +5,10 @@ import { isEmpty } from '@ember/utils';
 export default Controller.extend({
 	uploadfilesRoute: service('add_data.uploadfiles_route'),
 	uploadfilesController: service('add_data.uploadfiles_controller'),
-	getData() {
-		/**
-		 * TODO userId === userName ?
-		*/
-		let companyId = localStorage.getItem('company_id'),
-			userId = localStorage.getItem('username'),
-			req = this.get('uploadfilesController').createModel('Phmaxjob', {
-				id: this.get('hash').uuid(),
-				'user_id': userId,
-				'company_id': companyId
-			}),
-			result = this.get('uploadfilesRoute').object2JsonApi(req);
-
-		this.get('uploadfilesRoute').queryObject('api/v1/maxjobgenerate/0', 'Phmaxjob', result)
-			.then((res) => {
-				localStorage.setItem('job_id', res.job_id);
-				localStorage.setItem('company_id', res.company_id);
-			});
-
-	},
-	init() {
-		this._super(...arguments);
-		// this.getData();
-	},
+	showLoading: false,
 	actions: {
 		next(cpa, gycx) {
+			this.set('showLoading', true);
 			let req = this.get('uploadfilesController').queryModelByAll('Phmaxjob').lastObject,
 				result = null;
 
@@ -41,7 +19,10 @@ export default Controller.extend({
 
 			this.get('uploadfilesRoute').queryObject('api/v1/maxjobpush/0', 'Phmaxjob', result)
 				.then((resp) => {
+
 					if (!isEmpty(resp.not_arrival_hosp_file)) {
+						this.set('showLoading', false);
+
 						localStorage.setItem('not_arrival_hosp_file', resp.not_arrival_hosp_file);
 						localStorage.setItem('cpa', resp.cpa);
 						localStorage.setItem('gycx', resp.gycx);

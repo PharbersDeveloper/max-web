@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
 	let ENV = {
 		modulePrefix: 'max-web',
 		podModulePrefix: 'max-web/modules',
@@ -8,7 +8,7 @@ module.exports = function(environment) {
 		rootURL: '/',
 		locationType: 'auto',
 		xmppHost: 'http://192.168.100.172',
-	    xmppPort: 7070,
+		xmppPort: 7070,
 		xmppBosh: '/http-bind',
 		EmberENV: {
 			FEATURES: {
@@ -28,15 +28,17 @@ module.exports = function(environment) {
 	};
 	ENV.i18n = {
 		defaultLocale: 'zh'
-	  };
-
+	};
+	ENV['ember-d3'] = {
+		bundle: true
+	};
 	if (environment === 'development') {
 		ENV['ember-cli-mirage'] = {
 			enabled: false,
 		};
 		ENV['ember-d3'] = {
-	      bundle: true
-	    }
+			bundle: true
+		}
 
 		// ENV.APP.LOG_RESOLVER = true;
 		// ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -58,6 +60,9 @@ module.exports = function(environment) {
 	}
 
 	if (environment === 'production') {
+		ENV['ember-d3'] = {
+			bundle: true
+		}
 		// ENV.rootURL = "/";
 		// ENV.locationType = 'hash';
 		// here you can enable a production-specific feature

@@ -1,35 +1,24 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
+import { computed } from '@ember/object';
+
 export default Controller.extend({
 	uploadfilesPanelRoute: service('add_data.uploadfiles_panel_route'),
 	uploadfilesPanelController: service('add_data.uploadfiles_panel_controller'),
 
 	init() {
 		this._super(...arguments);
-		// this.getData();
 		this.set('marketAndTime', false);
+		this.set('years', ['2018', '2017', '2016', '2015', '2014']);
+		this.set('months', ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']);
+		this.set('year', '2018');
+		this.set('month', '01');
+		this.set('showLoading', false);
 	},
-	// getData() {
-	// 	let companyId = localStorage.getItem('company_id'),
-	// 		userId = localStorage.getItem('username'),
-	// 		req = null,
-	// 		result = null;
-
-
-	// 	req = this.get('uploadfilesPanelController').createModel('Phmaxjob', {
-	// 		id: this.get('hash').uuid(),
-	// 		'user_id': userId,
-	// 		'company_id': companyId
-	// 	});
-	// 	result = this.get('uploadfilesPanelRoute').object2JsonApi(req);
-
-	// 	this.get('uploadfilesPanelRoute').queryObject('api/v1/maxjobgenerate/0', 'Phmaxjob', result)
-	// 		.then((res) => {
-	// 			localStorage.setItem('job_id', res.job_id);
-	// 			localStorage.setItem('company_id', res.company_id);
-	// 		});
-	// },
+	yearMonth: computed('year', 'month', function () {
+		return this.get('year') + this.get('month');
+	}),
 	actions: {
 		next(panel) {
 			this.set('panel', panel);
@@ -55,16 +44,12 @@ export default Controller.extend({
 					}
 				});
 		},
-		chooseMarket(value) {
-			this.set('market', value);
-
-		},
 		nextStep() {
 			this.set('marketAndTime', false);
-
+			this.set('showLoading', true);
 			let panel = this.get('panel'),
 				market = this.get('market'),
-				month = this.get('panelMonth'),
+				yearMonth = this.get('yearMonth'),
 				req = null,
 				result = null;
 
@@ -73,7 +58,7 @@ export default Controller.extend({
 			 */
 			this.get('uploadfilesPanelController').queryModelByAll('Phmaxjob').lastObject.set('panel', panel);
 			this.get('uploadfilesPanelController').queryModelByAll('Phmaxjob').lastObject.set('panel_mkt', market);
-			this.get('uploadfilesPanelController').queryModelByAll('Phmaxjob').lastObject.set('yms', month);
+			this.get('uploadfilesPanelController').queryModelByAll('Phmaxjob').lastObject.set('yms', yearMonth);
 			this.get('uploadfilesPanelController').queryModelByAll('Phmaxjob').lastObject.set('call', 'ymCalc');
 
 			req = this.get('uploadfilesPanelController').queryModelByAll('Phmaxjob').lastObject;
@@ -82,7 +67,8 @@ export default Controller.extend({
 			this.get('uploadfilesPanelRoute').queryObject('api/v1/maxjobpushpanel/0', 'Phmaxjob', result)
 				.then((resp) => {
 					this.set('panelMarket', '');
-					this.set('panelMonth', '');
+					this.set('showLoading', false);
+
 					localStorage.setItem('panel', resp.panel);
 					// this.transitionToRoute('add-data.check-sample-panel');
 					this.transitionToRoute('add-data.calcmax');

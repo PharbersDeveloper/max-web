@@ -20,11 +20,11 @@ export default Route.extend({
 
 	},
 	model() {
-		this.store.peekAll('PhAuth').forEach(ele => {
-			localStorage.setItem('company_id', ele.Profile.Company.id);
-			localStorage.setItem('username', ele.Profile.username);
-			localStorage.setItem('company', ele.Profile.Company.companyname);
-		});
+		// this.store.peekAll('PhAuth').forEach(ele => {
+		// 	localStorage.setItem('company_id', ele.Profile.Company.id);
+		// 	localStorage.setItem('username', ele.Profile.username);
+		// 	localStorage.setItem('company', ele.Profile.Company.companyname);
+		// });
 		let user = localStorage.getItem('username'),
 			comp = localStorage.getItem('company');
 

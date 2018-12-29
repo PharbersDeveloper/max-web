@@ -1,8 +1,9 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
+import XMPPMixin from '../common/xmpp-message-object/XMPPMixin';
 
-export default Route.extend({
+export default Route.extend(XMPPMixin, {
 	indexRoute: service(),
 	indexController: service(),
 	setupController(controller, model) {
@@ -36,9 +37,26 @@ export default Route.extend({
 				.then((data) => {
 					if (data.token !== '') {
 						this.get('cookie').write('token', data.token, { path: '/' });
+						localStorage.setItem('company_id', data.Profile.Company.id);
+						localStorage.setItem('username', data.Profile.username);
+						localStorage.setItem('company', data.Profile.Company.companyname);
 						this.store.adapterFor('application').headers.Authorization = `bearer ${data.get('token')}`;
+						this.xmppCallBack(this.controllerFor('index'));
 						this.transitionTo('data-center');
 					}
+				})
+				.catch(errors => {
+					let hint = {},
+						error = errors.errors;
+
+					hint = {
+						hintModal: true,
+						hintImg: true,
+						title: '提示',
+						content: error[0].title,
+						hintBtn: true
+					};
+					this.controller.set('hint', hint);
 				});
 		}
 	}

@@ -1,7 +1,10 @@
 {{step-flow stepOne=true stepTwo=false stepThree=false stepFour=false}}
-    {{#layout-push direction='row' classNames="layout-flex-outer"}}
-        {{#layout-push direction='row' classNames="layout-flex-inner"}}
-            {{upload-file next=(action 'next')}}
-        {{/layout-push}}
-    {{/layout-push}}
-{{outlet}}
+{{#if showLoading}}
+	{{loading-page}}
+{{else}}
+	{{#layout-push direction='row' classNames="layout-flex-outer"}}
+		{{#layout-push direction='row' classNames="layout-flex-inner"}}
+			{{upload-file next=(action 'next')}}
+		{{/layout-push}}
+	{{/layout-push}}
+{{/if}}

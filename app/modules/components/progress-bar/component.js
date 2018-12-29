@@ -50,5 +50,8 @@ export default Component.extend({
 					return arcGenerator(d);
 				};
 			});
+	},
+	willDestroyElement() {
+		this.set('newAngle', 0);
 	}
 });

@@ -69,13 +69,13 @@
 </div>
 <div local-class="table-persales">
 	<p local-class="pie-title"><span>{{titleInfo.title}}</span><span>{{titleInfo.subtitle}}</span></p>
-	{{self-table model=prodSalesValue columns=prodSales selfheight='300px'}}
+	{{!-- {{self-table model=prodSalesValue columns=prodSales selfheight='300px'}} --}}
 </div>
 <div class="container-fluid" local-class="nopadding pie-table">
 	<p local-class="pie-title">
 		<span>{{contTitle.title}}</span>
 		<span>{{contTitle.subtitle}}</span>
 	</p>
-	{{pie-chart pieData=pieValue }}
-	{{legend-table model=prodContValue columns=prodCont selfheight='310px'}}
+	{{!-- {{pie-chart pieData=pieValue }} --}}
+	{{!-- {{legend-table model=prodContValue columns=prodCont selfheight='310px'}} --}}
 </div>

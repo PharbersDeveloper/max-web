@@ -4,8 +4,18 @@
 	font-size: 20px;
 }
 
-.input-time {
-	width: 200px;
-	height: 36px;
-	font-size: 20px;
+.year-month {
+	font-size: 0;
+
+	.time-year {
+		width: 100px;
+		height: 36px;
+		font-size: 20px;
+	}
+
+	.time-month {
+		width: 98px;
+		height: 36px;
+		font-size: 20px;
+	}
 }

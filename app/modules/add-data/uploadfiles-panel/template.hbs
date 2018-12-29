@@ -1,9 +1,13 @@
 {{step-flow stepOne=true stepTwo=false stepThree=false stepFour=false}}
-{{#layout-push direction='row' classNames="layout-flex-outer"}}
-	{{#layout-push direction='row' classNames="layout-flex-inner"}}
-		{{upload-file-panel next=(action 'next')}}
+{{#if showLoading}}
+	{{loading-page}}
+{{else}}
+	{{#layout-push direction='row' classNames="layout-flex-outer"}}
+		{{#layout-push direction='row' classNames="layout-flex-inner"}}
+			{{upload-file-panel next=(action 'next')}}
+		{{/layout-push}}
 	{{/layout-push}}
-{{/layout-push}}
+{{/if}}
 {{#bs-modal
 	fade=false 
 	backdropClose=false 
@@ -16,18 +20,27 @@
 	{{/modal.header}}
 	{{#modal.body}}
 		<p>请选择市场 <span></span> </p>
-		{{!-- <p>{{input type="text" value=panelMarket}}</p> --}}
-		{{!-- {{base-select title="" selected=market onChange=(action 'chooseMarket' value=target.value) options=markets}} --}}
-		<select name="markets" local-class="choose-market" onchange={{action 'chooseMarket' value="target.value"}}>
+		<select name="markets" local-class="choose-market" onchange={{action (mut market) value="target.value"}}>
 			{{#each markets as |item|}}
 				<option value={{item}}>{{item}}</option>
 			{{/each}}
 		</select>
-		<p>请输入时间 <span>(例如：201801)</span> </p>
-		<p>{{input local-class="input-time" type="text" value=panelMonth}}</p>
+		<p>请选择时间 <span></span> </p>
+		<p local-class="year-month">
+			<select name="year" local-class="time-year" onchange={{action (mut year) value="target.value"}}>
+				{{#each years as |item|}}
+					<option value={{item}}>{{item}}</option>
+				{{/each}}
+			</select>
+			<select name="month" local-class="time-month" onchange={{action (mut month) value="target.value"}}>
+				{{#each months as |item|}}
+					<option value={{item}}>{{item}}</option>
+				{{/each}}
+			</select>
+		</p>
 	{{/modal.body}}
 	{{#modal.footer}}
-		{{#bs-button class="btn-only-text" onClick=(action modal.close)}}取消{{/bs-button}}
+		{{!-- {{#bs-button class="btn-only-text" onClick=(action modal.close)}}取消{{/bs-button}} --}}
 		{{#bs-button onClick=(action 'nextStep' )}}确定{{/bs-button}}
 	{{/modal.footer}}
 {{/bs-modal}}
