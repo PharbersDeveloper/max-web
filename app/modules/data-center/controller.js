@@ -47,6 +47,38 @@ export default Controller.extend({
 	},
 
 	actions: {
+		confirmHint() {
+			this.set('hint', {
+				hintModal: false,
+				hintImg: true,
+				title: '',
+				content: '',
+				showCancel: false,
+				hintBtn: true,
+				backdropClose: true
+			});
+		},
+		addData() {
+			let company = this.get('cookie').read('process') - 0,
+				hint = null;
+
+			if (company === 1) {
+				this.transitionToRoute('add-data.uploadfiles-panel');
+			} else if (company === 0) {
+				this.transitionToRoute('add-data.uploadfiles');
+			} else {
+				hint = {
+					hintModal: true,
+					hintImg: true,
+					title: '发生未知错误',
+					content: '请退出重新登录',
+					showCancel: false,
+					hintBtn: true,
+					backdropClose: true
+				};
+				this.set('hint', hint);
+			}
+		},
 		search() {
 			let market = this.get('market'),
 				startTime = this.formatDateyyyymm(this.get('startDate')),
@@ -65,39 +97,39 @@ export default Controller.extend({
 			});
 		},
 
-		originalFile() {
-			this.toggleProperty('chooseAddData');
-			this.transitionToRoute('add-data.uploadfiles');
-		},
+		// originalFile() {
+		// 	this.toggleProperty('chooseAddData');
+		// 	this.transitionToRoute('add-data.uploadfiles');
+		// },
 
-		panelFile() {
-			this.toggleProperty('chooseAddData');
-			this.transitionToRoute('add-data.uploadfiles-panel');
-		},
+		// panelFile() {
+		// 	this.toggleProperty('chooseAddData');
+		// 	this.transitionToRoute('add-data.uploadfiles-panel');
+		// },
 
-		doPageSearch(currentPage, pn) {
-			this.set('currentPage', currentPage);
-			this.set('modalTablePageObj', pn);
-			if (typeof this.get('modalTablePageObj') !== 'undefined') {
-				this.get('modalTablePageObj').gotoCustomPage(currentPage);
-			}
+		// doPageSearch(currentPage, pn) {
+		// 	this.set('currentPage', currentPage);
+		// 	this.set('modalTablePageObj', pn);
+		// 	if (typeof this.get('modalTablePageObj') !== 'undefined') {
+		// 		this.get('modalTablePageObj').gotoCustomPage(currentPage);
+		// 	}
 
-			let market = this.get('market'),
-				startTime = this.formatDateyyyymm(this.get('startDate')),
-				endTime = this.formatDateyyyymm(this.get('endDate'));
+		// 	let market = this.get('market'),
+		// 		startTime = this.formatDateyyyymm(this.get('startDate')),
+		// 		endTime = this.formatDateyyyymm(this.get('endDate'));
 
-			this.queryData({
-				condition: {
-					'user_id': this.get('cookie').read('uid'),
-					market: market,
-					startTime: startTime,
-					endTime: endTime,
-					currentPage: currentPage,
-					pageSize: 10,
-					mode: 'page'
-				}
-			});
-		},
+		// 	this.queryData({
+		// 		condition: {
+		// 			'user_id': this.get('cookie').read('uid'),
+		// 			market: market,
+		// 			startTime: startTime,
+		// 			endTime: endTime,
+		// 			currentPage: currentPage,
+		// 			pageSize: 10,
+		// 			mode: 'page'
+		// 		}
+		// 	});
+		// },
 
 		outputFile() {
 			this.set('output', false);

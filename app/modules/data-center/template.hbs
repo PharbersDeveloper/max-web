@@ -48,7 +48,8 @@
 				{{base-button type="default" content="导出" onClick=(action 'outputData')}}
 			{{/layout-push}}
 			{{#layout-push direction='row' classNames="data-center-choosebar-right"}}
-				<button local-class="btn-add-data" {{action (mut chooseAddData) true}}>
+				{{!-- <button local-class="btn-add-data" {{action (mut chooseAddData) true}}> --}}
+				<button local-class="btn-add-data" {{action 'addData'}}>
 					<span local-class="add-data-content left-section">
 						+
 					</span>
@@ -98,16 +99,4 @@
 {{#bs-modal-simple fade=false open=error title="提示" closeTitle="确定" onHidden=(action (mut error) false)}}
 	<p>{{errorMessage}}</p>
 {{/bs-modal-simple}}
-{{#bs-modal open=chooseAddData  onHidden=(action (mut chooseAddData) false) as |modal|}}
-	{{#modal.header}}
-		<h4 class="modal-title">
-			选择添加方式
-		</h4>
-	{{/modal.header}}
-	{{#modal.body}}
-		{{#layout-push direction="col" split=true mid=true}}
-			{{base-button local-class="btn-choose-add-data" type="default" content="源文件上传" onClick=(action 'originalFile')}}
-			{{base-button local-class="btn-choose-add-data" type="default" content="panel文件上传" onClick=(action 'panelFile')}}
-		{{/layout-push}}
-	{{/modal.body}}
-{{/bs-modal}}
+{{hint-modal hint=hint confirm=(action 'confirmHint')}}

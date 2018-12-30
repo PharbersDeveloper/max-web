@@ -1,29 +1,2 @@
 {{add-data-nav title="添加数据" isShow=true backToDataCenter=(action 'backDC')}}
 {{outlet}}
-{{!-- {{#layout-push direction='row' classNames="nav-flex-outer" local-class="nav-flex-outer"}}
-	<div local-class="">
-	</div>
-	<div local-class="nav-title">
-		<p local-class="self-navbar-title">{{title}}</p>
-	</div>
-	<div {{action "changeExitStatus"}} local-class={{if isShow 'btn-close' 'hidden'}}>
-		x
-	</div>
-{{/layout-push}}
-{{outlet}}
-{{#bs-modal fade=false open=exitStep onHidden=(action (mut exitStep) false) as |modal|}}
-	{{#modal.header closeButton=false}}
-		<h4 class="modal-title">
-			提示
-		</h4>
-	{{/modal.header}}
-	{{#modal.body}}
-		<p>中途退出流程，将终止本次添加新数据！</p>
-	{{/modal.body}}
-	{{#modal.footer}}
-		{{base-button content="取消" type="second" onClick=modal.close}}
-		{{#link-to "data-center"}}
-			{{base-button content="退出" type=""}}
-		{{/link-to}}
-	{{/modal.footer}}
-{{/bs-modal}} --}}

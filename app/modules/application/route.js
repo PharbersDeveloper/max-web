@@ -9,6 +9,17 @@ export default Route.extend({
 		this._super(controller, model);
 		// this.controllerFor('application')
 	},
+	beforeModel(transition) {
+		let token = this.get('cookie').read('token'),
+			loginController = this.controllerFor('index');
+
+		if (!token) {
+			if (transition.targetName !== 'index') {
+				loginController.set('previousTransition', transition);
+			}
+			this.transitionTo('index');
+		}
+	},
 	model() {
 		// 你的逻辑
 	},

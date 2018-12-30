@@ -1,5 +1,6 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-    companyname: DS.attr('string')
+	companyname: DS.attr('string'),
+	process: DS.attr('number')
 });

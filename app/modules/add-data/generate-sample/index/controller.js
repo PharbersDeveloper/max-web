@@ -15,11 +15,17 @@ export default Controller.extend(XMPPMixin, {
 	ymPercentage: 0,
 	fluResult: observer('message', function () {
 		// this.get('logger').log('this is in generate controller');
-		let msg2Json = this.get('message');
+		let msg2Json = this.get('message'),
+			hint = {};
 
-		this.get('logger').log(msg2Json);
+		// this.get('logger').log(msg2Json);
 		if (typeof msg2Json.errors !== 'undefined') {
-
+			/**
+			 * 出现错误的处理
+			 */
+			SampleObject.set('isShowProgress', false);
+			SampleObject.set('calcYearsProgress', false);
+			localStorage.setItem('ympercentage', 0);
 			hint = {
 				hintModal: true,
 				hintImg: true,
@@ -90,9 +96,9 @@ export default Controller.extend(XMPPMixin, {
 
 	init() {
 		this._super(...arguments);
-		this.set('cpafilename', this.get('cookie').read('filecpa'));
-		this.set('gycxfilename', this.get('cookie').read('filegycx'));
-		this.set('SampleObject.isShowProgress', false);
+		// this.set('cpafilename', this.get('cookie').read('filecpa'));
+		// this.set('gycxfilename', this.get('cookie').read('filegycx'));
+		// this.set('SampleObject.isShowProgress', false);
 	},
 
 	actions: {

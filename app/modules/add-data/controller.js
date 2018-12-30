@@ -10,9 +10,9 @@ export default Controller.extend({
 				companyId = localStorage.getItem('company_id'),
 				userName = localStorage.getItem('username'),
 				xpmmjid = localStorage.getItem('xmppjid'),
-				token = this.get('cookie').read('token'),
-				cookie = this.get('cookie');
-
+				cookie = this.get('cookie'),
+				token = cookie.read('token'),
+				companyKind = cookie.read('process');
 
 			new rsvp.Promise((resolve) => {
 				keys(cookie.read()).forEach(item => {
@@ -24,6 +24,8 @@ export default Controller.extend({
 				localStorage.setItem('username', userName);
 				localStorage.setItem('xmppjid', xpmmjid);
 				cookie.write('token', token, { path: '/' });
+				cookie.write('process', companyKind, { path: '/' });
+
 				return resolve(true);
 			}).then(() => {
 				this.transitionToRoute('data-center');

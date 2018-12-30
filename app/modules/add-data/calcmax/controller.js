@@ -8,11 +8,9 @@ export default Controller.extend(XMPPMixin, {
 	calcmaxRoute: service('add_data.calcmax_route'),
 	calcmaxController: service('add_data.calcmax_controller'),
 	message: '',
+	// isShowCalcProgress:false,
 	init() {
 		this._super(...arguments);
-		this.set('cpafilename', this.get('cookie').read('filecpa'));
-		this.set('gycxfilename', this.get('cookie').read('filegycx'));
-		this.set('isShowCalcProgress', false);
 		MaxCalculateObject.set('isShowCalcProgress', false);
 
 	},
@@ -22,6 +20,7 @@ export default Controller.extend(XMPPMixin, {
 
 		this.get('logger').log(this.get('message'));
 		if (typeof msg2Json.errors !== 'undefined') {
+			MaxCalculateObject.set('isShowCalcProgress', false);
 
 			hint = {
 				hintModal: true,
@@ -33,9 +32,10 @@ export default Controller.extend(XMPPMixin, {
 				backdropClose: false
 			};
 			this.set('hint', hint);
-		}
+			this.set('maxPercentage', 0);
 
-		if (msg2Json.data.attributes.call === 'calc') {
+			return;
+		} else if (msg2Json.data.attributes.call === 'calc') {
 
 			let jobCurrent = localStorage.getItem('job_id'),
 				jobXmpp = msg2Json.data.attributes.job_id,

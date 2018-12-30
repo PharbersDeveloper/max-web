@@ -58,7 +58,7 @@ export default Mixin.create({
 		}
 	},
 	xmppSendMessage(msg, to) {
-		this.get('xmpp').send(to + '@localhost', msg);
+		this.get('xmpp').send(to + '@max.logic', msg);
 	},
 	unregisterLast() {
 		MessageFactory.unregisterLast();

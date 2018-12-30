@@ -37,6 +37,7 @@ export default Route.extend(XMPPMixin, {
 				.then((data) => {
 					if (data.token !== '') {
 						this.get('cookie').write('token', data.token, { path: '/' });
+						this.get('cookie').write('process', data.Profile.Company.process, { path: '/' });
 						localStorage.setItem('company_id', data.Profile.Company.id);
 						localStorage.setItem('username', data.Profile.username);
 						localStorage.setItem('company', data.Profile.Company.companyname);
