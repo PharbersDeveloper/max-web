@@ -33,10 +33,8 @@ export default Controller.extend({
 			this.get('uploadfilesPanelRoute').queryObject('api/v1/marketselecter/0', 'SampleCheckSelecter', this.get('uploadfilesPanelRoute').object2JsonApi(req))
 				.then((res) => {
 					if (res !== '') {
-
 						this.set('markets', res.mkt_list);
 						this.set('market', isEmpty(res.mkt_list) ? '' : res.mkt_list[0]);
-
 						this.set('marketAndTime', true);
 					} else {
 						this.set('sampleCheckError', true);
@@ -68,11 +66,9 @@ export default Controller.extend({
 				.then((resp) => {
 					this.set('panelMarket', '');
 					this.set('showLoading', false);
-
 					localStorage.setItem('panel', resp.panel);
 					// this.transitionToRoute('add-data.check-sample-panel');
-					this.transitionToRoute('add-data.calcmax');
-
+					this.transitionToRoute('add-data.calcmax', 1);
 				});
 
 		}

@@ -1,7 +1,7 @@
-{{step-flow stepOne=true stepTwo=true stepThree=true stepFour=true}}
+{{step-flow stepOne=true stepTwo=true stepThree=true stepFour=true panelflow=panelflow}}
 {{#layout-push direction='row' classNames="layout-flex-outer-auto-height"}}
 	{{#layout-push direction='row' classNames="layout-flex-inner"}}
-		{{#layout-push direction='col' classNames="view-result-outer"}}
+		{{#layout-push direction='col' classNames="view-result-outer" local-class="view-result-container"}}
 			{{#layout-push direction='row' classNames="view-result-choosebar"}}
 				{{#layout-push direction='row' classNames="view-result-choosebar-left"}}
 					<p local-class="select-title">市场</p>
@@ -175,13 +175,3 @@
 		</div>
 	</div>
 {{/if}}
-{{#bs-modal-simple
-        fade=false
-        open=error
-        keyboard=false
-        closeButton=false
-        title="提示"
-        closeTitle="确定" onHidden=(action (mut error) false)}}
-	<p>{{errorMessage}}</p>
-{{/bs-modal-simple}}
-{{yield}}

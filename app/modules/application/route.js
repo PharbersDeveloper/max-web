@@ -18,6 +18,8 @@ export default Route.extend({
 				loginController.set('previousTransition', transition);
 			}
 			this.transitionTo('index');
+		} else if (transition.targetName === 'index') {
+			this.transitionTo('data-center');
 		}
 	},
 	model() {

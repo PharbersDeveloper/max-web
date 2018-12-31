@@ -12,7 +12,9 @@ export default Route.extend(XMPPMixin, {
 	beforeModel() {
 		this.xmppCallBack(this.controllerFor('add-data.calcmax'));
 	},
-	model() {
+	model(params) {
+		this.get('logger').log(params);
+		this.controllerFor('add-data.calcmax').set('panelflow', params.panelflow - 0);
 		// 你的逻辑
 	},
 	actions: {

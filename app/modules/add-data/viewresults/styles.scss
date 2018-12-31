@@ -1,6 +1,7 @@
 // 新样式
-:global(.view-result-outer) {
-	width: 100%;
+// :global(.view-result-outer) {
+.view-result-container {
+	// width: 100%;
 
 	:global(.view-result-choosebar) {
 		height: 64px;

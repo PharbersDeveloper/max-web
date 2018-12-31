@@ -22,6 +22,7 @@ export default Controller.extend({
 	marketSumSalesPercentage: 0,
 	productSumSales: 0,
 	productSumSalesPercentage: 0,
+	panelflow: false,
 	computeShare: computed('marketSumSales', 'productSumSales', function () {
 		let psales = parseFloat(this.get('productSumSales')),
 			msales = parseFloat(this.get('marketSumSales'));

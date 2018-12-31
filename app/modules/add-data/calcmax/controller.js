@@ -8,11 +8,10 @@ export default Controller.extend(XMPPMixin, {
 	calcmaxRoute: service('add_data.calcmax_route'),
 	calcmaxController: service('add_data.calcmax_controller'),
 	message: '',
-	// isShowCalcProgress:false,
+	panelflow: false,
 	init() {
 		this._super(...arguments);
 		MaxCalculateObject.set('isShowCalcProgress', false);
-
 	},
 	fluResult: observer('message', function () {
 		let msg2Json = this.get('message'),
@@ -33,7 +32,6 @@ export default Controller.extend(XMPPMixin, {
 			};
 			this.set('hint', hint);
 			this.set('maxPercentage', 0);
-
 			return;
 		} else if (msg2Json.data.attributes.call === 'calc') {
 
@@ -73,7 +71,8 @@ export default Controller.extend(XMPPMixin, {
 			localStorage.setItem('maxpercentage', 0);
 			// this.set('maxPercentage', 0);
 			this.unregisterLast();
-			this.transitionToRoute('add-data.viewresults');
+
+			this.transitionToRoute('add-data.viewresults', Number(this.get('panelflow')));
 		},
 		reStart() {
 			MaxCalculateObject.set('isShowCalcProgress', false);

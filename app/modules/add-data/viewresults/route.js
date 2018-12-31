@@ -8,7 +8,9 @@ export default Route.extend({
 		this._super(controller, model);
 		// this.controllerFor('application')
 	},
-	model() {
+	model(params) {
+		this.get('logger').log(params);
+		this.controllerFor('add-data.viewresults').set('panelflow', params.panelflow - 0);
 		let companyId = localStorage.getItem('company_id'),
 			jobId = localStorage.getItem('job_id'),
 			req = this.get('viewresultsController').createModel('SampleCheckSelecter', {
@@ -21,6 +23,7 @@ export default Route.extend({
 		this.get('viewresultsRoute').queryObject('api/v1/samplecheckselecter/0', 'SampleCheckSelecter', this.get('viewresultsRoute').object2JsonApi(req))
 			.then((res) => {
 				if (res !== '') {
+
 					this.controller.set('markets', res.mkt_list);
 					this.controller.set('years', res.ym_list); // 下拉窗数据
 					this.controller.set('market', res.mkt_list[0]);

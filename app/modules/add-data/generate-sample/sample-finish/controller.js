@@ -186,7 +186,7 @@ export default Controller.extend({
 			this.transitionToRoute('add-data.uploadfiles');
 		},
 		next() {
-			this.transitionToRoute('add-data.calcmax');
+			this.transitionToRoute('add-data.calcmax', 0);
 		},
 		changeMarket(value) {
 			let market = this.get('market');
