@@ -63,6 +63,7 @@ export default Controller.extend({
 				hint = null;
 
 			if (company === 1) {
+
 				this.transitionToRoute('add-data.uploadfiles-panel');
 			} else if (company === 0) {
 				this.transitionToRoute('add-data.uploadfiles');

@@ -7,7 +7,7 @@ module.exports = function (environment) {
 		environment,
 		rootURL: '/',
 		locationType: 'auto',
-		xmppHost: 'http://openfire',
+		xmppHost: 'http://192.168.100.176',
 		xmppPort: 7070,
 		xmppBosh: '/http-bind',
 		EmberENV: {
