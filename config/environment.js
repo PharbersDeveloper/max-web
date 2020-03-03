@@ -7,7 +7,7 @@ module.exports = function (environment) {
 		environment,
 		rootURL: '/',
 		locationType: 'auto',
-		xmppHost: 'xmpp-third-svc.max',
+		xmppHost: 'http://xmpp-third-svc.max',
 		xmppPort: 7070,
 		xmppBosh: '/http-bind',
 		EmberENV: {
@@ -26,6 +26,7 @@ module.exports = function (environment) {
 			// when it is created
 		}
 	};
+
 	ENV.i18n = {
 		defaultLocale: 'zh'
 	};
@@ -34,11 +35,11 @@ module.exports = function (environment) {
 	};
 	if (environment === 'development') {
 		ENV['ember-cli-mirage'] = {
-			enabled: false,
+			enabled: false
 		};
 		ENV['ember-d3'] = {
 			bundle: true
-		}
+		};
 
 		// ENV.APP.LOG_RESOLVER = true;
 		// ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -62,7 +63,7 @@ module.exports = function (environment) {
 	if (environment === 'production') {
 		ENV['ember-d3'] = {
 			bundle: true
-		}
+		};
 		// ENV.rootURL = "/";
 		// ENV.locationType = 'hash';
 		// here you can enable a production-specific feature
