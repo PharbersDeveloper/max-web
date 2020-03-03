@@ -19,7 +19,7 @@ WORKDIR /app
 
 LABEL max-page-web.version=3.0.4
 
-RUN git clone -b new  https://github.com/PharbersDeveloper/max-web.git
+RUN git clone -b newFrank12-14 https://github.com/PharbersDeveloper/max-web.git
 
 WORKDIR /app/max-web
 
