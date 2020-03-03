@@ -7,8 +7,8 @@ module.exports = function (environment) {
 		environment,
 		rootURL: '/',
 		locationType: 'auto',
-		xmppHost: 'http://xmpp-third-svc.max',
-		xmppPort: 7070,
+		xmppHost: 'http://192.168.100.14',
+		xmppPort: 30102,
 		xmppBosh: '/http-bind',
 		EmberENV: {
 			FEATURES: {
