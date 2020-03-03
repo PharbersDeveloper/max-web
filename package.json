@@ -1,10 +1,10 @@
 {
 	"name": "max-web",
-	"version": "3.0.3",
+	"version": "3.0.4",
 	"private": true,
 	"description": "MAX Web Client",
 	"license": "MIT",
-	"author": "Faiz <891366402@qq.com>",
+	"author": "",
 	"directories": {
 		"test": "tests"
 	},
